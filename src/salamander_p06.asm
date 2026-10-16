@@ -537,65 +537,65 @@ DATA_partitura_BE06:
 
 
 L_BE62:
-	ld a,(0e692h)		;be62
+	ld a,(0e692h)		;be62   ; el arranque del tipo del banco 6: 0xE692 + 1
 	inc a			;be65
-	ld b,a			;be66
-	res 7,b		;be67
-	ld a,(ix+004h)		;be69
-	cp 053h		;be6c
+	ld b,a			;be66   ; en B
+	res 7,b		;be67   ; sin el bit 7
+	ld a,(ix+004h)		;be69   ; la y...
+	cp 053h		;be6c   ; ...de 0x53 en adelante...
 	jr c,L_BE72		;be6e
-	set 7,b		;be70
+	set 7,b		;be70   ; ...el bit 7: abajo
 L_BE72:
-	ld (ix+025h),b		;be72
-	ld (ix+013h),002h		;be75
+	ld (ix+025h),b		;be72   ; en IX+25
+	ld (ix+013h),002h		;be75   ; 2 x 2
 	ld (ix+014h),002h		;be79
 L_BE7D:
-	call 06872h		;be7d
-	ld de,0fe00h		;be80
+	call 06872h		;be7d   ; sin velocidad y
+	ld de,0fe00h		;be80   ; la x: -2
 	jp 0685dh		;be83
 L_BE86:
-	ld a,(ix+001h)		;be86
+	ld a,(ix+001h)		;be86   ; cada cuadro: el paso
 	dec a			;be89
-	jr z,L_BEC8		;be8a
+	jr z,L_BEC8		;be8a   ; 1: p06:BEC8
 	dec a			;be8c
-	jr z,L_BE98		;be8d
+	jr z,L_BE98		;be8d   ; 2: hasta 0x68
 	dec a			;be8f
-	jr z,L_BEC8		;be90
+	jr z,L_BEC8		;be90   ; 3: p06:BEC8
 	dec a			;be92
-	ret z			;be93
-	ld c,0e0h		;be94
+	ret z			;be93   ; 4: nada
+	ld c,0e0h		;be94   ; 5: hasta 0xE0
 	jr L_BE9A		;be96
 L_BE98:
-	ld c,068h		;be98
+	ld c,068h		;be98   ; el limite 0x68
 L_BE9A:
-	ld a,(ix+025h)		;be9a
+	ld a,(ix+025h)		;be9a   ; el numero (IX+25 & 7)...
 	and 007h		;be9d
 	add a,a			;be9f
 	add a,a			;bea0
 	add a,a			;bea1
-	add a,a			;bea2
+	add a,a			;bea2   ; ...x 16
 	ld b,a			;bea3
-	ld a,c			;bea4
+	ld a,c			;bea4   ; el limite - eso
 	sub b			;bea5
-	cp (ix+006h)		;bea6
+	cp (ix+006h)		;bea6   ; la x no ha llegado: fuera
 	ret c			;bea9
-	inc (ix+001h)		;beaa
-	ld de,00400h		;bead
+	inc (ix+001h)		;beaa   ; el paso siguiente
+	ld de,00400h		;bead   ; la velocidad y: 4...
 	ld a,(ix+001h)		;beb0
-	cp 003h		;beb3
+	cp 003h		;beb3   ; ...hacia arriba en el paso 3...
 	call z,05adfh		;beb5
-	bit 7,(ix+025h)		;beb8
+	bit 7,(ix+025h)		;beb8   ; ...y al reves si va abajo
 	call nz,05adfh		;bebc
-	call 06856h		;bebf
-	ld de,00000h		;bec2
+	call 06856h		;bebf   ; a IX+07/08
+	ld de,00000h		;bec2   ; sin velocidad x
 	jp 0685dh		;bec5
 L_BEC8:
-	ld a,(ix+004h)		;bec8
+	ld a,(ix+004h)		;bec8   ; la y - 0x18...
 	sub 018h		;becb
-	cp 078h		;becd
+	cp 078h		;becd   ; ...dentro de 0x78: fuera
 	ret c			;becf
-	inc (ix+001h)		;bed0
-	jr L_BE7D		;bed3
+	inc (ix+001h)		;bed0   ; el paso siguiente
+	jr L_BE7D		;bed3   ; y otra vez hacia la izquierda
 
 ; ----------------------------------------------------------------------
 ; DATOS relleno_ff: 299 bytes a 0xFF hasta el final del banco: relleno; lo

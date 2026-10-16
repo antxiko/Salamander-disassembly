@@ -1,4 +1,38 @@
 
+
+# --- A MANO: comentarios escritos leyendo el codigo ---
+C 0xBE62 el arranque del tipo del banco 6: 0xE692 + 1
+C 0xBE66 en B
+C 0xBE67 sin el bit 7
+C 0xBE69 la y...
+C 0xBE6C ...de 0x53 en adelante...
+C 0xBE70 ...el bit 7: abajo
+C 0xBE72 en IX+25
+C 0xBE75 2 x 2
+C 0xBE7D sin velocidad y
+C 0xBE80 la x: -2
+C 0xBE86 cada cuadro: el paso
+C 0xBE8A 1: p06:BEC8
+C 0xBE8D 2: hasta 0x68
+C 0xBE90 3: p06:BEC8
+C 0xBE93 4: nada
+C 0xBE94 5: hasta 0xE0
+C 0xBE98 el limite 0x68
+C 0xBE9A el numero (IX+25 & 7)...
+C 0xBEA2 ...x 16
+C 0xBEA4 el limite - eso
+C 0xBEA6 la x no ha llegado: fuera
+C 0xBEAA el paso siguiente
+C 0xBEAD la velocidad y: 4...
+C 0xBEB3 ...hacia arriba en el paso 3...
+C 0xBEB8 ...y al reves si va abajo
+C 0xBEBF a IX+07/08
+C 0xBEC2 sin velocidad x
+C 0xBEC8 la y - 0x18...
+C 0xBECD ...dentro de 0x78: fuera
+C 0xBED0 el paso siguiente
+C 0xBED3 y otra vez hacia la izquierda
+# --- fin de lo escrito a mano ---
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
 D 0xA000 0xB9F5 partitura_752B_cola  partitura (p04:6A23: ordenes 0xD0-0xFF y notas) de los sonidos 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F y otros (sigue del banco 5); lo leen p04:6A2F (6645 bytes)
 F 0xA000 16

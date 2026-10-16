@@ -1,4 +1,456 @@
 
+
+# --- A MANO: comentarios escritos leyendo el codigo ---
+C 0x6472 el numero en C
+C 0x6473 0xF0: quita la pausa
+C 0x6478 0xF1: fundido
+C 0x647D 0xF4: otro fundido
+C 0x6482 0xF5: la subida
+C 0x6487 0xF6: los canales del SCC al PSG
+C 0x648C 0xF2: y de vuelta
+C 0x6491 0xF3: al PSG y sigue
+C 0x6499 el sonido que arranca
+C 0x649A la cabecera: 0x663E + 2 x numero
+C 0x64A3 su direccion
+C 0x64A6 HL = la cabecera
+C 0x64AA 18 bytes
+C 0x64AF las palabras de partitura, de 0xE1BC en adelante
+C 0x64B6 bit 7: el canal 1 (0xE000)
+C 0x64BA la prioridad
+C 0x64BC el canal
+C 0x64BF lo arranca si le toca (p04:6543)
+C 0x64C2 la palabra siguiente
+C 0x64C9 bit 6: el canal 2 (0xE02C)
+C 0x64DC bit 5: el canal 3 (0xE058)
+C 0x64EF bit 4: el canal 4 (0xE084)
+C 0x6502 bit 3: el canal 5 (0xE0B0)
+C 0x6515 bit 2: el canal 6 (0xE0DC)
+C 0x6528 bit 1: el canal 7 (0xE108)
+C 0x653B bit 0: el canal 8 (0xE134)
+C 0x6543 la prioridad del que suena
+C 0x6544 la nueva es menor: no se lo quita
+C 0x6546 DE = el canal + 1
+C 0x6547 la prioridad
+C 0x6548 el byte de antes...
+C 0x654C ...el numero de sonido
+C 0x654E el canal + 2
+C 0x6550 la partitura, bajo
+C 0x6555 alto
+C 0x655A el resto del canal de 0x6563 (12 bytes): la cuenta a 1 y lo demas a 0
+C 0x656F 0xF5: la subida (0xE1B8 bit 4) sin pausa
+C 0x6576 0xE1CE = 0, 0xE1CF = 9
+C 0x657F 0xF0: sin pausa
+C 0x6586 0xF4: 37 cuadros y 10 pasos
+C 0x6591 0xF1: 37 cuadros y 10 pasos
+C 0x6599 la pausa (0xE1B8 bit 0) sin subida
+C 0x65A0 las cuentas a 0
+C 0x65A8 0xF2: vuelven los canales del SCC
+C 0x65AD los habia en pausa?
+C 0x65B3 entonces la pausa otra vez
+C 0x65B5 los canales 3-4 guardados de 0xE160 a 0xE058
+C 0x65BB 0x58 bytes
+C 0x65BE los canales del SCC que sonaban (0xE1EA)
+C 0x65C2 el SCC en 0x9800
+C 0x65C7 al SCC: los canales que suenan
+C 0x65CB el banco 5 otra vez
+C 0x65D0 0xE1D8-0xE1D9 = 0xFF
+C 0x65D8 p04:728E
+C 0x65DB el modo del canal 1...
+C 0x65DF ...cuatro bits girados
+C 0x65E4 el del canal 2
+C 0x65EE 0xF6: los canales del SCC al PSG (0xE1B8 bit 1)
+C 0x65F3 en pausa?
+C 0x65F7 la pausa al bit 3
+C 0x65FB guarda los canales 3-4 en 0xE160
+C 0x6604 el SCC en 0x9800
+C 0x6609 0xE00C = 0
+C 0x660D al SCC: ningun canal suena
+C 0x6611 los 5 volumenes del SCC a 0
+C 0x6620 el banco 5
+C 0x6625 el modo del canal 1...
+C 0x662E y el del 2
+C 0x6637 C = 2
+C 0x663A copia 0x58 bytes: dos canales
+C 0x6978 el registro 7 del PSG (0xE1D0)
+C 0x697B p04:710D: lo escribe
+C 0x697E los canales del SCC en el PSG?
+C 0x6983 si: p04:6A02
+C 0x6986 en pausa...
+C 0x698B ...p04:6CFF
+C 0x698E subiendo...
+C 0x6993 ...p04:6D83
+C 0x6996 los 8 canales, cada uno con su bit en 0xE1D1
+C 0x69F6 y el registro 7
+C 0x69FA suena?
+C 0x69FE si: un cuadro
+C 0x6A02 solo los canales 3 y 4
+C 0x6A1A el registro 7 con 0xBB
+C 0x6A26 aun no: lo que va entre notas (p04:6BBB)
+C 0x6A2F el byte de la partitura
+C 0x6A30 0xFF: acaba el canal
+C 0x6A35 una orden (0xD0 o mas)...
+C 0x6A39 ...la ejecuta
+C 0x6A3C el siguiente byte
+C 0x6A40 una nota: el modo
+C 0x6A44 bit 0: el PSG con la nota en la cifra alta
+C 0x6A4B bit 1: el SCC (p04:6ABC)
+C 0x6A53 bits 2-4: la bateria (p04:6B35)
+C 0x6A56 ninguno: no lee
+C 0x6A57 la cifra baja: la duracion
+C 0x6A5B la unidad (IX+14)
+C 0x6A5E 0: la unidad
+C 0x6A61 la unidad x la cifra
+C 0x6A64 la cuenta de la nota
+C 0x6A67 la cifra alta: la nota
+C 0x6A6E y la partitura avanza
+C 0x6A71 en la bateria: fuera
+C 0x6A76 12 o mas: un silencio
+C 0x6A7A el divisor de la nota (0x6AAF)
+C 0x6A84 la octava
+C 0x6A88 0: tal cual
+C 0x6A8B x 2 por octava
+C 0x6A8E el divisor en IX+10/11
+C 0x6A94 el volumen (IX+15)
+C 0x6A97 en pausa o subiendo...
+C 0x6A9C ...se baja (p04:6D5F)
+C 0x6A9F el volumen
+C 0x6AA2 IX+0D = 2: suena
+C 0x6AA6 la envolvente desde el principio (p04:6B6A)
+C 0x6AAA silencio: IX+0D = 0
+C 0x6ABC el SCC: IX+0D & 3
+C 0x6AC1 0: un silencio
+C 0x6AC3 1: solo el volumen
+C 0x6AC7 el byte de la nota
+C 0x6AC8 con IX+0E bit 6...
+C 0x6ACE ...o bit 5...
+C 0x6AD4 si no: la cifra alta es el volumen...
+C 0x6AD7 ...la baja el periodo alto
+C 0x6AD9 el periodo bajo
+C 0x6ADB en IX+10/11
+C 0x6AE1 el volumen
+C 0x6AE9 bit 6: solo el periodo bajo
+C 0x6AEE bit 5: la cifra alta el volumen...
+C 0x6AF5 ...y la baja el periodo alto
+C 0x6AFD solo el volumen, en la cifra baja
+C 0x6B01 los canales 1-3 del PSG...
+C 0x6B08 ...con IX+0D bit 2 (ruido)...
+C 0x6B0E ...el volumen 16: la envolvente
+C 0x6B10 + 2
+C 0x6B12 el volumen
+C 0x6B15 en pausa o subiendo, mas bajo
+C 0x6B23 la envolvente desde el principio
+C 0x6B26 en la bateria: fuera
+C 0x6B2B la partitura avanza
+C 0x6B2E la duracion (IX+13)
+C 0x6B31 es la cuenta
+C 0x6B35 la bateria: IX+09 bit 7
+C 0x6B39 la nota de la bateria
+C 0x6B3C su guion de 0x73C8
+C 0x6B47 HL = el guion
+C 0x6B49 se lee como el SCC (bit 1)
+C 0x6B4D hasta su nota
+C 0x6B58 la duracion...
+C 0x6B5B ...en IX+19
+C 0x6B5E por donde va el guion
+C 0x6B65 IX+0E bit 0: la bateria en marcha
+C 0x6B6A el periodo con el desafinado (p04:6BF4)
+C 0x6B6D IX+0E bit 4 a cero
+C 0x6B71 IX+0F bits 3 y 5 a cero
+C 0x6B79 IX+1D-20 a cero
+C 0x6B86 IX+0F bit 2: la envolvente baja
+C 0x6B8A el volumen
+C 0x6B8D con IX+0E bit 7...
+C 0x6B93 ...menos el de IX+15...
+C 0x6B97 ...sin bajar de 0
+C 0x6B9A el volumen de ahora
+C 0x6B9D los canales 1-3 con ruido...
+C 0x6BA8 ...no
+C 0x6BA9 IX+0F bit 1...
+C 0x6BAE ...el volumen de IX+25
+C 0x6BB4 y sin bajar
+C 0x6BBB entre notas: la bateria en marcha?
+C 0x6BBF si: p04:6BD1
+C 0x6BC2 IX+0E bit 2: el vibrato (p04:6C0F)
+C 0x6BC9 IX+0F bit 0: la envolvente (p04:6C5D)
+C 0x6BD1 la cuenta del golpe
+C 0x6BD4 aun no: fuera
+C 0x6BD5 el guion
+C 0x6BDB el byte
+C 0x6BDC 0xFF: acaba
+C 0x6BE0 el golpe siguiente
+C 0x6BE8 se acabo: la bateria parada
+C 0x6BEC volumen y modo a 0
+C 0x6BF4 el divisor
+C 0x6BFA IX+0E bit 1...
+C 0x6C00 ...+ IX+26 (orden 0xEE)
+C 0x6C08 el periodo en IX+0A/0B
+C 0x6C0F la cuenta del vibrato + 1
+C 0x6C15 IX+0E
+C 0x6C18 bit 4: ya empezado
+C 0x6C1C bit 3: con espera
+C 0x6C20 la espera (IX+1A)...
+C 0x6C24 ...cumplida: empieza
+C 0x6C2E el paso (IX+1B)
+C 0x6C32 el periodo
+C 0x6C38 cuanto (IX+1C)
+C 0x6C3B arriba o abajo, alternando
+C 0x6C46 + cuanto
+C 0x6C4D - cuanto
+C 0x6C52 el periodo nuevo
+C 0x6C58 la cuenta a 0
+C 0x6C5D los canales 1-3 con ruido: no
+C 0x6C69 el volumen de la envolvente (p04:6C70)
+C 0x6C6C a IX+0C
+C 0x6C70 el volumen
+C 0x6C73 la cuenta de la envolvente + 1
+C 0x6C79 bit 5: la caida final
+C 0x6C7F bit 3: el sostenido
+C 0x6C85 bit 2: el ataque bajando
+C 0x6C8B el ataque: sube 1...
+C 0x6C8E ...hasta el volumen de la nota
+C 0x6C96 llega: ya baja
+C 0x6C9E baja 1...
+C 0x6CA4 ...hasta la cuenta de IX+21
+C 0x6CAD y el sostenido
+C 0x6CB2 bit 4: el sostenido de golpe
+C 0x6CB9 cada IX+22 cuadros...
+C 0x6CBE ...baja 1
+C 0x6CC2 IX+20 + 1...
+C 0x6CC8 ...hasta IX+23: la caida
+C 0x6CD5 baja IX+22 de una vez
+C 0x6CE1 a los IX+23 cuadros: la caida
+C 0x6CEB la caida: cuando la nota llega a IX+24...
+C 0x6CF2 ...baja 1
+C 0x6CF7 HL + 1...
+C 0x6CF8 ...en IX+02/03
+C 0x6CFF el fundido: 0xE1CC (cuadros) y 0xE1CD (pasos)
+C 0x6D07 la cuenta de cuadros
+C 0x6D0D aun no
+C 0x6D0E un paso mas
+C 0x6D13 todos: se acaba
+C 0x6D15 sin pausa
+C 0x6D1A las cuentas a 0
+C 0x6D21 el sonido del canal 2...
+C 0x6D25 ...y el del 3 iguales?
+C 0x6D2B entonces acaban el 3 y el 4
+C 0x6D39 y los canales 1, 2, 5, 6, 7 y 8
+C 0x6D5F el volumen con el fundido: el sonido del canal 2...
+C 0x6D66 ...distinto del del 3...
+C 0x6D69 ...y el canal 3 o 4: no
+C 0x6D6F con ruido: 0
+C 0x6D75 el volumen - los pasos del fundido
+C 0x6D7D sin bajar de 0
+C 0x6D83 la subida: la cuenta de cuadros
+C 0x6D88 37
+C 0x6D8B la cuenta a 0
+C 0x6D8E un paso menos
+C 0x6D90 acabada: sin subida
+C 0x6D9B acaba el canal: todo a 0
+C 0x6DBA el bit del canal
+C 0x6DBD los del SCC: fuera
+C 0x6DC0 el canal 3...
+C 0x6DC2 0xE1D4: el ruido
+C 0x6DC7 el bit 1 a cero
+C 0x6DC9 el bit 3...
+C 0x6DCC ...pasa al 2
+C 0x6DD1 los demas: el bit 3 a cero
+C 0x6DD4 menos de 0xE0: las ordenes 0xD0-0xDF
+C 0x6DD9 & 0x1F
+C 0x6DDB la partitura se guarda en la pila
+C 0x6DDC la tabla de 0x6DE9
+C 0x6DDF x 2
+C 0x6DE4 el destino
+C 0x6DE8 salta alli (el destino saca HL de la pila)
+C 0x6E27 0xE0/0xE2: la partitura
+C 0x6E28 el bit 6 de IX+0E a cero
+C 0x6E2C la orden & 3...
+C 0x6E2F ...a IX+0D
+C 0x6E33 el operando...
+C 0x6E35 ...la duracion de la nota
+C 0x6E39 con operando: fuera
+C 0x6E3B 0xE0: sin operando
+C 0x6E3D 0xE1/0xE3: con ruido; el canal 3...
+C 0x6E48 ...0xE1D4 bit 0, sin el 1
+C 0x6E51 el 4: bit 2, sin el 3
+C 0x6E5A 0xE4: el periodo del ruido
+C 0x6E5C el operando...
+C 0x6E5D ...& 0x1F
+C 0x6E60 el canal 3...
+C 0x6E68 ...en 0xE1D2...
+C 0x6E6B ...y que se escriba (0xE1D4 bit 0)
+C 0x6E76 el 4: en 0xE1D3, bit 2
+C 0x6E84 0xE5: la forma de la envolvente del PSG (registro 13)
+C 0x6E86 IX+0D bit 3 a cero
+C 0x6E8B en 0xE1D5
+C 0x6E8E y que se escriba (0xE1D4 bit 5)
+C 0x6E98 0xE6: el periodo de la envolvente, alto (registro 12)
+C 0x6E9B en 0xE1D7, bit 6
+C 0x6EA8 0xE7: el periodo de la envolvente, bajo (registro 11)
+C 0x6EAB en 0xE1D6, bit 7
+C 0x6EB5 y el canal con envolvente (IX+0D bit 2)
+C 0x6EBA 0xE8: sin envolvente del PSG
+C 0x6EBF los bits 5-7 de 0xE1D4 a cero
+C 0x6EC2 IX+0D bits 2-3 a cero
+C 0x6ECB 0xE9: la unidad de duracion
+C 0x6ED2 0xEA: el volumen
+C 0x6ED9 0xEB: la envolvente de volumen, dos bytes
+C 0x6EDB IX+0F: solo el bit 7
+C 0x6EE3 la cifra alta del primero...
+C 0x6EEA ...8 o mas: empieza bajando (bit 2)
+C 0x6EF3 sin el bit 3...
+C 0x6EF5 ...+ 1
+C 0x6EF6 sin bajar...
+C 0x6EFD ...con ataque (bit 1)
+C 0x6F01 la cuenta del ataque (IX+21)
+C 0x6F04 la cifra baja...
+C 0x6F09 ...8 o mas: el sostenido de golpe (bit 4)
+C 0x6F13 la del sostenido (IX+22)
+C 0x6F17 el segundo byte: cifra alta...
+C 0x6F1E ...IX+23
+C 0x6F21 cifra baja...
+C 0x6F24 ...IX+24
+C 0x6F27 la envolvente en marcha (bit 0)
+C 0x6F2C 0xEC: sin envolvente de volumen
+C 0x6F36 0xED: el volumen del ataque (IX+25)
+C 0x6F3D 0xEE: el desafinado (IX+26)...
+C 0x6F43 ...en marcha
+C 0x6F48 0xEF: sin desafinado
+C 0x6F4E 0xF0: sin vibrato
+C 0x6F58 0xF1: el vibrato
+C 0x6F5A IX+0E bits 2 y 4
+C 0x6F62 la cifra baja: cuanto (IX+1C)
+C 0x6F68 la alta: cada cuanto (IX+1B)
+C 0x6F73 0xF2: el vibrato con espera (IX+1A)
+C 0x6F79 IX+0E bits 2 y 3
+C 0x6F82 0xF3: sin la espera
+C 0x6F88 0xF4: IX+0E bit 6
+C 0x6F8E 0xF5: IX+0E bit 5
+C 0x6F94 0xF6: sin los bits 5 y 6
+C 0x6F9E 0xF7: el bit 7 y el volumen de IX+15
+C 0x6FA9 0xF8: la forma de onda del SCC
+C 0x6FAC en IX+29
+C 0x6FAF su puntero de 0x6000 + 2 x n
+C 0x6FB8 a IX+27/28
+C 0x6FC1 y que se cargue (IX+0F bit 7)
+C 0x6FC6 0xF9: llama a una subpartitura
+C 0x6FC7 su direccion
+C 0x6FCA la vuelta en IX+07/08
+C 0x6FD1 0xFA: vuelve de la subpartitura
+C 0x6FD9 0xFB: repite [veces][direccion]
+C 0x6FDB la cuenta (IX+05) + 1
+C 0x6FDF ya las veces?
+C 0x6FE0 si: sigue
+C 0x6FE2 no: otra vez
+C 0x6FE5 la direccion
+C 0x6FE9 HL = la direccion - 1
+C 0x6FEC se acabo: se salta la direccion
+C 0x6FEE la cuenta a 0
+C 0x6FF3 0xFC: igual con la otra cuenta (IX+06)
+C 0x7008 0xFD: salta
+C 0x700B 0xFE: el modo
+C 0x700E en IX+09
+C 0x7011 menos de 4: p04:7029
+C 0x7016 la bateria: IX+0E (bit 0 y solo 0 y 4)
+C 0x7020 sin envolvente de volumen
+C 0x7029 IX+0E bit 0 a cero
+C 0x702E la cifra baja
+C 0x7031 de 0 a 5: la octava
+C 0x7039 6-0x0D: nada
+C 0x703C 0x0E: con operando
+C 0x703F 0x0F: IX+0E bit 7 a cero
+C 0x7044 el operando...
+C 0x7046 ...a IX+01
+C 0x704A el PSG (p04:7051) y el SCC (p04:712A)
+C 0x7051 periodos y volumenes, ruido, envolvente y mezclador
+C 0x705E los tres canales del PSG: los registros 0-5 y 8-10
+C 0x7062 el canal 1 (0xE00A: periodo y volumen)
+C 0x7068 el 2
+C 0x706E el 3
+C 0x7075 el periodo bajo
+C 0x7077 WRTPSG
+C 0x707C el alto
+C 0x7082 el volumen
+C 0x7087 IX+0D bit 3: con envolvente...
+C 0x7089 ...no se escribe
+C 0x708A WRTPSG
+C 0x708D bit 2 (pide envolvente)...
+C 0x7090 ...pasa al bit 3: el volumen 16 una sola vez
+C 0x7093 el ruido: 0xE1D4 bit 0 (el del canal 3)?
+C 0x709A se escribe una vez...
+C 0x709E ...el periodo de 0xE1D2...
+C 0x70A2 ...en el registro 6
+C 0x70A8 bit 1: ya esta
+C 0x70AB bit 2 (el del canal 4)?
+C 0x70B2 el de 0xE1D3
+C 0x70BC la envolvente del PSG: bit 7?
+C 0x70C4 el periodo bajo (0xE1D6)...
+C 0x70C8 ...al registro 11
+C 0x70CD bit 6...
+C 0x70D2 ...el alto (0xE1D7) al 12
+C 0x70DB bit 5...
+C 0x70E0 ...la forma (0xE1D5) al 13
+C 0x70EA el mezclador: los bits del canal 1 (0x711E)...
+C 0x70F4 ...en B
+C 0x70F5 los del 2 (0x7122) en C
+C 0x7100 los del 3 (0x7126)
+C 0x710B todos juntos
+C 0x710D en E
+C 0x710E la copia
+C 0x7111 el registro 7
+C 0x7113 WRTPSG
+C 0x7117 IX+0D & 3...
+C 0x711C ...en la tabla HL
+C 0x712A el SCC: lo que ha cambiado (p04:7137)...
+C 0x712D ...los canales que suenan (p04:723C)...
+C 0x7130 ...periodos y volumenes (p04:728E)...
+C 0x7133 ...y las formas de onda (p04:7355)
+C 0x7137 las marcas de lo que cambia (0xE1D8-0xE1D9)
+C 0x713B las copias de los volumenes
+C 0x713E las copias de los periodos
+C 0x7141 el periodo del canal 4 (0xE08E)
+C 0x7144 la copia
+C 0x7149 igual?
+C 0x714C no: la marca...
+C 0x7150 ...y la copia nueva
+C 0x7152 el alto
+C 0x7162 el volumen
+C 0x7172 el canal 5 (0xE0BA)
+C 0x71A4 el 6 (0xE0E6)
+C 0x71D6 el 7 (0xE112)
+C 0x7208 el 8 (0xE13E)
+C 0x723C los canales que suenan: los modos de los 5 del SCC...
+C 0x7243 ...con modo, su bit
+C 0x724D el siguiente bit
+C 0x727A la copia de 0xE1E9
+C 0x727E igual: p04:7288
+C 0x7281 la nueva...
+C 0x7282 ...y la marca (0xE1D9 bit 7)
+C 0x7288 sin cambio
+C 0x728E los registros del SCC: las marcas
+C 0x7292 las copias
+C 0x7295 desde 0x9880 (los periodos)
+C 0x7298 cambia?
+C 0x729E escribe el registro
+C 0x72A1 el siguiente
+C 0x7346 el byte...
+C 0x7348 ...con el SCC en 0x9800...
+C 0x734E ...al registro
+C 0x734F y el banco 5 otra vez
+C 0x7355 las formas de onda: la del canal 4 (0xE093 bit 7)?
+C 0x735C una vez
+C 0x735E su puntero (IX+27/28)
+C 0x7365 a 0x9800
+C 0x736B la del 5 a 0x9820
+C 0x7381 la del 6 a 0x9840
+C 0x7397 la del 7 a 0x9860
+C 0x73A9 el SCC en 0x9800
+C 0x73AE todos callados mientras
+C 0x73B2 32 muestras
+C 0x73B4 una
+C 0x73B8 las 32
+C 0x73BA y los que suenan otra vez
+C 0x73C2 el banco 5
+# --- fin de lo escrito a mano ---
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
 D 0x6000 0x6052 ondas  41 punteros a las formas de onda del SCC (orden 0xF8 de la partitura, p04:6FAF: 0x6000 + 2 x n); apuntan a las 33 ondas de detras; lo leen p04:6FB8 (82 bytes)
 F 0x6000 w8
@@ -242,26 +694,15 @@ C 0x6512 apunta a la cabecera del sonido que se arranca (18 bytes)
 C 0x6525 apunta a la cabecera del sonido que se arranca (18 bytes)
 C 0x6538 apunta a la cabecera del sonido que se arranca (18 bytes)
 C 0x6549 apunta a el sonido que se esta arrancando
-C 0x656F apunta a el estado del sonido (bits: pausa, SCC...)
-C 0x657F apunta a el estado del sonido (bits: pausa, SCC...)
-C 0x6599 apunta a el estado del sonido (bits: pausa, SCC...)
-C 0x65A8 apunta a el estado del sonido (bits: pausa, SCC...)
 C 0x65C4 el mapper: pone en 0x8000 el banco de A
 C 0x65C8 al SCC: los canales del SCC que suenan (un bit cada uno)
 C 0x65CD el mapper: pone en 0x8000 el banco de A
-C 0x65EE apunta a el estado del sonido (bits: pausa, SCC...)
 C 0x6606 el mapper: pone en 0x8000 el banco de A
-C 0x660D al SCC: los canales del SCC que suenan (un bit cada uno)
-C 0x6611 al SCC: el volumen del canal 1 del SCC
 C 0x6614 al SCC: el volumen del canal 2 del SCC
 C 0x6617 al SCC: el volumen del canal 3 del SCC
 C 0x661A al SCC: el volumen del canal 4 del SCC
 C 0x661D al SCC: el volumen del canal 5 del SCC
 C 0x6622 el mapper: pone en 0x8000 el banco de A
-C 0x6978 lee la copia del registro 7 del PSG
-C 0x697E apunta a el estado del sonido (bits: pausa, SCC...)
-C 0x6986 lee el estado del sonido (bits: pausa, SCC...)
-C 0x698E lee el estado del sonido (bits: pausa, SCC...)
 C 0x6998 guarda el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x699B apunta a los 8 canales de sonido (0x2C bytes cada uno)
 C 0x699F canal: un cuadro del canal IX si suena
@@ -279,9 +720,6 @@ C 0x69E0 guarda el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x69E7 canal: un cuadro del canal IX si suena
 C 0x69EC guarda el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x69F3 canal: un cuadro del canal IX si suena
-C 0x69F6 mezcla_psg: el registro 7 del PSG con lo que piden los canales
-C 0x69FA lee el canal en marcha (su sonido)
-C 0x69FE canal_paso: baja la cuenta del canal y, si llega a 0, lee la partitura
 C 0x6A04 guarda el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x6A0B canal: un cuadro del canal IX si suena
 C 0x6A10 guarda el bit del canal que se interpreta (1, 2, 4... 0x80)
@@ -291,88 +729,33 @@ C 0x6A1F mezcla_psg: el registro 7 del PSG con lo que piden los canales
 C 0x6A23 baja la cuenta de la nota
 C 0x6A29 lee por donde va la partitura (bajo)
 C 0x6A2C lee por donde va la partitura (alto)
-C 0x6A39 orden: la orden 0xE0-0xFE de la partitura por la tabla de 0x6DE9
-C 0x6A40 mira el bit 0 de el modo del canal (orden 0xFE)
 C 0x6A47 mira el bit 1 de el modo del canal (orden 0xFE)
 C 0x6A4E lee el modo del canal (orden 0xFE)
-C 0x6A5B lee el operando de la orden 0xE9
-C 0x6A64 guarda la cuenta de la nota
-C 0x6A6E guarda_partitura: IX+02/03 = HL + 1: por donde va la partitura
-C 0x6A71 mira el bit 7 de el modo del canal (orden 0xFE)
-C 0x6A84 lee la octava (ordenes 0xD0-0xD5)
-C 0x6A94 lee el operando de la orden 0xEA
-C 0x6A97 lee el estado del sonido (bits: pausa, SCC...)
-C 0x6AA2 IX+0D (bits 0-1 de las ordenes 0xE0-0xE3) = 0x02
-C 0x6AAA IX+0D (bits 0-1 de las ordenes 0xE0-0xE3) = 0x00
-C 0x6ABC lee IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6AC8 mira el bit 6 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6ACE mira el bit 5 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6B01 lee el bit del canal que se interpreta (1, 2, 4... 0x80)
-C 0x6B08 mira el bit 2 de IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
 C 0x6B18 lee el estado del sonido (bits: pausa, SCC...)
-C 0x6B26 mira el bit 7 de el modo del canal (orden 0xFE)
-C 0x6B2B guarda_partitura: IX+02/03 = HL + 1: por donde va la partitura
-C 0x6B2E lee la duracion de la nota (orden 0xE0-0xE3)
-C 0x6B31 guarda la cuenta de la nota
-C 0x6B35 pone a uno el bit 7 de el modo del canal (orden 0xFE)
-C 0x6B49 pone a uno el bit 1 de el modo del canal (orden 0xFE)
 C 0x6B50 pone a cero el bit 1 de el modo del canal (orden 0xFE)
 C 0x6B54 pone a cero el bit 7 de el modo del canal (orden 0xFE)
-C 0x6B58 lee la duracion de la nota (orden 0xE0-0xE3)
-C 0x6B5B guarda la cuenta del guion de bateria
 C 0x6B5F guarda por donde va el guion de bateria (bajo)
 C 0x6B62 guarda por donde va el guion de bateria (alto)
-C 0x6B65 pone a uno el bit 0 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6B6D pone a cero el bit 4 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6B8D mira el bit 7 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6B93 lee el operando de la orden 0xEA
-C 0x6B9D lee el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x6BA4 mira el bit 2 de IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6BBB mira el bit 0 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6BC2 mira el bit 2 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6BD1 baja la cuenta del guion de bateria
-C 0x6BD5 lee por donde va el guion de bateria (bajo)
 C 0x6BD8 lee por donde va el guion de bateria (alto)
-C 0x6BE0 pone a uno el bit 7 de el modo del canal (orden 0xFE)
-C 0x6BE8 pone a cero el bit 0 de IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6BF0 guarda IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6BFA mira el bit 1 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6C15 lee IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6C28 pone a uno el bit 4 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6C5D lee el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x6C64 mira el bit 2 de IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6CEB lee la cuenta de la nota
-C 0x6CF8 guarda por donde va la partitura (bajo)
 C 0x6CFB guarda por donde va la partitura (alto)
-C 0x6D15 apunta a el estado del sonido (bits: pausa, SCC...)
 C 0x6D3C apunta a los 8 canales de sonido (0x2C bytes cada uno)
-C 0x6D69 lee el bit del canal que se interpreta (1, 2, 4... 0x80)
-C 0x6D6F mira el bit 2 de IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6D90 apunta a el estado del sonido (bits: pausa, SCC...)
 C 0x6D9C guarda el canal en marcha (su sonido)
 C 0x6D9F guarda el operando de la orden 0xDE
 C 0x6DB1 guarda IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
 C 0x6DB4 guarda IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6DBA lee el bit del canal que se interpreta (1, 2, 4... 0x80)
 C 0x6DD6 orden_d: la orden 0xD0-0xDF de la partitura
-C 0x6E28 pone a cero el bit 6 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6E2F guarda IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6E35 guarda la duracion de la nota (orden 0xE0-0xE3)
 C 0x6E3E lee el bit del canal que se interpreta (1, 2, 4... 0x80)
-C 0x6E60 lee el bit del canal que se interpreta (1, 2, 4... 0x80)
-C 0x6E86 pone a cero el bit 3 de IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6EB5 pone a uno el bit 2 de IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
-C 0x6EC2 lee IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
 C 0x6EC7 guarda IX+0D (bits 0-1 de las ordenes 0xE0-0xE3)
 C 0x6ECE guarda el operando de la orden 0xE9
 C 0x6ED5 guarda el operando de la orden 0xEA
-C 0x6F43 pone a uno el bit 1 de IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F49 pone a cero el bit 1 de IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F4F lee IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F54 guarda IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6F5A lee IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F5F guarda IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x6F79 lee IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F7E guarda IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F83 pone a cero el bit 3 de IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F89 pone a uno el bit 6 de IX+0E (marcas de las ordenes 0xEE-0xF7)
@@ -381,15 +764,8 @@ C 0x6F95 lee IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F9A guarda IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6F9F pone a uno el bit 7 de IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x6FA5 guarda el operando de la orden 0xEA
-C 0x6FAC guarda la forma de onda del SCC (orden 0xF8)
-C 0x700E guarda el modo del canal (orden 0xFE)
-C 0x7016 lee IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x701D guarda IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x7029 pone a cero el bit 0 de IX+0E (marcas de las ordenes 0xEE-0xF7)
 C 0x7035 guarda la octava (ordenes 0xD0-0xD5)
-C 0x703F pone a cero el bit 7 de IX+0E (marcas de las ordenes 0xEE-0xF7)
-C 0x7046 guarda el operando de la orden 0xDE
-C 0x710E guarda la copia del registro 7 del PSG
 C 0x734A el mapper: pone en 0x8000 el banco de A
 C 0x7351 el mapper: pone en 0x8000 el banco de A
 C 0x73AB el mapper: pone en 0x8000 el banco de A
