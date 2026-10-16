@@ -51,3 +51,452 @@ F 0x5E74 8
 D 0x5E78 0x5E79 listas_5E52_5E78  lista de bytes de las entradas 6 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (1 bytes)
 F 0x5E78 8
 # --- fin de los bloques de bloques.py ---
+
+# --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
+L 0x4069 interrupcion la interrupcion (H.KEYI): cuenta el cuadro, el sonido con 4-5-6 y el cuadro del juego
+L 0x40C4 hl_mas_a HL = HL + A
+L 0x40C9 de_mas_a DE = DE + A
+L 0x40CE despacha salta a la entrada A de la tabla que va detras del call
+L 0x40DA init el arranque del cartucho (INIT de la cabecera AB)
+L 0x416E bancos_1_2_3 pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+L 0x4173 bancos_4_5_6 pone los bancos 4-5-6 (y su copia en 0xF0F1-3)
+L 0x4178 bancos_7_8_9 pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
+L 0x417D bancos_13_14_15 pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
+L 0x4199 bancos_10_15 pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
+L 0x41AC banco_14_en_8000 pone el banco 14 en 0x8000 (y su copia en 0xF0F1-3)
+L 0x41B0 banco_10_en_8000 pone el banco 10 en 0x8000 (y su copia en 0xF0F1-3)
+L 0x41BB banco_6_en_a000 pone el banco 6 en 0xA000 (y su copia en 0xF0F1-3)
+L 0x41BF banco_11_en_a000 pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+L 0x41C3 banco_15_en_a000 pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+L 0x41C7 banco_9_en_a000 pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+L 0x41CB banco_12_en_a000 pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+L 0x41D0 bancos_2_3 pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+L 0x41D4 bancos_8_9 pone los bancos 8-9 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+L 0x41D8 bancos_14_15 pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+L 0x41EA bancos_1_2 pone los bancos 1-2 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
+L 0x41EE bancos_7_8 pone los bancos 7-8 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
+L 0x44F3 copias_de_tabla la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
+L 0x44F9 copias la lista de copias VRAM -> VRAM de IX
+L 0x4540 caracteres_de_tabla la lista de caracteres de la entrada A de la tabla HL
+L 0x4546 caracteres la lista de caracteres de IX (dibujos y colores por rachas)
+L 0x4835 bit_de_fase acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+L 0x4CA4 borra_nombres borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+L 0x4CB1 puerto_vdp C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+L 0x4CBD copia_a_vram copia BC bytes de DE a la VRAM HL (LDIRVM)
+L 0x4CC1 copia_a_vram_3 copia BC bytes de DE a la VRAM HL en los tres tercios
+L 0x4CE5 rachas_3 las rachas de DE en la VRAM HL, en los tres tercios
+L 0x4CF5 lista_a_vram la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+L 0x4CFD lista_a_vram_aqui la lista de DE en la VRAM HL (sin destino delante)
+L 0x4D0C borra_lista borra lo que pintaria la lista de DE (C = 0)
+L 0x4D10 rachas_con_destino [destino] y rachas de DE a la VRAM
+L 0x4D16 rachas descomprime las rachas de DE en la VRAM HL
+L 0x4D6E pide_sonido pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+L 0x4DA1 cuadros_desde compara la cuenta de cuadros (0xF0F7) con DE
+L 0x4DA6 otro_jugador IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+L 0x4E21 palabra_de_de DE = la palabra DE + 2 x A
+L 0x4E28 palabra_de_hl DE = la palabra HL + 2 x A
+L 0x4E31 palabra_a_hl HL = la palabra HL + 2 x A
+L 0x4E3A hay_enemigos NZ si queda algun enemigo (0xE700) o disparo (0xEA00) vivo
+L 0x4E58 azar mezcla R en 0xE606 (el azar)
+L 0x4E66 suceso_de_fase la ficha A de la lista de sucesos de la fase y compara su posicion con el scroll
+L 0x4EAF borra_atributos los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+L 0x5A99 hl_a_nombre convierte las coordenadas de HL en una direccion de la tabla de nombres
+L 0x5AD8 byte_de_tabla A = el byte HL + A
+L 0x5ADF menos_de DE = -DE
+L 0x5AE7 menos_hl HL = -HL
+L 0x5B91 fase7_copia la fase 7: copia p00:5BA5 a 0xC000 y la ejecuta (trae graficos del otro cartucho)
+C 0x4039 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4042 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x404B bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4054 apunta a la fase (de 1 a 7; 0 en la presentacion)
+C 0x405D lee cuantos jugadores (o el modo de dos)
+C 0x4062 lee la ficha del jugador 1 (IY, 0x80 bytes) y el byte siguiente (16 bits)
+C 0x4065 guarda la ficha del jugador 2 (IY, 0x80 bytes) y el byte siguiente (16 bits)
+C 0x406D lee la cuenta de interrupciones (16 bits)
+C 0x4071 guarda la cuenta de interrupciones (16 bits)
+C 0x4087 el mapper: pone en 0x6000 el banco de A
+C 0x408B el mapper: pone en 0x8000 el banco de A
+C 0x408F el mapper: pone en 0xA000 el banco de A
+C 0x4092 sonido_cuadro: el sonido de un cuadro: los 8 canales (0xE000 + 0x2C x k)
+C 0x409A lee la copia del banco de 0x6000
+C 0x409D el mapper: pone en 0x6000 el banco de A
+C 0x40A0 lee la copia del banco de 0x8000
+C 0x40A3 el mapper: pone en 0x8000 el banco de A
+C 0x40A6 lee la copia del banco de 0xA000
+C 0x40A9 el mapper: pone en 0xA000 el banco de A
+C 0x40E8 la copia del banco de 0x4000 (0)
+C 0x40F2 apunta a la copia del banco de 0x4000 (0)
+C 0x40F5 el mapper: pone en 0x4000 el banco de A
+C 0x40FB el mapper: pone en 0x6000 el banco de A
+C 0x4101 el mapper: pone en 0x8000 el banco de A
+C 0x4108 el mapper: pone en 0xA000 el banco de A
+C 0x410B apunta a los 8 canales de sonido (0x2C bytes cada uno)
+C 0x4167 guarda el slot de este cartucho
+C 0x416B pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x4182 apunta a la copia del banco de 0x6000
+C 0x4185 el mapper: pone en 0x6000 el banco de A
+C 0x418B el mapper: pone en 0x8000 el banco de A
+C 0x4191 el mapper: pone en 0xA000 el banco de A
+C 0x419C el mapper: pone en 0x8000 el banco de A
+C 0x419F guarda la copia del banco de 0x8000
+C 0x41A4 el mapper: pone en 0xA000 el banco de A
+C 0x41A7 guarda la copia del banco de 0xA000
+C 0x41B3 el mapper: pone en 0x8000 el banco de A
+C 0x41B6 guarda la copia del banco de 0x8000
+C 0x41DB el mapper: pone en 0x8000 el banco de A
+C 0x41DE guarda la copia del banco de 0x8000
+C 0x41E2 el mapper: pone en 0xA000 el banco de A
+C 0x41E5 guarda la copia del banco de 0xA000
+C 0x41F1 el mapper: pone en 0x6000 el banco de A
+C 0x41F4 guarda la copia del banco de 0x6000
+C 0x41F8 el mapper: pone en 0x8000 el banco de A
+C 0x41FB guarda la copia del banco de 0x8000
+C 0x4210 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x4216 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4219 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x422D bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x4235 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
+C 0x423B bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4276 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x428B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x42D0 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x42D9 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x42F5 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x430A bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x4325 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x432E bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4346 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x435B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x4361 lee la cuenta de cuadros del juego
+C 0x4371 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
+C 0x4382 lee el jefe (1 a 8)
+C 0x4389 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4392 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
+C 0x439E lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x43A1 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x43F6 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x4455 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x445E rachas: descomprime las rachas de DE en la VRAM HL
+C 0x4461 bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+C 0x446F rachas: descomprime las rachas de DE en la VRAM HL
+C 0x4472 bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+C 0x4480 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x4483 bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+C 0x4491 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x4494 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x449A palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x44B1 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x44BB caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
+C 0x44BE bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+C 0x44CB caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
+C 0x44CE lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x44D3 fase7_copia: la fase 7: copia p00:5BA5 a 0xC000 y la ejecuta (trae graficos del otro cartucho)
+C 0x44D6 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x44DC caracteres_de_tabla: la lista de caracteres de la entrada A de la tabla HL
+C 0x44F0 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x44F3 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4540 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4583 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x4595 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x45A1 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x45A7 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x45B6 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x45D9 de_mas_a: DE = DE + A
+C 0x45E3 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x45E9 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x45FF lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x4650 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x4656 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x465D copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x4668 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x4675 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x4687 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x46D4 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x46F3 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x4767 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x47E9 copias: la lista de copias VRAM -> VRAM de IX
+C 0x47F4 copias: la lista de copias VRAM -> VRAM de IX
+C 0x47F7 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x4835 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x483F bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+C 0x484A rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x4853 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x485C rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x4865 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x4895 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x48A0 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x48A3 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x48A6 lee 1 si la fase va en vertical
+C 0x48B1 lee la posicion del scroll (16 bits)
+C 0x48B9 guarda la posicion del scroll (16 bits)
+C 0x48C5 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
+C 0x48CB bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x48DF lee la posicion del scroll (16 bits)
+C 0x48E3 guarda la posicion del scroll (16 bits)
+C 0x48E9 lee la posicion del scroll (16 bits)
+C 0x48ED guarda la posicion del scroll (16 bits)
+C 0x48F6 lee la posicion del scroll (16 bits)
+C 0x48FD guarda la posicion del scroll (16 bits)
+C 0x4909 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
+C 0x490F bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4926 lee la posicion del scroll (16 bits)
+C 0x492A guarda la posicion del scroll (16 bits)
+C 0x4930 lee la posicion del scroll (16 bits)
+C 0x4934 guarda la posicion del scroll (16 bits)
+C 0x4937 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x496F lee el siguiente alto del scroll (16 bits)
+C 0x4973 lee la posicion del scroll (16 bits)
+C 0x4986 guarda la posicion del scroll (16 bits)
+C 0x4989 lee 1 si la fase va en vertical
+C 0x499E lee la posicion del scroll (16 bits)
+C 0x49A1 lee el final del recorrido del mapa (16 bits)
+C 0x49AA lee el principio del recorrido del mapa (16 bits)
+C 0x49B8 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x49BB palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x49E0 lee la posicion del scroll (16 bits)
+C 0x4A31 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x4A37 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4A6B lee la posicion del scroll (16 bits)
+C 0x4A6E lee el final del recorrido del mapa (16 bits)
+C 0x4A77 lee el principio del recorrido del mapa (16 bits)
+C 0x4A85 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x4A88 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4AA8 lee la posicion del scroll (16 bits)
+C 0x4AD5 lee la posicion del scroll (16 bits)
+C 0x4ADD hl_mas_a: HL = HL + A
+C 0x4AF9 lee la posicion del scroll (16 bits)
+C 0x4B01 hl_mas_a: HL = HL + A
+C 0x4B24 lee 1 si la fase va en vertical
+C 0x4B2A lee la cuenta de cuadros del juego
+C 0x4B49 lee la cuenta de cuadros del juego
+C 0x4B97 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
+C 0x4B9E lee la posicion del scroll (16 bits)
+C 0x4BD5 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4C40 lee la posicion del scroll (16 bits)
+C 0x4C47 guarda la posicion del scroll (16 bits)
+C 0x4C51 guarda la posicion del scroll (16 bits)
+C 0x4C7B lee la posicion del scroll (16 bits)
+C 0x4C82 guarda la posicion del scroll (16 bits)
+C 0x4C89 guarda la posicion del scroll (16 bits)
+C 0x4C8D lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x4CC7 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x4CE9 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x4D16 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x4D40 de_mas_a: DE = DE + A
+C 0x4D77 el mapper: pone en 0x6000 el banco de A
+C 0x4D7B el mapper: pone en 0x8000 el banco de A
+C 0x4D7F el mapper: pone en 0xA000 el banco de A
+C 0x4D84 arranca_sonido: arranca el sonido A: cabecera de 0x663E y una partitura por canal
+C 0x4D87 lee la copia del banco de 0x6000
+C 0x4D8A el mapper: pone en 0x6000 el banco de A
+C 0x4D8D lee la copia del banco de 0x8000
+C 0x4D90 el mapper: pone en 0x8000 el banco de A
+C 0x4D93 lee la copia del banco de 0xA000
+C 0x4D96 el mapper: pone en 0xA000 el banco de A
+C 0x4DA1 lee la cuenta de interrupciones (16 bits)
+C 0x4DB4 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x4DBA apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x4DC8 lee el jefe (1 a 8)
+C 0x4DD8 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
+C 0x4DDB lee el jefe (1 a 8)
+C 0x4DE1 caracteres_de_tabla: la lista de caracteres de la entrada A de la tabla HL
+C 0x4DE8 lee el jefe (1 a 8)
+C 0x4DEE copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
+C 0x4DF5 lee el jefe (1 a 8)
+C 0x4DFB copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
+C 0x4DFE bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x4E32 hl_mas_a: HL = HL + A
+C 0x4E3A apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x4E48 apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x4E5E lee el azar (lo mezcla p00:4E58)
+C 0x4E62 guarda el azar (lo mezcla p00:4E58)
+C 0x4E67 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x4E6A palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4E71 de_mas_a: DE = DE + A
+C 0x4E7A lee la posicion del scroll (16 bits)
+C 0x4EAF apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x4F22 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4F32 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x4F90 byte_de_tabla: A = el byte HL + A
+C 0x4FE3 hl_mas_a: HL = HL + A
+C 0x4FFB de_mas_a: DE = DE + A
+C 0x5018 de_mas_a: DE = DE + A
+C 0x5062 hl_mas_a: HL = HL + A
+C 0x5068 de_mas_a: DE = DE + A
+C 0x5078 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x50A1 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x50CD bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x50E5 el mapper: pone en 0x6000 el banco de A
+C 0x50E9 el mapper: pone en 0x8000 el banco de A
+C 0x50ED el mapper: pone en 0xA000 el banco de A
+C 0x50F3 lee la copia del banco de 0x6000
+C 0x50F6 el mapper: pone en 0x6000 el banco de A
+C 0x50F9 lee la copia del banco de 0x8000
+C 0x50FC el mapper: pone en 0x8000 el banco de A
+C 0x50FF lee la copia del banco de 0xA000
+C 0x5102 el mapper: pone en 0xA000 el banco de A
+C 0x5107 guarda la copia del registro 7 del PSG
+C 0x5112 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x513D apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5144 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x524C apunta a la cuenta de cuadros del juego
+C 0x525D despacha: salta a la entrada A de la tabla que va detras del call
+C 0x527C lee la cuenta de cuadros del juego
+C 0x5288 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x529F borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x52AE bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x52BF bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x52CC borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x52DB lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x52E1 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x52E5 guarda cuantos jugadores (o el modo de dos)
+C 0x52F6 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5302 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x5305 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x531C pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x532E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5348 lee cuantos jugadores (o el modo de dos)
+C 0x535C lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x535F borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0x5364 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5376 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5382 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5398 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x53CB lee cuantos jugadores (o el modo de dos)
+C 0x53D2 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x53D9 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x53F0 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
+C 0x53F7 caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
+C 0x53FA bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5434 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x543C lee cuantos jugadores (o el modo de dos)
+C 0x5443 lee la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5449 lee la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5461 apunta a la fase (de 1 a 7; 0 en la presentacion)
+C 0x548C puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x549E apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x54A1 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x54BA pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x54BD lee cuantos jugadores (o el modo de dos)
+C 0x54D3 guarda la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x54D6 lee la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x550F guarda cuantos jugadores (o el modo de dos)
+C 0x5521 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x552A lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x555C bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x556A bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x558E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5591 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x5594 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x55A9 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x55B1 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x55B4 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x55C0 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x55DF lee cuantos jugadores (o el modo de dos)
+C 0x55F6 borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0x5609 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x5611 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x562A guarda cuantos jugadores (o el modo de dos)
+C 0x5643 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x564B borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5657 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5663 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5689 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5694 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x56AF bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x56C6 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x56CD lee el resultado que enseña p01:7B06
+C 0x56FD rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x570B bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5711 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x5716 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x5733 borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0x5739 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x5743 borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0x5749 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x575C borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x5761 guarda la fase en curso
+C 0x576D apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5774 lee cuantos jugadores (o el modo de dos)
+C 0x577A apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x579A borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x579E guarda la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x57A1 lee cuantos jugadores (o el modo de dos)
+C 0x57A8 lee la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x57B2 guarda la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x57C1 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x57EF apunta a cuantos jugadores (o el modo de dos)
+C 0x5812 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x582A lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x584F apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x587D hl_mas_a: HL = HL + A
+C 0x5888 lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
+C 0x5892 lee cuantos jugadores (o el modo de dos)
+C 0x5899 guarda la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x58A2 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x58A5 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5923 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x592C apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x59CD pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x59E5 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5A0C apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5A12 lee cuantos jugadores (o el modo de dos)
+C 0x5A19 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5A29 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x5A37 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5A3D lee cuantos jugadores (o el modo de dos)
+C 0x5A44 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5A5A puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5A63 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5A81 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x5B0A borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x5B35 lee el jefe (1 a 8)
+C 0x5B3B bancos_7_8: pone los bancos 7-8 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
+C 0x5B44 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5B50 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x5B64 lee el jefe (1 a 8)
+C 0x5B83 hl_mas_a: HL = HL + A
+C 0x5B88 de_mas_a: DE = DE + A
+C 0x5BB5 lee el slot del cartucho vecino
+C 0x5BBD el mapper: pone en 0x6000 el banco de A
+C 0x5BC1 el mapper: pone en 0x8000 el banco de A
+C 0x5BC5 el mapper: pone en 0xA000 el banco de A
+C 0x5BC9 lee el slot de este cartucho
+C 0x5BD0 el mapper: pone en 0x4000 el banco de A
+C 0x5C3A lee la posicion del scroll (16 bits)
+C 0x5C3E lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x5C7A lee la posicion del scroll (16 bits)
+C 0x5C7E lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x5CCB bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
+C 0x5CD5 caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
+C 0x5CE5 copias: la lista de copias VRAM -> VRAM de IX
+C 0x5CF4 copias: la lista de copias VRAM -> VRAM de IX
+C 0x5CF7 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x5D18 lee cuantos jugadores (o el modo de dos)
+C 0x5D1E apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5D25 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5D79 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5D9A puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5DE6 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x5DFF bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x5E02 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5E0B palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x5E22 apunta a los 8 canales de sonido (0x2C bytes cada uno)
+C 0x5E2C bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x5E9F pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x5EDE apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5EE7 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5EF7 lee cuantos jugadores (o el modo de dos)
+C 0x5EFE apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5F05 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5F0C apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x5F13 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x5F33 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5F83 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x5F9A apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x5FBA apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x5FC5 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x5FCC lee la posicion del scroll (16 bits)
+C 0x5FE6 lee la cuenta de cuadros del juego
+C 0x5FF0 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+# --- fin de las anotaciones de anota.py ---

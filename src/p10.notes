@@ -88,3 +88,312 @@ F 0x9C24 16
 D 0x9E03 0x9E13 resto_9E03  lo apuntan con el banco puesto p10:9D98 (0x9E03); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9D98 (16 bytes)
 F 0x9E03 16
 # --- fin de los bloques de bloques.py ---
+
+# --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
+L 0x8044 ventana_menu pinta la ventana del menu B
+L 0x80DC graficos_menu con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+L 0x8107 caracteres_menu la lista de caracteres de la entrada B & 0x0F de 0xA4BF
+L 0x87F5 borra_c700 borra 0xC700-0xCFFF
+L 0x9470 empieza_texto prepara el texto A de la tabla HL para escribirlo letra a letra
+L 0x95C1 abre_ventana copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x8000 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x801B bancos_10_15: pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x801E guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x8021 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8031 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8039 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8057 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x805D banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x806A rachas: descomprime las rachas de DE en la VRAM HL
+C 0x8074 palabra_a_hl: HL = la palabra HL + 2 x A
+C 0x807F palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x809F copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x80C7 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x80D0 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x80D9 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x80DC banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x80E0 guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x80E3 caracteres_menu: la lista de caracteres de la entrada B & 0x0F de 0xA4BF
+C 0x80ED lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x80F2 copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
+C 0x80FC lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x8101 copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
+C 0x810C palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x813E borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x8141 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x8153 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x8163 hl_mas_a: HL = HL + A
+C 0x816D de_mas_a: DE = DE + A
+C 0x8175 apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x81EA despacha: salta a la entrada A de la tabla que va detras del call
+C 0x823A borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x823D borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x824F pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x825D guarda la cuenta de interrupciones (16 bits)
+C 0x8265 borra_c700: borra 0xC700-0xCFFF
+C 0x8268 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x826B borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x8279 guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0x8285 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x8298 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x829B borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x82A5 borra_c700: borra 0xC700-0xCFFF
+C 0x82C7 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x82D9 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x82FD palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x8305 apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x8308 hl_mas_a: HL = HL + A
+C 0x8321 hl_mas_a: HL = HL + A
+C 0x833D lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x8354 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x835E borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x8361 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x837A cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8396 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x83A2 ventana_menu: pinta la ventana del menu B
+C 0x83A7 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x83AA borra_c700: borra 0xC700-0xCFFF
+C 0x83B0 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x83B5 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x83C9 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x83CE pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8406 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x840C abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x8443 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x844F cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8457 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x845C ventana_menu: pinta la ventana del menu B
+C 0x8483 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x848B graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x848E borra_c700: borra 0xC700-0xCFFF
+C 0x8494 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x84B7 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x84C3 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x84CB ventana_menu: pinta la ventana del menu B
+C 0x84D0 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x84D3 borra_c700: borra 0xC700-0xCFFF
+C 0x84D9 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x84DE pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x84ED graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x8510 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8545 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8551 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x8556 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x857D cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x85AB graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x85B7 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x85C2 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x85C8 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x85D8 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
+C 0x85F5 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x85FB borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x8600 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x8605 ventana_menu: pinta la ventana del menu B
+C 0x8626 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8630 ventana_menu: pinta la ventana del menu B
+C 0x864B borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x864E borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x865A cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8663 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8751 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x876E apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x877F apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x87C9 lee la cuenta de cuadros del juego
+C 0x87CE apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x87DE copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x87E6 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x87EC apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x87F2 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x884C despacha: salta a la entrada A de la tabla que va detras del call
+C 0x8866 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x8869 borra_c700: borra 0xC700-0xCFFF
+C 0x8878 guarda la fase (de 1 a 7; 0 en la presentacion)
+C 0x887D pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8893 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x88A2 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x88AA lee cuantos jugadores (o el modo de dos)
+C 0x88B9 lee cuantos jugadores (o el modo de dos)
+C 0x88C1 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x88E5 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x890F cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x899C copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x89A7 de_mas_a: DE = DE + A
+C 0x89AC lee la cuenta de cuadros del juego
+C 0x89CF palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x89DD hl_mas_a: HL = HL + A
+C 0x8A15 de_mas_a: DE = DE + A
+C 0x8A21 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x8A36 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x8A39 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x8A3F lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x8A47 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x8A4F lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
+C 0x8A5B palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x8A63 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
+C 0x8A69 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x8B10 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x8B19 de_mas_a: DE = DE + A
+C 0x8B7B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8B9F lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
+C 0x8BC7 hl_mas_a: HL = HL + A
+C 0x8BD3 hl_mas_a: HL = HL + A
+C 0x8BD9 guarda la fase en curso
+C 0x8BFF lee la fase en curso
+C 0x8C0B cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8C0F borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x8C19 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x8C38 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8C3B banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8C41 banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8C4D cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8C5C pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8C6F ventana_menu: pinta la ventana del menu B
+C 0x8C74 ventana_menu: pinta la ventana del menu B
+C 0x8C88 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8CAD pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8CB2 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8CC1 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8CD6 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x8CD9 lee la fase en curso
+C 0x8D01 lee cuantos jugadores (o el modo de dos)
+C 0x8D20 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8D35 lee cuantos jugadores (o el modo de dos)
+C 0x8D49 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8D4F banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8DA2 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x8DB5 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8DB8 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8DBE banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8DC7 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8DCF pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8DDE cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
+C 0x8DE2 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x8DE7 guarda la fase en curso
+C 0x8DF9 lee cuantos jugadores (o el modo de dos)
+C 0x8E39 hl_mas_a: HL = HL + A
+C 0x8E5E hl_mas_a: HL = HL + A
+C 0x8E82 hl_mas_a: HL = HL + A
+C 0x8E8F hl_mas_a: HL = HL + A
+C 0x8E9F hl_mas_a: HL = HL + A
+C 0x8EAB hl_mas_a: HL = HL + A
+C 0x8ED8 hl_mas_a: HL = HL + A
+C 0x8F40 copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0x8F4C copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0x8F7F lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
+C 0x8F91 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x8FB8 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x8FEC pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8FF4 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x8FF9 ventana_menu: pinta la ventana del menu B
+C 0x8FFC borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x902B copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x9044 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x904E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x9053 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x9074 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x908E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x90A1 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x90D0 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+C 0x90DD borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x90E5 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x910D ventana_menu: pinta la ventana del menu B
+C 0x9129 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x9132 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x9137 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9149 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x9157 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x915A lee la cuenta de cuadros del juego
+C 0x9187 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x91A1 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x91B9 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x91CD borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x91D2 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+C 0x91D7 ventana_menu: pinta la ventana del menu B
+C 0x920A lee la cuenta de cuadros del juego
+C 0x921D borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x923D borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x9253 ventana_menu: pinta la ventana del menu B
+C 0x9258 ventana_menu: pinta la ventana del menu B
+C 0x925D ventana_menu: pinta la ventana del menu B
+C 0x927E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x92AA borra_c700: borra 0xC700-0xCFFF
+C 0x92AD lee cuantos jugadores (o el modo de dos)
+C 0x92CD de_mas_a: DE = DE + A
+C 0x92FB de_mas_a: DE = DE + A
+C 0x9319 lee la cuenta de cuadros del juego
+C 0x9321 de_mas_a: DE = DE + A
+C 0x9337 rachas_con_destino: [destino] y rachas de DE a la VRAM
+C 0x933A apunta a los atributos de sprite en la RAM (32 x 4)
+C 0x9470 palabra_a_hl: HL = la palabra HL + 2 x A
+C 0x948C de_mas_a: DE = DE + A
+C 0x94E0 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9507 hl_mas_a: HL = HL + A
+C 0x952D de_mas_a: DE = DE + A
+C 0x955C lee cuantos jugadores (o el modo de dos)
+C 0x957E de_mas_a: DE = DE + A
+C 0x95BD palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x95DE de_mas_a: DE = DE + A
+C 0x95E7 hl_mas_a: HL = HL + A
+C 0x95F7 de_mas_a: DE = DE + A
+C 0x961C hl_mas_a: HL = HL + A
+C 0x964D copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0x9654 hl_mas_a: HL = HL + A
+C 0x9659 de_mas_a: DE = DE + A
+C 0x96D5 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x96FC palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x96FF lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x9718 de_mas_a: DE = DE + A
+C 0x98A5 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x98BB lee la cuenta de cuadros del juego
+C 0x98E0 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x98EA hl_mas_a: HL = HL + A
+C 0x98FC palabra_de_de: DE = la palabra DE + 2 x A
+C 0x9902 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
+C 0x9912 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x9923 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0x9931 lee la cuenta de cuadros del juego
+C 0x995D banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x9966 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x996F rachas: descomprime las rachas de DE en la VRAM HL
+C 0x9978 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x9981 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x998A rachas: descomprime las rachas de DE en la VRAM HL
+C 0x9993 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x999C rachas: descomprime las rachas de DE en la VRAM HL
+C 0x99A5 rachas: descomprime las rachas de DE en la VRAM HL
+C 0x99A8 banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x99BA guarda la fase en curso
+C 0x99FB hl_mas_a: HL = HL + A
+C 0x9A3A de_mas_a: DE = DE + A
+C 0x9A40 guarda la fase en curso
+C 0x9A43 lee la fase en curso
+C 0x9A4B de_mas_a: DE = DE + A
+C 0x9A57 lee la fase en curso
+C 0x9A5E hl_mas_a: HL = HL + A
+C 0x9A94 palabra_de_de: DE = la palabra DE + 2 x A
+C 0x9A9D hl_mas_a: HL = HL + A
+C 0x9AA6 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
+C 0x9AEB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9AFB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9B23 palabra_de_de: DE = la palabra DE + 2 x A
+C 0x9B53 de_mas_a: DE = DE + A
+C 0x9B5A de_mas_a: DE = DE + A
+C 0x9B64 de_mas_a: DE = DE + A
+C 0x9BAE hl_mas_a: HL = HL + A
+C 0x9BC2 hl_mas_a: HL = HL + A
+C 0x9BE1 de_mas_a: DE = DE + A
+C 0x9BE8 palabra_de_de: DE = la palabra DE + 2 x A
+C 0x9C6C hl_mas_a: HL = HL + A
+C 0x9C7A de_mas_a: DE = DE + A
+C 0x9C8F lee la cuenta de cuadros del juego
+C 0x9CA1 hl_mas_a: HL = HL + A
+C 0x9D4E hl_mas_a: HL = HL + A
+C 0x9D7C hl_mas_a: HL = HL + A
+C 0x9DB7 de_mas_a: DE = DE + A
+C 0x9DC4 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x9E50 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x9E70 hl_mas_a: HL = HL + A
+C 0x9E9E apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x9ECD hl_mas_a: HL = HL + A
+C 0x9ED1 de_mas_a: DE = DE + A
+# --- fin de las anotaciones de anota.py ---

@@ -42,6 +42,26 @@ from paginas import ORG                                    # noqa: E402
 from anotaciones import (BANCOS, CAMBIOS_DE_BANCO, FICHAS,  # noqa: E402
                          RAM, RAM16, RUTINAS, trio)
 try:
+    # tramos (banco, desde, hasta) en los que la RAM tiene otro uso y sus
+    # nombres no valen
+    from anotaciones import RAM_PRESTADA                       # noqa: E402
+except ImportError:
+    RAM_PRESTADA = ()
+try:
+    from anotaciones import SCC                                # noqa: E402
+except ImportError:
+    SCC = {}
+try:
+    # los bancos desde los que se escriben los registros del SCC
+    from anotaciones import SCC_BANCOS                         # noqa: E402
+except ImportError:
+    SCC_BANCOS = (6,)
+try:
+    # los campos de las fichas, descritos por su direccion fija
+    from anotaciones import FICHAS_FIJAS                       # noqa: E402
+except ImportError:
+    FICHAS_FIJAS = set()
+try:
     # el mapper de cada juego: registro -> ventana que cambia
     from anotaciones import REGISTROS_MAPPER                  # noqa: E402
 except ImportError:
@@ -153,6 +173,9 @@ def ventanas_de(filas, b):
 def destino_de(b, a, dest, k, ventanas, medido):
     if dest < 0x6000:
         return 0
+    # lo que hay en la RAM (el BDOS en 0xF37D): RUTINAS lo lleva con banco -1
+    if dest >= 0xC000:
+        return -1
     if b and ORG[b] <= dest < ORG[b] + 0x2000:
         return b
     if (b, a) in medido:
@@ -207,7 +230,13 @@ def comentario(b, filas, k, fichas, ventanas=None, medido=None):
     m = re.match(r"ld \(0([0-9a-f]{4})h\),a$", t)
     if m and int(m.group(1), 16) in REGISTROS_MAPPER:
         return "el mapper: pone en %s el banco de A" % REGISTROS_MAPPER[int(m.group(1), 16)]
-    # RAM
+    # los registros del SCC
+    m = re.match(r"ld \(0(98[89][0-9a-f])h\),a$", t)
+    if m and b in SCC_BANCOS and int(m.group(1), 16) in SCC:
+        return "al SCC: " + SCC[int(m.group(1), 16)]
+    # RAM (salvo en los tramos donde el juego la usa para otra cosa)
+    if any(bb == b and i <= a < f for bb, i, f in RAM_PRESTADA):
+        return None
     m16 = re.match(r"ld (?:(hl|de|bc|ix|iy|sp),\(0([c-f][0-9a-f]{3})h\)|\(0([c-f][0-9a-f]{3})h\),(hl|de|bc|ix|iy))$", t)
     if m16:
         v = int(m16.group(2) or m16.group(3), 16)
@@ -226,7 +255,13 @@ def comentario(b, filas, k, fichas, ventanas=None, medido=None):
             if re.match(r"ld [a-z]+,\(0%04xh\)$" % v, t):
                 return "lee %s" % que
             if re.match(r"ld (hl|de|bc|ix|iy),0%04xh$" % v, t):
+                # un campo suelto de una ficha no se apunta: ese numero
+                # suele ser otra cosa (el disco cambia 0xE280-0xF37F)
+                if v in FICHAS_FIJAS:
+                    return None
                 return "apunta a %s" % que
+            if v in FICHAS_FIJAS:
+                return None
             return que
     return None
 

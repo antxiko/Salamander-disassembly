@@ -47,3 +47,356 @@ F 0x7A17 w8
 D 0x7C77 0x7C8F tabla_7C77  12 destinos del despachador p00:40CE (call en p01:7C74, el indice en A): 7C8F, 7E4D, 7E4D, 7E4D, 7D90, 7CFA, 7D65, 7CDA, 7D65, 7D61, 7E4D, 7E4D; lo leen p01:7C74 (24 bytes)
 F 0x7C77 w8
 # --- fin de los bloques de bloques.py ---
+
+# --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
+L 0x6591 anima_c cada (B+1) cuadros avanza IX+26 de 0 a C-1
+L 0x65AB azar_r un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
+L 0x65B5 crea_enemigo_ix crea un enemigo de tipo A guardando IX
+L 0x65BD crea_enemigo crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+L 0x6856 pon_ix07 IX+07/08 = DE
+L 0x685D pon_ix09 IX+09/0A = DE
+L 0x6BD5 anima_6 cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
+L 0x7139 suceso la ficha A (de 4 bytes) de la lista de la fase de la tabla HL; Z si se acabo
+C 0x6000 menos_de: DE = -DE
+C 0x6019 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x6045 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x604E apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x6055 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x605C apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x6078 hl_mas_a: HL = HL + A
+C 0x6088 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x60A3 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0x60B2 hl_mas_a: HL = HL + A
+C 0x60C4 byte_de_tabla: A = el byte HL + A
+C 0x60D8 apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x6111 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6117 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x611A apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x61C3 palabra_de_de: DE = la palabra DE + 2 x A
+C 0x6239 lee el jefe (1 a 8)
+C 0x6251 lee el jefe (1 a 8)
+C 0x6263 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6269 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x62C2 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x62C8 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x6308 palabra_de_de: DE = la palabra DE + 2 x A
+C 0x6345 de_mas_a: DE = DE + A
+C 0x6355 lee 1 si la fase va en vertical
+C 0x638E lee 1 si la fase va en vertical
+C 0x63BD hl_mas_a: HL = HL + A
+C 0x63CB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x6434 lee 1 si la fase va en vertical
+C 0x64A3 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x64B8 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x64C9 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x650B menos_de: DE = -DE
+C 0x651E menos_de: DE = -DE
+C 0x6556 menos_de: DE = -DE
+C 0x6567 menos_de: DE = -DE
+C 0x6577 menos_de: DE = -DE
+C 0x6581 lee la cuenta de cuadros del juego
+C 0x6591 lee la cuenta de cuadros del juego
+C 0x65A1 byte_de_tabla: A = el byte HL + A
+C 0x65B0 apunta a la cuenta de cuadros del juego
+C 0x65B7 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x65BD guarda el tipo del enemigo que se crea
+C 0x65E1 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x65F3 lee el tipo del enemigo que se crea
+C 0x662A lee el tipo del enemigo que se crea
+C 0x6656 de_mas_a: DE = DE + A
+C 0x665E lee el tipo del enemigo que se crea
+C 0x6667 lee el tipo del enemigo que se crea
+C 0x668D de_mas_a: DE = DE + A
+C 0x6690 lee el tipo del enemigo que se crea
+C 0x66A3 de_mas_a: DE = DE + A
+C 0x66BA lee el tipo del enemigo que se crea
+C 0x66BE despacha: salta a la entrada A de la tabla que va detras del call
+C 0x6743 banco_6_en_a000: pone el banco 6 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6749 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x674C banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6752 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6755 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x675B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x675E banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6764 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6767 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x676D bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6770 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6776 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6779 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x677F bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6782 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6788 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x678B banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6791 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6794 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x679A bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x679D banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x67A3 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x67A6 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x67AC bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x67AF banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x67B5 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x67B8 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x67BE bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x67C1 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x67C7 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x67D7 hl_mas_a: HL = HL + A
+C 0x6811 pon_ix07: IX+07/08 = DE
+C 0x684F pon_ix09: IX+09/0A = DE
+C 0x6881 pon_ix09: IX+09/0A = DE
+C 0x688D menos_de: DE = -DE
+C 0x689D menos_de: DE = -DE
+C 0x68A7 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x68EE despacha: salta a la entrada A de la tabla que va detras del call
+C 0x6973 banco_6_en_a000: pone el banco 6 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6979 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x697C banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6982 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6985 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x698B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x698E banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6994 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6997 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x699D bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69A0 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69A6 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69A9 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69AF bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69B2 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69B8 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69BB banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69C1 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69C4 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69CA bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69CD banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69D3 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69D6 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69DC bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69DF banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69E5 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69E8 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69EE bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69F1 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x69F7 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x69FA banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6A00 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6BBE azar: mezcla R en 0xE606 (el azar)
+C 0x6BEC byte_de_tabla: A = el byte HL + A
+C 0x6C0F azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
+C 0x6C30 pon_ix09: IX+09/0A = DE
+C 0x6C39 menos_de: DE = -DE
+C 0x6C3C pon_ix07: IX+07/08 = DE
+C 0x6E2B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x6E32 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6E35 lee la cuenta de los sucesos de 0x84BA
+C 0x6E3B suceso_de_fase: la ficha A de la lista de sucesos de la fase y compara su posicion con el scroll
+C 0x6E3F bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6E4A lee el slot del cartucho vecino
+C 0x6E54 el mapper: pone en 0x8000 el banco de A
+C 0x6E57 lee la cuenta de los sucesos de 0x84BA
+C 0x6E62 lee el slot de este cartucho
+C 0x6E6A bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6E76 lee el jefe (1 a 8)
+C 0x6E7C banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x6E83 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6E86 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x6ED0 lee el jefe (1 a 8)
+C 0x6ED7 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6EDA lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x6EE0 palabra_de_de: DE = la palabra DE + 2 x A
+C 0x6EE3 lee la posicion del scroll (16 bits)
+C 0x6EF2 de_mas_a: DE = DE + A
+C 0x6EFE bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6F0B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6F15 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x6F1A despacha: salta a la entrada A de la tabla que va detras del call
+C 0x6F33 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x6F65 lee 1 si la fase va en vertical
+C 0x6F85 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x6FB0 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x6FB3 hl_mas_a: HL = HL + A
+C 0x6FB9 lee la posicion del scroll (16 bits)
+C 0x6FD1 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x6FD7 byte_de_tabla: A = el byte HL + A
+C 0x6FF8 lee la posicion del scroll (16 bits)
+C 0x7046 lee 1 si la fase va en vertical
+C 0x706A apunta a la posicion del scroll (16 bits)
+C 0x7076 apunta a la cuenta de las apariciones de 0x85D1
+C 0x7082 apunta a la cuenta de las apariciones de 0x85DF
+C 0x708E apunta a la posicion del scroll (16 bits)
+C 0x709F lee 1 si la fase va en vertical
+C 0x70B1 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x70B4 lee la cuenta de las apariciones de 0x85D1
+C 0x70BA suceso: la ficha A (de 4 bytes) de la lista de la fase de la tabla HL; Z si se acabo
+C 0x70BD bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x70C0 apunta a la cuenta de las apariciones de 0x85D1
+C 0x70DA lee 1 si la fase va en vertical
+C 0x70F3 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x70F7 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x7113 byte_de_tabla: A = el byte HL + A
+C 0x711F bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7122 lee la cuenta de las apariciones de 0x85DF
+C 0x7128 suceso: la ficha A (de 4 bytes) de la lista de la fase de la tabla HL; Z si se acabo
+C 0x712B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x712E apunta a la cuenta de las apariciones de 0x85DF
+C 0x713A lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x713D palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x7143 de_mas_a: DE = DE + A
+C 0x7193 hl_mas_a: HL = HL + A
+C 0x719B crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x71AF lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x71E7 lee 1 si la fase va en vertical
+C 0x71F1 byte_de_tabla: A = el byte HL + A
+C 0x7209 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x721F lee la cuenta de cuadros del juego
+C 0x722C crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x7261 byte_de_tabla: A = el byte HL + A
+C 0x7283 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x728E lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x729A lee la posicion del scroll (16 bits)
+C 0x72D6 lee la cuenta de cuadros del juego
+C 0x72EB crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x7304 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x7330 lee 1 si la fase va en vertical
+C 0x7345 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x7349 lee 1 si la fase va en vertical
+C 0x736E azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
+C 0x7373 apunta a la cuenta de cuadros del juego
+C 0x73A9 byte_de_tabla: A = el byte HL + A
+C 0x73B8 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x73E6 palabra_a_hl: HL = la palabra HL + 2 x A
+C 0x73F7 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x73FF lee cuantos jugadores (o el modo de dos)
+C 0x743D lee la cuenta de cuadros del juego
+C 0x7442 apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x7473 apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x749A hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x749D lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0x74B7 lee cuantos jugadores (o el modo de dos)
+C 0x74EA apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x757A menos_de: DE = -DE
+C 0x758C menos_de: DE = -DE
+C 0x75EA hl_mas_a: HL = HL + A
+C 0x777A lee 1 si la fase va en vertical
+C 0x779B apunta a la cuenta de los sucesos de 0x9205
+C 0x77CD apunta a la cuenta de los sucesos de 0x9205
+C 0x77FB lee 1 si la fase va en vertical
+C 0x786A despacha: salta a la entrada A de la tabla que va detras del call
+C 0x789B banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78A1 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78A4 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78AA bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78AD banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78B3 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78B6 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78BC bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78BF banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78C5 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78C8 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78CE bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78D1 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78D7 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78DA banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78E0 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78E3 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x78E9 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78EC bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x78EF lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x78F5 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x78F8 lee la cuenta de los sucesos de 0x9205
+C 0x78FE lee la posicion del scroll (16 bits)
+C 0x7902 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x791A apunta a la cuenta de los sucesos de 0x9213
+C 0x7923 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7926 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x792C palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x792F lee la cuenta de los sucesos de 0x9213
+C 0x7939 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x793F de_mas_a: DE = DE + A
+C 0x79E8 menos_de: DE = -DE
+C 0x7A14 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x7A45 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A4B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A4E banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A54 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A57 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A5D bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A60 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A66 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A69 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A6F bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A72 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A78 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A7B banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A81 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A84 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A8A bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A8D banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A93 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A96 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7A9C bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7A9F apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x7AEF hl_mas_a: HL = HL + A
+C 0x7B06 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x7B0C bancos_10_15: pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7B12 lee el resultado que enseña p01:7B06
+C 0x7B19 lee el resultado que enseña p01:7B06
+C 0x7B25 lee cuantos jugadores (o el modo de dos)
+C 0x7B42 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x7B70 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
+C 0x7B78 lee cuantos jugadores (o el modo de dos)
+C 0x7B84 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x7B8F bancos_10_15: pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7B97 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+C 0x7BA1 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7BA7 banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7BB0 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
+C 0x7BBC copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0x7BC8 lee el resultado que enseña p01:7B06
+C 0x7BD5 copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0x7C06 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x7C0F suceso_de_fase: la ficha A de la lista de sucesos de la fase y compara su posicion con el scroll
+C 0x7C12 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7C21 lee 1 si la fase va en vertical
+C 0x7C31 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x7C36 lee cuantos jugadores (o el modo de dos)
+C 0x7C57 lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0x7C74 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x7C8F lee 1 si la fase va en vertical
+C 0x7CAD lee el jefe (1 a 8)
+C 0x7CD7 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x7CDA lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x7CF5 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x7D03 lee 1 si la fase va en vertical
+C 0x7D0E lee el jefe (1 a 8)
+C 0x7D3B lee el jefe (1 a 8)
+C 0x7D7C lee 1 si la fase va en vertical
+C 0x7D9E lee 1 si la fase va en vertical
+C 0x7DAB lee el jefe (1 a 8)
+C 0x7DBB de_mas_a: DE = DE + A
+C 0x7DE3 de_mas_a: DE = DE + A
+C 0x7DF4 lee 1 si la fase va en vertical
+C 0x7E09 lee el jefe (1 a 8)
+C 0x7E40 de_mas_a: DE = DE + A
+C 0x7E57 lee el jefe (1 a 8)
+C 0x7E69 lee el jefe (1 a 8)
+C 0x7E8E lee 1 si la fase va en vertical
+C 0x7EA9 lee 1 si la fase va en vertical
+C 0x7EBF hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x7EC5 lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0x7ED4 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x7EDA lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0x7EEB hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x7EEE lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0x7F08 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x7F1C apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x7F2C lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0x7F3C lee 1 si la fase va en vertical
+C 0x7F7D de_mas_a: DE = DE + A
+C 0x7F82 lee 1 si la fase va en vertical
+C 0x7FC6 de_mas_a: DE = DE + A
+C 0x7FCF de_mas_a: DE = DE + A
+C 0x7FD4 lee el jefe (1 a 8)
+C 0x7FD9 lee la fase (de 1 a 7; 0 en la presentacion)
+# --- fin de las anotaciones de anota.py ---

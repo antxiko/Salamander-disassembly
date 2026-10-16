@@ -71,3 +71,207 @@ F 0x9FFF 1
 D 0x8969 0x8B1F resto_8969  lo apuntan con el banco puesto p02:8B2F (0x8AF8), p02:8B43 (0x8B08), p02:8B22 (0x8B17); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p02:8B2F, p02:8B43, p02:8B22 (438 bytes)
 F 0x8969 16
 # --- fin de los bloques de bloques.py ---
+
+# --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
+C 0x8022 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x802B apunta a la cuenta de los sucesos de 0x84BA
+C 0x8031 lee 1 si la fase va en vertical
+C 0x8050 apunta a la cuenta de los sucesos de 0x84BA
+C 0x8067 lee 1 si la fase va en vertical
+C 0x8072 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x8089 lee la cuenta de los sucesos de 0x84BA
+C 0x80B5 lee 1 si la fase va en vertical
+C 0x80DA hl_mas_a: HL = HL + A
+C 0x80DD lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x80E0 hl_mas_a: HL = HL + A
+C 0x80F5 lee 1 si la fase va en vertical
+C 0x812C lee 1 si la fase va en vertical
+C 0x8147 hl_mas_a: HL = HL + A
+C 0x8157 lee la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x8176 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x821C byte_de_tabla: A = el byte HL + A
+C 0x824B crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x8271 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x8278 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x8298 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x829E bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x82A1 lee 1 si la fase va en vertical
+C 0x82BE lee la cuenta de cuadros del juego
+C 0x82CD hl_mas_a: HL = HL + A
+C 0x82FF lee la cuenta de cuadros del juego
+C 0x831F lee 1 si la fase va en vertical
+C 0x8346 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x834C bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x834F lee 1 si la fase va en vertical
+C 0x836B lee la cuenta de cuadros del juego
+C 0x837B hl_mas_a: HL = HL + A
+C 0x83A5 lee la cuenta de cuadros del juego
+C 0x83B6 lee 1 si la fase va en vertical
+C 0x83D8 otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+C 0x83E4 lee 1 si la fase va en vertical
+C 0x8447 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8489 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x84AF menos_hl: HL = -HL
+C 0x84ED banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x84F9 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x8510 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8514 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x855C guarda el siguiente alto del scroll (16 bits)
+C 0x8586 guarda el siguiente alto del scroll (16 bits)
+C 0x8598 guarda el jefe (1 a 8) y el byte siguiente (16 bits)
+C 0x8605 guarda el siguiente alto del scroll (16 bits)
+C 0x8670 guarda el siguiente alto del scroll (16 bits)
+C 0x869A guarda el siguiente alto del scroll (16 bits)
+C 0x86D5 guarda el siguiente alto del scroll (16 bits)
+C 0x8700 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x870A guarda la posicion del scroll (16 bits)
+C 0x870D lee la fase en curso
+C 0x8710 guarda la fase (de 1 a 7; 0 en la presentacion)
+C 0x8734 lee el estado del sonido (bits: pausa, SCC...)
+C 0x873A lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8740 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x8745 lee la posicion del scroll (16 bits)
+C 0x875F pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8764 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8769 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x87B0 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x87B6 lee cuantos jugadores (o el modo de dos)
+C 0x87BD apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x883E lee 1 si la fase va en vertical
+C 0x8846 hl_mas_a: HL = HL + A
+C 0x888B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8891 byte_de_tabla: A = el byte HL + A
+C 0x8894 guarda el byte de 0x88E2 de la fase (y el del jefe)
+C 0x889B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x88A5 hl_mas_a: HL = HL + A
+C 0x88A8 apunta a el principio del recorrido del mapa (16 bits)
+C 0x88B0 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x88B6 byte_de_tabla: A = el byte HL + A
+C 0x88B9 guarda 1 si la fase va en vertical
+C 0x88BC lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x88C2 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0x88C5 lee la posicion del scroll (16 bits)
+C 0x88CE guarda la posicion del scroll (16 bits)
+C 0x8929 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x8930 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x8966 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8B25 byte_de_tabla: A = el byte HL + A
+C 0x8B32 hl_mas_a: HL = HL + A
+C 0x8B4B de_mas_a: DE = DE + A
+C 0x8B9F hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x8BCD apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x8C17 lee 1 si la fase va en vertical
+C 0x8CBC byte_de_tabla: A = el byte HL + A
+C 0x8CBF pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8CE1 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0x8D57 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0x8D5C pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8DA0 banco_12_en_a000: pone el banco 12 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x8DA8 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x8DB5 hl_mas_a: HL = HL + A
+C 0x8DC3 lee 1 si la fase va en vertical
+C 0x8E31 lee 1 si la fase va en vertical
+C 0x8EAC pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8EF1 lee el jefe (1 a 8)
+C 0x8EF6 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x8F7B pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x8FA0 lee el jefe (1 a 8)
+C 0x8FA5 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x9086 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x90C4 lee cuantos jugadores (o el modo de dos)
+C 0x90CB hl_mas_a: HL = HL + A
+C 0x90EB lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
+C 0x9120 menos_de: DE = -DE
+C 0x9123 pon_ix07: IX+07/08 = DE
+C 0x9175 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x9207 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x927C hl_mas_a: HL = HL + A
+C 0x92E3 hl_mas_a: HL = HL + A
+C 0x9331 lee 1 si la fase va en vertical
+C 0x934A lee 1 si la fase va en vertical
+C 0x9387 lee la cuenta de cuadros del juego
+C 0x9408 menos_de: DE = -DE
+C 0x940E pon_ix07: IX+07/08 = DE
+C 0x9425 menos_de: DE = -DE
+C 0x942B pon_ix09: IX+09/0A = DE
+C 0x942E azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
+C 0x9440 hl_mas_a: HL = HL + A
+C 0x9478 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x947F apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x94BA otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+C 0x94C0 lee 1 si la fase va en vertical
+C 0x94E9 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x94F0 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x951F apunta a los disparos (8 fichas de 0x10 bytes)
+C 0x954D lee 1 si la fase va en vertical
+C 0x9579 lee 1 si la fase va en vertical
+C 0x95A5 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x95AC apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x95D1 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x95D8 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x963C otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+C 0x9652 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x9659 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x96A6 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x96AB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x96BB apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0x9757 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9769 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x976F apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x97AF otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+C 0x97BE pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x97C3 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x97DB apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x97E1 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x9800 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x980B pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x982F de_mas_a: DE = DE + A
+C 0x9837 lee cuantos jugadores (o el modo de dos)
+C 0x9843 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x984E apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x9859 lee 1 si la fase va en vertical
+C 0x98D0 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x98D3 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x98DA apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x9911 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x991B despacha: salta a la entrada A de la tabla que va detras del call
+C 0x995E otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+C 0x99EF apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0x99F8 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0x9A08 lee cuantos jugadores (o el modo de dos)
+C 0x9A0E otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
+C 0x9A54 byte_de_tabla: A = el byte HL + A
+C 0x9A97 lee 1 si la fase va en vertical
+C 0x9AF4 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9AFF crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0x9B39 hl_mas_a: HL = HL + A
+C 0x9B41 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9B92 hl_mas_a: HL = HL + A
+C 0x9BBD hl_mas_a: HL = HL + A
+C 0x9BD7 hl_mas_a: HL = HL + A
+C 0x9C38 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x9C85 despacha: salta a la entrada A de la tabla que va detras del call
+C 0x9CBA pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9CD1 byte_de_tabla: A = el byte HL + A
+C 0x9CE8 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x9CF6 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
+C 0x9D00 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9D0B banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
+C 0x9D11 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x9D34 pon_ix09: IX+09/0A = DE
+C 0x9D3D byte_de_tabla: A = el byte HL + A
+C 0x9D41 pon_ix07: IX+07/08 = DE
+C 0x9D7C pon_ix09: IX+09/0A = DE
+C 0x9D8C crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0x9DA7 lee la cuenta de cuadros del juego
+C 0x9DAD byte_de_tabla: A = el byte HL + A
+C 0x9DCA hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x9DE0 pon_ix09: IX+09/0A = DE
+C 0x9E2B hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x9E40 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x9EB0 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0x9EDB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0x9F10 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0x9FCF azar: mezcla R en 0xE606 (el azar)
+C 0x9FE8 anima_6: cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
+# --- fin de las anotaciones de anota.py ---

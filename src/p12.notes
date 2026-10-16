@@ -75,3 +75,158 @@ F 0xBDDC 16
 D 0xBEA5 0xBEB5 resto_BEA5  lo apuntan con el banco puesto p12:BE42 (0xBEA5); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BE42 (16 bytes)
 F 0xBEA5 16
 # --- fin de los bloques de bloques.py ---
+
+# --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
+C 0xA006 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA05C lee la cuenta de cuadros del juego
+C 0xA079 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xA0E2 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA1CA apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA1FE hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xA23C hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xA272 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA2EE rachas_con_destino: [destino] y rachas de DE a la VRAM
+C 0xA328 hl_mas_a: HL = HL + A
+C 0xA4A9 lee el jefe (1 a 8)
+C 0xA4B3 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA4C7 lee la cuenta de cuadros del juego
+C 0xA4CC lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA4D2 palabra_de_de: DE = la palabra DE + 2 x A
+C 0xA5EF apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0xA5F6 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0xA630 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xA639 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA64C lee 1 si la fase va en vertical
+C 0xA65B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA67A lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA68C palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xA68F lee la posicion del scroll (16 bits)
+C 0xA699 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA6AB byte_de_tabla: A = el byte HL + A
+C 0xA6B3 lee 1 si la fase va en vertical
+C 0xA71B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA73D byte_de_tabla: A = el byte HL + A
+C 0xA750 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xA753 pon_ix09: IX+09/0A = DE
+C 0xA759 pon_ix07: IX+07/08 = DE
+C 0xA78B azar: mezcla R en 0xE606 (el azar)
+C 0xA799 azar: mezcla R en 0xE606 (el azar)
+C 0xA7A0 lee cuantos jugadores (o el modo de dos)
+C 0xA7B9 azar: mezcla R en 0xE606 (el azar)
+C 0xA7C2 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xA7DD pon_ix07: IX+07/08 = DE
+C 0xA7E3 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xA7E6 pon_ix09: IX+09/0A = DE
+C 0xA855 hl_mas_a: HL = HL + A
+C 0xA863 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xA871 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xA883 lee 1 si la fase va en vertical
+C 0xA8B4 lee 1 si la fase va en vertical
+C 0xA8BD pon_ix09: IX+09/0A = DE
+C 0xA8C3 pon_ix07: IX+07/08 = DE
+C 0xA8D7 lee 1 si la fase va en vertical
+C 0xA8ED menos_de: DE = -DE
+C 0xA8F0 pon_ix09: IX+09/0A = DE
+C 0xA90F menos_de: DE = -DE
+C 0xA912 pon_ix07: IX+07/08 = DE
+C 0xA91F lee 1 si la fase va en vertical
+C 0xA936 lee 1 si la fase va en vertical
+C 0xA93E lee 1 si la fase va en vertical
+C 0xA969 lee 1 si la fase va en vertical
+C 0xA972 pon_ix07: IX+07/08 = DE
+C 0xA978 pon_ix09: IX+09/0A = DE
+C 0xA9A0 lee 1 si la fase va en vertical
+C 0xA9B3 pon_ix09: IX+09/0A = DE
+C 0xA9C3 pon_ix07: IX+07/08 = DE
+C 0xA9C6 lee 1 si la fase va en vertical
+C 0xAB03 lee 1 si la fase va en vertical
+C 0xAB27 lee 1 si la fase va en vertical
+C 0xAB49 pon_ix07: IX+07/08 = DE
+C 0xAB71 lee 1 si la fase va en vertical
+C 0xABF6 lee la cuenta de cuadros del juego
+C 0xAC37 pon_ix09: IX+09/0A = DE
+C 0xACE4 pon_ix09: IX+09/0A = DE
+C 0xAD0C despacha: salta a la entrada A de la tabla que va detras del call
+C 0xAD6B pon_ix09: IX+09/0A = DE
+C 0xAD78 pon_ix07: IX+07/08 = DE
+C 0xAE05 lee la cuenta de cuadros del juego
+C 0xAE14 apunta a la cuenta de cuadros del juego
+C 0xAE27 pon_ix07: IX+07/08 = DE
+C 0xAE8F despacha: salta a la entrada A de la tabla que va detras del call
+C 0xAF77 pon_ix07: IX+07/08 = DE
+C 0xAFE9 anima_c: cada (B+1) cuadros avanza IX+26 de 0 a C-1
+C 0xB037 pon_ix09: IX+09/0A = DE
+C 0xB08B pon_ix09: IX+09/0A = DE
+C 0xB09B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xB0B2 pon_ix09: IX+09/0A = DE
+C 0xB1C3 anima_c: cada (B+1) cuadros avanza IX+26 de 0 a C-1
+C 0xB1F4 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xB202 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xB226 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xB233 lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0xB276 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xB2DB pon_ix09: IX+09/0A = DE
+C 0xB315 anima_6: cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
+C 0xB35B pon_ix09: IX+09/0A = DE
+C 0xB364 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xB3A0 pon_ix09: IX+09/0A = DE
+C 0xB3AD pon_ix07: IX+07/08 = DE
+C 0xB46D anima_6: cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
+C 0xB47C lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xB4A1 pon_ix09: IX+09/0A = DE
+C 0xB4BE despacha: salta a la entrada A de la tabla que va detras del call
+C 0xB54B pon_ix09: IX+09/0A = DE
+C 0xB55C pon_ix07: IX+07/08 = DE
+C 0xB6C0 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xB732 byte_de_tabla: A = el byte HL + A
+C 0xB766 de_mas_a: DE = DE + A
+C 0xB76F hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xB77E de_mas_a: DE = DE + A
+C 0xB786 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xB7E2 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xB7E7 lee la posicion del scroll (16 bits)
+C 0xB88C lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0xB88F lee cuantos jugadores (o el modo de dos)
+C 0xB898 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0xB8BD lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0xB8D6 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0xB8E6 lee la cuenta de cuadros del juego
+C 0xB8EE lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0xB8F1 borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0xB8F7 borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0xB904 borra_lista: borra lo que pintaria la lista de DE (C = 0)
+C 0xB910 guarda la ficha del jugador 2 (IY, 0x80 bytes)
+C 0xB913 lee cuantos jugadores (o el modo de dos)
+C 0xB932 apunta a la fase (de 1 a 7; 0 en la presentacion)
+C 0xB959 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0xB97E lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
+C 0xB987 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
+C 0xB995 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0xB99E apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0xBA52 hl_mas_a: HL = HL + A
+C 0xBAD9 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBAF5 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBAFC palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xBB03 hl_mas_a: HL = HL + A
+C 0xBB33 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xBC0C azar: mezcla R en 0xE606 (el azar)
+C 0xBC56 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xBC74 menos_de: DE = -DE
+C 0xBC8A pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xBC8D azar: mezcla R en 0xE606 (el azar)
+C 0xBCE8 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xBCF9 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xBD2D hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xBD41 lee el byte de 0x88E2 de la fase (y el del jefe)
+C 0xBD46 lee la cuenta de cuadros del juego
+C 0xBD55 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBD67 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBD80 hl_mas_a: HL = HL + A
+C 0xBD8B lee la posicion del scroll (16 bits)
+C 0xBDFC lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBE30 hl_mas_a: HL = HL + A
+C 0xBE45 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xBEB6 lee cuantos jugadores (o el modo de dos)
+C 0xBEBD azar: mezcla R en 0xE606 (el azar)
+C 0xBF23 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+# --- fin de las anotaciones de anota.py ---

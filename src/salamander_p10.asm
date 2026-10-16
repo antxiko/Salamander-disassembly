@@ -15,7 +15,7 @@
 
 
 L_8000:
-	call 041c7h		;8000
+	call 041c7h		;8000   ; banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
 	ld hl,00001h		;8003
 	ld (0e21ch),hl		;8006
 	ld hl,0a505h		;8009
@@ -25,10 +25,10 @@ L_8000:
 	ld hl,0a593h		;8015
 	ld (0e224h),hl		;8018
 L_801B:
-	jp 04199h		;801b
+	jp 04199h		;801b   ; bancos_10_15: pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
 L_801E:
-	ld (0e63ah),a		;801e
-	call 041c7h		;8021
+	ld (0e63ah),a		;801e   ; guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
+	call 041c7h		;8021   ; banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
 	call 04708h		;8024
 	jr L_801B		;8027
 L_8029:
@@ -38,15 +38,15 @@ L_802D:
 	xor a			;802d
 L_802E:
 	ld (0e639h),a		;802e
-	call 041bfh		;8031
+	call 041bfh		;8031   ; banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 	call 0a32ah		;8034
 	jr L_801B		;8037
 L_8039:
-	call 041bfh		;8039
+	call 041bfh		;8039   ; banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 	call 0b957h		;803c
 	call 0b8d7h		;803f
 	jr L_801B		;8042
-L_8044:
+ventana_menu:		; pinta la ventana del menu B
 	ld a,b			;8044
 	push bc			;8045
 	and 0f0h		;8046
@@ -57,19 +57,19 @@ L_8044:
 	ld hl,02000h		;8050
 	add hl,de			;8053
 	ld (0f010h),hl		;8054
-	call 041bfh		;8057
+	call 041bfh		;8057   ; banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 	call 0b9bfh		;805a
-	call 041c3h		;805d
+	call 041c3h		;805d   ; banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 	ld hl,(0f010h)		;8060
 	ld de,00190h		;8063
 	add hl,de			;8066
 	ld de,0a912h		;8067
-	call 04d16h		;806a
+	call 04d16h		;806a   ; rachas: descomprime las rachas de DE en la VRAM HL
 	pop bc			;806d
 	ld a,b			;806e
 	and 00fh		;806f
 	ld hl,0a8f8h		;8071
-	call 04e31h		;8074
+	call 04e31h		;8074   ; palabra_a_hl: HL = la palabra HL + 2 x A
 	ld b,(hl)			;8077
 L_8078:
 	push bc			;8078
@@ -77,7 +77,7 @@ L_8078:
 	ld a,(hl)			;807a
 	push hl			;807b
 	ld hl,0a90ah		;807c
-	call 04e28h		;807f
+	call 04e28h		;807f   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	pop hl			;8082
 	inc hl			;8083
 	ld a,(hl)			;8084
@@ -102,7 +102,7 @@ L_8078:
 	ld bc,(0f010h)		;8099
 	add hl,bc			;809d
 	pop bc			;809e
-	call 04cbdh		;809f
+	call 04cbdh		;809f   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	pop hl			;80a2
 	pop bc			;80a3
 	djnz L_8078		;80a4
@@ -119,35 +119,35 @@ L_80B9:
 	call L_8039		;80be
 	ld hl,02200h		;80c1
 	ld de,0a03ch		;80c4
-	call 04ce5h		;80c7
+	call 04ce5h		;80c7   ; rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 	ld hl,00200h		;80ca
 	ld de,0a475h		;80cd
-	call 04ce5h		;80d0
+	call 04ce5h		;80d0   ; rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 	ld hl,01800h		;80d3
 	ld de,0a745h		;80d6
-	jp 04d16h		;80d9
-L_80DC:
-	call 041c7h		;80dc
+	jp 04d16h		;80d9   ; rachas: descomprime las rachas de DE en la VRAM HL
+graficos_menu:		; con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+	call 041c7h		;80dc   ; banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
 	ld a,b			;80df
-	ld (0e63ah),a		;80e0
-	call L_8107		;80e3
+	ld (0e63ah),a		;80e0   ; guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
+	call caracteres_menu		;80e3   ; caracteres_menu: la lista de caracteres de la entrada B & 0x0F de 0xA4BF
 	xor a			;80e6
 	ld (0f000h),a		;80e7
 	ld hl,0a4cbh		;80ea
-	ld a,(0e63ah)		;80ed
+	ld a,(0e63ah)		;80ed   ; lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 	and 00fh		;80f0
-	call 044f3h		;80f2
+	call 044f3h		;80f2   ; copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
 	ld hl,0f000h		;80f5
 	inc (hl)			;80f8
 	ld hl,0a4d7h		;80f9
-	ld a,(0e63ah)		;80fc
+	ld a,(0e63ah)		;80fc   ; lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 	and 00fh		;80ff
-	call 044f3h		;8101
+	call 044f3h		;8101   ; copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
 	jp L_801B		;8104
-L_8107:
+caracteres_menu:		; la lista de caracteres de la entrada B & 0x0F de 0xA4BF
 	and 00fh		;8107
 	ld hl,0a4bfh		;8109
-	call 04e28h		;810c
+	call 04e28h		;810c   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	push de			;810f
 	pop ix		;8110
 L_8112:
@@ -174,8 +174,8 @@ L_8112:
 	add ix,de		;813a
 	jr L_8112		;813c
 L_813E:
-	call 04eafh		;813e
-	call 04ca4h		;8141
+	call 04eafh		;813e   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+	call 04ca4h		;8141   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call 05f66h		;8144
 	ld hl,03884h		;8147
 	ld de,0bbc0h		;814a
@@ -183,7 +183,7 @@ L_813E:
 L_8150:
 	push bc			;8150
 	ld b,000h		;8151
-	call 04cbdh		;8153
+	call 04cbdh		;8153   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld bc,00020h		;8156
 	add hl,bc			;8159
 	pop bc			;815a
@@ -193,17 +193,17 @@ L_8150:
 	jr z,L_8163		;8160
 	xor a			;8162
 L_8163:
-	call 040c4h		;8163
+	call 040c4h		;8163   ; hl_mas_a: HL = HL + A
 	ld a,b			;8166
 	rra			;8167
 	ld a,004h		;8168
 	jr c,L_816D		;816a
 	xor a			;816c
 L_816D:
-	call 040c9h		;816d
+	call 040c9h		;816d   ; de_mas_a: DE = DE + A
 	djnz L_8150		;8170
 	ld hl,08846h		;8172
-	ld de,0ef80h		;8175
+	ld de,0ef80h		;8175   ; apunta a los atributos de sprite en la RAM (32 x 4)
 	ld b,01ch		;8178
 L_817A:
 	push bc			;817a
@@ -256,7 +256,7 @@ DATA_lista_81A9:
 L_81E6:
 	ld a,(0e217h)		;81e6
 	dec a			;81e9
-	call 040ceh		;81ea
+	call 040ceh		;81ea   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_81ED: 37 destinos del despachador p00:40CE (call en p10:81EA, el
@@ -279,39 +279,39 @@ DATA_tabla_81ED:
 
 L_8237:
 	call L_8265		;8237
-	call 04ca4h		;823a
-	call 04eafh		;823d
+	call 04ca4h		;823a   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+	call 04eafh		;823d   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 	call L_8039		;8240
 	xor a			;8243
 	ld (0ee33h),a		;8244
 	ld (0ee08h),a		;8247
 	ld (0ee32h),a		;824a
 	ld a,029h		;824d
-	call 04d6eh		;824f
+	call 04d6eh		;824f   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_8252:
 	ld a,090h		;8252
 	ld (0ee02h),a		;8254
 	call L_827F		;8257
 L_825A:
 	ld hl,00000h		;825a
-	ld (0f0f7h),hl		;825d
+	ld (0f0f7h),hl		;825d   ; guarda la cuenta de interrupciones (16 bits)
 	ld hl,0e217h		;8260
 	inc (hl)			;8263
 	ret			;8264
 L_8265:
-	call L_87F5		;8265
-	call 04ca4h		;8268
-	call 04eafh		;826b
+	call borra_c700		;8265   ; borra_c700: borra 0xC700-0xCFFF
+	call 04ca4h		;8268   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+	call 04eafh		;826b   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 	ld hl,0ed00h		;826e
 	ld bc,001ffh		;8271
 	call L_87FB		;8274
 	ld a,001h		;8277
-	ld (0e63ah),a		;8279
+	ld (0e63ah),a		;8279   ; guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
 	jp 05f66h		;827c
 L_827F:
 	ld hl,01fe0h		;827f
 	ld de,08288h		;8282
-	jp 04d16h		;8285
+	jp 04d16h		;8285   ; rachas: descomprime las rachas de DE en la VRAM HL
 
 ; ----------------------------------------------------------------------
 ; DATOS rachas_8288: rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino,
@@ -332,12 +332,12 @@ L_828D:
 	and a			;8296
 	ret z			;8297
 L_8298:
-	call 04eafh		;8298
-	call 04ca4h		;829b
+	call 04eafh		;8298   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+	call 04ca4h		;829b   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	xor a			;829e
 	ld (0ee03h),a		;829f
 	ld (0ee04h),a		;82a2
-	call L_87F5		;82a5
+	call borra_c700		;82a5   ; borra_c700: borra 0xC700-0xCFFF
 	call L_80B9		;82a8
 	jr $-81		;82ab
 L_82AD:
@@ -355,7 +355,7 @@ L_82AD:
 	ld hl,0bb6fh		;82bf
 	call L_95BD		;82c2
 	ld a,034h		;82c5
-	jp 04d6eh		;82c7
+	jp 04d6eh		;82c7   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_82CA:
 	call L_876B		;82ca
 	xor a			;82cd
@@ -363,7 +363,7 @@ L_82CA:
 	ld (0ee06h),a		;82d1
 	call L_825A		;82d4
 	ld a,04eh		;82d7
-	jp 04d6eh		;82d9
+	jp 04d6eh		;82d9   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_82DC:
 	call L_95CE		;82dc
 	ld a,(0ee18h)		;82df
@@ -384,13 +384,13 @@ L_82E9:
 	call z,L_8343		;82f6
 	ld a,b			;82f9
 	ld hl,08810h		;82fa
-	call 04e28h		;82fd
+	call 04e28h		;82fd   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	ld a,01fh		;8300
 	sub b			;8302
 	add a,a			;8303
 	add a,a			;8304
-	ld hl,0ef80h		;8305
-	call 040c4h		;8308
+	ld hl,0ef80h		;8305   ; apunta a los atributos de sprite en la RAM (32 x 4)
+	call 040c4h		;8308   ; hl_mas_a: HL = HL + A
 	ld (hl),e			;830b
 	inc l			;830c
 	ld (hl),d			;830d
@@ -409,7 +409,7 @@ L_8313:
 	ld (hl),a			;831d
 L_831E:
 	ld hl,0880bh		;831e
-	call 040c4h		;8321
+	call 040c4h		;8321   ; hl_mas_a: HL = HL + A
 	ld c,(hl)			;8324
 	ld hl,0ef83h		;8325
 	ld b,020h		;8328
@@ -425,7 +425,7 @@ L_8332:
 	cp 020h		;8335
 	jp c,L_825A		;8337
 	ld de,09ed8h		;833a
-	call 04cf5h		;833d
+	call 04cf5h		;833d   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	jp L_825A		;8340
 L_8343:
 	exx			;8343
@@ -437,13 +437,13 @@ L_8343:
 	ret			;8350
 L_8351:
 	ld de,00180h		;8351
-	call 04da1h		;8354
+	call 04da1h		;8354   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jr nc,L_835E		;8357
 	call L_87C9		;8359
 	jr L_8313		;835c
 L_835E:
-	call 04eafh		;835e
-	call 04ca4h		;8361
+	call 04eafh		;835e   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+	call 04ca4h		;8361   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld hl,0e217h		;8364
 	ld a,(hl)			;8367
 	cp 020h		;8368
@@ -456,7 +456,7 @@ L_8374:
 	ret			;8376
 L_8377:
 	ld de,00078h		;8377
-	call 04da1h		;837a
+	call 04da1h		;837a   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ret c			;837d
 	call L_8039		;837e
 	ld hl,00900h		;8381
@@ -468,19 +468,19 @@ L_8377:
 	jp L_825A		;8390
 L_8393:
 	ld de,00100h		;8393
-	call 04da1h		;8396
+	call 04da1h		;8396   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jr c,L_83BB		;8399
 	ld a,002h		;839b
 	call L_875C		;839d
 	ld b,011h		;83a0
-	call L_8044		;83a2
+	call ventana_menu		;83a2   ; ventana_menu: pinta la ventana del menu B
 	ld b,011h		;83a5
-	call L_80DC		;83a7
-	call L_87F5		;83aa
+	call graficos_menu		;83a7   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+	call borra_c700		;83aa   ; borra_c700: borra 0xC700-0xCFFF
 	ld hl,0bcaah		;83ad
-	call L_95C1		;83b0
+	call abre_ventana		;83b0   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	ld a,02eh		;83b3
-	call 04d6eh		;83b5
+	call 04d6eh		;83b5   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_825A		;83b8
 L_83BB:
 	ld hl,0ee38h		;83bb
@@ -492,9 +492,9 @@ L_83BB:
 	inc (hl)			;83c5
 	inc hl			;83c6
 	ld (hl),030h		;83c7
-	call 04ca4h		;83c9
+	call 04ca4h		;83c9   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld a,017h		;83cc
-	call 04d6eh		;83ce
+	call 04d6eh		;83ce   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	ld de,0394ch		;83d1
 	ld bc,00200h		;83d4
 	jp L_944C		;83d7
@@ -538,9 +538,9 @@ L_83FA:
 	call L_865A		;8400
 	ret c			;8403
 	ld b,042h		;8404
-	call L_80DC		;8406
+	call graficos_menu		;8406   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld hl,0bcb1h		;8409
-	call L_95C1		;840c
+	call abre_ventana		;840c   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	jp L_825A		;840f
 L_8412:
 	ld de,00080h		;8412
@@ -590,17 +590,17 @@ DATA_resto_843A:
 L_843D:
 	call L_8675		;843d
 	ld de,00080h		;8440
-	call 04da1h		;8443
+	call 04da1h		;8443   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9497		;8446
 	jp L_825A		;8449
 L_844C:
 	ld de,00080h		;844c
-	call 04da1h		;844f
+	call 04da1h		;844f   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,058e9h		;8452
 	ld b,033h		;8455
-	call L_80DC		;8457
+	call graficos_menu		;8457   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld b,021h		;845a
-	call L_8044		;845c
+	call ventana_menu		;845c   ; ventana_menu: pinta la ventana del menu B
 	ld de,0388ch		;845f
 	ld c,000h		;8462
 	call L_945C		;8464
@@ -618,13 +618,13 @@ L_8476:
 	jp L_825A		;847d
 L_8480:
 	ld de,00080h		;8480
-	call 04da1h		;8483
+	call 04da1h		;8483   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,058e9h		;8486
 	ld b,022h		;8489
-	call L_80DC		;848b
-	call L_87F5		;848e
+	call graficos_menu		;848b   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+	call borra_c700		;848e   ; borra_c700: borra 0xC700-0xCFFF
 	ld hl,0bcb8h		;8491
-	call L_95C1		;8494
+	call abre_ventana		;8494   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	jp L_825A		;8497
 L_849A:
 	ld de,00080h		;849a
@@ -640,29 +640,29 @@ L_84A8:
 L_84B1:
 	call L_869C		;84b1
 	ld de,001c0h		;84b4
-	call 04da1h		;84b7
+	call 04da1h		;84b7   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9497		;84ba
 	jp L_825A		;84bd
 L_84C0:
 	ld de,00080h		;84c0
-	call 04da1h		;84c3
+	call 04da1h		;84c3   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,058e9h		;84c6
 	ld b,021h		;84c9
-	call L_8044		;84cb
+	call ventana_menu		;84cb   ; ventana_menu: pinta la ventana del menu B
 	ld b,033h		;84ce
-	call L_80DC		;84d0
-	call L_87F5		;84d3
+	call graficos_menu		;84d0   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+	call borra_c700		;84d3   ; borra_c700: borra 0xC700-0xCFFF
 	ld hl,0bccdh		;84d6
-	call L_95C1		;84d9
+	call abre_ventana		;84d9   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	ld a,04dh		;84dc
-	call 04d6eh		;84de
+	call 04d6eh		;84de   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_825A		;84e1
 L_84E4:
 	ld de,00080h		;84e4
 	call L_8663		;84e7
 	ret c			;84ea
 	ld b,045h		;84eb
-	call L_80DC		;84ed
+	call graficos_menu		;84ed   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld a,001h		;84f0
 	ld c,a			;84f2
 	ld b,060h		;84f3
@@ -677,7 +677,7 @@ L_8507:
 	jp L_874E		;850a
 L_850D:
 	ld de,00080h		;850d
-	call 04da1h		;8510
+	call 04da1h		;8510   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9E56		;8513
 	ld hl,0851ch		;8516
 	jp L_83EC		;8519
@@ -726,13 +726,13 @@ L_8530:
 	jp L_825A		;853f
 L_8542:
 	ld de,00080h		;8542
-	call 04da1h		;8545
+	call 04da1h		;8545   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_86E8		;8548
 	call L_8803		;854b
 	ld hl,0bcd4h		;854e
-	call L_95C1		;8551
+	call abre_ventana		;8551   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	ld a,04dh		;8554
-	call 04d6eh		;8556
+	call 04d6eh		;8556   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_825A		;8559
 L_855C:
 	ld de,00080h		;855c
@@ -749,7 +749,7 @@ L_855C:
 	jp L_825A		;8577
 L_857A:
 	ld de,00080h		;857a
-	call 04da1h		;857d
+	call 04da1h		;857d   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9E56		;8580
 	ld hl,08589h		;8583
 	jp L_83EC		;8586
@@ -795,25 +795,25 @@ L_859D:
 	ld a,003h		;85a4
 	call L_875C		;85a6
 	ld b,043h		;85a9
-	call L_80DC		;85ab
+	call graficos_menu		;85ab   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	call L_871D		;85ae
 	jp L_825A		;85b1
 L_85B4:
 	ld de,00080h		;85b4
-	call 04da1h		;85b7
+	call 04da1h		;85b7   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_8725		;85ba
 	call L_8803		;85bd
 	ld b,025h		;85c0
-	call L_80DC		;85c2
+	call graficos_menu		;85c2   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld hl,0bcbfh		;85c5
-	call L_95C1		;85c8
+	call abre_ventana		;85c8   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	jp L_825A		;85cb
 L_85CE:
 	ld a,(0ee18h)		;85ce
 	and a			;85d1
 	jp z,L_95CE		;85d2
 	ld hl,0bcc6h		;85d5
-	call L_95C1		;85d8
+	call abre_ventana		;85d8   ; abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	jp L_825A		;85db
 L_85DE:
 	ld de,00100h		;85de
@@ -826,13 +826,13 @@ L_85DE:
 	jp L_825A		;85ef
 L_85F2:
 	ld de,00080h		;85f2
-	call 04da1h		;85f5
+	call 04da1h		;85f5   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9E56		;85f8
-	call 04ca4h		;85fb
+	call 04ca4h		;85fb   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld b,033h		;85fe
-	call L_80DC		;8600
+	call graficos_menu		;8600   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld b,021h		;8603
-	call L_8044		;8605
+	call ventana_menu		;8605   ; ventana_menu: pinta la ventana del menu B
 	ld hl,00000h		;8608
 	ld bc,01800h		;860b
 	xor a			;860e
@@ -845,11 +845,11 @@ L_85F2:
 	jp L_825A		;8620
 L_8623:
 	ld de,000c0h		;8623
-	call 04da1h		;8626
+	call 04da1h		;8626   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ld a,035h		;8629
 	jp c,L_801E		;862b
 	ld b,021h		;862e
-	call L_8044		;8630
+	call ventana_menu		;8630   ; ventana_menu: pinta la ventana del menu B
 	call L_866C		;8633
 	ld c,009h		;8636
 	ld de,03a24h		;8638
@@ -860,19 +860,19 @@ L_8641:
 	ld de,00470h		;8644
 	call L_865A		;8647
 	ret c			;864a
-	call 04ca4h		;864b
-	call 04eafh		;864e
+	call 04ca4h		;864b   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
+	call 04eafh		;864e   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 	call L_80B9		;8651
 	call L_866C		;8654
 	jp L_8298		;8657
 L_865A:
-	call 04da1h		;865a
+	call 04da1h		;865a   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ret nc			;865d
 	call L_9497		;865e
 	scf			;8661
 	ret			;8662
 L_8663:
-	call 04da1h		;8663
+	call 04da1h		;8663   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ret nc			;8666
 	call L_95CE		;8667
 	scf			;866a
@@ -1017,7 +1017,7 @@ L_8747:
 L_874E:
 	push bc			;874e
 	ld b,000h		;874f
-	call 04cbdh		;8751
+	call 04cbdh		;8751   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld bc,00020h		;8754
 	add hl,bc			;8757
 	pop bc			;8758
@@ -1034,7 +1034,7 @@ L_875C:
 	jp 00056h		;8768   ; BIOS FILVRM - Fills VRAM with value
 L_876B:
 	ld bc,00130h		;876b
-	ld de,0ea00h		;876e
+	ld de,0ea00h		;876e   ; apunta a los disparos (8 fichas de 0x10 bytes)
 	ld hl,00550h		;8771
 L_8774:
 	call 0004ah		;8774   ; BIOS RDVRM - Reads the content of VRAM
@@ -1045,7 +1045,7 @@ L_8774:
 	ld a,b			;877b
 	or c			;877c
 	jr nz,L_8774		;877d
-	ld hl,0ea00h		;877f
+	ld hl,0ea00h		;877f   ; apunta a los disparos (8 fichas de 0x10 bytes)
 	ld de,0eb80h		;8782
 	ld bc,00130h		;8785
 L_8788:
@@ -1099,9 +1099,9 @@ L_87AF:
 	ld c,000h		;87c6
 	ret			;87c8
 L_87C9:
-	ld a,(0e203h)		;87c9
+	ld a,(0e203h)		;87c9   ; lee la cuenta de cuadros del juego
 	and 008h		;87cc
-	ld de,0ea00h		;87ce
+	ld de,0ea00h		;87ce   ; apunta a los disparos (8 fichas de 0x10 bytes)
 	jr z,L_87D6		;87d1
 	ld de,0eb80h		;87d3
 L_87D6:
@@ -1109,17 +1109,17 @@ L_87D6:
 	ld hl,00d50h		;87d9
 	push de			;87dc
 	push bc			;87dd
-	call 04cbdh		;87de
+	call 04cbdh		;87de   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	pop bc			;87e1
 	pop de			;87e2
 	ld hl,01550h		;87e3
-	jp 04cbdh		;87e6
+	jp 04cbdh		;87e6   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 L_87E9:
 	ld hl,03b00h		;87e9
-	ld de,0ef80h		;87ec
+	ld de,0ef80h		;87ec   ; apunta a los atributos de sprite en la RAM (32 x 4)
 	ld bc,00080h		;87ef
-	jp 04cbdh		;87f2
-L_87F5:
+	jp 04cbdh		;87f2   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+borra_c700:		; borra 0xC700-0xCFFF
 	ld hl,0c700h		;87f5
 	ld bc,008ffh		;87f8
 L_87FB:
@@ -1154,7 +1154,7 @@ DATA_resto_880B:
 L_8848:
 	ld a,(0e217h)		;8848
 	dec a			;884b
-	call 040ceh		;884c
+	call 040ceh		;884c   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_884F: 9 destinos del despachador p00:40CE (call en p10:884C, el
@@ -1173,16 +1173,16 @@ DATA_tabla_884F:
 L_8861:
 	call L_8265		;8861
 	ld b,034h		;8864
-	call L_80DC		;8866
-	call L_87F5		;8869
+	call graficos_menu		;8866   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
+	call borra_c700		;8869   ; borra_c700: borra 0xC700-0xCFFF
 	call L_8918		;886c
 	ld b,034h		;886f
 	call L_8AE9		;8871
 	call L_8B04		;8874
 	xor a			;8877
-	ld (0e301h),a		;8878
+	ld (0e301h),a		;8878   ; guarda la fase (de 1 a 7; 0 en la presentacion)
 	ld a,028h		;887b
-	call 04d6eh		;887d
+	call 04d6eh		;887d   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_8880:
 	jp L_825A		;8880
 L_8883:
@@ -1194,7 +1194,7 @@ L_8883:
 L_888E:
 	call L_89E6		;888e
 	ld a,047h		;8891
-	call 04d6eh		;8893
+	call 04d6eh		;8893   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jr L_8880		;8896
 L_8898:
 	call L_89BC		;8898
@@ -1202,22 +1202,22 @@ L_8898:
 	and a			;889e
 	ret nz			;889f
 	ld a,048h		;88a0
-	call 04d6eh		;88a2
+	call 04d6eh		;88a2   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	call L_89F0		;88a5
 	jr L_8880		;88a8
 L_88AA:
-	ld a,(0e227h)		;88aa
+	ld a,(0e227h)		;88aa   ; lee cuantos jugadores (o el modo de dos)
 	and a			;88ad
 	call z,L_89F8		;88ae
 	call L_8972		;88b1
 	ld a,(0ee75h)		;88b4
 	and a			;88b7
 	ret nz			;88b8
-	ld a,(0e227h)		;88b9
+	ld a,(0e227h)		;88b9   ; lee cuantos jugadores (o el modo de dos)
 	and a			;88bc
 	jr z,L_88C9		;88bd
 	ld a,028h		;88bf
-	call 04d6eh		;88c1
+	call 04d6eh		;88c1   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	call L_891D		;88c4
 	jr L_8880		;88c7
 L_88C9:
@@ -1238,7 +1238,7 @@ L_88DB:
 	and a			;88e1
 	ret nz			;88e2
 	ld a,048h		;88e3
-	call 04d6eh		;88e5
+	call 04d6eh		;88e5   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	call L_895F		;88e8
 	jr L_88F8		;88eb
 L_88ED:
@@ -1259,7 +1259,7 @@ L_88FB:
 	jp L_8880		;8909
 L_890C:
 	ld de,000b4h		;890c
-	call 04da1h		;890f
+	call 04da1h		;890f   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ret c			;8912
 	xor a			;8913
 	ld (0e217h),a		;8914
@@ -1337,15 +1337,15 @@ L_8998:
 	push bc			;8998
 	push de			;8999
 	ld b,000h		;899a
-	call 04cbdh		;899c
+	call 04cbdh		;899c   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld bc,00020h		;899f
 	add hl,bc			;89a2
 	pop de			;89a3
 	pop bc			;89a4
 	ld a,011h		;89a5
-	call 040c9h		;89a7
+	call 040c9h		;89a7   ; de_mas_a: DE = DE + A
 	djnz L_8998		;89aa
-	ld a,(0e203h)		;89ac
+	ld a,(0e203h)		;89ac   ; lee la cuenta de cuadros del juego
 	and 004h		;89af
 	ld a,001h		;89b1
 	jr z,L_89B7		;89b3
@@ -1365,14 +1365,14 @@ L_89C7:
 	ld a,(0ee0ch)		;89c7
 	and 003h		;89ca
 	ld hl,08ac1h		;89cc
-	call 04e28h		;89cf
+	call 04e28h		;89cf   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	ld hl,(0ee71h)		;89d2
 	ld a,l			;89d5
 	and 01fh		;89d6
 	cp 01ch		;89d8
 	ret nc			;89da
 	ld a,03eh		;89db
-	call 040c4h		;89dd
+	call 040c4h		;89dd   ; hl_mas_a: HL = HL + A
 	ld bc,00204h		;89e0
 	jp L_874E		;89e3
 L_89E6:
@@ -1406,13 +1406,13 @@ L_8A0A:
 	inc (hl)			;8a10
 	ld a,(hl)			;8a11
 	ld de,0ca40h		;8a12
-	call 040c9h		;8a15
+	call 040c9h		;8a15   ; de_mas_a: DE = DE + A
 	ld hl,039a0h		;8a18
 	ld b,018h		;8a1b
 	jp L_8B0C		;8a1d
 L_8A20:
 	push af			;8a20
-	call 04ca4h		;8a21
+	call 04ca4h		;8a21   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_8039		;8a24
 	ld a,(0002bh)		;8a27
 	and 00fh		;8a2a
@@ -1422,28 +1422,28 @@ L_8A20:
 L_8A34:
 	pop af			;8a34
 	push af			;8a35
-	call 04e28h		;8a36
-	call 04cf5h		;8a39
+	call 04e28h		;8a36   ; palabra_de_hl: DE = la palabra HL + 2 x A
+	call 04cf5h		;8a39   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	ld de,08a8fh		;8a3c
-	call 04cf5h		;8a3f
+	call 04cf5h		;8a3f   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	pop af			;8a42
 	push af			;8a43
 	ld hl,08a6ah		;8a44
-	call 04e28h		;8a47
+	call 04e28h		;8a47   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	ld c,0ffh		;8a4a
 	ld hl,03933h		;8a4c
-	call 04cfdh		;8a4f
+	call 04cfdh		;8a4f   ; lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 	pop af			;8a52
 	sub 003h		;8a53
 	cp 003h		;8a55
 	ret nc			;8a57
 	ld hl,08aa4h		;8a58
-	call 04e28h		;8a5b
+	call 04e28h		;8a5b   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	ld c,0ffh		;8a5e
 	ld hl,039d0h		;8a60
-	call 04cfdh		;8a63
+	call 04cfdh		;8a63   ; lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 	ld de,08a9bh		;8a66
-	jp 04cf5h		;8a69
+	jp 04cf5h		;8a69   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 
 ; ----------------------------------------------------------------------
 ; DATOS rotulos2_8A6A: 7 punteros (fase 1 a 7; tabla en 0x8A6A + 2 x A): la
@@ -1548,11 +1548,11 @@ L_8B04:
 L_8B0C:
 	push bc			;8b0c
 	ld bc,00020h		;8b0d
-	call 04cbdh		;8b10
+	call 04cbdh		;8b10   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld bc,00020h		;8b13
 	add hl,bc			;8b16
 	ld a,020h		;8b17
-	call 040c9h		;8b19
+	call 040c9h		;8b19   ; de_mas_a: DE = DE + A
 	pop bc			;8b1c
 	djnz L_8B0C		;8b1d
 	ret			;8b1f
@@ -1576,7 +1576,7 @@ DATA_resto_8B20:
 
 
 L_8B7B:
-	ld a,(0e301h)		;8b7b
+	ld a,(0e301h)		;8b7b   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 007h		;8b7e
 	ld b,006h		;8b80
 	jr z,L_8BCE		;8b82
@@ -1598,7 +1598,7 @@ L_8B94:
 	jr nc,L_8BE1		;8b9a
 	dec a			;8b9c
 	jr z,L_8BAF		;8b9d
-	ld a,(0f0f5h)		;8b9f
+	ld a,(0f0f5h)		;8b9f   ; lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
 	rra			;8ba2
 	ld b,006h		;8ba3
 	jr nc,L_8BCE		;8ba5
@@ -1625,17 +1625,17 @@ L_8BBC:
 	inc (hl)			;8bc3
 	ld a,b			;8bc4
 	sub 003h		;8bc5
-	call 040c4h		;8bc7
+	call 040c4h		;8bc7   ; hl_mas_a: HL = HL + A
 	ld a,(hl)			;8bca
 	ld (0e35fh),a		;8bcb
 L_8BCE:
 	ld a,b			;8bce
 	dec a			;8bcf
 	ld hl,0e360h		;8bd0
-	call 040c4h		;8bd3
+	call 040c4h		;8bd3   ; hl_mas_a: HL = HL + A
 	ld (hl),001h		;8bd6
 	ld a,b			;8bd8
-	ld (0e21bh),a		;8bd9
+	ld (0e21bh),a		;8bd9   ; guarda la fase en curso
 	xor a			;8bdc
 	ld (0e232h),a		;8bdd
 	ret			;8be0
@@ -1658,21 +1658,21 @@ L_8BEB:
 	dec a			;8bf9
 	jr nz,L_8C08		;8bfa
 	call L_8265		;8bfc
-	ld a,(0e21bh)		;8bff
+	ld a,(0e21bh)		;8bff   ; lee la fase en curso
 	call L_8A20		;8c02
 	jp L_825A		;8c05
 L_8C08:
 	ld de,000b4h		;8c08
-	call 04da1h		;8c0b
+	call 04da1h		;8c0b   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ret c			;8c0e
-	call 04ca4h		;8c0f
+	call 04ca4h		;8c0f   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	xor a			;8c12
 	ld (0e217h),a		;8c13
 	ret			;8c16
 L_8C17:
 	ld a,(de)			;8c17
 	dec a			;8c18
-	call 040ceh		;8c19
+	call 040ceh		;8c19   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_8C1C: 7 destinos del despachador p00:40CE (call en p10:8C19, el
@@ -1693,21 +1693,21 @@ L_8C2A:
 	call L_827F		;8c30
 	call L_8F37		;8c33
 	ld a,02fh		;8c36
-	call 04d6eh		;8c38
-	call 041bfh		;8c3b
+	call 04d6eh		;8c38   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+	call 041bfh		;8c3b   ; banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 	call 0a000h		;8c3e
-	call 041c3h		;8c41
+	call 041c3h		;8c41   ; banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 	jp L_825A		;8c44
 L_8C47:
 	call L_9DC4		;8c47
 	ld de,000b4h		;8c4a
-	call 04da1h		;8c4d
+	call 04da1h		;8c4d   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_8CF6		;8c50
 	xor a			;8c53
 	ld (0eec0h),a		;8c54
 	ld (0eec1h),a		;8c57
 	ld a,04ah		;8c5a
-	call 04d6eh		;8c5c
+	call 04d6eh		;8c5c   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_825A		;8c5f
 L_8C62:
 	call L_9DC4		;8c62
@@ -1716,9 +1716,9 @@ L_8C62:
 	and a			;8c6b
 	ret z			;8c6c
 	ld b,011h		;8c6d
-	call L_8044		;8c6f
+	call ventana_menu		;8c6f   ; ventana_menu: pinta la ventana del menu B
 	ld b,021h		;8c72
-	call L_8044		;8c74
+	call ventana_menu		;8c74   ; ventana_menu: pinta la ventana del menu B
 	ld c,00ch		;8c77
 	ld de,03a04h		;8c79
 	call L_944A		;8c7c
@@ -1726,7 +1726,7 @@ L_8C62:
 L_8C82:
 	call L_9DC4		;8c82
 	ld de,001a4h		;8c85
-	call 04da1h		;8c88
+	call 04da1h		;8c88   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9497		;8c8b
 	call L_8EE1		;8c8e
 	call L_8CE2		;8c91
@@ -1742,15 +1742,15 @@ L_8C97:
 	ld a,00fh		;8ca6
 	ld (0eec1h),a		;8ca8
 	ld a,04ah		;8cab
-	call 04d6eh		;8cad
+	call 04d6eh		;8cad   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	ld a,0f1h		;8cb0
-	call 04d6eh		;8cb2
+	call 04d6eh		;8cb2   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_825A		;8cb5
 L_8CB8:
 	call L_9DC4		;8cb8
 	call L_8D15		;8cbb
 	call L_8E16		;8cbe
-	ld a,(0e301h)		;8cc1
+	ld a,(0e301h)		;8cc1   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;8cc4
 	jr c,L_8CD0		;8cc6
 	ld a,(0e326h)		;8cc8
@@ -1762,8 +1762,8 @@ L_8CD0:
 	cp 004h		;8cd3
 	ret nc			;8cd5
 L_8CD6:
-	call 04eafh		;8cd6
-	ld a,(0e21bh)		;8cd9
+	call 04eafh		;8cd6   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
+	ld a,(0e21bh)		;8cd9   ; lee la fase en curso
 	call L_8A20		;8cdc
 	jp L_825A		;8cdf
 L_8CE2:
@@ -1782,7 +1782,7 @@ L_8CF6:
 	call L_8F0F		;8cfb
 	call L_8D72		;8cfe
 L_8D01:
-	ld a,(0e227h)		;8d01
+	ld a,(0e227h)		;8d01   ; lee cuantos jugadores (o el modo de dos)
 	cp 002h		;8d04
 	jr c,L_8D3F		;8d06
 	call L_8D62		;8d08
@@ -1800,7 +1800,7 @@ L_8D15:
 	ld (hl),a			;8d1d
 	inc hl			;8d1e
 	ld (hl),a			;8d1f
-	ld a,(0e301h)		;8d20
+	ld a,(0e301h)		;8d20   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;8d23
 	ld hl,0f013h		;8d25
 	ld a,0f8h		;8d28
@@ -1810,7 +1810,7 @@ L_8D15:
 L_8D31:
 	ld (hl),a			;8d31
 	call L_8D72		;8d32
-	ld a,(0e227h)		;8d35
+	ld a,(0e227h)		;8d35   ; lee cuantos jugadores (o el modo de dos)
 	cp 002h		;8d38
 	jr c,L_8D3F		;8d3a
 	call L_8D89		;8d3c
@@ -1819,9 +1819,9 @@ L_8D3F:
 	ld (0e30fh),a		;8d40
 	ld (0e30eh),a		;8d43
 	call 04030h		;8d46
-	call 041bfh		;8d49
+	call 041bfh		;8d49   ; banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 	call 0a000h		;8d4c
-	jp 041c3h		;8d4f
+	jp 041c3h		;8d4f   ; banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 L_8D52:
 	ld a,(0e324h)		;8d52
 	sub 02eh		;8d55
@@ -1863,7 +1863,7 @@ L_8D89:
 L_8DA0:
 	ld a,(de)			;8da0
 	dec a			;8da1
-	call 040ceh		;8da2
+	call 040ceh		;8da2   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_8DA5: 4 destinos del despachador p00:40CE (call en p10:8DA2, el
@@ -1881,34 +1881,34 @@ L_8DAD:
 	call L_8265		;8dad
 	call L_827F		;8db0
 	ld a,02fh		;8db3
-	call 04d6eh		;8db5
-	call 041bfh		;8db8
+	call 04d6eh		;8db5   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+	call 041bfh		;8db8   ; banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 	call 0a000h		;8dbb
-	call 041c3h		;8dbe
+	call 041c3h		;8dbe   ; banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 	jp L_825A		;8dc1
 L_8DC4:
 	ld de,000b4h		;8dc4
-	call 04da1h		;8dc7
+	call 04da1h		;8dc7   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	jp c,L_9C50		;8dca
 	ld a,0f1h		;8dcd
-	call 04d6eh		;8dcf
+	call 04d6eh		;8dcf   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_825A		;8dd2
 L_8DD5:
 	call L_8DF0		;8dd5
 	call L_9C50		;8dd8
 	ld de,00078h		;8ddb
-	call 04da1h		;8dde
+	call 04da1h		;8dde   ; cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 	ret c			;8de1
-	call 04eafh		;8de2
+	call 04eafh		;8de2   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 	ld a,007h		;8de5
-	ld (0e21bh),a		;8de7
+	ld (0e21bh),a		;8de7   ; guarda la fase en curso
 	call L_8A20		;8dea
 	jp L_825A		;8ded
 L_8DF0:
 	ld hl,07858h		;8df0
 	call L_8F12		;8df3
 	call L_8D72		;8df6
-	ld a,(0e227h)		;8df9
+	ld a,(0e227h)		;8df9   ; lee cuantos jugadores (o el modo de dos)
 	cp 002h		;8dfc
 	jp c,L_8D3F		;8dfe
 	ld hl,07858h		;8e01
@@ -1946,7 +1946,7 @@ L_8E31:
 	call L_8EF6		;8e32
 	pop af			;8e35
 	ld hl,08f00h		;8e36
-	call 040c4h		;8e39
+	call 040c4h		;8e39   ; hl_mas_a: HL = HL + A
 	ld a,(hl)			;8e3c
 	and 00fh		;8e3d
 	ld b,a			;8e3f
@@ -1975,7 +1975,7 @@ L_8E31:
 	add hl,hl			;8e5b
 	add hl,hl			;8e5c
 	ld a,b			;8e5d
-	call 040c4h		;8e5e
+	call 040c4h		;8e5e   ; hl_mas_a: HL = HL + A
 	push de			;8e61
 	ld de,03800h		;8e62
 	add hl,de			;8e65
@@ -2000,14 +2000,14 @@ L_8E7E:
 	pop hl			;8e7f
 	push hl			;8e80
 	ld a,c			;8e81
-	call 040c4h		;8e82
+	call 040c4h		;8e82   ; hl_mas_a: HL = HL + A
 	dec hl			;8e85
 	ld a,00bh		;8e86
 	call 0004dh		;8e88   ; BIOS WRTVRM - Writes data in VRAM
 	pop hl			;8e8b
 	push hl			;8e8c
 	ld a,020h		;8e8d
-	call 040c4h		;8e8f
+	call 040c4h		;8e8f   ; hl_mas_a: HL = HL + A
 	push bc			;8e92
 	ld b,e			;8e93
 	dec b			;8e94
@@ -2018,13 +2018,13 @@ L_8E98:
 	ld a,00dh		;8e99
 	call 0004dh		;8e9b   ; BIOS WRTVRM - Writes data in VRAM
 	ld a,c			;8e9e
-	call 040c4h		;8e9f
+	call 040c4h		;8e9f   ; hl_mas_a: HL = HL + A
 	dec hl			;8ea2
 	ld a,00dh		;8ea3
 	call 0004dh		;8ea5   ; BIOS WRTVRM - Writes data in VRAM
 	pop hl			;8ea8
 	ld a,020h		;8ea9
-	call 040c4h		;8eab
+	call 040c4h		;8eab   ; hl_mas_a: HL = HL + A
 	djnz L_8E98		;8eae
 L_8EB0:
 	pop bc			;8eb0
@@ -2059,7 +2059,7 @@ L_8ED5:
 	pop bc			;8ed5
 	pop hl			;8ed6
 	ld a,c			;8ed7
-	call 040c4h		;8ed8
+	call 040c4h		;8ed8   ; hl_mas_a: HL = HL + A
 	dec hl			;8edb
 	ld a,00bh		;8edc
 	jp 0004dh		;8ede   ; BIOS WRTVRM - Writes data in VRAM
@@ -2123,11 +2123,11 @@ L_8F37:
 	ld hl,02058h		;8f37
 	ld de,08f4fh		;8f3a
 	ld bc,00018h		;8f3d
-	call 04cc1h		;8f40
+	call 04cc1h		;8f40   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 	ld hl,00058h		;8f43
 	ld de,08f67h		;8f46
 	ld bc,00018h		;8f49
-	jp 04cc1h		;8f4c
+	jp 04cc1h		;8f4c   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 
 ; ----------------------------------------------------------------------
 ; DATOS resto_8F4F: lo apuntan con el banco puesto p10:8F3A (0x8F4F), p10:8F46
@@ -2145,7 +2145,7 @@ DATA_resto_8F4F:
 
 
 L_8F7F:
-	ld a,(0f0f5h)		;8f7f
+	ld a,(0f0f5h)		;8f7f   ; lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
 	rra			;8f82
 	jr nc,$+47		;8f83
 	ld a,(0e30ah)		;8f85
@@ -2154,7 +2154,7 @@ L_8F7F:
 	ld b,000h		;8f8b
 	ld a,(0e226h)		;8f8d
 	dec a			;8f90
-	call 040ceh		;8f91
+	call 040ceh		;8f91   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_8F94: 15 destinos del despachador p00:40CE (call en p10:8F91, el
@@ -2174,7 +2174,7 @@ L_8FB2:
 	ld b,001h		;8fb2
 	ld a,(0e226h)		;8fb4
 	dec a			;8fb7
-	call 040ceh		;8fb8
+	call 040ceh		;8fb8   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_8FBB: 19 destinos del despachador p00:40CE (call en p10:8FB8, el
@@ -2200,13 +2200,13 @@ L_8FE1:
 	jr z,L_8FEC		;8fe8
 	ld a,030h		;8fea
 L_8FEC:
-	call 04d6eh		;8fec
+	call 04d6eh		;8fec   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	call L_8265		;8fef
 	ld b,036h		;8ff2
-	call L_80DC		;8ff4
+	call graficos_menu		;8ff4   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld b,021h		;8ff7
-	call L_8044		;8ff9
-	call 04ca4h		;8ffc
+	call ventana_menu		;8ff9   ; ventana_menu: pinta la ventana del menu B
+	call 04ca4h		;8ffc   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 L_8FFF:
 	ld hl,0e226h		;8fff
 	inc (hl)			;9002
@@ -2231,7 +2231,7 @@ L_901F:
 L_9028:
 	push bc			;9028
 	ld b,000h		;9029
-	call 04cbdh		;902b
+	call 04cbdh		;902b   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld bc,00020h		;902e
 	add hl,bc			;9031
 	pop bc			;9032
@@ -2243,15 +2243,15 @@ L_9036:
 	ld hl,0003ch		;903c
 	call L_9004		;903f
 	ld a,054h		;9042
-	jp 04d6eh		;9044
+	jp 04d6eh		;9044   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_9047:
 	call L_930C		;9047
 	ret nz			;904a
 	jp L_8FFF		;904b
 L_904E:
-	call 04ca4h		;904e
+	call 04ca4h		;904e   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld b,033h		;9051
-	call L_80DC		;9053
+	call graficos_menu		;9053   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld c,000h		;9056
 	ld de,0388ch		;9058
 	call L_8CF0		;905b
@@ -2265,7 +2265,7 @@ L_9064:
 	ld hl,000f0h		;906c
 	call L_9004		;906f
 	ld a,053h		;9072
-	jp 04d6eh		;9074
+	jp 04d6eh		;9074   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_9077:
 	call L_930C		;9077
 	jp nz,L_8029		;907a
@@ -2276,14 +2276,14 @@ L_9077:
 L_9088:
 	call L_930C		;9088
 	jp nz,L_9497		;908b
-	call 04ca4h		;908e
+	call 04ca4h		;908e   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_92A0		;9091
 	call L_9334		;9094
 	ld c,014h		;9097
 	call L_9017		;9099
 	call L_8FFF		;909c
 	ld a,04dh		;909f
-	jp 04d6eh		;90a1
+	jp 04d6eh		;90a1   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_90A4:
 	call L_9316		;90a4
 	call L_92E4		;90a7
@@ -2305,16 +2305,16 @@ L_90C5:
 	ld a,(0ee77h)		;90cb
 	and a			;90ce
 	ret z			;90cf
-	call 04eafh		;90d0
+	call 04eafh		;90d0   ; borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 	ld hl,000f0h		;90d3
 	jp L_9004		;90d6
 L_90D9:
 	call L_930C		;90d9
 	ret nz			;90dc
-	call 04ca4h		;90dd
+	call 04ca4h		;90dd   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_8039		;90e0
 	ld b,032h		;90e3
-	call L_80DC		;90e5
+	call graficos_menu		;90e5   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld a,001h		;90e8
 	ld c,a			;90ea
 	ld b,071h		;90eb
@@ -2330,7 +2330,7 @@ L_9105:
 	call L_930C		;9105
 	jp nz,L_9E56		;9108
 	ld b,021h		;910b
-	call L_8044		;910d
+	call ventana_menu		;910d   ; ventana_menu: pinta la ventana del menu B
 	ld c,015h		;9110
 	ld de,03a24h		;9112
 	ld b,008h		;9115
@@ -2342,12 +2342,12 @@ L_9120:
 	call L_930C		;9123
 	jp nz,L_9497		;9126
 L_9129:
-	call 04ca4h		;9129
+	call 04ca4h		;9129   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_9251		;912c
 	ld de,09397h		;912f
-	call 04cf5h		;9132
+	call 04cf5h		;9132   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	ld a,0f1h		;9135
-	call 04d6eh		;9137
+	call 04d6eh		;9137   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	ld hl,000f0h		;913a
 	jp L_9004		;913d
 L_9140:
@@ -2357,14 +2357,14 @@ L_9140:
 	ld (0e226h),a		;9145
 	ret			;9148
 L_9149:
-	call 04ca4h		;9149
+	call 04ca4h		;9149   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_901F		;914c
 	ld hl,0382fh		;914f
 	call L_9004		;9152
 	ld a,04bh		;9155
-	jp 04d6eh		;9157
+	jp 04d6eh		;9157   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_915A:
-	ld a,(0e203h)		;915a
+	ld a,(0e203h)		;915a   ; lee la cuenta de cuadros del juego
 	and 001h		;915d
 	ret nz			;915f
 	ld de,09441h		;9160
@@ -2385,7 +2385,7 @@ L_917D:
 L_9183:
 	call L_930C		;9183
 	ret nz			;9186
-	call 04ca4h		;9187
+	call 04ca4h		;9187   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_901F		;918a
 	ld de,09411h		;918d
 	ld hl,038ech		;9190
@@ -2394,7 +2394,7 @@ L_9183:
 	ld hl,0003ch		;9199
 	call L_9004		;919c
 	ld a,04ch		;919f
-	jp 04d6eh		;91a1
+	jp 04d6eh		;91a1   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_91A4:
 	call L_930C		;91a4
 	ret nz			;91a7
@@ -2405,7 +2405,7 @@ L_91A4:
 L_91B3:
 	call L_930C		;91b3
 	jp nz,L_9497		;91b6
-	call 04ca4h		;91b9
+	call 04ca4h		;91b9   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld c,00fh		;91bc
 	call L_9017		;91be
 	ld hl,002d0h		;91c1
@@ -2413,11 +2413,11 @@ L_91B3:
 L_91C7:
 	call L_930C		;91c7
 	jp nz,L_9497		;91ca
-	call 04ca4h		;91cd
+	call 04ca4h		;91cd   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld b,035h		;91d0
-	call L_80DC		;91d2
+	call graficos_menu		;91d2   ; graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 	ld b,021h		;91d5
-	call L_8044		;91d7
+	call ventana_menu		;91d7   ; ventana_menu: pinta la ventana del menu B
 	ld a,001h		;91da
 	ld c,002h		;91dc
 	ld b,030h		;91de
@@ -2439,7 +2439,7 @@ L_91F9:
 	ld hl,000f0h		;9204
 	jp L_9004		;9207
 L_920A:
-	ld a,(0e203h)		;920a
+	ld a,(0e203h)		;920a   ; lee la cuenta de cuadros del juego
 	and 007h		;920d
 	ret nz			;920f
 	jp L_9E56		;9210
@@ -2449,7 +2449,7 @@ L_9213:
 	ld a,(0e35eh)		;9217
 	or a			;921a
 	jr z,L_922B		;921b
-	call 04ca4h		;921d
+	call 04ca4h		;921d   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	ld c,011h		;9220
 	call L_9017		;9222
 	ld hl,002d0h		;9225
@@ -2462,7 +2462,7 @@ L_922B:
 L_9237:
 	call L_930C		;9237
 	jp nz,L_9497		;923a
-	call 04ca4h		;923d
+	call 04ca4h		;923d   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_9251		;9240
 	ld de,038c4h		;9243
 	ld c,005h		;9246
@@ -2471,11 +2471,11 @@ L_9237:
 	jp L_9004		;924e
 L_9251:
 	ld b,001h		;9251
-	call L_8044		;9253
+	call ventana_menu		;9253   ; ventana_menu: pinta la ventana del menu B
 	ld b,011h		;9256
-	call L_8044		;9258
+	call ventana_menu		;9258   ; ventana_menu: pinta la ventana del menu B
 	ld b,021h		;925b
-	jp L_8044		;925d
+	jp ventana_menu		;925d   ; ventana_menu: pinta la ventana del menu B
 L_9260:
 	call L_930C		;9260
 	ret nz			;9263
@@ -2491,7 +2491,7 @@ L_9275:
 	jp L_9004		;9278
 L_927B:
 	call L_930C		;927b
-	jp nz,04ca4h		;927e
+	jp nz,04ca4h		;927e   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	call L_9251		;9281
 	xor a			;9284
 	ld (0ee32h),a		;9285
@@ -2512,8 +2512,8 @@ L_92A0:
 	ld (0ee00h),a		;92a1
 	ld (0ee01h),a		;92a4
 	ld (0ee77h),a		;92a7
-	call L_87F5		;92aa
-	ld a,(0e227h)		;92ad
+	call borra_c700		;92aa   ; borra_c700: borra 0xC700-0xCFFF
+	ld a,(0e227h)		;92ad   ; lee cuantos jugadores (o el modo de dos)
 	and a			;92b0
 	jr z,L_92D6		;92b1
 	dec a			;92b3
@@ -2532,7 +2532,7 @@ L_92C4:
 	ldir		;92c8
 	pop bc			;92ca
 	ld a,04fh		;92cb
-	call 040c9h		;92cd
+	call 040c9h		;92cd   ; de_mas_a: DE = DE + A
 	djnz L_92C4		;92d0
 	ret			;92d2
 L_92D3:
@@ -2562,7 +2562,7 @@ L_92E8:
 	ld a,040h		;92f5
 	sub (hl)			;92f7
 	ld de,0c700h		;92f8
-	call 040c9h		;92fb
+	call 040c9h		;92fb   ; de_mas_a: DE = DE + A
 	ld hl,03800h		;92fe
 	ld b,010h		;9301
 	jp L_9647		;9303
@@ -2579,10 +2579,10 @@ L_930C:
 	ret			;9315
 L_9316:
 	ld hl,0ef81h		;9316
-	ld a,(0e203h)		;9319
+	ld a,(0e203h)		;9319   ; lee la cuenta de cuadros del juego
 	and 003h		;931c
 	ld de,09353h		;931e
-	call 040c9h		;9321
+	call 040c9h		;9321   ; de_mas_a: DE = DE + A
 	ld a,(de)			;9324
 	ld c,a			;9325
 	ld b,020h		;9326
@@ -2599,8 +2599,8 @@ L_9328:
 	ret			;9333
 L_9334:
 	ld de,09443h		;9334
-	call 04d10h		;9337
-	ld de,0ef80h		;933a
+	call 04d10h		;9337   ; rachas_con_destino: [destino] y rachas de DE a la VRAM
+	ld de,0ef80h		;933a   ; apunta a los atributos de sprite en la RAM (32 x 4)
 	ld hl,09357h		;933d
 	ld b,020h		;9340
 L_9342:
@@ -2689,7 +2689,8 @@ L_9469:
 L_946C:
 	ld (0ee2eh),a		;946c
 	ld a,c			;946f
-	call 04e31h		;9470
+empieza_texto:		; prepara el texto A de la tabla HL para escribirlo letra a letra
+	call 04e31h		;9470   ; palabra_a_hl: HL = la palabra HL + 2 x A
 	ld a,b			;9473
 	ld (0ee2bh),a		;9474
 	ld (0ee2ch),a		;9477
@@ -2701,7 +2702,7 @@ L_946C:
 	ld a,(hl)			;9489
 	ld b,a			;948a
 	inc hl			;948b
-	call 040c9h		;948c
+	call 040c9h		;948c   ; de_mas_a: DE = DE + A
 	ld (0ee22h),de		;948f
 	ld (0ee28h),hl		;9493
 	ret			;9496
@@ -2748,7 +2749,7 @@ L_94CD:
 	ld a,(0ee2eh)		;94da
 	and a			;94dd
 	ld a,033h		;94de
-	call z,04d6eh		;94e0
+	call z,04d6eh		;94e0   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jr L_950D		;94e3
 L_94E5:
 	ld a,001h		;94e5
@@ -2769,7 +2770,7 @@ L_94FF:
 	add hl,de			;9502
 	ld (0ee24h),hl		;9503
 	ld a,b			;9506
-	call 040c4h		;9507
+	call 040c4h		;9507   ; hl_mas_a: HL = HL + A
 	ld (0ee22h),hl		;950a
 L_950D:
 	call L_9539		;950d
@@ -2786,7 +2787,7 @@ L_9518:
 	ld de,(0ee26h)		;9521
 	ld (0ee24h),de		;9525
 	ld (0ee26h),de		;9529
-	call 040c9h		;952d
+	call 040c9h		;952d   ; de_mas_a: DE = DE + A
 	ld (0ee22h),de		;9530
 	ld a,078h		;9534
 	ld (0ee2dh),a		;9536
@@ -2810,7 +2811,7 @@ L_954D:
 	ld (hl),001h		;9554
 	ld hl,(0ee28h)		;9556
 	ld (0ee1eh),hl		;9559
-	ld a,(0e227h)		;955c
+	ld a,(0e227h)		;955c   ; lee cuantos jugadores (o el modo de dos)
 	ld hl,095abh		;955f
 	and a			;9562
 	jr z,L_9578		;9563
@@ -2826,7 +2827,7 @@ L_9578:
 	ld a,(hl)			;9578
 	inc hl			;9579
 	ld de,(0ee22h)		;957a
-	call 040c9h		;957e
+	call 040c9h		;957e   ; de_mas_a: DE = DE + A
 	ld (0ee22h),de		;9581
 	ld a,(hl)			;9585
 	inc hl			;9586
@@ -2857,9 +2858,9 @@ DATA_resto_959A:
 
 
 L_95BD:
-	call 04e28h		;95bd
+	call 04e28h		;95bd   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	ex de,hl			;95c0
-L_95C1:
+abre_ventana:		; copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 	ld de,0ee10h		;95c1
 	ld bc,00007h		;95c4
 	ldir		;95c7
@@ -2877,10 +2878,10 @@ L_95CE:
 	and a			;95d9
 	jr nz,L_95F5		;95da
 	ld a,020h		;95dc
-	call 040c9h		;95de
+	call 040c9h		;95de   ; de_mas_a: DE = DE + A
 	call L_9670		;95e1
 	ld a,(0ee17h)		;95e4
-	call 040c4h		;95e7
+	call 040c4h		;95e7   ; hl_mas_a: HL = HL + A
 	ld a,(0ee13h)		;95ea
 	ld c,a			;95ed
 	ld b,000h		;95ee
@@ -2889,7 +2890,7 @@ L_95CE:
 	jr L_9606		;95f3
 L_95F5:
 	ld a,040h		;95f5
-	call 040c9h		;95f7
+	call 040c9h		;95f7   ; de_mas_a: DE = DE + A
 	call L_9670		;95fa
 	ld a,(0ee17h)		;95fd
 	ld c,a			;9600
@@ -2912,7 +2913,7 @@ L_9613:
 	djnz L_9613		;9617
 	pop hl			;9619
 	ld a,060h		;961a
-	call 040c4h		;961c
+	call 040c4h		;961c   ; hl_mas_a: HL = HL + A
 	dec c			;961f
 	jr nz,L_960E		;9620
 	ld a,(0ee11h)		;9622
@@ -2939,13 +2940,13 @@ L_9647:
 	push hl			;9648
 	push de			;9649
 	ld bc,00020h		;964a
-	call 04cbdh		;964d
+	call 04cbdh		;964d   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	pop de			;9650
 	pop hl			;9651
 	ld a,020h		;9652
-	call 040c4h		;9654
+	call 040c4h		;9654   ; hl_mas_a: HL = HL + A
 	ld a,060h		;9657
-	call 040c9h		;9659
+	call 040c9h		;9659   ; de_mas_a: DE = DE + A
 	pop bc			;965c
 	djnz L_9647		;965d
 	ld hl,0ee17h		;965f
@@ -3025,7 +3026,7 @@ L_96CF:
 	ld (0ee32h),a		;96d1
 	ret			;96d4
 L_96D5:
-	call 04ca4h		;96d5
+	call 04ca4h		;96d5   ; borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 	xor a			;96d8
 	call L_971C		;96d9
 	call L_9742		;96dc
@@ -3042,8 +3043,8 @@ L_96D5:
 	ld hl,09759h		;96f6
 L_96F9:
 	ld a,(0ee33h)		;96f9
-	call 04e28h		;96fc
-	jp 04cf5h		;96ff
+	call 04e28h		;96fc   ; palabra_de_hl: DE = la palabra HL + 2 x A
+	jp 04cf5h		;96ff   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 L_9702:
 	ld de,09736h		;9702
 L_9705:
@@ -3060,7 +3061,7 @@ L_9705:
 	cp 006h		;9713
 	jr nc,L_9730		;9715
 	ld b,a			;9717
-	call 040c9h		;9718
+	call 040c9h		;9718   ; de_mas_a: DE = DE + A
 	ld a,(de)			;971b
 L_971C:
 	ld hl,00800h		;971c
@@ -3156,7 +3157,7 @@ L_988A:
 L_98A0:
 	djnz L_98B9		;98a0
 	ld de,09c46h		;98a2
-	call 04cf5h		;98a5
+	call 04cf5h		;98a5   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	ld a,001h		;98a8
 	ld c,a			;98aa
 	ld b,00ah		;98ab
@@ -3166,7 +3167,7 @@ L_98A0:
 	jp L_9885		;98b6
 L_98B9:
 	djnz L_98CC		;98b9
-	ld a,(0e203h)		;98bb
+	ld a,(0e203h)		;98bb   ; lee la cuenta de cuadros del juego
 	and 007h		;98be
 	ret nz			;98c0
 	call L_9E56		;98c1
@@ -3184,11 +3185,11 @@ L_98CC:
 	jr z,L_98E0		;98db
 	ld de,09c1ah		;98dd
 L_98E0:
-	call 04cf5h		;98e0
+	call 04cf5h		;98e0   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	push hl			;98e3
 	ld a,(0eea9h)		;98e4
 	ld hl,0eea2h		;98e7
-	call 040c4h		;98ea
+	call 040c4h		;98ea   ; hl_mas_a: HL = HL + A
 	ld c,(hl)			;98ed
 	ld a,(0002bh)		;98ee
 	and 00fh		;98f1
@@ -3197,30 +3198,30 @@ L_98E0:
 	ld de,09abfh		;98f8
 L_98FB:
 	ld a,c			;98fb
-	call 04e21h		;98fc
+	call 04e21h		;98fc   ; palabra_de_de: DE = la palabra DE + 2 x A
 	pop hl			;98ff
 	ld c,0ffh		;9900
-	call 04cfdh		;9902
+	call 04cfdh		;9902   ; lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 	ld a,(0002bh)		;9905
 	and 00fh		;9908
 	ld de,09c24h		;990a
 	jr z,L_9912		;990d
 	ld de,09c2eh		;990f
 L_9912:
-	call 04cf5h		;9912
+	call 04cf5h		;9912   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	ld a,001h		;9915
 	ld c,a			;9917
 	ld b,015h		;9918
 	ld hl,01200h		;991a
 	call L_9E13		;991d
 	ld de,09c36h		;9920
-	call 04cf5h		;9923
+	call 04cf5h		;9923   ; lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 	call L_9B4D		;9926
 	call L_9BDB		;9929
 	jp L_9885		;992c
 L_992F:
 	djnz L_9942		;992f
-	ld a,(0e203h)		;9931
+	ld a,(0e203h)		;9931   ; lee la cuenta de cuadros del juego
 	and 007h		;9934
 	ret nz			;9936
 	call L_9E56		;9937
@@ -3243,32 +3244,32 @@ L_9957:
 	ld (hl),003h		;995a
 	ret			;995c
 L_995D:
-	call 041c7h		;995d
+	call 041c7h		;995d   ; banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
 	ld hl,03200h		;9960
 	ld de,0aa6eh		;9963
-	call 04d16h		;9966
+	call 04d16h		;9966   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,03228h		;9969
 	ld de,0aa6eh		;996c
-	call 04d16h		;996f
+	call 04d16h		;996f   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,03250h		;9972
 	ld de,0aa6eh		;9975
-	call 04d16h		;9978
+	call 04d16h		;9978   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,03278h		;997b
 	ld de,0aa8dh		;997e
-	call 04d16h		;9981
+	call 04d16h		;9981   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,01200h		;9984
 	ld de,0aac3h		;9987
-	call 04d16h		;998a
+	call 04d16h		;998a   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,01228h		;998d
 	ld de,0aad6h		;9990
-	call 04d16h		;9993
+	call 04d16h		;9993   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,01250h		;9996
 	ld de,0aae9h		;9999
-	call 04d16h		;999c
+	call 04d16h		;999c   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,01278h		;999f
 	ld de,0aafch		;99a2
-	call 04d16h		;99a5
-	call 041c3h		;99a8
+	call 04d16h		;99a5   ; rachas: descomprime las rachas de DE en la VRAM HL
+	call 041c3h		;99a8   ; banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 	ld bc,00303h		;99ab
 	ld de,0e362h		;99ae
 L_99B1:
@@ -3280,7 +3281,7 @@ L_99B1:
 	djnz L_99B1		;99b7
 L_99B9:
 	ld a,c			;99b9
-	ld (0e21bh),a		;99ba
+	ld (0e21bh),a		;99ba   ; guarda la fase en curso
 	ld bc,00300h		;99bd
 	ld de,0eea2h		;99c0
 	ld hl,0e362h		;99c3
@@ -3318,7 +3319,7 @@ L_99CE:
 	ld hl,09a14h		;99f6
 	add a,a			;99f9
 	add a,a			;99fa
-	call 040c4h		;99fb
+	call 040c4h		;99fb   ; hl_mas_a: HL = HL + A
 	ld de,0e233h		;99fe
 	ld bc,00003h		;9a01
 	ldir		;9a04
@@ -3349,23 +3350,23 @@ DATA_resto_9A14:
 L_9A34:
 	ld a,(0eea9h)		;9a34
 	ld de,0eea2h		;9a37
-	call 040c9h		;9a3a
+	call 040c9h		;9a3a   ; de_mas_a: DE = DE + A
 	ld a,(de)			;9a3d
 	add a,003h		;9a3e
-	ld (0e21bh),a		;9a40
+	ld (0e21bh),a		;9a40   ; guarda la fase en curso
 L_9A43:
-	ld a,(0e21bh)		;9a43
+	ld a,(0e21bh)		;9a43   ; lee la fase en curso
 	sub 003h		;9a46
 	ld de,0e233h		;9a48
-	call 040c9h		;9a4b
+	call 040c9h		;9a4b   ; de_mas_a: DE = DE + A
 	ld a,(de)			;9a4e
 	ld (0e35fh),a		;9a4f
 	ld a,001h		;9a52
 	ld (0eea0h),a		;9a54
-	ld a,(0e21bh)		;9a57
+	ld a,(0e21bh)		;9a57   ; lee la fase en curso
 	dec a			;9a5a
 	ld hl,0e360h		;9a5b
-	call 040c4h		;9a5e
+	call 040c4h		;9a5e   ; hl_mas_a: HL = HL + A
 	ld (hl),001h		;9a61
 	ret			;9a63
 L_9A64:
@@ -3394,15 +3395,15 @@ L_9A85:
 	ld de,09abfh		;9a90
 L_9A93:
 	pop af			;9a93
-	call 04e21h		;9a94
+	call 04e21h		;9a94   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ld hl,(0eeaah)		;9a97
 	push hl			;9a9a
 	ld a,040h		;9a9b
-	call 040c4h		;9a9d
+	call 040c4h		;9a9d   ; hl_mas_a: HL = HL + A
 	ld (0eeaah),hl		;9aa0
 	pop hl			;9aa3
 	ld c,0ffh		;9aa4
-	jp 04cfdh		;9aa6
+	jp 04cfdh		;9aa6   ; lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 
 ; ----------------------------------------------------------------------
 ; DATOS resto_9AA9: lo apuntan con el banco puesto p10:98F3 (0x9AA9), p10:9A8B
@@ -3429,7 +3430,7 @@ L_9ADC:
 	rra			;9ae6
 	jr nc,L_9AF9		;9ae7
 	ld a,045h		;9ae9
-	call 04d6eh		;9aeb
+	call 04d6eh		;9aeb   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	dec (hl)			;9aee
 	ld a,(hl)			;9aef
 	inc a			;9af0
@@ -3439,7 +3440,7 @@ L_9ADC:
 	jr L_9B08		;9af7
 L_9AF9:
 	ld a,045h		;9af9
-	call 04d6eh		;9afb
+	call 04d6eh		;9afb   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	inc (hl)			;9afe
 	ld a,(0eeaeh)		;9aff
 	inc a			;9b02
@@ -3458,7 +3459,7 @@ L_9B08:
 	call 0004dh		;9b1a   ; BIOS WRTVRM - Writes data in VRAM
 	ld a,(0eea9h)		;9b1d
 	ld de,09b2ch		;9b20
-	call 04e21h		;9b23
+	call 04e21h		;9b23   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ex de,hl			;9b26
 	ld a,055h		;9b27
 	jp 0004dh		;9b29   ; BIOS WRTVRM - Writes data in VRAM
@@ -3496,16 +3497,16 @@ L_9B42:
 L_9B4D:
 	ld a,(0eea9h)		;9b4d
 	ld de,0eea2h		;9b50
-	call 040c9h		;9b53
+	call 040c9h		;9b53   ; de_mas_a: DE = DE + A
 	ld a,(de)			;9b56
 	ld de,0e233h		;9b57
-	call 040c9h		;9b5a
+	call 040c9h		;9b5a   ; de_mas_a: DE = DE + A
 	ld a,(de)			;9b5d
 	ld c,a			;9b5e
 	add a,a			;9b5f
 	add a,c			;9b60
 	ld de,09bcch		;9b61
-	call 040c9h		;9b64
+	call 040c9h		;9b64   ; de_mas_a: DE = DE + A
 	push de			;9b67
 	pop ix		;9b68
 	ld hl,03a0ah		;9b6a
@@ -3543,7 +3544,7 @@ L_9BA3:
 	ld a,d			;9ba8
 	call 0004dh		;9ba9   ; BIOS WRTVRM - Writes data in VRAM
 	ld a,01fh		;9bac
-	call 040c4h		;9bae
+	call 040c4h		;9bae   ; hl_mas_a: HL = HL + A
 	push bc			;9bb1
 	push hl			;9bb2
 	ld a,l			;9bb3
@@ -3555,7 +3556,7 @@ L_9BA3:
 	jr nz,L_9BC7		;9bbd
 	pop hl			;9bbf
 	ld a,020h		;9bc0
-	call 040c4h		;9bc2
+	call 040c4h		;9bc2   ; hl_mas_a: HL = HL + A
 	jr L_9BC8		;9bc5
 L_9BC7:
 	pop hl			;9bc7
@@ -3580,10 +3581,10 @@ DATA_resto_9BCC:
 L_9BDB:
 	ld a,(0eea9h)		;9bdb
 	ld de,0eea2h		;9bde
-	call 040c9h		;9be1
+	call 040c9h		;9be1   ; de_mas_a: DE = DE + A
 	ld a,(de)			;9be4
 	ld de,09bf4h		;9be5
-	call 04e21h		;9be8
+	call 04e21h		;9be8   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ld bc,00303h		;9beb
 	ld hl,03a45h		;9bee
 	jp L_874E		;9bf1
@@ -3659,7 +3660,7 @@ L_9C63:
 	call nz,L_9C72		;9c66
 	pop hl			;9c69
 	ld a,010h		;9c6a
-	call 040c4h		;9c6c
+	call 040c4h		;9c6c   ; hl_mas_a: HL = HL + A
 	djnz L_9C63		;9c6f
 	ret			;9c71
 L_9C72:
@@ -3667,7 +3668,7 @@ L_9C72:
 	srl a		;9c73
 	srl a		;9c75
 	ld de,0efc0h		;9c77
-	call 040c9h		;9c7a
+	call 040c9h		;9c7a   ; de_mas_a: DE = DE + A
 	inc l			;9c7d
 	inc l			;9c7e
 	ld a,(hl)			;9c7f
@@ -3685,7 +3686,7 @@ L_9C72:
 	ld (de),a			;9c8d
 	ret			;9c8e
 L_9C8F:
-	ld a,(0e203h)		;9c8f
+	ld a,(0e203h)		;9c8f   ; lee la cuenta de cuadros del juego
 	ld c,a			;9c92
 	and 003h		;9c93
 	ret nz			;9c95
@@ -3696,7 +3697,7 @@ L_9C9B:
 	and a			;9c9c
 	jr z,L_9CA7		;9c9d
 	ld a,010h		;9c9f
-	call 040c4h		;9ca1
+	call 040c4h		;9ca1   ; hl_mas_a: HL = HL + A
 	djnz L_9C9B		;9ca4
 	ret			;9ca6
 L_9CA7:
@@ -3810,7 +3811,7 @@ L_9D43:
 	pop bc			;9d4a
 	pop hl			;9d4b
 	ld a,010h		;9d4c
-	call 040c4h		;9d4e
+	call 040c4h		;9d4e   ; hl_mas_a: HL = HL + A
 	djnz L_9D43		;9d51
 	ret			;9d53
 L_9D54:
@@ -3842,7 +3843,7 @@ L_9D54:
 	srl a		;9d75
 	srl a		;9d77
 	ld hl,0efc0h		;9d79
-	call 040c4h		;9d7c
+	call 040c4h		;9d7c   ; hl_mas_a: HL = HL + A
 	ld (hl),0e0h		;9d7f
 	ret			;9d81
 L_9D82:
@@ -3877,14 +3878,14 @@ L_9DA1:
 	ld (de),a			;9db3
 	inc hl			;9db4
 	ld a,00ch		;9db5
-	call 040c9h		;9db7
+	call 040c9h		;9db7   ; de_mas_a: DE = DE + A
 	djnz L_9DA1		;9dba
 	xor a			;9dbc
 	ld (0ee0dh),a		;9dbd
 	ld (0ee0eh),a		;9dc0
 	ret			;9dc3
 L_9DC4:
-	ld a,(0e301h)		;9dc4
+	ld a,(0e301h)		;9dc4   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;9dc7
 	ld a,001h		;9dc9
 	jr c,L_9DCE		;9dcb
@@ -3964,7 +3965,7 @@ L_9E3E:
 L_9E4A:
 	call L_9E3E		;9e4a
 	ld hl,(0ee52h)		;9e4d
-	ld de,0e700h		;9e50
+	ld de,0e700h		;9e50   ; apunta a los enemigos (12 fichas de 0x40 bytes)
 	jp 00059h		;9e53   ; BIOS LDIRMV - Block transfers to memory from VRAM
 L_9E56:
 	ld a,(0ee50h)		;9e56
@@ -3981,7 +3982,7 @@ L_9E69:
 	push bc			;9e6a
 	ld a,(0ee51h)		;9e6b
 	and 007h		;9e6e
-	call 040c4h		;9e70
+	call 040c4h		;9e70   ; hl_mas_a: HL = HL + A
 	ld bc,00001h		;9e73
 	ld a,(0ee5ah)		;9e76
 	ld d,a			;9e79
@@ -4006,7 +4007,7 @@ L_9E97:
 	ld hl,(0ee52h)		;9e97
 	ld a,(0ee54h)		;9e9a
 	ld b,a			;9e9d
-	ld de,0e700h		;9e9e
+	ld de,0e700h		;9e9e   ; apunta a los enemigos (12 fichas de 0x40 bytes)
 L_9EA1:
 	push bc			;9ea1
 	push de			;9ea2
@@ -4035,9 +4036,9 @@ L_9EA1:
 L_9ECA:
 	and 007h		;9eca
 	ld c,a			;9ecc
-	call 040c4h		;9ecd
+	call 040c4h		;9ecd   ; hl_mas_a: HL = HL + A
 	ld a,c			;9ed0
-	call 040c9h		;9ed1
+	call 040c9h		;9ed1   ; de_mas_a: DE = DE + A
 	ld bc,00001h		;9ed4
 	ret			;9ed7
 

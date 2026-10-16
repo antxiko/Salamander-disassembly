@@ -23,15 +23,15 @@ la604h:	equ 0x0a604
 
 
 L_A000:
-	ld a,(0e227h)		;a000
+	ld a,(0e227h)		;a000   ; lee cuantos jugadores (o el modo de dos)
 	cp 002h		;a003
 	jr nz,L_A011		;a005
-	ld iy,0e380h		;a007
+	ld iy,0e380h		;a007   ; apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 	ld de,0ef88h		;a00b
 	call L_A018		;a00e
 L_A011:
-	ld iy,0e300h		;a011
-	ld de,0ef80h		;a015
+	ld iy,0e300h		;a011   ; apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+	ld de,0ef80h		;a015   ; apunta a los atributos de sprite en la RAM (32 x 4)
 L_A018:
 	ld a,(iy+020h)		;a018
 	or a			;a01b
@@ -47,7 +47,7 @@ L_A027:
 	jr nz,L_A041		;a02c
 	bit 0,(iy+01dh)		;a02e
 	jr z,L_A041		;a032
-	ld a,(0e203h)		;a034
+	ld a,(0e203h)		;a034   ; lee la cuenta de cuadros del juego
 	bit 1,a		;a037
 	jr z,L_A041		;a039
 	call L_A0B4		;a03b
@@ -62,7 +62,7 @@ L_A047:
 	ldir		;a04b
 	ret			;a04d
 L_A04E:
-	ld de,0ef80h		;a04e
+	ld de,0ef80h		;a04e   ; apunta a los atributos de sprite en la RAM (32 x 4)
 	push iy		;a051
 	pop hl			;a053
 	ld bc,00028h		;a054
@@ -82,7 +82,7 @@ L_A06A:
 	call L_A08B		;a076
 	ld hl,0e420h		;a079
 	call L_A08B		;a07c
-	ld a,(0e227h)		;a07f
+	ld a,(0e227h)		;a07f   ; lee cuantos jugadores (o el modo de dos)
 	cp 002h		;a082
 	ret z			;a084
 	ld hl,0e430h		;a085
@@ -159,7 +159,7 @@ L_A0E6:
 	sub 004h		;a0ec
 	cp 006h		;a0ee
 	ret nc			;a0f0
-	call 040ceh		;a0f1
+	call 040ceh		;a0f1   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A0F4: 6 destinos del despachador p00:40CE (call en p11:A0F1, el
@@ -185,7 +185,7 @@ L_A106:
 	ld c,a			;a10b
 	call L_A167		;a10c
 L_A10F:
-	ld a,(0e620h)		;a10f
+	ld a,(0e620h)		;a10f   ; lee 1 si la fase va en vertical
 	or a			;a112
 	jr nz,L_A117		;a113
 	jr L_A162		;a115
@@ -217,7 +217,7 @@ L_A133:
 	call L_A10F		;a135
 	pop hl			;a138
 	inc hl			;a139
-	ld a,(0e620h)		;a13a
+	ld a,(0e620h)		;a13a   ; lee 1 si la fase va en vertical
 	or a			;a13d
 	jr nz,L_A144		;a13e
 	ld bc,0003fh		;a140
@@ -232,7 +232,7 @@ L_A148:
 	ret z			;a14c
 	ld c,a			;a14d
 	call L_A167		;a14e
-	ld a,(0e620h)		;a151
+	ld a,(0e620h)		;a151   ; lee 1 si la fase va en vertical
 	or a			;a154
 	ld a,c			;a155
 	jr nz,L_A162		;a156
@@ -250,7 +250,7 @@ L_A162:
 L_A167:
 	ld l,(ix+003h)		;a167
 	ld h,(ix+005h)		;a16a
-	call 05a99h		;a16d
+	call 05a99h		;a16d   ; hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
 	ld (ix+00eh),l		;a170
 	ld (ix+00fh),h		;a173
 	ret			;a176
@@ -273,7 +273,7 @@ L_A18D:
 	sub 004h		;a193
 	cp 006h		;a195
 	ret nc			;a197
-	call 040ceh		;a198
+	call 040ceh		;a198   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A19B: 6 destinos del despachador p00:40CE (call en p11:A198, el
@@ -303,7 +303,7 @@ L_A1B2:
 	ld l,(ix+00eh)		;a1b8
 	ld h,(ix+00fh)		;a1bb
 L_A1BE:
-	ld a,(0e620h)		;a1be
+	ld a,(0e620h)		;a1be   ; lee 1 si la fase va en vertical
 	or a			;a1c1
 	jr nz,L_A1CB		;a1c2
 L_A1C4:
@@ -345,7 +345,7 @@ L_A1ED:
 	call L_A1BE		;a1ef
 	pop hl			;a1f2
 	inc hl			;a1f3
-	ld a,(0e620h)		;a1f4
+	ld a,(0e620h)		;a1f4   ; lee 1 si la fase va en vertical
 	or a			;a1f7
 	jr nz,L_A1FE		;a1f8
 	ld bc,0003fh		;a1fa
@@ -361,7 +361,7 @@ L_A202:
 	ld c,a			;a207
 	ld l,(ix+00eh)		;a208
 	ld h,(ix+00fh)		;a20b
-	ld a,(0e620h)		;a20e
+	ld a,(0e620h)		;a20e   ; lee 1 si la fase va en vertical
 	or a			;a211
 	jr nz,L_A1C4		;a212
 	ld a,c			;a214
@@ -396,7 +396,7 @@ L_A237:
 	sub 004h		;a23d
 	cp 006h		;a23f
 	ret nc			;a241
-	call 040ceh		;a242
+	call 040ceh		;a242   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A245: 6 destinos del despachador p00:40CE (call en p11:A242, el
@@ -435,7 +435,7 @@ L_A26E:
 	call L_A291		;a270
 	pop hl			;a273
 	ld de,00040h		;a274
-	ld a,(0e620h)		;a277
+	ld a,(0e620h)		;a277   ; lee 1 si la fase va en vertical
 	or a			;a27a
 	jr z,L_A27F		;a27b
 	ld e,001h		;a27d
@@ -453,7 +453,7 @@ L_A285:
 	ld l,(ix+00eh)		;a28b
 	ld h,(ix+00fh)		;a28e
 L_A291:
-	ld a,(0e620h)		;a291
+	ld a,(0e620h)		;a291   ; lee 1 si la fase va en vertical
 	or a			;a294
 	ld a,(ix+006h)		;a295
 	jr nz,L_A29F		;a298
@@ -476,7 +476,7 @@ L_A2A7:
 	ld b,a			;a2ac
 	ld l,(ix+00eh)		;a2ad
 	ld h,(ix+00fh)		;a2b0
-	ld a,(0e620h)		;a2b3
+	ld a,(0e620h)		;a2b3   ; lee 1 si la fase va en vertical
 	or a			;a2b6
 	jr nz,L_A2CF		;a2b7
 	push hl			;a2b9
@@ -517,7 +517,7 @@ L_A2E5:
 	ld b,a			;a2ea
 	ld l,(ix+00eh)		;a2eb
 	ld h,(ix+00fh)		;a2ee
-	ld a,(0e620h)		;a2f1
+	ld a,(0e620h)		;a2f1   ; lee 1 si la fase va en vertical
 	or a			;a2f4
 	jr nz,L_A315		;a2f5
 	ld de,00040h		;a2f7
@@ -589,17 +589,17 @@ L_A341:
 	inc l			;a35e
 	inc l			;a35f
 	ld (hl),0feh		;a360
-	ld a,(0e63ah)		;a362
+	ld a,(0e63ah)		;a362   ; lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 	or a			;a365
 	ret nz			;a366
-	ld a,(0e640h)		;a367
+	ld a,(0e640h)		;a367   ; lee el jefe (1 a 8)
 	cp 004h		;a36a
 	ret z			;a36c
 	sub 007h		;a36d
 	cp 002h		;a36f
 	ret c			;a371
 	ld a,024h		;a372
-	jp 04d6eh		;a374
+	jp 04d6eh		;a374   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_A377:
 	ld de,03000h		;a377
 	call L_A3E2		;a37a
@@ -619,7 +619,7 @@ L_A377:
 	sla (hl)		;a396
 	ret			;a398
 L_A399:
-	ld a,(0e63ah)		;a399
+	ld a,(0e63ah)		;a399   ; lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 	or a			;a39c
 	jr nz,L_A3DC		;a39d
 	ld a,002h		;a39f
@@ -636,12 +636,12 @@ L_A3A5:
 	ld (hl),000h		;a3b8
 	ldir		;a3ba
 L_A3BC:
-	ld hl,0e700h		;a3bc
+	ld hl,0e700h		;a3bc   ; apunta a los enemigos (12 fichas de 0x40 bytes)
 	ld de,0e701h		;a3bf
 	ld bc,002ffh		;a3c2
 	ld (hl),000h		;a3c5
 	ldir		;a3c7
-	ld hl,0e650h		;a3c9
+	ld hl,0e650h		;a3c9   ; apunta a el tipo del enemigo que se crea
 	ld de,0e651h		;a3cc
 	ld bc,00006h		;a3cf
 	ld (hl),000h		;a3d2
@@ -659,7 +659,7 @@ L_A3E2:
 	ld a,(0e6ach)		;a3e2
 	ld l,a			;a3e5
 	ld bc,00200h		;a3e6
-	ld a,(0e63ah)		;a3e9
+	ld a,(0e63ah)		;a3e9   ; lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 	or a			;a3ec
 	jr z,L_A40A		;a3ed
 	ld a,(0e226h)		;a3ef
@@ -702,19 +702,19 @@ L_A427:
 	add hl,hl			;a42b
 	add hl,de			;a42c
 	push hl			;a42d
-	ld de,0e700h		;a42e
+	ld de,0e700h		;a42e   ; apunta a los enemigos (12 fichas de 0x40 bytes)
 	push bc			;a431
 	call 00059h		;a432   ; BIOS LDIRMV - Block transfers to memory from VRAM
 	pop bc			;a435
 	push bc			;a436
-	ld hl,0e700h		;a437
+	ld hl,0e700h		;a437   ; apunta a los enemigos (12 fichas de 0x40 bytes)
 	ld a,(0e6adh)		;a43a
 	ld e,a			;a43d
 	call L_A449		;a43e
 	pop bc			;a441
 	pop hl			;a442
-	ld de,0e700h		;a443
-	jp 04cbdh		;a446
+	ld de,0e700h		;a443   ; apunta a los enemigos (12 fichas de 0x40 bytes)
+	jp 04cbdh		;a446   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 L_A449:
 	ld a,(0e6abh)		;a449
 	and a			;a44c
@@ -764,7 +764,7 @@ L_A492:
 	ld a,(ix+02bh)		;a495
 	and 007h		;a498
 	ld hl,0a4adh		;a49a
-	call 05ad8h		;a49d
+	call 05ad8h		;a49d   ; byte_de_tabla: A = el byte HL + A
 	ld (ix+031h),a		;a4a0
 	ld (ix+037h),a		;a4a3
 	ld (ix+03bh),a		;a4a6
@@ -794,7 +794,7 @@ L_A4B5:
 	jr nz,L_A4C9		;a4c4
 	dec (ix+02ch)		;a4c6
 L_A4C9:
-	call 040ceh		;a4c9
+	call 040ceh		;a4c9   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A4CC: 4 destinos del despachador p00:40CE (call en p11:A4C9, el
@@ -831,7 +831,7 @@ L_A4ED:
 	ld b,001h		;a4fe
 	call L_A5C2		;a500
 	ld a,014h		;a503
-	call 04d6eh		;a505
+	call 04d6eh		;a505   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_A508:
 	inc (ix+001h)		;a508
 	ret			;a50b
@@ -873,7 +873,7 @@ L_A540:
 	push ix		;a558
 	pop de			;a55a
 	ld a,034h		;a55b
-	call 040c9h		;a55d
+	call 040c9h		;a55d   ; de_mas_a: DE = DE + A
 	ld h,d			;a560
 	ld a,e			;a561
 	add a,004h		;a562
@@ -887,7 +887,7 @@ L_A56B:
 	ld a,(hl)			;a56f
 	and 003h		;a570
 	jr z,L_A5B1		;a572
-	ld a,(0e227h)		;a574
+	ld a,(0e227h)		;a574   ; lee cuantos jugadores (o el modo de dos)
 	cp 002h		;a577
 	jr nz,L_A586		;a579
 	ld hl,0e68dh		;a57b
@@ -920,12 +920,12 @@ L_A5A2:
 	add a,a			;a5a3
 	add a,a			;a5a4
 	ld hl,0a63bh		;a5a5
-	call 05ad8h		;a5a8
+	call 05ad8h		;a5a8   ; byte_de_tabla: A = el byte HL + A
 	inc hl			;a5ab
 	ld (ix+030h),a		;a5ac
 	jr $+79		;a5af
 L_A5B1:
-	call 065abh		;a5b1
+	call 065abh		;a5b1   ; azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
 	and 007h		;a5b4
 	jr L_A5A2		;a5b6
 
@@ -949,12 +949,12 @@ L_A5C2:
 	and 03fh		;a5c6
 	djnz L_A5D4		;a5c8
 	ld hl,0a5dah		;a5ca
-	call 05ad8h		;a5cd
+	call 05ad8h		;a5cd   ; byte_de_tabla: A = el byte HL + A
 	ld (ix+028h),a		;a5d0
 	ret			;a5d3
 L_A5D4:
 	ld hl,0a5dfh		;a5d4
-	jp 05ad8h		;a5d7
+	jp 05ad8h		;a5d7   ; byte_de_tabla: A = el byte HL + A
 
 ; ----------------------------------------------------------------------
 ; DATOS resto_A5DA: lo apuntan con el banco puesto p11:A5CA (0xA5DA), p11:A5D4
@@ -972,12 +972,12 @@ DATA_resto_A5DA:
 L_A5E4:
 	ld a,(ix+025h)		;a5e4
 	ld hl,la604h		;a5e7
-	call 05ad8h		;a5ea
+	call 05ad8h		;a5ea   ; byte_de_tabla: A = el byte HL + A
 	inc a			;a5ed
 	inc a			;a5ee
 	push ix		;a5ef
 	pop de			;a5f1
-	call 040c9h		;a5f2
+	call 040c9h		;a5f2   ; de_mas_a: DE = DE + A
 	ld h,(ix+026h)		;a5f5
 	ld l,(ix+027h)		;a5f8
 	ld a,(hl)			;a5fb
@@ -1017,9 +1017,9 @@ L_A61B:
 	pop hl			;a621
 	ld de,0a604h		;a622
 	ld a,(ix+025h)		;a625
-	call 040c9h		;a628
+	call 040c9h		;a628   ; de_mas_a: DE = DE + A
 	ld a,(de)			;a62b
-	call 040c4h		;a62c
+	call 040c4h		;a62c   ; hl_mas_a: HL = HL + A
 	ld (hl),c			;a62f
 	inc l			;a630
 	ld a,(ix+029h)		;a631
@@ -1049,7 +1049,7 @@ DATA_resto_A63B:
 L_A68D:
 	ld ix,0ec80h		;a68d
 	ld a,(0e641h)		;a691
-	call 040ceh		;a694
+	call 040ceh		;a694   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A697: 6 destinos del despachador p00:40CE (call en p11:A694, el
@@ -1147,7 +1147,7 @@ L_A703:
 	ld (ix+002h),008h		;a707
 	ld a,(ix+001h)		;a70b
 	and 007h		;a70e
-	call 040ceh		;a710
+	call 040ceh		;a710   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A713: 8 destinos del despachador p00:40CE (call en p11:A710, el
@@ -1197,7 +1197,7 @@ L_A755:
 L_A759:
 	inc (ix+001h)		;a759
 L_A75C:
-	call 04e58h		;a75c
+	call 04e58h		;a75c   ; azar: mezcla R en 0xE606 (el azar)
 	and 007h		;a75f
 	inc a			;a761
 	ld (ix+07bh),a		;a762
@@ -1292,10 +1292,10 @@ L_A7DB:
 	pop bc			;a7ed
 	ld de,0ecf4h		;a7ee
 	ldir		;a7f1
-	ld a,(0e640h)		;a7f3
+	ld a,(0e640h)		;a7f3   ; lee el jefe (1 a 8)
 	ld hl,0a801h		;a7f6
-	call 05ad8h		;a7f9
-	ld (0e605h),a		;a7fc
+	call 05ad8h		;a7f9   ; byte_de_tabla: A = el byte HL + A
+	ld (0e605h),a		;a7fc   ; guarda el byte de 0x88E2 de la fase (y el del jefe)
 	jp 04dc8h		;a7ff
 
 ; ----------------------------------------------------------------------
@@ -1329,7 +1329,7 @@ L_A816:
 	pop af			;a827
 	push hl			;a828
 	ld hl,06487h		;a829
-	call 04e28h		;a82c
+	call 04e28h		;a82c   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	pop hl			;a82f
 	call L_A837		;a830
 	pop bc			;a833
@@ -1352,7 +1352,7 @@ L_A84A:
 	ld hl,06547h		;a84a
 	add a,a			;a84d
 	add a,a			;a84e
-	call 040c4h		;a84f
+	call 040c4h		;a84f   ; hl_mas_a: HL = HL + A
 	ld c,(hl)			;a852
 	inc hl			;a853
 	ld b,(hl)			;a854
@@ -1378,7 +1378,7 @@ L_A84A:
 L_A870:
 	ld ix,0ec80h		;a870
 	ld a,(0e641h)		;a874
-	call 040ceh		;a877
+	call 040ceh		;a877   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A87A: 6 destinos del despachador p00:40CE (call en p11:A877, el
@@ -1463,7 +1463,7 @@ L_A8ED:
 	jr c,L_A91E		;a90f
 	ld de,01838h		;a911
 	ld hl,0ec8dh		;a914
-	ld a,(0e227h)		;a917
+	ld a,(0e227h)		;a917   ; lee cuantos jugadores (o el modo de dos)
 	rra			;a91a
 	call L_AAC5		;a91b
 L_A91E:
@@ -1523,7 +1523,7 @@ L_A945:
 	ret			;a954
 L_A955:
 	ld a,(ix+001h)		;a955
-	call 040ceh		;a958
+	call 040ceh		;a958   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_A95B: 5 destinos del despachador p00:40CE (call en p11:A958, el
@@ -1550,7 +1550,7 @@ L_A971:
 	ld (ix+013h),008h		;a975
 	ld de,0ec82h		;a979
 	ld a,(de)			;a97c
-	call 040c4h		;a97d
+	call 040c4h		;a97d   ; hl_mas_a: HL = HL + A
 	set 3,(hl)		;a980
 	ld a,(de)			;a982
 	inc a			;a983
@@ -1607,7 +1607,7 @@ L_A9D9:
 	ld a,(ix+012h)		;a9d9
 	add a,a			;a9dc
 	ld hl,0aaf3h		;a9dd
-	call 040c4h		;a9e0
+	call 040c4h		;a9e0   ; hl_mas_a: HL = HL + A
 	call L_A842		;a9e3
 	ld c,e			;a9e6
 	ld b,d			;a9e7
@@ -1707,7 +1707,7 @@ L_AA80:
 L_AA88:
 	ld c,a			;aa88
 	ld hl,06460h		;aa89
-	call 040c4h		;aa8c
+	call 040c4h		;aa8c   ; hl_mas_a: HL = HL + A
 	ld de,0ec96h		;aa8f
 	ld a,(de)			;aa92
 	add a,(hl)			;aa93
@@ -1738,7 +1738,7 @@ L_AAB7:
 	rra			;aab8
 	push hl			;aab9
 	ld hl,0641bh		;aaba
-	call 04e28h		;aabd
+	call 04e28h		;aabd   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	pop hl			;aac0
 	ld bc,00202h		;aac1
 	ret			;aac4
@@ -1791,7 +1791,7 @@ DATA_resto_AAF3:
 L_AB03:
 	ld ix,0ec80h		;ab03
 	ld a,(0e641h)		;ab07
-	call 040ceh		;ab0a
+	call 040ceh		;ab0a   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_AB0D: 8 destinos del despachador p00:40CE (call en p11:AB0A, el
@@ -1889,7 +1889,7 @@ L_AB9B:
 	or a			;aba8
 	jr nz,L_ABBA		;aba9
 	ld a,00fh		;abab
-	call 04d6eh		;abad
+	call 04d6eh		;abad   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	ld (ix+001h),002h		;abb0
 	ld (ix+002h),060h		;abb4
 	jr L_ABC6		;abb8
@@ -1954,7 +1954,7 @@ L_AC0D:
 	ld a,017h		;ac2a
 	call 07811h		;ac2c
 	ld a,014h		;ac2f
-	jp 04d6eh		;ac31
+	jp 04d6eh		;ac31   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_AC34:
 	call L_B6A3		;ac34
 	ret z			;ac37
@@ -1978,7 +1978,7 @@ L_AC44:
 	ld c,018h		;ac62
 	jp 07ae3h		;ac64
 L_AC67:
-	ld a,(0e203h)		;ac67
+	ld a,(0e203h)		;ac67   ; lee la cuenta de cuadros del juego
 	rra			;ac6a
 	ld a,(ix+00fh)		;ac6b
 	jr c,L_AC72		;ac6e
@@ -2023,7 +2023,7 @@ L_ACC4:
 L_ACC8:
 	ld ix,0ec80h		;acc8
 	ld a,(0e641h)		;accc
-	call 040ceh		;accf
+	call 040ceh		;accf   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_ACD2: 5 destinos del despachador p00:40CE (call en p11:ACCF, el
@@ -2043,9 +2043,9 @@ L_ACDC:
 L_ACE1:
 	call L_AD54		;ace1
 L_ACE4:
-	call 041eeh		;ace4
+	call 041eeh		;ace4   ; bancos_7_8: pone los bancos 7-8 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
 	call 04708h		;ace7
-	call 041eah		;acea
+	call 041eah		;acea   ; bancos_1_2: pone los bancos 1-2 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
 	ld a,(0e21ch)		;aced
 	or a			;acf0
 	ret nz			;acf1
@@ -2143,7 +2143,7 @@ L_AD7D:
 	ret nz			;ad81
 	ld (hl),004h		;ad82
 	ld a,(ix+001h)		;ad84
-	call 040ceh		;ad87
+	call 040ceh		;ad87   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_AD8A: 6 destinos del despachador p00:40CE (call en p11:AD87, el
@@ -2190,7 +2190,7 @@ L_ADC6:
 	ld a,(ix+016h)		;adca
 	ld (ix+001h),a		;adcd
 L_ADD0:
-	call 04e58h		;add0
+	call 04e58h		;add0   ; azar: mezcla R en 0xE606 (el azar)
 	and 00eh		;add3
 	add a,008h		;add5
 	ld (ix+07bh),a		;add7
@@ -2305,7 +2305,7 @@ DATA_resto_AE91:
 L_AE9C:
 	ld ix,0ec80h		;ae9c
 	ld a,(0e641h)		;aea0
-	call 040ceh		;aea3
+	call 040ceh		;aea3   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_AEA6: 7 destinos del despachador p00:40CE (call en p11:AEA3, el
@@ -2323,7 +2323,7 @@ DATA_tabla_AEA6:
 L_AEB4:
 	ld ix,0ec80h		;aeb4
 	ld a,(0e641h)		;aeb8
-	call 040ceh		;aebb
+	call 040ceh		;aebb   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_AEBE: 6 destinos del despachador p00:40CE (call en p11:AEBB, el
@@ -2363,7 +2363,7 @@ L_AEE2:
 	ld (ix+014h),a		;aef7
 	ld (ix+015h),a		;aefa
 	ld a,058h		;aefd
-	call 04d6eh		;aeff
+	call 04d6eh		;aeff   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_B51E		;af02
 
 ; ----------------------------------------------------------------------
@@ -2417,7 +2417,7 @@ L_AF45:
 	ld a,(ix+002h)		;af45
 	ld de,00008h		;af48
 	bit 0,a		;af4b
-	call z,05adfh		;af4d
+	call z,05adfh		;af4d   ; menos_de: DE = -DE
 	ld hl,(0ec85h)		;af50
 	add hl,de			;af53
 	ld (0ec85h),hl		;af54
@@ -2480,7 +2480,7 @@ L_AFC7:
 	jp L_B53A		;afd1
 L_AFD4:
 	ld a,015h		;afd4
-	jp 04d6eh		;afd6
+	jp 04d6eh		;afd6   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 
 ; ----------------------------------------------------------------------
 ; DATOS resto_AFD9: lo apuntan con el banco puesto p11:AFBE (0xAFD9); el
@@ -2602,7 +2602,7 @@ L_B083:
 	ld d,a			;b093
 	ld bc,00100h		;b094
 	ld a,023h		;b097
-	call 065b5h		;b099
+	call 065b5h		;b099   ; crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 	xor a			;b09c
 	ret			;b09d
 L_B09E:
@@ -2634,7 +2634,7 @@ L_B0A9:
 	ex de,hl			;b0c7
 	ld bc,00000h		;b0c8
 	ld a,03eh		;b0cb
-	call 065b5h		;b0cd
+	call 065b5h		;b0cd   ; crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 L_B0D0:
 	pop de			;b0d0
 	pop bc			;b0d1
@@ -2642,7 +2642,7 @@ L_B0D0:
 	inc de			;b0d3
 	djnz L_B0A9		;b0d4
 	ld a,013h		;b0d6
-	jp 04d6eh		;b0d8
+	jp 04d6eh		;b0d8   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_B0DB:
 	pop hl			;b0db
 	jr L_B0D0		;b0dc
@@ -2664,11 +2664,11 @@ L_B0EA:
 	ld b,002h		;b0ea
 L_B0EC:
 	push bc			;b0ec
-	call 04e58h		;b0ed
+	call 04e58h		;b0ed   ; azar: mezcla R en 0xE606 (el azar)
 	and 003h		;b0f0
 	ld hl,0b121h		;b0f2
 	add a,a			;b0f5
-	call 040c4h		;b0f6
+	call 040c4h		;b0f6   ; hl_mas_a: HL = HL + A
 	ld c,(hl)			;b0f9
 	inc hl			;b0fa
 	ld b,000h		;b0fb
@@ -2687,7 +2687,7 @@ L_B0EC:
 	ld d,l			;b112
 	ld c,000h		;b113
 	ld a,00eh		;b115
-	call 065b5h		;b117
+	call 065b5h		;b117   ; crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 L_B11A:
 	pop bc			;b11a
 	djnz L_B0EC		;b11b
@@ -2723,7 +2723,7 @@ L_B12D:
 	ld d,l			;b140
 	ld c,000h		;b141
 	ld a,032h		;b143
-	jp 065b5h		;b145
+	jp 065b5h		;b145   ; crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 L_B148:
 	ld hl,(0ec85h)		;b148
 	jr L_B150		;b14b
@@ -2737,7 +2737,7 @@ L_B150:
 L_B154:
 	ld ix,0ec80h		;b154
 	ld a,(0e641h)		;b158
-	call 040ceh		;b15b
+	call 040ceh		;b15b   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_B15E: 5 destinos del despachador p00:40CE (call en p11:B15B, el
@@ -2944,7 +2944,7 @@ L_B2C2:
 	ret nz			;b2c5
 	ld (ix+07bh),004h		;b2c6
 	ld a,(ix+001h)		;b2ca
-	call 040ceh		;b2cd
+	call 040ceh		;b2cd   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_B2D0: 5 destinos del despachador p00:40CE (call en p11:B2CD, el
@@ -3078,7 +3078,7 @@ L_B39E:
 L_B3A6:
 	ld a,b			;b3a6
 	ld hl,0ece8h		;b3a7
-	call 05ad8h		;b3aa
+	call 05ad8h		;b3aa   ; byte_de_tabla: A = el byte HL + A
 	rl e		;b3ad
 	ret c			;b3af
 	add a,a			;b3b0
@@ -3088,7 +3088,7 @@ L_B3A6:
 	ld hl,0ecc6h		;b3b4
 	ld a,b			;b3b7
 	add a,a			;b3b8
-	call 05ad8h		;b3b9
+	call 05ad8h		;b3b9   ; byte_de_tabla: A = el byte HL + A
 	add a,c			;b3bc
 	ld (hl),a			;b3bd
 	ld a,l			;b3be
@@ -3154,7 +3154,7 @@ DATA_resto_B400:
 L_B405:
 	ld ix,0ec80h		;b405
 	ld a,(0e641h)		;b409
-	call 040ceh		;b40c
+	call 040ceh		;b40c   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_B40F: 5 destinos del despachador p00:40CE (call en p11:B40C, el
@@ -3223,13 +3223,13 @@ L_B470:
 	jr nz,L_B499		;b479
 	ld (hl),010h		;b47b
 	ld e,050h		;b47d
-	call 04e58h		;b47f
+	call 04e58h		;b47f   ; azar: mezcla R en 0xE606 (el azar)
 	and 07fh		;b482
 	add a,040h		;b484
 	ld d,a			;b486
 	ld bc,00100h		;b487
 	ld a,024h		;b48a
-	call 065b5h		;b48c
+	call 065b5h		;b48c   ; crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 	ld hl,0ecb2h		;b48f
 	dec (hl)			;b492
 	jr nz,L_B499		;b493
@@ -3319,7 +3319,7 @@ L_B51E:
 	inc (hl)			;b521
 	ret			;b522
 L_B523:
-	call 04e3ah		;b523
+	call 04e3ah		;b523   ; hay_enemigos: NZ si queda algun enemigo (0xE700) o disparo (0xEA00) vivo
 	ret nz			;b526
 	ld hl,0e642h		;b527
 	ld a,(hl)			;b52a
@@ -3332,7 +3332,7 @@ L_B52F:
 	cp 002h		;b532
 	ret nz			;b534
 	ld a,015h		;b535
-	call 04d6eh		;b537
+	call 04d6eh		;b537   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 L_B53A:
 	ld hl,0003ch		;b53a
 	ld (0e642h),hl		;b53d
@@ -3344,15 +3344,15 @@ L_B543:
 	ld a,h			;b54a
 	or l			;b54b
 	jr z,$+28		;b54c
-	ld a,(0e640h)		;b54e
+	ld a,(0e640h)		;b54e   ; lee el jefe (1 a 8)
 	dec a			;b551
 	ret nz			;b552
-	ld a,(0e203h)		;b553
+	ld a,(0e203h)		;b553   ; lee la cuenta de cuadros del juego
 	rra			;b556
 	rra			;b557
 	and 003h		;b558
 	ld hl,0b564h		;b55a
-	call 05ad8h		;b55d
+	call 05ad8h		;b55d   ; byte_de_tabla: A = el byte HL + A
 	ld (0ecefh),a		;b560
 	ret			;b563
 
@@ -3370,26 +3370,26 @@ DATA_resto_B564:
 
 
 L_B568:
-	ld a,(0e640h)		;b568
+	ld a,(0e640h)		;b568   ; lee el jefe (1 a 8)
 	cp 003h		;b56b
 	jr z,L_B580		;b56d
 	sub 005h		;b56f
 	cp 002h		;b571
 	jr c,L_B580		;b573
 	ld a,025h		;b575
-	call 04d6eh		;b577
+	call 04d6eh		;b577   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	call L_B619		;b57a
 	jp L_B51E		;b57d
 L_B580:
 	ld a,024h		;b580
-	call 04d6eh		;b582
+	call 04d6eh		;b582   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 	jp L_B4B3		;b585
 L_B588:
 	ld hl,0e642h		;b588
 	dec (hl)			;b58b
 	ret nz			;b58c
 L_B58D:
-	ld hl,0e640h		;b58d
+	ld hl,0e640h		;b58d   ; apunta a el jefe (1 a 8)
 	ld c,(hl)			;b590
 	xor a			;b591
 	ld (hl),a			;b592
@@ -3667,7 +3667,7 @@ L_B710:
 L_B716:
 	exx			;b716
 	ld de,06079h		;b717
-	call 04e21h		;b71a
+	call 04e21h		;b71a   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ex de,hl			;b71d
 L_B71E:
 	ld a,(hl)			;b71e
@@ -3721,7 +3721,7 @@ L_B73A:
 	ld c,a			;b758
 L_B759:
 	ld a,c			;b759
-	call 040c9h		;b75a
+	call 040c9h		;b75a   ; de_mas_a: DE = DE + A
 	djnz L_B759		;b75d
 	pop bc			;b75f
 	ld a,c			;b760
@@ -3766,7 +3766,7 @@ L_B789:
 L_B792:
 	ld a,c			;b792
 	ld de,06079h		;b793
-	call 04e21h		;b796
+	call 04e21h		;b796   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ld b,002h		;b799
 	ld c,b			;b79b
 	ld hl,0c400h		;b79c
@@ -3802,7 +3802,7 @@ L_B7C1:
 	ld (0c502h),a		;b7ce
 	ld a,d			;b7d1
 	ld de,06079h		;b7d2
-	call 04e21h		;b7d5
+	call 04e21h		;b7d5   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ld a,(de)			;b7d8
 	ld l,a			;b7d9
 	inc de			;b7da
@@ -3819,7 +3819,7 @@ L_B7E6:
 	ld (0f012h),a		;b7e8
 	ld a,(0c507h)		;b7eb
 	ld hl,0b8bah		;b7ee
-	call 04e28h		;b7f1
+	call 04e28h		;b7f1   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	ld hl,0c400h		;b7f4
 	ld (hl),e			;b7f7
 	inc l			;b7f8
@@ -3830,7 +3830,7 @@ L_B7E6:
 	jr z,L_B808		;b7ff
 	ld a,(0c502h)		;b801
 	dec a			;b804
-	call 040c4h		;b805
+	call 040c4h		;b805   ; hl_mas_a: HL = HL + A
 L_B808:
 	exx			;b808
 	ld a,(hl)			;b809
@@ -3892,7 +3892,7 @@ L_B854:
 	djnz L_B854		;b857
 	ld a,(0c502h)		;b859
 	sub e			;b85c
-	call 040c4h		;b85d
+	call 040c4h		;b85d   ; hl_mas_a: HL = HL + A
 	dec d			;b860
 	jr nz,L_B853		;b861
 	ret			;b863
@@ -3938,7 +3938,7 @@ L_B893:
 	jr z,L_B8A6		;b89d
 	ld a,(0c502h)		;b89f
 	dec a			;b8a2
-	call 040c9h		;b8a3
+	call 040c9h		;b8a3   ; de_mas_a: DE = DE + A
 L_B8A6:
 	djnz L_B893		;b8a6
 	ld a,(0f012h)		;b8a8
@@ -3976,11 +3976,11 @@ L_B8D7:
 	ld de,0b9f9h		;b8d7
 	ld hl,02080h		;b8da
 	ld bc,00068h		;b8dd
-	call 04cc1h		;b8e0
+	call 04cc1h		;b8e0   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 	ld de,0ba61h		;b8e3
 	ld hl,02100h		;b8e6
 	ld bc,000d8h		;b8e9
-	call 04cc1h		;b8ec
+	call 04cc1h		;b8ec   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 	ld a,0f0h		;b8ef
 	ld hl,00080h		;b8f1
 	ld bc,00158h		;b8f4
@@ -3989,7 +3989,7 @@ L_B8FA:
 	ld de,0ba61h		;b8fa
 	ld hl,02200h		;b8fd
 	ld bc,000d8h		;b900
-	call 04cc1h		;b903
+	call 04cc1h		;b903   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 	ld a,090h		;b906
 	ld hl,00200h		;b908
 	ld bc,000d8h		;b90b
@@ -3998,11 +3998,11 @@ L_B911:
 	ld de,0b9f9h		;b911
 	ld hl,02080h		;b914
 	ld bc,00068h		;b917
-	call 04cbdh		;b91a
+	call 04cbdh		;b91a   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld de,0ba61h		;b91d
 	ld hl,02100h		;b920
 	ld bc,000d8h		;b923
-	call 04cbdh		;b926
+	call 04cbdh		;b926   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld a,0f0h		;b929
 	ld hl,00080h		;b92b
 	ld bc,00158h		;b92e
@@ -4010,11 +4010,11 @@ L_B911:
 	ld de,0b9f9h		;b934
 	ld hl,02880h		;b937
 	ld bc,00068h		;b93a
-	call 04cbdh		;b93d
+	call 04cbdh		;b93d   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld de,0ba61h		;b940
 	ld hl,02900h		;b943
 	ld bc,000d8h		;b946
-	call 04cbdh		;b949
+	call 04cbdh		;b949   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld a,0f0h		;b94c
 	ld hl,00880h		;b94e
 	ld bc,00158h		;b951
@@ -4035,7 +4035,7 @@ L_B957:
 	ld de,0b9f9h		;b978
 	ld hl,03008h		;b97b
 	ld bc,00050h		;b97e
-	call 04cbdh		;b981
+	call 04cbdh		;b981   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld de,0b9b4h		;b984
 	ld hl,02080h		;b987
 	call L_B993		;b98a
@@ -4043,7 +4043,7 @@ L_B957:
 	ld hl,02880h		;b990
 L_B993:
 	push de			;b993
-	call 04cb1h		;b994
+	call 04cb1h		;b994   ; puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 	exx			;b997
 	pop hl			;b998
 L_B999:
@@ -4086,24 +4086,24 @@ L_B9BF:
 	ld de,0b9f9h		;b9bf
 	ld hl,(0f010h)		;b9c2
 	ld a,070h		;b9c5
-	call 040c4h		;b9c7
+	call 040c4h		;b9c7   ; hl_mas_a: HL = HL + A
 	ld bc,00050h		;b9ca
-	call 04cbdh		;b9cd
+	call 04cbdh		;b9cd   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 	ld de,0ba69h		;b9d0
 	ld hl,(0f010h)		;b9d3
 	ld a,0c0h		;b9d6
-	call 040c4h		;b9d8
+	call 040c4h		;b9d8   ; hl_mas_a: HL = HL + A
 	ld bc,000d8h		;b9db
-	jp 04cbdh		;b9de
+	jp 04cbdh		;b9de   ; copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 L_B9E1:
 	ld hl,02070h		;b9e1
 	ld de,0b9f9h		;b9e4
 	ld bc,00050h		;b9e7
-	call 04cc1h		;b9ea
+	call 04cc1h		;b9ea   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 	ld hl,020c0h		;b9ed
 	ld de,0ba69h		;b9f0
 	ld bc,000d0h		;b9f3
-	jp 04cc1h		;b9f6
+	jp 04cc1h		;b9f6   ; copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 
 ; ----------------------------------------------------------------------
 ; DATOS resto_B9F9: lo apuntan con el banco puesto p11:B8D7 (0xB9F9), p11:B911
@@ -4140,7 +4140,7 @@ DATA_resto_B9F9:
 
 
 L_BB39:
-	ld a,(0e301h)		;bb39
+	ld a,(0e301h)		;bb39   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;bb3c
 	ret nz			;bb3e
 	call L_BB5B		;bb3f
@@ -4150,7 +4150,7 @@ L_BB39:
 	inc (hl)			;bb48
 	jr L_BB39		;bb49
 L_BB4B:
-	ld a,(0e301h)		;bb4b
+	ld a,(0e301h)		;bb4b   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;bb4e
 	ret nz			;bb50
 	ld a,(0e627h)		;bb51
@@ -4161,8 +4161,8 @@ L_BB4B:
 L_BB5B:
 	ld hl,0bbd6h		;bb5b
 	ld a,(0e66bh)		;bb5e
-	call 04e28h		;bb61
-	ld hl,(0e302h)		;bb64
+	call 04e28h		;bb61   ; palabra_de_hl: DE = la palabra HL + 2 x A
+	ld hl,(0e302h)		;bb64   ; lee la posicion del scroll (16 bits)
 	rst 20h			;bb67
 	ret nz			;bb68
 	ld hl,0e66bh		;bb69
@@ -4175,7 +4175,7 @@ L_BB5B:
 	cp (hl)			;bb77
 	ret nz			;bb78
 L_BB79:
-	call 04e58h		;bb79
+	call 04e58h		;bb79   ; azar: mezcla R en 0xE606 (el azar)
 	and 003h		;bb7c
 	cp 003h		;bb7e
 	jr c,L_BB83		;bb80
@@ -4258,7 +4258,7 @@ DATA_resto_BBD6:
 
 
 L_BBE2:
-	ld a,(0e301h)		;bbe2
+	ld a,(0e301h)		;bbe2   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;bbe5
 	ret nz			;bbe7
 	ld ix,0eb80h		;bbe8
@@ -4325,7 +4325,7 @@ L_BC5B:
 	scf			;bc5f
 	ret			;bc60
 L_BC61:
-	ld a,(0e301h)		;bc61
+	ld a,(0e301h)		;bc61   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;bc64
 	ret nz			;bc66
 	ld ix,0eb80h		;bc67
@@ -4338,11 +4338,11 @@ L_BC72:
 	call L_BCD7		;bc77
 	ld l,(ix+003h)		;bc7a
 	ld h,(ix+004h)		;bc7d
-	call 05a99h		;bc80
+	call 05a99h		;bc80   ; hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
 	push hl			;bc83
 	call L_BD20		;bc84
 	ld hl,0bd29h		;bc87
-	call 04e31h		;bc8a
+	call 04e31h		;bc8a   ; palabra_a_hl: HL = la palabra HL + 2 x A
 	pop de			;bc8d
 	ld a,003h		;bc8e
 L_BC90:
@@ -4386,14 +4386,14 @@ L_BCC8:
 	ld bc,00005h		;bcc9
 	ldir		;bccc
 	ld a,03bh		;bcce
-	call 040c9h		;bcd0
+	call 040c9h		;bcd0   ; de_mas_a: DE = DE + A
 	pop bc			;bcd3
 	djnz L_BCC8		;bcd4
 	ret			;bcd6
 L_BCD7:
 	ld l,018h		;bcd7
 	ld h,(ix+004h)		;bcd9
-	call 05a99h		;bcdc
+	call 05a99h		;bcdc   ; hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
 	ld (ix+00eh),l		;bcdf
 	ld (ix+00fh),h		;bce2
 	ex de,hl			;bce5
@@ -4401,7 +4401,7 @@ L_BCD7:
 	ld a,00fh		;bce9
 	jp L_BC90		;bceb
 L_BCEE:
-	ld a,(0e301h)		;bcee
+	ld a,(0e301h)		;bcee   ; lee la fase (de 1 a 7; 0 en la presentacion)
 	cp 004h		;bcf1
 	ret nz			;bcf3
 	ld ix,0eb80h		;bcf4
@@ -4422,7 +4422,7 @@ L_BD0F:
 	djnz L_BD0F		;bd12
 	ld a,040h		;bd14
 	sub (ix+005h)		;bd16
-	call 040c4h		;bd19
+	call 040c4h		;bd19   ; hl_mas_a: HL = HL + A
 	dec c			;bd1c
 	jr nz,L_BD0C		;bd1d
 	ret			;bd1f
@@ -4526,7 +4526,7 @@ L_BE3E:
 	rra			;be42
 	rl b		;be43
 	ld a,034h		;be45
-	call 065b5h		;be47
+	call 065b5h		;be47   ; crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 	pop bc			;be4a
 	djnz L_BE16		;be4b
 	ret			;be4d
@@ -4583,7 +4583,7 @@ L_BEAE:
 	ret			;beb1
 L_BEB2:
 	ld a,(ix+001h)		;beb2
-	call 040ceh		;beb5
+	call 040ceh		;beb5   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_BEB8: 4 destinos del despachador p00:40CE (call en p11:BEB5, el
@@ -4638,7 +4638,7 @@ L_BF00:
 	ret			;bf04
 L_BF05:
 	ld a,(ix+001h)		;bf05
-	call 040ceh		;bf08
+	call 040ceh		;bf08   ; despacha: salta a la entrada A de la tabla que va detras del call
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_BF0B: 5 destinos del despachador p00:40CE (call en p11:BF08, el
@@ -4678,7 +4678,7 @@ L_BF40:
 	add a,a			;bf43
 	add a,a			;bf44
 	add a,a			;bf45
-	call 040c4h		;bf46
+	call 040c4h		;bf46   ; hl_mas_a: HL = HL + A
 L_BF49:
 	ld e,(ix+006h)		;bf49
 	ld d,(ix+005h)		;bf4c
@@ -4745,7 +4745,7 @@ L_BFB8:
 	ld hl,0bfd9h		;bfc7
 L_BFCA:
 	ld a,(ix+00ah)		;bfca
-	call 05ad8h		;bfcd
+	call 05ad8h		;bfcd   ; byte_de_tabla: A = el byte HL + A
 	ld (ix+00dh),a		;bfd0
 	jp 07af6h		;bfd3
 

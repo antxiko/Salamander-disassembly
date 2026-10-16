@@ -117,3 +117,144 @@ F 0xBD29 16
 D 0xBFD6 0xBFDE resto_BFD6  lo apuntan con el banco puesto p11:BFC7 (0xBFD9); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:BFC7 (8 bytes)
 F 0xBFD6 16
 # --- fin de los bloques de bloques.py ---
+
+# --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
+C 0xA000 lee cuantos jugadores (o el modo de dos)
+C 0xA007 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+C 0xA011 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+C 0xA015 apunta a los atributos de sprite en la RAM (32 x 4)
+C 0xA034 lee la cuenta de cuadros del juego
+C 0xA04E apunta a los atributos de sprite en la RAM (32 x 4)
+C 0xA07F lee cuantos jugadores (o el modo de dos)
+C 0xA0F1 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA10F lee 1 si la fase va en vertical
+C 0xA13A lee 1 si la fase va en vertical
+C 0xA151 lee 1 si la fase va en vertical
+C 0xA16D hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xA198 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA1BE lee 1 si la fase va en vertical
+C 0xA1F4 lee 1 si la fase va en vertical
+C 0xA20E lee 1 si la fase va en vertical
+C 0xA242 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA277 lee 1 si la fase va en vertical
+C 0xA291 lee 1 si la fase va en vertical
+C 0xA2B3 lee 1 si la fase va en vertical
+C 0xA2F1 lee 1 si la fase va en vertical
+C 0xA362 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0xA367 lee el jefe (1 a 8)
+C 0xA374 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xA399 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0xA3BC apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA3C9 apunta a el tipo del enemigo que se crea
+C 0xA3E9 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
+C 0xA42E apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA437 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA443 apunta a los enemigos (12 fichas de 0x40 bytes)
+C 0xA446 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xA49D byte_de_tabla: A = el byte HL + A
+C 0xA4C9 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA505 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xA55D de_mas_a: DE = DE + A
+C 0xA574 lee cuantos jugadores (o el modo de dos)
+C 0xA5A8 byte_de_tabla: A = el byte HL + A
+C 0xA5B1 azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
+C 0xA5CD byte_de_tabla: A = el byte HL + A
+C 0xA5D7 byte_de_tabla: A = el byte HL + A
+C 0xA5EA byte_de_tabla: A = el byte HL + A
+C 0xA5F2 de_mas_a: DE = DE + A
+C 0xA628 de_mas_a: DE = DE + A
+C 0xA62C hl_mas_a: HL = HL + A
+C 0xA694 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA710 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA75C azar: mezcla R en 0xE606 (el azar)
+C 0xA7F3 lee el jefe (1 a 8)
+C 0xA7F9 byte_de_tabla: A = el byte HL + A
+C 0xA7FC guarda el byte de 0x88E2 de la fase (y el del jefe)
+C 0xA82C palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xA84F hl_mas_a: HL = HL + A
+C 0xA877 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA917 lee cuantos jugadores (o el modo de dos)
+C 0xA958 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xA97D hl_mas_a: HL = HL + A
+C 0xA9E0 hl_mas_a: HL = HL + A
+C 0xAA8C hl_mas_a: HL = HL + A
+C 0xAABD palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xAB0A despacha: salta a la entrada A de la tabla que va detras del call
+C 0xABAD pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xAC31 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xAC67 lee la cuenta de cuadros del juego
+C 0xACCF despacha: salta a la entrada A de la tabla que va detras del call
+C 0xACE4 bancos_7_8: pone los bancos 7-8 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
+C 0xACEA bancos_1_2: pone los bancos 1-2 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
+C 0xAD87 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xADD0 azar: mezcla R en 0xE606 (el azar)
+C 0xAEA3 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xAEBB despacha: salta a la entrada A de la tabla que va detras del call
+C 0xAEFF pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xAF4D menos_de: DE = -DE
+C 0xAFD6 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xB099 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xB0CD crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xB0D8 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xB0ED azar: mezcla R en 0xE606 (el azar)
+C 0xB0F6 hl_mas_a: HL = HL + A
+C 0xB117 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xB145 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xB15B despacha: salta a la entrada A de la tabla que va detras del call
+C 0xB2CD despacha: salta a la entrada A de la tabla que va detras del call
+C 0xB3AA byte_de_tabla: A = el byte HL + A
+C 0xB3B9 byte_de_tabla: A = el byte HL + A
+C 0xB40C despacha: salta a la entrada A de la tabla que va detras del call
+C 0xB47F azar: mezcla R en 0xE606 (el azar)
+C 0xB48C crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xB523 hay_enemigos: NZ si queda algun enemigo (0xE700) o disparo (0xEA00) vivo
+C 0xB537 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xB54E lee el jefe (1 a 8)
+C 0xB553 lee la cuenta de cuadros del juego
+C 0xB55D byte_de_tabla: A = el byte HL + A
+C 0xB568 lee el jefe (1 a 8)
+C 0xB577 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xB582 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
+C 0xB58D apunta a el jefe (1 a 8)
+C 0xB71A palabra_de_de: DE = la palabra DE + 2 x A
+C 0xB75A de_mas_a: DE = DE + A
+C 0xB796 palabra_de_de: DE = la palabra DE + 2 x A
+C 0xB7D5 palabra_de_de: DE = la palabra DE + 2 x A
+C 0xB7F1 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xB805 hl_mas_a: HL = HL + A
+C 0xB85D hl_mas_a: HL = HL + A
+C 0xB8A3 de_mas_a: DE = DE + A
+C 0xB8E0 copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0xB8EC copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0xB903 copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0xB91A copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB926 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB93D copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB949 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB981 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB994 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+C 0xB9C7 hl_mas_a: HL = HL + A
+C 0xB9CD copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB9D8 hl_mas_a: HL = HL + A
+C 0xB9DE copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
+C 0xB9EA copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0xB9F6 copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
+C 0xBB39 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBB4B lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBB61 palabra_de_hl: DE = la palabra HL + 2 x A
+C 0xBB64 lee la posicion del scroll (16 bits)
+C 0xBB79 azar: mezcla R en 0xE606 (el azar)
+C 0xBBE2 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBC61 lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBC80 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xBC8A palabra_a_hl: HL = la palabra HL + 2 x A
+C 0xBCD0 de_mas_a: DE = DE + A
+C 0xBCDC hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
+C 0xBCEE lee la fase (de 1 a 7; 0 en la presentacion)
+C 0xBD19 hl_mas_a: HL = HL + A
+C 0xBE47 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
+C 0xBEB5 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xBF08 despacha: salta a la entrada A de la tabla que va detras del call
+C 0xBF46 hl_mas_a: HL = HL + A
+C 0xBFCD byte_de_tabla: A = el byte HL + A
+# --- fin de las anotaciones de anota.py ---
