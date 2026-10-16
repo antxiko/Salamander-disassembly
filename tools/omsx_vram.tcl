@@ -77,7 +77,7 @@ if {$::FIJO ne ""} { after time [opcion VRAM_FIJO_DESDE 21] fija }
 # los bancos (0x5000/0x7000/0x9000/0xB000 no se leen: se apunta la sombra F0F1-3)
 set ::TRLOG [open [file join $::SALIDA "traza.txt"] w]
 foreach pc [opcion VRAM_TRAZA {}] {
-    debug set_bp $pc {} "puts \$::TRLOG \[format {%04X HL=%04X DE=%04X BC=%04X SP0=%04X F0F1=%02X%02X%02X t=%.3f} \[reg PC\] \[reg HL\] \[reg DE\] \[reg BC\] \[peek16 \[reg SP\]\] \[peek 0xF0F1\] \[peek 0xF0F2\] \[peek 0xF0F3\] \[machine_info time\]\]; flush \$::TRLOG"
+    debug set_bp $pc {} "puts \$::TRLOG \[format {%04X HL=%04X DE=%04X BC=%04X IX=%04X A=%02X SP0=%04X F0F1=%02X%02X%02X F000=%02X E63A=%02X t=%.4f} \[reg PC\] \[reg HL\] \[reg DE\] \[reg BC\] \[reg IX\] \[reg A\] \[peek16 \[reg SP\]\] \[peek 0xF0F1\] \[peek 0xF0F2\] \[peek 0xF0F3\] \[peek 0xF000\] \[peek 0xE63A\] \[machine_info time\]\]; flush \$::TRLOG"
 }
 # VRAM_ENEMIGOS "cada": cada tantos segundos anade a enemigos.bin la RAM de los
 # 12 enemigos (0xE700, 0x300 bytes), los 8 disparos (0xEA00) y el jefe (0xEC80)
@@ -120,7 +120,8 @@ proc mira_jefe {} {
 }
 if {$::JEFE ne ""} { after time 21 mira_jefe }
 # VRAM_MATA "jefes": a los 10 s de salir uno de esos jefes se hace lo de
-# p11:B58D (se acabo el jefe): 0xE640 = 0, 0xEC80 = 0, 0xE644 = 1
+# p11:B58D (se acabo el jefe): 0xE640 = 0, 0xEC80 = 0, 0xE644 = 1 y, si era el
+# 6, 0xE226 = 1
 set ::MATA [opcion VRAM_MATA {}]
 set ::mata_desde -1
 proc mira_mata {} {
@@ -129,11 +130,28 @@ proc mira_mata {} {
         if {$::mata_desde < 0} { set ::mata_desde [machine_info time] }
         if {[machine_info time] - $::mata_desde > [opcion VRAM_MATA_TRAS 10]} {
             poke 0xE640 0; poke 0xEC80 0; poke 0xE644 1
+            if {$j == 6} { poke 0xE226 1 }
             set ::mata_desde -1
         }
     } else { set ::mata_desde -1 }
     after time 0.5 mira_mata
 }
 if {$::MATA ne ""} { after time 21 mira_mata }
+# VRAM_ESCRITURAS 1: apunta en escrituras.txt cada escritura a la VRAM que pasa
+# por la BIOS (WRTVRM 0x004D, FILVRM 0x0056, LDIRVM 0x005C) o por las rachas de
+# p00:4D16, con los bancos; si LDIRVM copia de la RAM, tambien los bytes
+proc apunta_escritura {} {
+    set pc [reg PC]
+    set l [format {%04X HL=%04X DE=%04X BC=%04X A=%02X F0F1=%02X%02X%02X t=%.4f} $pc [reg HL] [reg DE] [reg BC] [reg A] [peek 0xF0F1] [peek 0xF0F2] [peek 0xF0F3] [machine_info time]]
+    if {$pc == 0x005C && [reg HL] >= 0xC000} {
+        binary scan [debug read_block memory [reg HL] [reg BC]] H* hex
+        append l " DATOS=$hex"
+    }
+    puts $::ESLOG $l
+}
+if {[opcion VRAM_ESCRITURAS {}] ne ""} {
+    set ::ESLOG [open [file join $::SALIDA "escrituras.txt"] w]
+    foreach pc {0x004D 0x0056 0x005C 0x4D16} { debug set_bp $pc {} apunta_escritura }
+}
 foreach t $::TIEMPOS { after time $t "vuelca $t" }
 after time [expr {[lindex $::TIEMPOS end] + 1}] exit
