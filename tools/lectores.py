@@ -68,6 +68,8 @@ def lista_caracteres(v, a, sitio):
     while v(a) != 0:
         dib, col = v.w(a + 1), v.w(a + 4)
         for q, que in ((dib, "dibujos"), (col, "colores")):
+            if q >= 0xC000:
+                continue        # en la RAM: lo que la fase 7 copia del otro cartucho (0xC100)
             B.declara(v, q, rachas(v, q), "%s_%04X" % (que, q),
                       "rachas (p00:4D16) con los %s de los caracteres desde el %d, "
                       "ficha %d de la lista 0x%04X (p00:4540)" % (que, v(a + 3), k, ini),
@@ -409,7 +411,230 @@ def mapa():
                   "cuatro filas de cuatro caracteres" % (n, s, n + 3), ["p00:4A37"], F=16)
 
 
+# ------------------------------------------------- los bancos 7, 8 y 9
+#
+# Con 7-8-9 puestos (p00:4178), al empezar la fase (p00:438C) y al llegar un
+# jefe (p00:4DC8, con 0xE640 = 1, 2 o 7; p02:8591-86AF lo ponen a 1, 2, 3,
+# 6, 7 u 8):
+#   p00:44D9  HL = 0x6C37, A = fase: lista de caracteres (p00:4540)
+#   p00:44E3  HL = 0x6C45, A = fase: copias VRAM -> VRAM (p00:44F0 -> 44F3),
+#             con 0xF000 = 0; p00:44ED HL = 0x6C53 lo mismo con 0xF000 = 1
+#   p00:4DDE/4DEB/4DF8  igual con 0x67D6/0x67E4/0x67F2 y A = 0xE640
+#   p00:439B  HL = 0x8BD3, A = fase: fichas de 4 bytes [tipo][cuantos][a][b]
+#             hasta un tipo 0 (p00:43A7)
+#   p00:4497  HL = 0x8B26, A = fase: fichas [caracter][rachas lo hi] hasta un
+#             0 (p00:449E); las rachas van a 0x1800 + 8 x caracter
+# Todas las tablas se indexan con A de 1 en adelante: su palabra 0 son los
+# dos ultimos bytes de lo que haya delante y nadie la lee.
+
+def tabla_indice(v, tabla, idx, nom, que, lector, sitio, recorre=None, texto_bloque=None, F_bloque=None):
+    """Una tabla de punteros leida con A en idx (palabra tabla + 2 x A)."""
+    lo, hi = min(idx), max(idx)
+    B.declara(v, tabla + 2 * lo, tabla + 2 * hi + 2, nom,
+              "%d punteros (%s %d a %d; tabla en 0x%04X + 2 x A): %s" % (hi - lo + 1, que, lo, hi, tabla, texto_bloque or ""),
+              sitio, F="w%d" % (hi - lo + 1))
+    out = {}
+    for k in idx:
+        p = v.w(tabla + 2 * k)
+        out.setdefault(p, []).append(k)
+    for p, ks in sorted(out.items()):
+        if recorre:
+            recorre(v, p, ks)
+    return out
+
+
+def fichas4(v, a):
+    """p00:43A7: fichas de 4 bytes hasta un primer byte 0."""
+    while v(a) != 0:
+        a += 4
+    return a + 1
+
+
+def caracter_y_rachas(v, a, sitio):
+    """p00:449E: [caracter][rachas lo hi] hasta un 0; declara las rachas."""
+    ini = a
+    while v(a) != 0:
+        q = v.w(a + 1)
+        if q >= 0xC000:         # en la RAM (fase 7: lo copiado del otro cartucho)
+            a += 3
+            continue
+        B.declara(v, q, rachas(v, q), "rachas_%04X" % q,
+                  "rachas (p00:4D16) con los dibujos de sprite desde el %d (0x1800 + 8 x %d), "
+                  "de la lista 0x%04X (p00:449E)" % (v(a), v(a), ini), sitio)
+        a += 3
+    return a + 1
+
+
+def banco789():
+    v = B.Ventana((7, 8, 9))
+
+    def car(sitio, que):
+        def f(v, p, ks):
+            B.declara(v, p, lista_caracteres(v, p, sitio), "caracteres_%04X" % p,
+                      "lista de caracteres (p00:4540) de %s %s: fichas de 6 bytes [tercios]"
+                      "[dibujos][caracter][colores], 0 acaba" % (que, ", ".join(map(str, ks))), sitio, F=6)
+        return f
+
+    def cop(sitio, que, modo):
+        def f(v, p, ks):
+            B.declara(v, p, lista_copias(v, p), "copias_%04X" % p,
+                      "lista de copias de caracteres VRAM -> VRAM %s (p00:44F3) de %s %s: 4 bytes, "
+                      "3 si el tercero lleva los bits altos; 0 acaba" % (modo, que, ", ".join(map(str, ks))),
+                      sitio, F=4)
+        return f
+
+    fases = list(FASES)
+    tabla_indice(v, 0x6C37, fases, "caracteres_por_fase", "fase", 0x4540, "p00:44DC",
+                 car("p00:44DC", "la fase"), "las listas de caracteres de cada fase (p00:4540)")
+    tabla_indice(v, 0x6C45, fases, "copias_por_fase_a", "fase", 0x44F3, "p00:44E6",
+                 cop("p00:44E6", "la fase", "en espejo (0xF000 = 0)"), "copias en espejo de cada fase (p00:44F3)")
+    tabla_indice(v, 0x6C53, fases, "copias_por_fase_b", "fase", 0x44F3, "p00:44F0",
+                 cop("p00:44F0", "la fase", "cabeza abajo (0xF000 = 1)"), "copias cabeza abajo de cada fase (p00:44F3)")
+    jefes = list(range(1, 8))
+    tabla_indice(v, 0x67D6, jefes, "caracteres_jefe", "0xE640 =", 0x4540, "p00:4DE1",
+                 car("p00:4DE1", "0xE640 ="), "listas de caracteres al llegar el jefe; p00:4DC8 solo "
+                 "las pide con 0xE640 = 1, 2 o 7 (con 3, 6 y 8 sale antes, y 4 y 5 no los pone nadie: "
+                 "p02:8591-86AF)")
+    tabla_indice(v, 0x67E4, jefes, "copias_jefe_a", "0xE640 =", 0x44F3, "p00:4DEE",
+                 cop("p00:4DEE", "0xE640 =", "en espejo"), "copias en espejo al llegar el jefe")
+    tabla_indice(v, 0x67F2, jefes, "copias_jefe_b", "0xE640 =", 0x44F3, "p00:4DFB",
+                 cop("p00:4DFB", "0xE640 =", "cabeza abajo"), "copias cabeza abajo al llegar el jefe")
+    tabla_indice(v, 0x8BD3, fases, "fichas_por_fase", "fase", 0x43A7, "p00:43A1",
+                 lambda v, p, ks: B.declara(v, p, fichas4(v, p), "fichas_%04X" % p,
+                                            "fichas de 4 bytes [tipo][cuantos][a][b] de la fase %s "
+                                            "(p00:43A7: tipo 1 copia sprites 0x1800 + 8 x a -> b, "
+                                            "los demas p00:442B); un tipo 0 acaba"
+                                            % ", ".join(map(str, ks)), "p00:43A1", F=4),
+                 "fichas de dibujos de sprite de cada fase (p00:43A7)")
+    tabla_indice(v, 0x8B26, fases, "sprites_por_fase", "fase", 0x449E, "p00:449A",
+                 lambda v, p, ks: B.declara(v, p, caracter_y_rachas(v, p, "p00:449A"), "sprites_%04X" % p,
+                                            "lista [caracter][rachas] de la fase %s (p00:449E): los "
+                                            "dibujos de sprite que se cargan; 0 acaba" % ", ".join(map(str, ks)),
+                                            "p00:449A", F=3),
+                 "las listas de dibujos de sprite de cada fase (p00:449E)")
+    for ix, sitio, que in ((0x6C63, "p00:44BB", "de todas las fases (p00:44B7)"),
+                           (0x6C8E, "p00:44CB", "si p00:4835 da acarreo (bit fase de 0x26: fases 1, 2 y 5)"),
+                           (0x6C95, "p00:44CB", "si p00:4835 no da acarreo")):
+        B.declara(v, ix, lista_caracteres(v, ix, sitio), "caracteres_%04X" % ix,
+                  "lista de caracteres (p00:4546) %s: fichas de 6 bytes, 0 acaba" % que, sitio, F=6)
+
+
+# ------------------------------------------------------------ el banco 14
+#
+# Con 1-14-15 puestos (p00:41D8), los sucesos de cada fase, que se van
+# gastando segun avanza el scroll (0xE302):
+#   p01:6E35  HL = 0x84BA, A = 0xE658: p00:4E66 elige la lista de la fase y
+#             la ficha A de 3 bytes [posicion lo hi][dato]; posicion FFFF
+#             acaba (nunca se alcanza)
+#   p01:78EF  HL = 0x9205, A = 0xE659, y p01:7926 HL = 0x9213, A = 0xE688:
+#             p01:793C, fichas de 3 bytes [lo][hi: 3 bits de posicion y 5 de
+#             dato][dato]; la posicion 0x7FF acaba
+#   p01:6ED7  DE = 0x8550 + 2 x fase: un byte por cada tramo de 32 del
+#             scroll ((0xE302 >> 5) & 0x1F), dos cifras que p01:6F18 lanza
+#             por la tabla de p01:6F1D
+
+def lista_sucesos(v, p, mascara):
+    k = 0
+    while (v.w(p + 3 * k) & mascara) != mascara:
+        k += 1
+    return p + 3 * (k + 1)
+
+
+def banco14():
+    v = B.Ventana((1, 14, 15))
+    w = B.Ventana((1, 2, 3))
+    fases = list(FASES)
+    for tabla, mascara, sitio, cuenta in ((0x84BA, 0xFFFF, "p01:6E3B", "0xE658"),
+                                          (0x9205, 0x7FF, "p01:78F5", "0xE659"),
+                                          (0x9213, 0x7FF, "p01:792C", "0xE688")):
+        def f(v, p, ks, mascara=mascara, sitio=sitio, cuenta=cuenta):
+            B.declara(v, p, lista_sucesos(v, p, mascara), "sucesos_%04X" % p,
+                      "sucesos de la fase %s: fichas de 3 bytes que se gastan con %s segun "
+                      "avanza el scroll; la posicion %s acaba (la lista vacia es solo la marca)"
+                      % (", ".join(map(str, ks)), cuenta, "FFFF" if mascara == 0xFFFF else "0x7FF"),
+                      sitio, F=3)
+        tabla_indice(v, tabla, fases, "sucesos_por_fase_%04X" % tabla, "fase", None, sitio, f,
+                     "las listas de sucesos de cada fase (%s)" % cuenta)
+
+    def tramos32(v, p, ks):
+        for s in ks:
+            fin = w.w(0x88F4 + 6 * s)
+            n = ((fin - 1) >> 5) + 1
+            B.declara(v, p, p + n, "tramos_fase%d" % s,
+                      "un byte por tramo de 32 del scroll de la fase %d (de 0 a 0x%02X: el "
+                      "recorrido acaba en 0x%04X, p02:88F2); las dos cifras son oleadas que "
+                      "p01:6F18 lanza por la tabla de p01:6F1D" % (s, n - 1, fin), "p01:6EF5", F=16)
+    tabla_indice(v, 0x8550, fases, "tramos_por_fase", "fase", None, "p01:6EE0", tramos32,
+                 "un puntero por fase (p01:6ED7: DE = 0x8550 + 2 x fase)")
+
+    # p01:70B1 (HL = 0x85D1, A = 0xE67C) y p01:711F (HL = 0x85DF, A = 0xE677),
+    # las dos por p01:7139: fichas de 4 bytes [lo][hi][c][b] de la fase; FF FF
+    # acaba (p01:714A). La palabra de la fase 7 de 0x85D1 es la 0 de 0x85DF.
+    def fichas_ffff(v, p, ks, cuenta, sitio):
+        a = p
+        while not (v(a) == 0xFF and v(a + 1) == 0xFF):
+            a += 4
+        B.declara(v, p, a + 2, "apariciones_%04X" % p,
+                  "fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase %s, que "
+                  "p01:7139 gasta con %s; FF FF acaba (p01:714A)" % (", ".join(map(str, ks)), cuenta),
+                  sitio, F=4)
+    for tabla, cuenta, sitio in ((0x85D1, "0xE67C", "p01:70BA"), (0x85DF, "0xE677", "p01:7128")):
+        tabla_indice(v, tabla, fases, "apariciones_%04X" % tabla, "fase", None, sitio,
+                     lambda v, p, ks, cuenta=cuenta, sitio=sitio: fichas_ffff(v, p, ks, cuenta, sitio),
+                     "las listas de p01:7139 (HL = 0x%04X, A = %s)" % (tabla, cuenta))
+    de_puntero_en_puntero(v, 0x8849, 22, 0x8B8D, "pieza_8849", "22 punteros que p00:5E0B lee "
+                          "con B (p00:4E28): piezas de 5 filas de 7 caracteres",
+                          "pieza de 36 bytes de las entradas %s de 0x8849: 5 filas de 7 "
+                          "caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que "
+                          "lee p00:5E20", "p00:5E0B", "p00:5E17", F_bloque=7)
+    de_puntero_en_puntero(v, 0x8B8D, 89, 0x90A1, "fichas_8B8D", "89 punteros que p01:6308 lee "
+                          "con IX+07 (p00:4E21)", "lo que p01:630B lee de las entradas %s de "
+                          "0x8B8D (acaba donde empieza la siguiente)", "p01:6308", "p01:630B")
+    de_puntero_en_puntero(v, 0x90A1, 56, 0x9205, "formas_90A1", "56 punteros que p01:61C3 lee "
+                          "con IX+32 (p00:4E21): formas que p01:61E9 copia con ldir (IX+14 de "
+                          "ancho, IX+13 filas)", "forma de caracteres de las entradas %s de 0x90A1 "
+                          "(acaba donde empieza la siguiente)", "p01:61C3", "p01:61E9", F_bloque=8)
+    for tabla, n, por, que, sitio in ((0x95F7, 14, 2, "IY+27 x 4", "p01:6078"),
+                                      (0x962F, 18, 4, "(IY+27 & 0x7F) x 8", "p01:60B2")):
+        B.declara(v, tabla, tabla + 2 * por * n, "dibujos_%04X" % tabla,
+                  "%d fichas de %d punteros (%s): cada uno a 32 bytes de dibujo de sprite que "
+                  "p01:608F manda a la VRAM con outi" % (n, por, que), sitio, F="w%d" % por)
+        for a in sorted({v.w(tabla + 2 * k) for k in range(por * n)}):
+            B.declara(v, a, a + 32, "sprite_%04X" % a, "32 bytes de dibujo de sprite (16 x 16) "
+                      "de la tabla 0x%04X (p01:6094: outi x 0x20)" % tabla, "p01:6096", F=16)
+    for a, jug, sitio in ((0x9419, 1, "p03:BF92"), (0x94DA, 2, "p03:BFB4")):
+        f = a
+        while v(f) != 0xFF:
+            f += 2
+        B.declara(v, a, f + 2, "demo_jugador%d" % jug, "los mandos del jugador %d en la "
+                  "demostracion: %d pares [cuadros][teclas] que p03:BFE7 gasta uno a uno "
+                  "(0xE20D / 0xE239 + 2, con el 14 en 0x8000 por p00:41AC); una cuenta 0xFF "
+                  "acaba la demo (p03:BF9E)" % (jug, (f + 2 - a) // 2), sitio, F=16)
+    for a, que in ((0x96BF, "en las fases 1 a 3"), (0x9DDF, "de la fase 4 en adelante")):
+        B.declara(v, a, a + 0x40, "sprites_%04X" % a, "64 bytes de dibujo de sprite %s: p00:5599 "
+                  "los copia a la VRAM 0x1800 y otra vez a 0x1840 (LDIRVM, p00:4CBD)" % que,
+                  "p00:55A9", F=16)
+    for a, sitio, que in ((0x9E1F, "p00:4ADA", "p00:4AD5 y p00:4B97 (21 filas)"),
+                          (0x9E3F, "p00:4AFE", "p00:4AF9 (32 columnas)")):
+        B.declara(v, a, a + 0x20, "estrellas_%04X" % a, "32 bytes, uno por (0xE302 & 0x1F), que "
+                  "leen %s para poner los caracteres 0x50/0x51 del fondo" % que, sitio, F=16)
+
+
+def de_puntero_en_puntero(v, tabla, n, hasta, nom, texto_tabla, texto_bloque, lector,
+                          lector_bloque, F_tabla="w8", F_bloque=16):
+    """Tabla de n punteros a bloques que van seguidos: cada uno acaba donde
+    empieza el siguiente (ordenados) y el ultimo en `hasta`."""
+    B.declara(v, tabla, tabla + 2 * n, nom, texto_tabla, lector, F=F_tabla)
+    ps = sorted({v.w(tabla + 2 * k) for k in range(n)} - {0})
+    for a, f in zip(ps, ps[1:] + [hasta]):
+        ks = [k for k in range(n) if v.w(tabla + 2 * k) == a]
+        B.declara(v, a, f, "%s_%04X" % (nom, a), texto_bloque % ", ".join(map(str, ks)),
+                  lector_bloque, F=F_bloque)
+
+
 def todo():
     automaticos()
     sonido()
     mapa()
+    banco789()
+    banco14()

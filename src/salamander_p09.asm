@@ -10,8 +10,11 @@
 
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xa000..0xa009  (9 bytes)
-DATA_A000:
+; DATOS colores_9F4E_cola: rachas (p00:4D16) con los colores de los caracteres
+;   desde el 144, ficha 1 de la lista 0x687E (p00:4540) (sigue del banco 8);
+;   lo leen p00:4DE1 (9 bytes)
+;   0xa000..0xa009  (9 bytes)
+DATA_colores_9F4E_cola:
 	defb 0c1h,084h,021h,0c1h,021h,0c1h,00ch,021h,000h	; a000  ..!.!..!.
 
 ; ----------------------------------------------------------------------

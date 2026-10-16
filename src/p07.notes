@@ -1,3 +1,162 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x6000 0x6037 caracteres_6000  lista de caracteres (p00:4540) de la fase 7: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (55 bytes)
+F 0x6000 6
+D 0x6037 0x6046 copias_6037  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 7: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (15 bytes)
+F 0x6037 4
+D 0x6046 0x6066 copias_6046  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 7: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (32 bytes)
+F 0x6046 4
+D 0x6066 0x6079 sprites_6066  lista [caracter][rachas] de la fase 7 (p00:449E): los dibujos de sprite que se cargan; 0 acaba; lo leen p00:449A (19 bytes)
+F 0x6066 3
+D 0x67D8 0x67E6 caracteres_jefe  7 punteros (0xE640 = 1 a 7; tabla en 0x67D6 + 2 x A): listas de caracteres al llegar el jefe; p00:4DC8 solo las pide con 0xE640 = 1, 2 o 7 (con 3, 6 y 8 sale antes, y 4 y 5 no los pone nadie: p02:8591-86AF); lo leen p00:4DE1 (14 bytes)
+F 0x67D8 w7
+D 0x67E6 0x67F4 copias_jefe_a  7 punteros (0xE640 = 1 a 7; tabla en 0x67E4 + 2 x A): copias en espejo al llegar el jefe; lo leen p00:4DEE (14 bytes)
+F 0x67E6 w7
+D 0x67F4 0x6802 copias_jefe_b  7 punteros (0xE640 = 1 a 7; tabla en 0x67F2 + 2 x A): copias cabeza abajo al llegar el jefe; lo leen p00:4DFB (14 bytes)
+F 0x67F4 w7
+D 0x6802 0x6815 caracteres_6802  lista de caracteres (p00:4540) de 0xE640 = 1: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:4DE1 (19 bytes)
+F 0x6802 6
+D 0x6815 0x6822 caracteres_6815  lista de caracteres (p00:4540) de 0xE640 = 2: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:4DE1 (13 bytes)
+F 0x6815 6
+D 0x6822 0x6853 caracteres_6822  lista de caracteres (p00:4540) de 0xE640 = 3, 6: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:4DE1 (49 bytes)
+F 0x6822 6
+D 0x6853 0x687E caracteres_6853  lista de caracteres (p00:4540) de 0xE640 = 5: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; se solapan 2 bloques: (caracteres_685F 685F-687E); lo leen p00:4DE1 (43 bytes)
+F 0x6853 6
+D 0x687E 0x688B caracteres_687E  lista de caracteres (p00:4540) de 0xE640 = 7: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:4DE1 (13 bytes)
+F 0x687E 6
+D 0x688B 0x6890 copias_688B  lista de copias de caracteres VRAM -> VRAM en espejo (p00:44F3) de 0xE640 = 1: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:4DEE (5 bytes)
+F 0x688B 4
+D 0x6890 0x6895 copias_6890  lista de copias de caracteres VRAM -> VRAM en espejo (p00:44F3) de 0xE640 = 2: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:4DEE (5 bytes)
+F 0x6890 4
+D 0x6895 0x68A6 copias_6895  lista de copias de caracteres VRAM -> VRAM en espejo (p00:44F3) de 0xE640 = 3, 6: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:4DEE (17 bytes)
+F 0x6895 4
+D 0x68A6 0x68AF copias_68A6  lista de copias de caracteres VRAM -> VRAM en espejo (p00:44F3) de 0xE640 = 7: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; se solapan 2 bloques: (copias_68AE 68AE-68AF); lo leen p00:4DEE (9 bytes)
+F 0x68A6 4
+D 0x68AF 0x68B4 copias_68AF  lista de copias de caracteres VRAM -> VRAM cabeza abajo (p00:44F3) de 0xE640 = 1: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:4DFB (5 bytes)
+F 0x68AF 4
+D 0x68B4 0x68C1 copias_68B4  lista de copias de caracteres VRAM -> VRAM cabeza abajo (p00:44F3) de 0xE640 = 5: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; se solapan 3 bloques: (copias_68BC 68BC-68C1) (copias_68C0 68C0-68C1); lo leen p00:4DFB (13 bytes)
+F 0x68B4 4
+D 0x68C1 0x68C9 dibujos_68C1  rachas (p00:4D16) con los dibujos de los caracteres desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (8 bytes)
+D 0x68C9 0x68D1 colores_68C9  rachas (p00:4D16) con los colores de los caracteres desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (8 bytes)
+D 0x68D1 0x68F3 dibujos_68D1  rachas (p00:4D16) con los dibujos de los caracteres desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC, p00:4DE1 (34 bytes)
+D 0x68F3 0x6913 colores_68F3  rachas (p00:4D16) con los colores de los caracteres desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC, p00:4DE1 (32 bytes)
+D 0x6913 0x693C dibujos_6913  rachas (p00:4D16) con los dibujos de los caracteres desde el 178, ficha 1 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (41 bytes)
+D 0x693C 0x696E dibujos_693C  rachas (p00:4D16) con los dibujos de los caracteres desde el 102, ficha 4 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (50 bytes)
+D 0x696E 0x698D dibujos_696E  rachas (p00:4D16) con los dibujos de los caracteres desde el 94, ficha 0 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (31 bytes)
+D 0x698D 0x69C5 dibujos_698D  rachas (p00:4D16) con los dibujos de los caracteres desde el 123, ficha 0 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (56 bytes)
+D 0x69C5 0x6A72 dibujos_69C5  rachas (p00:4D16) con los dibujos de los caracteres desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (173 bytes)
+D 0x6A72 0x6A99 colores_6A72  rachas (p00:4D16) con los colores de los caracteres desde el 178, ficha 1 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (39 bytes)
+D 0x6A99 0x6AC6 colores_6A99  rachas (p00:4D16) con los colores de los caracteres desde el 102, ficha 4 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (45 bytes)
+D 0x6AC6 0x6AF3 colores_6AC6  rachas (p00:4D16) con los colores de los caracteres desde el 108, ficha 5 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (45 bytes)
+D 0x6AF3 0x6B20 colores_6AF3  rachas (p00:4D16) con los colores de los caracteres desde el 114, ficha 6 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (45 bytes)
+D 0x6B20 0x6B4C colores_6B20  rachas (p00:4D16) con los colores de los caracteres desde el 120, ficha 7 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (44 bytes)
+D 0x6B4C 0x6B64 colores_6B4C  rachas (p00:4D16) con los colores de los caracteres desde el 94, ficha 0 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (24 bytes)
+D 0x6B64 0x6B9E colores_6B64  rachas (p00:4D16) con los colores de los caracteres desde el 123, ficha 0 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (58 bytes)
+D 0x6B9E 0x6C39 colores_6B9E  rachas (p00:4D16) con los colores de los caracteres desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1 (155 bytes)
+D 0x6C39 0x6C47 caracteres_por_fase  7 punteros (fase 1 a 7; tabla en 0x6C37 + 2 x A): las listas de caracteres de cada fase (p00:4540); lo leen p00:44DC (14 bytes)
+F 0x6C39 w7
+D 0x6C47 0x6C55 copias_por_fase_a  7 punteros (fase 1 a 7; tabla en 0x6C45 + 2 x A): copias en espejo de cada fase (p00:44F3); lo leen p00:44E6 (14 bytes)
+F 0x6C47 w7
+D 0x6C55 0x6C63 copias_por_fase_b  7 punteros (fase 1 a 7; tabla en 0x6C53 + 2 x A): copias cabeza abajo de cada fase (p00:44F3); lo leen p00:44F0 (14 bytes)
+F 0x6C55 w7
+D 0x6C63 0x6C8E caracteres_6C63  lista de caracteres (p00:4546) de todas las fases (p00:44B7): fichas de 6 bytes, 0 acaba; lo leen p00:44BB (43 bytes)
+F 0x6C63 6
+D 0x6C8E 0x6C95 caracteres_6C8E  lista de caracteres (p00:4546) si p00:4835 da acarreo (bit fase de 0x26: fases 1, 2 y 5): fichas de 6 bytes, 0 acaba; lo leen p00:44CB (7 bytes)
+F 0x6C8E 6
+D 0x6C95 0x6C9C caracteres_6C95  lista de caracteres (p00:4546) si p00:4835 no da acarreo: fichas de 6 bytes, 0 acaba; lo leen p00:44CB (7 bytes)
+F 0x6C95 6
+D 0x6C9C 0x6CD9 caracteres_6C9C  lista de caracteres (p00:4540) de la fase 1: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (61 bytes)
+F 0x6C9C 6
+D 0x6CD9 0x6D04 caracteres_6CD9  lista de caracteres (p00:4540) de la fase 2: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (43 bytes)
+F 0x6CD9 6
+D 0x6D04 0x6D3B caracteres_6D04  lista de caracteres (p00:4540) de la fase 3: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (55 bytes)
+F 0x6D04 6
+D 0x6D3B 0x6D7E caracteres_6D3B  lista de caracteres (p00:4540) de la fase 4: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (67 bytes)
+F 0x6D3B 6
+D 0x6D7E 0x6DB5 caracteres_6D7E  lista de caracteres (p00:4540) de la fase 5: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (55 bytes)
+F 0x6D7E 6
+D 0x6DB5 0x6DEC caracteres_6DB5  lista de caracteres (p00:4540) de la fase 6: fichas de 6 bytes [tercios][dibujos][caracter][colores], 0 acaba; lo leen p00:44DC (55 bytes)
+F 0x6DB5 6
+D 0x6DEC 0x6DF1 copias_6DEC  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 1: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (5 bytes)
+F 0x6DEC 4
+D 0x6DF1 0x6E06 copias_6DF1  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 2: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (21 bytes)
+F 0x6DF1 4
+D 0x6E06 0x6E2F copias_6E06  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 3: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (41 bytes)
+F 0x6E06 4
+D 0x6E2F 0x6E54 copias_6E2F  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 4: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (37 bytes)
+F 0x6E2F 4
+D 0x6E54 0x6E69 copias_6E54  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 5: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (21 bytes)
+F 0x6E54 4
+D 0x6E69 0x6E82 copias_6E69  lista de copias de caracteres VRAM -> VRAM en espejo (0xF000 = 0) (p00:44F3) de la fase 6: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44E6 (25 bytes)
+F 0x6E69 4
+D 0x6E82 0x6EA3 copias_6E82  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 1: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (33 bytes)
+F 0x6E82 4
+D 0x6EA3 0x6EB8 copias_6EA3  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 2: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (21 bytes)
+F 0x6EA3 4
+D 0x6EB8 0x6EC9 copias_6EB8  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 3: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (17 bytes)
+F 0x6EB8 4
+D 0x6EC9 0x6EE2 copias_6EC9  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 4: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (25 bytes)
+F 0x6EC9 4
+D 0x6EE2 0x6EFB copias_6EE2  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 5: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (25 bytes)
+F 0x6EE2 4
+D 0x6EFB 0x6F10 copias_6EFB  lista de copias de caracteres VRAM -> VRAM cabeza abajo (0xF000 = 1) (p00:44F3) de la fase 6: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; lo leen p00:44F0 (21 bytes)
+F 0x6EFB 4
+D 0x6F10 0x6F1A dibujos_6F10  rachas (p00:4D16) con los dibujos de los caracteres desde el 11, ficha 0 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (10 bytes)
+D 0x6F1A 0x6F6A dibujos_6F1A  rachas (p00:4D16) con los dibujos de los caracteres desde el 12, ficha 2 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (80 bytes)
+D 0x6F6A 0x6F6D colores_6F6A  rachas (p00:4D16) con los colores de los caracteres desde el 11, ficha 0 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (3 bytes)
+D 0x6F6D 0x6FB6 colores_6F6D  rachas (p00:4D16) con los colores de los caracteres desde el 12, ficha 2 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (73 bytes)
+D 0x7161 0x7183 dibujos_7161  rachas (p00:4D16) con los dibujos de los caracteres desde el 32, ficha 3 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (34 bytes)
+D 0x7183 0x71A5 colores_7183  rachas (p00:4D16) con los colores de los caracteres desde el 32, ficha 3 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (34 bytes)
+D 0x71A5 0x71C7 dibujos_71A5  rachas (p00:4D16) con los dibujos de los caracteres desde el 40, ficha 4 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (34 bytes)
+D 0x71C7 0x71E9 colores_71C7  rachas (p00:4D16) con los colores de los caracteres desde el 40, ficha 4 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (34 bytes)
+D 0x71E9 0x721C dibujos_71E9  rachas (p00:4D16) con los dibujos de los caracteres desde el 44, ficha 0 de la lista 0x6C8E (p00:4540); lo leen p00:44CB (51 bytes)
+D 0x721C 0x724A colores_721C  rachas (p00:4D16) con los colores de los caracteres desde el 44, ficha 0 de la lista 0x6C8E (p00:4540); lo leen p00:44CB (46 bytes)
+D 0x724A 0x7292 dibujos_724A  rachas (p00:4D16) con los dibujos de los caracteres desde el 44, ficha 0 de la lista 0x6C95 (p00:4540); lo leen p00:44CB (72 bytes)
+D 0x7292 0x72CF colores_7292  rachas (p00:4D16) con los colores de los caracteres desde el 44, ficha 0 de la lista 0x6C95 (p00:4540); lo leen p00:44CB (61 bytes)
+D 0x72CF 0x72E1 dibujos_72CF  rachas (p00:4D16) con los dibujos de los caracteres desde el 56, ficha 5 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (18 bytes)
+D 0x72E1 0x72EC colores_72E1  rachas (p00:4D16) con los colores de los caracteres desde el 56, ficha 5 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (11 bytes)
+D 0x72EC 0x7397 dibujos_72EC  rachas (p00:4D16) con los dibujos de los caracteres desde el 58, ficha 6 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (171 bytes)
+D 0x7397 0x741E colores_7397  rachas (p00:4D16) con los colores de los caracteres desde el 58, ficha 6 de la lista 0x6C63 (p00:4540); lo leen p00:44BB (135 bytes)
+D 0x741E 0x7440 dibujos_741E  rachas (p00:4D16) con los dibujos de los caracteres desde el 192, ficha 3 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (34 bytes)
+D 0x7440 0x7461 colores_7440  rachas (p00:4D16) con los colores de los caracteres desde el 192, ficha 3 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (33 bytes)
+D 0x7461 0x747B dibujos_7461  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 8 de la lista 0x6000 (p00:4540); lo leen p00:44DC (26 bytes)
+D 0x747B 0x7495 colores_747B  rachas (p00:4D16) con los colores de los caracteres desde el 82, ficha 8 de la lista 0x6000 (p00:4540); lo leen p00:44DC (26 bytes)
+D 0x7495 0x74C3 dibujos_7495  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 0 de la lista 0x6C9C (p00:4540); lo leen p00:44DC (46 bytes)
+D 0x74C3 0x753D dibujos_74C3  rachas (p00:4D16) con los dibujos de los caracteres desde el 96, ficha 2 de la lista 0x6C9C (p00:4540); lo leen p00:44DC (122 bytes)
+D 0x753D 0x755B colores_753D  rachas (p00:4D16) con los colores de los caracteres desde el 82, ficha 0 de la lista 0x6C9C (p00:4540); lo leen p00:44DC (30 bytes)
+D 0x755B 0x75D2 colores_755B  rachas (p00:4D16) con los colores de los caracteres desde el 96, ficha 2 de la lista 0x6C9C (p00:4540); lo leen p00:44DC (119 bytes)
+D 0x75D2 0x76CB dibujos_75D2  rachas (p00:4D16) con los dibujos de los caracteres desde el 83, ficha 0 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC (249 bytes)
+D 0x76CB 0x77B5 colores_76CB  rachas (p00:4D16) con los colores de los caracteres desde el 83, ficha 0 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC (234 bytes)
+D 0x77B5 0x77C7 dibujos_77B5  rachas (p00:4D16) con los dibujos de los caracteres desde el 119, ficha 1 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (18 bytes)
+D 0x77C7 0x77CA colores_77C7  rachas (p00:4D16) con los colores de los caracteres desde el 119, ficha 1 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (3 bytes)
+D 0x77CA 0x7859 dibujos_77CA  rachas (p00:4D16) con los dibujos de los caracteres desde el 97, ficha 0 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (143 bytes)
+D 0x7859 0x78E6 dibujos_7859  rachas (p00:4D16) con los dibujos de los caracteres desde el 136, ficha 2 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (141 bytes)
+D 0x78E6 0x7945 dibujos_78E6  rachas (p00:4D16) con los dibujos de los caracteres desde el 161, ficha 3 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (95 bytes)
+D 0x7945 0x7957 dibujos_7945  rachas (p00:4D16) con los dibujos de los caracteres desde el 198, ficha 6 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (18 bytes)
+D 0x7957 0x79A7 colores_7957  rachas (p00:4D16) con los colores de los caracteres desde el 97, ficha 0 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (80 bytes)
+D 0x79A7 0x79C9 colores_79A7  rachas (p00:4D16) con los colores de los caracteres desde el 136, ficha 2 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (34 bytes)
+D 0x79C9 0x7A22 colores_79C9  rachas (p00:4D16) con los colores de los caracteres desde el 161, ficha 3 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (89 bytes)
+D 0x7A22 0x7A32 colores_7A22  rachas (p00:4D16) con los colores de los caracteres desde el 198, ficha 6 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (16 bytes)
+D 0x7A56 0x7B0A dibujos_7A56  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 0 de la lista 0x6D3B (p00:4540); lo leen p00:44DC (180 bytes)
+D 0x7B0A 0x7B9C colores_7B0A  rachas (p00:4D16) con los colores de los caracteres desde el 82, ficha 0 de la lista 0x6D3B (p00:4540); lo leen p00:44DC (146 bytes)
+D 0x7B9C 0x7BCC dibujos_7B9C  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 0 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (48 bytes)
+D 0x7BCC 0x7BDD dibujos_7BCC  rachas (p00:4D16) con los dibujos de los caracteres desde el 102, ficha 1 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (17 bytes)
+D 0x7BDD 0x7CB2 dibujos_7BDD  rachas (p00:4D16) con los dibujos de los caracteres desde el 112, ficha 2 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (213 bytes)
+D 0x7CB2 0x7CDF dibujos_7CB2  rachas (p00:4D16) con los dibujos de los caracteres desde el 130, ficha 4 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (45 bytes)
+D 0x7CDF 0x7D01 dibujos_7CDF  rachas (p00:4D16) con los dibujos de los caracteres desde el 106, ficha 5 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (34 bytes)
+D 0x7D01 0x7D23 dibujos_7D01  rachas (p00:4D16) con los dibujos de los caracteres desde el 247, ficha 6 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (34 bytes)
+D 0x7D23 0x7D35 colores_7D23  rachas (p00:4D16) con los colores de los caracteres desde el 82, ficha 0 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (18 bytes)
+D 0x7D35 0x7D44 colores_7D35  rachas (p00:4D16) con los colores de los caracteres desde el 102, ficha 1 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (15 bytes)
+D 0x7D44 0x7DB4 colores_7D44  rachas (p00:4D16) con los colores de los caracteres desde el 112, ficha 2 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (112 bytes)
+D 0x7DB4 0x7DCE colores_7DB4  rachas (p00:4D16) con los colores de los caracteres desde el 130, ficha 4 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (26 bytes)
+D 0x7DCE 0x7DEC colores_7DCE  rachas (p00:4D16) con los colores de los caracteres desde el 106, ficha 5 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (30 bytes)
+D 0x7DEC 0x7E08 colores_7DEC  rachas (p00:4D16) con los colores de los caracteres desde el 247, ficha 6 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (28 bytes)
+D 0x7E08 0x7E4A dibujos_7E08  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 0 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (66 bytes)
+D 0x7E4A 0x7EE0 dibujos_7E4A  rachas (p00:4D16) con los dibujos de los caracteres desde el 93, ficha 1 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (150 bytes)
+D 0x7EE0 0x7EEF dibujos_7EE0  rachas (p00:4D16) con los dibujos de los caracteres desde el 157, ficha 2 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (15 bytes)
+D 0x7EEF 0x7F29 dibujos_7EEF  rachas (p00:4D16) con los dibujos de los caracteres desde el 161, ficha 3 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (58 bytes)
+D 0x7F29 0x7F60 colores_7F29  rachas (p00:4D16) con los colores de los caracteres desde el 82, ficha 0 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (55 bytes)
+D 0x7F60 0x7FDE colores_7F60  rachas (p00:4D16) con los colores de los caracteres desde el 93, ficha 1 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (126 bytes)
+D 0x7FDE 0x7FEF colores_7FDE  rachas (p00:4D16) con los colores de los caracteres desde el 157, ficha 2 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (17 bytes)
+D 0x7FEF 0x8000 colores_7FEF  rachas (p00:4D16) con los colores de los caracteres desde el 161, ficha 3 de la lista 0x6DB5 (p00:4540) (sigue en el banco 8, en 0x8000); lo leen p00:44DC (17 bytes)
 # --- fin de los bloques de bloques.py ---

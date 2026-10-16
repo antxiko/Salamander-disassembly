@@ -6,6 +6,468 @@ D 0x80FC 0x81EC mapa_fase6_cola  240 bytes mas del mapa de la fase 6 (el mismo f
 F 0x80FC 8
 D 0x81EC 0x84BC mapa_fase7  mapa de la fase 7, en horizontal: cada columna son 6 bloques; el recorrido va de 0x0000 a 0x01E0 (p02:88F2); lo leen p00:49BB (720 bytes)
 F 0x81EC 6
+D 0x84BC 0x84CA sucesos_por_fase_84BA  7 punteros (fase 1 a 7; tabla en 0x84BA + 2 x A): las listas de sucesos de cada fase (0xE658); lo leen p01:6E3B (14 bytes)
+F 0x84BC w7
+D 0x84CA 0x8560 sucesos_84CA  sucesos de la fase 1: fichas de 3 bytes que se gastan con 0xE658 segun avanza el scroll; la posicion FFFF acaba (la lista vacia es solo la marca); se solapan 5 bloques: (sucesos_84F7 84F7-84FA) (sucesos_84F9 84F9-8553) (sucesos_8550 8550-8553) (tramos_por_fase 8552-8560); lo leen p01:6E3B, p01:6EE0 (150 bytes)
+F 0x84CA 3
+D 0x8560 0x8570 tramos_fase1  un byte por tramo de 32 del scroll de la fase 1 (de 0 a 0x0F: el recorrido acaba en 0x0200, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; lo leen p01:6EF5 (16 bytes)
+F 0x8560 16
+D 0x8570 0x8580 tramos_fase2  un byte por tramo de 32 del scroll de la fase 2 (de 0 a 0x0F: el recorrido acaba en 0x01F8, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; lo leen p01:6EF5 (16 bytes)
+F 0x8570 16
+D 0x8580 0x85A3 tramos_fase3  un byte por tramo de 32 del scroll de la fase 3 (de 0 a 0x10: el recorrido acaba en 0x0210, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; se solapan 2 bloques: (tramos_fase4 8590-85A3); lo leen p01:6EF5 (35 bytes)
+F 0x8580 16
+D 0x85A3 0x85B1 tramos_fase5  un byte por tramo de 32 del scroll de la fase 5 (de 0 a 0x0D: el recorrido acaba en 0x01C0, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; lo leen p01:6EF5 (14 bytes)
+F 0x85A3 16
+D 0x85B3 0x85D2 tramos_fase6  un byte por tramo de 32 del scroll de la fase 6 (de 0 a 0x11: el recorrido acaba en 0x0228, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; se solapan 2 bloques: (tramos_fase7 85C3-85D2); lo leen p01:6EF5 (31 bytes)
+F 0x85B3 16
+D 0x85D3 0x85E1 apariciones_85D1  7 punteros (fase 1 a 7; tabla en 0x85D1 + 2 x A): las listas de p01:7139 (HL = 0x85D1, A = 0xE67C); lo leen p01:70BA (14 bytes)
+F 0x85D3 w7
+D 0x85E1 0x85EF apariciones_85DF  7 punteros (fase 1 a 7; tabla en 0x85DF + 2 x A): las listas de p01:7139 (HL = 0x85DF, A = 0xE677); lo leen p01:7128 (14 bytes)
+F 0x85E1 w7
+D 0x85EF 0x8631 apariciones_85EF  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 7, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (66 bytes)
+F 0x85EF 4
+D 0x8631 0x865F apariciones_8631  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 1, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (46 bytes)
+F 0x8631 4
+D 0x865F 0x86B9 apariciones_865F  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 2, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (90 bytes)
+F 0x865F 4
+D 0x86B9 0x8703 apariciones_86B9  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 3, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (74 bytes)
+F 0x86B9 4
+D 0x8703 0x8745 apariciones_8703  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 4, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (66 bytes)
+F 0x8703 4
+D 0x8745 0x8793 apariciones_8745  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 5, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (78 bytes)
+F 0x8745 4
+D 0x8793 0x881D apariciones_8793  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 6, que p01:7139 gasta con 0xE67C; FF FF acaba (p01:714A); lo leen p01:70BA (138 bytes)
+F 0x8793 4
+D 0x881D 0x883F apariciones_881D  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 1, que p01:7139 gasta con 0xE677; FF FF acaba (p01:714A); se solapan 2 bloques: (apariciones_883D 883D-883F); lo leen p01:7128 (34 bytes)
+F 0x881D 4
+D 0x883F 0x8849 apariciones_883F  fichas de 4 bytes [posicion lo][hi (2 bits)][c][b] de la fase 5, que p01:7139 gasta con 0xE677; FF FF acaba (p01:714A); se solapan 2 bloques: (apariciones_8847 8847-8849); lo leen p01:7128 (10 bytes)
+F 0x883F 4
+D 0x8849 0x8875 pieza_8849  22 punteros que p00:5E0B lee con B (p00:4E28): piezas de 5 filas de 7 caracteres; lo leen p00:5E0B (44 bytes)
+F 0x8849 w8
+D 0x8875 0x8899 pieza_8849_8875  pieza de 36 bytes de las entradas 0 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8875 7
+D 0x8899 0x88BD pieza_8849_8899  pieza de 36 bytes de las entradas 1 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8899 7
+D 0x88BD 0x88E1 pieza_8849_88BD  pieza de 36 bytes de las entradas 2 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x88BD 7
+D 0x88E1 0x8905 pieza_8849_88E1  pieza de 36 bytes de las entradas 3 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x88E1 7
+D 0x8905 0x8929 pieza_8849_8905  pieza de 36 bytes de las entradas 4 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8905 7
+D 0x8929 0x894D pieza_8849_8929  pieza de 36 bytes de las entradas 5 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8929 7
+D 0x894D 0x8971 pieza_8849_894D  pieza de 36 bytes de las entradas 6 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x894D 7
+D 0x8971 0x8995 pieza_8849_8971  pieza de 36 bytes de las entradas 7 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8971 7
+D 0x8995 0x89B9 pieza_8849_8995  pieza de 36 bytes de las entradas 8 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8995 7
+D 0x89B9 0x89DD pieza_8849_89B9  pieza de 36 bytes de las entradas 9 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x89B9 7
+D 0x89DD 0x8A01 pieza_8849_89DD  pieza de 36 bytes de las entradas 10 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x89DD 7
+D 0x8A01 0x8A25 pieza_8849_8A01  pieza de 36 bytes de las entradas 11 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8A01 7
+D 0x8A25 0x8A49 pieza_8849_8A25  pieza de 36 bytes de las entradas 12 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8A25 7
+D 0x8A49 0x8A6D pieza_8849_8A49  pieza de 36 bytes de las entradas 13 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8A49 7
+D 0x8A6D 0x8A91 pieza_8849_8A6D  pieza de 36 bytes de las entradas 14 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8A6D 7
+D 0x8A91 0x8AB5 pieza_8849_8A91  pieza de 36 bytes de las entradas 16 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8A91 7
+D 0x8AB5 0x8AD9 pieza_8849_8AB5  pieza de 36 bytes de las entradas 15 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8AB5 7
+D 0x8AD9 0x8AFD pieza_8849_8AD9  pieza de 36 bytes de las entradas 17 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8AD9 7
+D 0x8AFD 0x8B21 pieza_8849_8AFD  pieza de 36 bytes de las entradas 18 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8AFD 7
+D 0x8B21 0x8B45 pieza_8849_8B21  pieza de 36 bytes de las entradas 19 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8B21 7
+D 0x8B45 0x8B69 pieza_8849_8B45  pieza de 36 bytes de las entradas 20 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8B45 7
+D 0x8B69 0x8B8D pieza_8849_8B69  pieza de 36 bytes de las entradas 21 de 0x8849: 5 filas de 7 caracteres que p00:5E12 manda a la VRAM con outi, y un byte mas que lee p00:5E20; lo leen p00:5E17 (36 bytes)
+F 0x8B69 7
+D 0x8B8D 0x8C3F fichas_8B8D  89 punteros que p01:6308 lee con IX+07 (p00:4E21); lo leen p01:6308 (178 bytes)
+F 0x8B8D w8
+D 0x8C3F 0x8C5D fichas_8B8D_8C3F  lo que p01:630B lee de las entradas 2, 31, 32, 56, 57, 58, 59, 60, 61 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x8C3F 16
+D 0x8C5D 0x8C7B fichas_8B8D_8C5D  lo que p01:630B lee de las entradas 3 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x8C5D 16
+D 0x8C7B 0x8C99 fichas_8B8D_8C7B  lo que p01:630B lee de las entradas 0 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x8C7B 16
+D 0x8C99 0x8CB7 fichas_8B8D_8C99  lo que p01:630B lee de las entradas 1 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x8C99 16
+D 0x8CB7 0x8CBB fichas_8B8D_8CB7  lo que p01:630B lee de las entradas 8 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (4 bytes)
+F 0x8CB7 16
+D 0x8CBB 0x8CC3 fichas_8B8D_8CBB  lo que p01:630B lee de las entradas 9 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8CBB 16
+D 0x8CC3 0x8CCF fichas_8B8D_8CC3  lo que p01:630B lee de las entradas 10 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (12 bytes)
+F 0x8CC3 16
+D 0x8CCF 0x8CDF fichas_8B8D_8CCF  lo que p01:630B lee de las entradas 11 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (16 bytes)
+F 0x8CCF 16
+D 0x8CDF 0x8CE3 fichas_8B8D_8CDF  lo que p01:630B lee de las entradas 12 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (4 bytes)
+F 0x8CDF 16
+D 0x8CE3 0x8CEB fichas_8B8D_8CE3  lo que p01:630B lee de las entradas 13 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8CE3 16
+D 0x8CEB 0x8CF7 fichas_8B8D_8CEB  lo que p01:630B lee de las entradas 14 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (12 bytes)
+F 0x8CEB 16
+D 0x8CF7 0x8D07 fichas_8B8D_8CF7  lo que p01:630B lee de las entradas 15 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (16 bytes)
+F 0x8CF7 16
+D 0x8D07 0x8D17 fichas_8B8D_8D07  lo que p01:630B lee de las entradas 16 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (16 bytes)
+F 0x8D07 16
+D 0x8D17 0x8D27 fichas_8B8D_8D17  lo que p01:630B lee de las entradas 17 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (16 bytes)
+F 0x8D17 16
+D 0x8D27 0x8D2F fichas_8B8D_8D27  lo que p01:630B lee de las entradas 19 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8D27 16
+D 0x8D2F 0x8D37 fichas_8B8D_8D2F  lo que p01:630B lee de las entradas 18 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8D2F 16
+D 0x8D37 0x8D3D fichas_8B8D_8D37  lo que p01:630B lee de las entradas 20 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (6 bytes)
+F 0x8D37 16
+D 0x8D3D 0x8D43 fichas_8B8D_8D3D  lo que p01:630B lee de las entradas 21 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (6 bytes)
+F 0x8D3D 16
+D 0x8D43 0x8D44 fichas_8B8D_8D43  lo que p01:630B lee de las entradas 22 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (1 bytes)
+F 0x8D43 16
+D 0x8D44 0x8D45 fichas_8B8D_8D44  lo que p01:630B lee de las entradas 23 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (1 bytes)
+F 0x8D44 16
+D 0x8D45 0x8D4D fichas_8B8D_8D45  lo que p01:630B lee de las entradas 6 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8D45 16
+D 0x8D4D 0x8D55 fichas_8B8D_8D4D  lo que p01:630B lee de las entradas 7 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8D4D 16
+D 0x8D55 0x8DCD fichas_8B8D_8D55  lo que p01:630B lee de las entradas 30 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (120 bytes)
+F 0x8D55 16
+D 0x8DCD 0x8DCF fichas_8B8D_8DCD  lo que p01:630B lee de las entradas 41 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DCD 16
+D 0x8DCF 0x8DD1 fichas_8B8D_8DCF  lo que p01:630B lee de las entradas 40 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DCF 16
+D 0x8DD1 0x8DD3 fichas_8B8D_8DD1  lo que p01:630B lee de las entradas 39 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DD1 16
+D 0x8DD3 0x8DD5 fichas_8B8D_8DD3  lo que p01:630B lee de las entradas 38 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DD3 16
+D 0x8DD5 0x8DD7 fichas_8B8D_8DD5  lo que p01:630B lee de las entradas 37 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DD5 16
+D 0x8DD7 0x8DD9 fichas_8B8D_8DD7  lo que p01:630B lee de las entradas 36 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DD7 16
+D 0x8DD9 0x8DDB fichas_8B8D_8DD9  lo que p01:630B lee de las entradas 35 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DD9 16
+D 0x8DDB 0x8DDD fichas_8B8D_8DDB  lo que p01:630B lee de las entradas 34 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x8DDB 16
+D 0x8DDD 0x8DF1 fichas_8B8D_8DDD  lo que p01:630B lee de las entradas 33 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (20 bytes)
+F 0x8DDD 16
+D 0x8DF1 0x8DF9 fichas_8B8D_8DF1  lo que p01:630B lee de las entradas 42 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8DF1 16
+D 0x8DF9 0x8E01 fichas_8B8D_8DF9  lo que p01:630B lee de las entradas 4 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8DF9 16
+D 0x8E01 0x8E09 fichas_8B8D_8E01  lo que p01:630B lee de las entradas 5 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8E01 16
+D 0x8E09 0x8E31 fichas_8B8D_8E09  lo que p01:630B lee de las entradas 43 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8E09 16
+D 0x8E31 0x8E59 fichas_8B8D_8E31  lo que p01:630B lee de las entradas 44 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8E31 16
+D 0x8E59 0x8E69 fichas_8B8D_8E59  lo que p01:630B lee de las entradas 45 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (16 bytes)
+F 0x8E59 16
+D 0x8E69 0x8E91 fichas_8B8D_8E69  lo que p01:630B lee de las entradas 46 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8E69 16
+D 0x8E91 0x8EB9 fichas_8B8D_8E91  lo que p01:630B lee de las entradas 47 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8E91 16
+D 0x8EB9 0x8EE1 fichas_8B8D_8EB9  lo que p01:630B lee de las entradas 48 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8EB9 16
+D 0x8EE1 0x8F09 fichas_8B8D_8EE1  lo que p01:630B lee de las entradas 49 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8EE1 16
+D 0x8F09 0x8F0D fichas_8B8D_8F09  lo que p01:630B lee de las entradas 50 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (4 bytes)
+F 0x8F09 16
+D 0x8F0D 0x8F11 fichas_8B8D_8F0D  lo que p01:630B lee de las entradas 55 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (4 bytes)
+F 0x8F0D 16
+D 0x8F11 0x8F15 fichas_8B8D_8F11  lo que p01:630B lee de las entradas 54 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (4 bytes)
+F 0x8F11 16
+D 0x8F15 0x8F19 fichas_8B8D_8F15  lo que p01:630B lee de las entradas 53 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (4 bytes)
+F 0x8F15 16
+D 0x8F19 0x8F41 fichas_8B8D_8F19  lo que p01:630B lee de las entradas 51 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8F19 16
+D 0x8F41 0x8F69 fichas_8B8D_8F41  lo que p01:630B lee de las entradas 52 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (40 bytes)
+F 0x8F41 16
+D 0x8F69 0x8F72 fichas_8B8D_8F69  lo que p01:630B lee de las entradas 24, 25, 26 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (9 bytes)
+F 0x8F69 16
+D 0x8F72 0x8F7B fichas_8B8D_8F72  lo que p01:630B lee de las entradas 27 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (9 bytes)
+F 0x8F72 16
+D 0x8F7B 0x8F84 fichas_8B8D_8F7B  lo que p01:630B lee de las entradas 28 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (9 bytes)
+F 0x8F7B 16
+D 0x8F84 0x8F8D fichas_8B8D_8F84  lo que p01:630B lee de las entradas 29 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (9 bytes)
+F 0x8F84 16
+D 0x8F8D 0x8F95 fichas_8B8D_8F8D  lo que p01:630B lee de las entradas 62 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8F8D 16
+D 0x8F95 0x8F9D fichas_8B8D_8F95  lo que p01:630B lee de las entradas 63 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8F95 16
+D 0x8F9D 0x8FA5 fichas_8B8D_8F9D  lo que p01:630B lee de las entradas 64 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8F9D 16
+D 0x8FA5 0x8FAD fichas_8B8D_8FA5  lo que p01:630B lee de las entradas 65 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8FA5 16
+D 0x8FAD 0x8FB5 fichas_8B8D_8FAD  lo que p01:630B lee de las entradas 66 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8FAD 16
+D 0x8FB5 0x8FBD fichas_8B8D_8FB5  lo que p01:630B lee de las entradas 67 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8FB5 16
+D 0x8FBD 0x8FC5 fichas_8B8D_8FBD  lo que p01:630B lee de las entradas 68 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8FBD 16
+D 0x8FC5 0x8FCD fichas_8B8D_8FC5  lo que p01:630B lee de las entradas 69 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x8FC5 16
+D 0x8FCD 0x8FEB fichas_8B8D_8FCD  lo que p01:630B lee de las entradas 70 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x8FCD 16
+D 0x8FEB 0x9009 fichas_8B8D_8FEB  lo que p01:630B lee de las entradas 71 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x8FEB 16
+D 0x9009 0x9027 fichas_8B8D_9009  lo que p01:630B lee de las entradas 72 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x9009 16
+D 0x9027 0x9045 fichas_8B8D_9027  lo que p01:630B lee de las entradas 73 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (30 bytes)
+F 0x9027 16
+D 0x9045 0x9055 fichas_8B8D_9045  lo que p01:630B lee de las entradas 74 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (16 bytes)
+F 0x9045 16
+D 0x9055 0x9057 fichas_8B8D_9055  lo que p01:630B lee de las entradas 84 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x9055 16
+D 0x9057 0x9059 fichas_8B8D_9057  lo que p01:630B lee de las entradas 83 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x9057 16
+D 0x9059 0x905B fichas_8B8D_9059  lo que p01:630B lee de las entradas 82 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x9059 16
+D 0x905B 0x905D fichas_8B8D_905B  lo que p01:630B lee de las entradas 81 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x905B 16
+D 0x905D 0x905F fichas_8B8D_905D  lo que p01:630B lee de las entradas 80 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x905D 16
+D 0x905F 0x9061 fichas_8B8D_905F  lo que p01:630B lee de las entradas 79 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x905F 16
+D 0x9061 0x9063 fichas_8B8D_9061  lo que p01:630B lee de las entradas 78 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x9061 16
+D 0x9063 0x9065 fichas_8B8D_9063  lo que p01:630B lee de las entradas 77 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (2 bytes)
+F 0x9063 16
+D 0x9065 0x9079 fichas_8B8D_9065  lo que p01:630B lee de las entradas 76 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (20 bytes)
+F 0x9065 16
+D 0x9079 0x9081 fichas_8B8D_9079  lo que p01:630B lee de las entradas 85 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x9079 16
+D 0x9081 0x9089 fichas_8B8D_9081  lo que p01:630B lee de las entradas 86 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x9081 16
+D 0x9089 0x9091 fichas_8B8D_9089  lo que p01:630B lee de las entradas 75 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x9089 16
+D 0x9091 0x9099 fichas_8B8D_9091  lo que p01:630B lee de las entradas 87 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x9091 16
+D 0x9099 0x90A1 fichas_8B8D_9099  lo que p01:630B lee de las entradas 88 de 0x8B8D (acaba donde empieza la siguiente); lo leen p01:630B (8 bytes)
+F 0x9099 16
+D 0x90A1 0x9111 formas_90A1  56 punteros que p01:61C3 lee con IX+32 (p00:4E21): formas que p01:61E9 copia con ldir (IX+14 de ancho, IX+13 filas); lo leen p01:61C3 (112 bytes)
+F 0x90A1 w8
+D 0x9111 0x9115 formas_90A1_9111  forma de caracteres de las entradas 0 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9111 8
+D 0x9115 0x911E formas_90A1_9115  forma de caracteres de las entradas 1 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (9 bytes)
+F 0x9115 8
+D 0x911E 0x9127 formas_90A1_911E  forma de caracteres de las entradas 2 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (9 bytes)
+F 0x911E 8
+D 0x9127 0x9137 formas_90A1_9127  forma de caracteres de las entradas 3 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (16 bytes)
+F 0x9127 8
+D 0x9137 0x913B formas_90A1_9137  forma de caracteres de las entradas 4 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9137 8
+D 0x913B 0x913F formas_90A1_913B  forma de caracteres de las entradas 5 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x913B 8
+D 0x913F 0x914F formas_90A1_913F  forma de caracteres de las entradas 6 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (16 bytes)
+F 0x913F 8
+D 0x914F 0x915B formas_90A1_914F  forma de caracteres de las entradas 7 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (12 bytes)
+F 0x914F 8
+D 0x915B 0x915D formas_90A1_915B  forma de caracteres de las entradas 8 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (2 bytes)
+F 0x915B 8
+D 0x915D 0x9161 formas_90A1_915D  forma de caracteres de las entradas 9 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x915D 8
+D 0x9161 0x9165 formas_90A1_9161  forma de caracteres de las entradas 10 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9161 8
+D 0x9165 0x9169 formas_90A1_9165  forma de caracteres de las entradas 11, 12 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9165 8
+D 0x9169 0x916D formas_90A1_9169  forma de caracteres de las entradas 13 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9169 8
+D 0x916D 0x9171 formas_90A1_916D  forma de caracteres de las entradas 14 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x916D 8
+D 0x9171 0x9175 formas_90A1_9171  forma de caracteres de las entradas 15 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9171 8
+D 0x9175 0x9179 formas_90A1_9175  forma de caracteres de las entradas 16 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9175 8
+D 0x9179 0x917D formas_90A1_9179  forma de caracteres de las entradas 17 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9179 8
+D 0x917D 0x9181 formas_90A1_917D  forma de caracteres de las entradas 18 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x917D 8
+D 0x9181 0x9185 formas_90A1_9181  forma de caracteres de las entradas 19 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9181 8
+D 0x9185 0x9189 formas_90A1_9185  forma de caracteres de las entradas 20 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9185 8
+D 0x9189 0x918D formas_90A1_9189  forma de caracteres de las entradas 21 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9189 8
+D 0x918D 0x9191 formas_90A1_918D  forma de caracteres de las entradas 22 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x918D 8
+D 0x9191 0x9195 formas_90A1_9191  forma de caracteres de las entradas 23 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9191 8
+D 0x9195 0x9199 formas_90A1_9195  forma de caracteres de las entradas 24 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9195 8
+D 0x9199 0x919D formas_90A1_9199  forma de caracteres de las entradas 25 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x9199 8
+D 0x919D 0x91A1 formas_90A1_919D  forma de caracteres de las entradas 26 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x919D 8
+D 0x91A1 0x91A5 formas_90A1_91A1  forma de caracteres de las entradas 27 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91A1 8
+D 0x91A5 0x91A9 formas_90A1_91A5  forma de caracteres de las entradas 28 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91A5 8
+D 0x91A9 0x91AD formas_90A1_91A9  forma de caracteres de las entradas 29 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91A9 8
+D 0x91AD 0x91B3 formas_90A1_91AD  forma de caracteres de las entradas 30 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (6 bytes)
+F 0x91AD 8
+D 0x91B3 0x91B9 formas_90A1_91B3  forma de caracteres de las entradas 31 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (6 bytes)
+F 0x91B3 8
+D 0x91B9 0x91BF formas_90A1_91B9  forma de caracteres de las entradas 32 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (6 bytes)
+F 0x91B9 8
+D 0x91BF 0x91CF formas_90A1_91BF  forma de caracteres de las entradas 33 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (16 bytes)
+F 0x91BF 8
+D 0x91CF 0x91D7 formas_90A1_91CF  forma de caracteres de las entradas 34 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (8 bytes)
+F 0x91CF 8
+D 0x91D7 0x91DB formas_90A1_91D7  forma de caracteres de las entradas 35 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91D7 8
+D 0x91DB 0x91DF formas_90A1_91DB  forma de caracteres de las entradas 36, 37 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91DB 8
+D 0x91DF 0x91E3 formas_90A1_91DF  forma de caracteres de las entradas 38 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91DF 8
+D 0x91E3 0x91E7 formas_90A1_91E3  forma de caracteres de las entradas 39 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91E3 8
+D 0x91E7 0x91EB formas_90A1_91E7  forma de caracteres de las entradas 40 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91E7 8
+D 0x91EB 0x91EF formas_90A1_91EB  forma de caracteres de las entradas 41 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91EB 8
+D 0x91EF 0x91F3 formas_90A1_91EF  forma de caracteres de las entradas 42 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91EF 8
+D 0x91F3 0x91F7 formas_90A1_91F3  forma de caracteres de las entradas 43, 44, 45 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91F3 8
+D 0x91F7 0x91FB formas_90A1_91F7  forma de caracteres de las entradas 46, 47, 48 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91F7 8
+D 0x91FB 0x91FF formas_90A1_91FB  forma de caracteres de las entradas 49, 50, 51 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91FB 8
+D 0x91FF 0x9203 formas_90A1_91FF  forma de caracteres de las entradas 52, 53, 54 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (4 bytes)
+F 0x91FF 8
+D 0x9203 0x9205 formas_90A1_9203  forma de caracteres de las entradas 55 de 0x90A1 (acaba donde empieza la siguiente); lo leen p01:61E9 (2 bytes)
+F 0x9203 8
+D 0x9207 0x9215 sucesos_por_fase_9205  7 punteros (fase 1 a 7; tabla en 0x9205 + 2 x A): las listas de sucesos de cada fase (0xE659); lo leen p01:78F5 (14 bytes)
+F 0x9207 w7
+D 0x9215 0x9223 sucesos_por_fase_9213  7 punteros (fase 1 a 7; tabla en 0x9213 + 2 x A): las listas de sucesos de cada fase (0xE688); lo leen p01:792C (14 bytes)
+F 0x9215 w7
+D 0x9223 0x962F sucesos_9223  sucesos de la fase 1: fichas de 3 bytes que se gastan con 0xE659 segun avanza el scroll; la posicion 0x7FF acaba (la lista vacia es solo la marca); se solapan 12 bloques: (sucesos_9261 9261-92A0) (sucesos_929F 929F-933E) (sucesos_933D 933D-9373) (sucesos_9372 9372-939C) (sucesos_939B 939B-93E0) (sucesos_93DF 93DF-9409) (sucesos_9408 9408-941A) (sucesos_9417 9417-941A) (demo_jugador1 9419-94DB) (demo_jugador2 94DA-95F8) (dibujos_95F7 95F7-962F); lo leen p01:78F5, p01:792C, p03:BF92, p03:BFB4, p01:6078 (1036 bytes)
+F 0x9223 3
+D 0x962F 0x96BF dibujos_962F  18 fichas de 4 punteros ((IY+27 & 0x7F) x 8): cada uno a 32 bytes de dibujo de sprite que p01:608F manda a la VRAM con outi; lo leen p01:60B2 (144 bytes)
+F 0x962F w4
+D 0x96BF 0x96FF sprite_96BF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); se solapan 3 bloques: (sprites_96BF 96BF-96FF) (sprite_96DF 96DF-96FF); lo leen p01:6096, p00:55A9 (64 bytes)
+F 0x96BF 16
+D 0x96FF 0x971F sprite_96FF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x96FF 16
+D 0x971F 0x973F sprite_971F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x971F 16
+D 0x973F 0x975F sprite_973F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x973F 16
+D 0x975F 0x977F sprite_975F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x975F 16
+D 0x977F 0x979F sprite_977F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x977F 16
+D 0x979F 0x97BF sprite_979F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x979F 16
+D 0x97BF 0x97DF sprite_97BF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x97BF 16
+D 0x97DF 0x97FF sprite_97DF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x97DF 16
+D 0x97FF 0x981F sprite_97FF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x97FF 16
+D 0x981F 0x983F sprite_981F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x981F 16
+D 0x983F 0x985F sprite_983F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x983F 16
+D 0x985F 0x987F sprite_985F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x985F 16
+D 0x987F 0x989F sprite_987F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x987F 16
+D 0x989F 0x98BF sprite_989F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x989F 16
+D 0x98BF 0x98DF sprite_98BF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x98BF 16
+D 0x98DF 0x98FF sprite_98DF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x98DF 16
+D 0x98FF 0x991F sprite_98FF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x98FF 16
+D 0x991F 0x993F sprite_991F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x991F 16
+D 0x993F 0x995F sprite_993F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x993F 16
+D 0x995F 0x997F sprite_995F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x995F 16
+D 0x997F 0x999F sprite_997F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x997F 16
+D 0x999F 0x99BF sprite_999F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x999F 16
+D 0x99BF 0x99DF sprite_99BF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x99BF 16
+D 0x99DF 0x99FF sprite_99DF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x99DF 16
+D 0x99FF 0x9A1F sprite_99FF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x99FF 16
+D 0x9A1F 0x9A3F sprite_9A1F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9A1F 16
+D 0x9A3F 0x9A5F sprite_9A3F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9A3F 16
+D 0x9A5F 0x9A7F sprite_9A5F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9A5F 16
+D 0x9A7F 0x9A9F sprite_9A7F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9A7F 16
+D 0x9A9F 0x9ABF sprite_9A9F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9A9F 16
+D 0x9ABF 0x9ADF sprite_9ABF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9ABF 16
+D 0x9ADF 0x9AFF sprite_9ADF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9ADF 16
+D 0x9AFF 0x9B1F sprite_9AFF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9AFF 16
+D 0x9B1F 0x9B3F sprite_9B1F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9B1F 16
+D 0x9B3F 0x9B5F sprite_9B3F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9B3F 16
+D 0x9B5F 0x9B7F sprite_9B5F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9B5F 16
+D 0x9B7F 0x9B9F sprite_9B7F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9B7F 16
+D 0x9B9F 0x9BBF sprite_9B9F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9B9F 16
+D 0x9BBF 0x9BDF sprite_9BBF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9BBF 16
+D 0x9BDF 0x9BFF sprite_9BDF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9BDF 16
+D 0x9BFF 0x9C1F sprite_9BFF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9BFF 16
+D 0x9C1F 0x9C3F sprite_9C1F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9C1F 16
+D 0x9C3F 0x9C5F sprite_9C3F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9C3F 16
+D 0x9C5F 0x9C7F sprite_9C5F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9C5F 16
+D 0x9C7F 0x9C9F sprite_9C7F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9C7F 16
+D 0x9C9F 0x9CBF sprite_9C9F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9C9F 16
+D 0x9CBF 0x9CDF sprite_9CBF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9CBF 16
+D 0x9CDF 0x9CFF sprite_9CDF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9CDF 16
+D 0x9CFF 0x9D1F sprite_9CFF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9CFF 16
+D 0x9D1F 0x9D3F sprite_9D1F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9D1F 16
+D 0x9D3F 0x9D5F sprite_9D3F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9D3F 16
+D 0x9D5F 0x9D7F sprite_9D5F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9D5F 16
+D 0x9D7F 0x9D9F sprite_9D7F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9D7F 16
+D 0x9D9F 0x9DBF sprite_9D9F  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9D9F 16
+D 0x9DBF 0x9DDF sprite_9DBF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x962F (p01:6094: outi x 0x20); lo leen p01:6096 (32 bytes)
+F 0x9DBF 16
+D 0x9DDF 0x9E1F sprite_9DDF  32 bytes de dibujo de sprite (16 x 16) de la tabla 0x95F7 (p01:6094: outi x 0x20); se solapan 3 bloques: (sprites_9DDF 9DDF-9E1F) (sprite_9DFF 9DFF-9E1F); lo leen p01:6096, p00:55A9 (64 bytes)
+F 0x9DDF 16
+D 0x9E1F 0x9E3F estrellas_9E1F  32 bytes, uno por (0xE302 & 0x1F), que leen p00:4AD5 y p00:4B97 (21 filas) para poner los caracteres 0x50/0x51 del fondo; lo leen p00:4ADA (32 bytes)
+F 0x9E1F 16
+D 0x9E3F 0x9E5F estrellas_9E3F  32 bytes, uno por (0xE302 & 0x1F), que leen p00:4AF9 (32 columnas) para poner los caracteres 0x50/0x51 del fondo; lo leen p00:4AFE (32 bytes)
+F 0x9E3F 16
 D 0x9E5F 0xA000 relleno_ff  417 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (417 bytes)
 F 0x9E5F 16
 # --- fin de los bloques de bloques.py ---

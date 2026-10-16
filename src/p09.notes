@@ -1,5 +1,6 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA000 0xA009 colores_9F4E_cola  rachas (p00:4D16) con los colores de los caracteres desde el 144, ficha 1 de la lista 0x687E (p00:4540) (sigue del banco 8); lo leen p00:4DE1 (9 bytes)
 D 0xA009 0xA042 rachas_A009  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:446F (57 bytes)
 D 0xA06F 0xA0D8 rachas_A06F  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:445E (105 bytes)
 D 0xA0F3 0xA113 rachas_A0F3  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:4480 (32 bytes)
