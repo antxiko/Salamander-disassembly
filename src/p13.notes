@@ -1,0 +1,37 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x6000 0x600E bloques_por_fase  7 punteros, uno por fase: los bloques de 4 x 4 caracteres de cada fase (p00:4A34 lee 0x5FFE + 2 x fase); lo leen p00:4A37 (14 bytes)
+F 0x6000 w7
+D 0x600E 0x604E bloques_comunes  los bloques 0 a 3, comunes a todas las fases: 16 bytes cada uno, cuatro filas de cuatro caracteres (p00:4A2B); lo leen p00:4A2B (64 bytes)
+F 0x600E 16
+D 0x604E 0x62BE bloques_fase1  los 39 bloques de la fase 1 (del 4 al 42 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (624 bytes)
+F 0x604E 16
+D 0x62BE 0x63CE bloques_fase2  los 17 bloques de la fase 2 (del 4 al 20 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (272 bytes)
+F 0x62BE 16
+D 0x63CE 0x65CE bloques_fase3  los 32 bloques de la fase 3 (del 4 al 35 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (512 bytes)
+F 0x63CE 16
+D 0x65CE 0x669E bloques_fase4  los 13 bloques de la fase 4 (del 4 al 16 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (208 bytes)
+F 0x65CE 16
+D 0x669E 0x693E bloques_fase5  los 42 bloques de la fase 5 (del 4 al 45 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (672 bytes)
+F 0x669E 16
+D 0x693E 0x6C1E bloques_fase6  los 46 bloques de la fase 6 (del 4 al 49 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (736 bytes)
+F 0x693E 16
+D 0x6C1E 0x6F4E bloques_fase7  los 51 bloques de la fase 7 (del 4 al 54 del mapa): 16 bytes cada uno, cuatro filas de cuatro caracteres; lo leen p00:4A37 (816 bytes)
+F 0x6C1E 16
+D 0x6F4E 0x6F5C mapas  7 punteros, uno por fase (0xE301 de 1 a 7): el mapa de cada fase; la palabra de la fase 0 (0x6F4C) no la lee nadie y son los dos ultimos bytes del ultimo bloque de la fase 7; lo leen p00:49BB, p00:4A88 (14 bytes)
+F 0x6F4E w7
+D 0x6F5C 0x719C mapa_fase1  mapa de la fase 1, en horizontal: cada columna son 6 bloques; el recorrido va de 0x0080 a 0x0200 (p02:88F2); lo leen p00:49BB (576 bytes)
+F 0x6F5C 6
+D 0x719C 0x74FC mapa_fase2  mapa de la fase 2, en vertical: cada fila son 8 bloques; el recorrido va de 0x0048 a 0x01F8 (p02:88F2); lo leen p00:4A88 (864 bytes)
+F 0x719C 8
+D 0x74FC 0x752C mapa_fase2_cola  48 bytes mas del mapa de la fase 2 (el mismo formato, 6 filas), detras de donde acaba el recorrido medido (0xE623 = 0x01F8): SIN LECTOR a la vista; lo leen nadie (48 bytes)
+F 0x74FC 8
+D 0x752C 0x788C mapa_fase3  mapa de la fase 3, en vertical: cada fila son 8 bloques; el recorrido va de 0x0060 a 0x0210 (p02:88F2); lo leen p00:4A88 (864 bytes)
+F 0x752C 8
+D 0x788C 0x7B5C mapa_fase4  mapa de la fase 4, en horizontal: cada columna son 6 bloques; el recorrido va de 0x0080 a 0x0260 (p02:88F2); lo leen p00:49BB (720 bytes)
+F 0x788C 6
+D 0x7B5C 0x7D3C mapa_fase5  mapa de la fase 5, en horizontal: cada columna son 6 bloques; el recorrido va de 0x0080 a 0x01C0 (p02:88F2); lo leen p00:49BB (480 bytes)
+F 0x7B5C 6
+D 0x7D3C 0x8000 mapa_fase6  mapa de la fase 6, en vertical: cada fila son 8 bloques; el recorrido va de 0x0048 a 0x0228 (p02:88F2) (sigue en el banco 14, en 0x8000); lo leen p00:4A88 (708 bytes)
+F 0x7D3C 8
+# --- fin de los bloques de bloques.py ---

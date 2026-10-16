@@ -248,8 +248,10 @@ L_81A3:
 	jp L_87C9		;81a6
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x81a9..0x81e6  (61 bytes)
-DATA_81A9:
+; DATOS lista_81A9: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:52DB (61 bytes)
+;   0x81a9..0x81e6  (61 bytes)
+DATA_lista_81A9:
 	defb 00ah,038h,01ah,02bh,02fh,02eh,021h,02dh,029h,000h,011h,019h,018h,017h,0feh,0ebh	; 81a9  .8.+/.!-).......
 	defb 039h,030h,02ch,021h,039h,000h,033h,025h,02ch,025h,023h,034h,0feh,02dh,03ah,011h	; 81b9  90,!9.3%,%#4.-:.
 	defb 030h,02ch,021h,039h,025h,032h,0feh,06dh,03ah,025h,038h,023h,028h,021h,02eh,027h	; 81c9  0,!9%2.m:%8#(!.'
@@ -266,13 +268,18 @@ L_81E6:
 	call 040ceh		;81ea
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x81ed..0x8237  (74 bytes)
-DATA_81ED:
-	defb 037h,082h,08dh,082h,0adh,082h,0e9h,082h,051h,083h,077h,083h,093h,083h,0e2h,083h	; 81ed  7.......Q.w.....
-	defb 0fah,083h,012h,084h,026h,084h,03dh,084h,04ch,084h,06ah,084h,076h,084h,080h,084h	; 81fd  ....&.=.L.j.v...
-	defb 09ah,084h,0b1h,084h,0c0h,084h,0e4h,084h,00dh,085h,01fh,085h,030h,085h,042h,085h	; 820d  ............0.B.
-	defb 05ch,085h,07ah,085h,08ch,085h,09dh,085h,0b4h,085h,0ceh,085h,0deh,085h,0f2h,085h	; 821d  \.z.............
-	defb 023h,086h,041h,086h,0adh,082h,0e9h,082h,051h,083h	; 822d  #.A.....Q.
+; DATOS tabla_81ED: 37 destinos del despachador p00:40CE (call en p10:81EA, el
+;   indice en A): 8237, 828D, 82AD, 82E9, 8351, 8377, 8393, 83E2, 83FA, 8412,
+;   8426, 843D, 844C, 846A, 8476, 8480, 849A, 84B1, 84C0, 84E4, 850D, 851F,
+;   8530, 8542, 855C, 857A, 858C, 859D, 85B4, 85CE, 85DE, 85F2, 8623, 8641,
+;   82AD, 82E9, 8351; lo leen p10:81EA (74 bytes)
+;   0x81ed..0x8237  (74 bytes)
+DATA_tabla_81ED:
+	defw 08237h,0828dh,082adh,082e9h,08351h,08377h,08393h,083e2h	; 81ed
+	defw 083fah,08412h,08426h,0843dh,0844ch,0846ah,08476h,08480h	; 81fd
+	defw 0849ah,084b1h,084c0h,084e4h,0850dh,0851fh,08530h,08542h	; 820d
+	defw 0855ch,0857ah,0858ch,0859dh,085b4h,085ceh,085deh,085f2h	; 821d
+	defw 08623h,08641h,082adh,082e9h,08351h	; 822d
 
 ; ======================================================================
 ; CODIGO 0x8237..0x8288  (81 bytes)
@@ -316,8 +323,10 @@ L_827F:
 	jp 04d16h		;8285
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8288..0x828d  (5 bytes)
-DATA_8288:
+; DATOS rachas_8288: rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino,
+;   >0x80 copia, 0 acaba); lo leen p10:8285 (5 bytes)
+;   0x8288..0x828d  (5 bytes)
+DATA_rachas_8288:
 	defb 081h,080h,01fh,000h,000h	; 8288
 
 ; ======================================================================
@@ -1128,10 +1137,13 @@ L_8848:
 	call 040ceh		;884c
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x884f..0x8861  (18 bytes)
-DATA_884F:
-	defb 061h,088h,083h,088h,098h,088h,0aah,088h,0d1h,088h,0dbh,088h,0edh,088h,0fbh,088h	; 884f  a...............
-	defb 00ch,089h	; 885f
+; DATOS tabla_884F: 9 destinos del despachador p00:40CE (call en p10:884C, el
+;   indice en A): 8861, 8883, 8898, 88AA, 88D1, 88DB, 88ED, 88FB, 890C; lo
+;   leen p10:884C (18 bytes)
+;   0x884f..0x8861  (18 bytes)
+DATA_tabla_884F:
+	defw 08861h,08883h,08898h,088aah,088d1h,088dbh,088edh,088fbh	; 884f
+	defw 0890ch	; 885f  -> L_890C
 
 ; ======================================================================
 ; CODIGO 0x8861..0x8a6c  (523 bytes)
@@ -1414,16 +1426,34 @@ L_8A34:
 	jp 04cf5h		;8a69
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8a6c..0x8ae9  (125 bytes)
+; DATOS sin identificar  0x8a6c..0x8a8f  (35 bytes)
 DATA_8A6C:
 	defb 07ah,08ah,07eh,08ah,082h,08ah,082h,08ah,082h,08ah,088h,08ah,08dh,08ah,02fh,02eh	; 8a6c  z.~.........../.
 	defb 025h,0ffh,034h,037h,02fh,0ffh,034h,028h,032h,025h,025h,0ffh,026h,02fh,035h,032h	; 8a7c  %.47/.4(2%%.&/52
-	defb 0ffh,038h,0ffh,029h,039h,02fh,030h,025h,032h,021h,034h,029h,02fh,02eh,0ffh,0c9h	; 8a8c  .8.)9/0%2!4)/...
-	defb 039h,030h,02ch,021h,02eh,025h,034h,0ffh,0aah,08ah,0b2h,08ah,0bah,08ah,025h,029h	; 8a9c  90,!.%4.......%)
-	defb 02fh,02eh,025h,035h,033h,0ffh,02ch,021h,036h,029h,02eh,029h,021h,0ffh,02bh,029h	; 8aac  /.%53.,!6).)!.+)
-	defb 025h,032h,02bh,025h,0ffh,0c9h,08ah,0d1h,08ah,0d9h,08ah,0e1h,08ah,000h,000h,000h	; 8abc  %2+%............
-	defb 071h,000h,000h,000h,07bh,000h,000h,072h,073h,000h,000h,07ch,07dh,000h,074h,075h	; 8acc  q...{..rs..|}.tu
-	defb 076h,000h,07eh,07fh,080h,077h,078h,079h,07ah,081h,082h,083h,084h	; 8adc  v.~..wxyz....
+	defb 0ffh,038h,0ffh	; 8a8c
+
+; ----------------------------------------------------------------------
+; DATOS lista_8A8F: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:8A3F (12 bytes)
+;   0x8a8f..0x8a9b  (12 bytes)
+DATA_lista_8A8F:
+	defb 029h,039h,02fh,030h,025h,032h,021h,034h,029h,02fh,02eh,0ffh	; 8a8f  )9/0%2!4)/..
+
+; ----------------------------------------------------------------------
+; DATOS lista_8A9B: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:8A69 (9 bytes)
+;   0x8a9b..0x8aa4  (9 bytes)
+DATA_lista_8A9B:
+	defb 0c9h,039h,030h,02ch,021h,02eh,025h,034h,0ffh	; 8a9b  .90,!.%4.
+
+; ----------------------------------------------------------------------
+; DATOS sin identificar  0x8aa4..0x8ae9  (69 bytes)
+DATA_8AA4:
+	defb 0aah,08ah,0b2h,08ah,0bah,08ah,025h,029h,02fh,02eh,025h,035h,033h,0ffh,02ch,021h	; 8aa4  ......%)/.%53.,!
+	defb 036h,029h,02eh,029h,021h,0ffh,02bh,029h,025h,032h,02bh,025h,0ffh,0c9h,08ah,0d1h	; 8ab4  6).)!.+)%2+%....
+	defb 08ah,0d9h,08ah,0e1h,08ah,000h,000h,000h,071h,000h,000h,000h,07bh,000h,000h,072h	; 8ac4  ........q...{..r
+	defb 073h,000h,000h,07ch,07dh,000h,074h,075h,076h,000h,07eh,07fh,080h,077h,078h,079h	; 8ad4  s..|}.tuv.~..wxy
+	defb 07ah,081h,082h,083h,084h	; 8ae4
 
 ; ======================================================================
 ; CODIGO 0x8ae9..0x8b20  (55 bytes)
@@ -1583,9 +1613,12 @@ L_8C17:
 	call 040ceh		;8c19
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8c1c..0x8c2a  (14 bytes)
-DATA_8C1C:
-	defb 02ah,08ch,047h,08ch,062h,08ch,082h,08ch,097h,08ch,0b8h,08ch,008h,08ch	; 8c1c  *.G.b.........
+; DATOS tabla_8C1C: 7 destinos del despachador p00:40CE (call en p10:8C19, el
+;   indice en A): 8C2A, 8C47, 8C62, 8C82, 8C97, 8CB8, 8C08; lo leen p10:8C19
+;   (14 bytes)
+;   0x8c1c..0x8c2a  (14 bytes)
+DATA_tabla_8C1C:
+	defw 08c2ah,08c47h,08c62h,08c82h,08c97h,08cb8h,08c08h	; 8c1c
 
 ; ======================================================================
 ; CODIGO 0x8c2a..0x8da5  (379 bytes)
@@ -1771,9 +1804,11 @@ L_8DA0:
 	call 040ceh		;8da2
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8da5..0x8dad  (8 bytes)
-DATA_8DA5:
-	defb 0adh,08dh,0c4h,08dh,0d5h,08dh,008h,08ch	; 8da5  ........
+; DATOS tabla_8DA5: 4 destinos del despachador p00:40CE (call en p10:8DA2, el
+;   indice en A): 8DAD, 8DC4, 8DD5, 8C08; lo leen p10:8DA2 (8 bytes)
+;   0x8da5..0x8dad  (8 bytes)
+DATA_tabla_8DA5:
+	defw 08dadh,08dc4h,08dd5h,08c08h	; 8da5  -> L_8DAD L_8DC4 L_8DD5 L_8C08
 
 ; ======================================================================
 ; CODIGO 0x8dad..0x8f00  (339 bytes)
@@ -2054,10 +2089,13 @@ L_8F7F:
 	call 040ceh		;8f91
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8f94..0x8fb2  (30 bytes)
-DATA_8F94:
-	defb 0e1h,08fh,009h,090h,036h,090h,047h,090h,04eh,090h,064h,090h,077h,090h,088h,090h	; 8f94  ....6.G.N.d.w...
-	defb 0a4h,090h,0b5h,090h,0c5h,090h,0d9h,090h,005h,091h,020h,091h,040h,091h	; 8fa4  .......... .@.
+; DATOS tabla_8F94: 15 destinos del despachador p00:40CE (call en p10:8F91, el
+;   indice en A): 8FE1, 9009, 9036, 9047, 904E, 9064, 9077, 9088, 90A4, 90B5,
+;   90C5, 90D9, 9105, 9120, 9140; lo leen p10:8F91 (30 bytes)
+;   0x8f94..0x8fb2  (30 bytes)
+DATA_tabla_8F94:
+	defw 08fe1h,09009h,09036h,09047h,0904eh,09064h,09077h,09088h	; 8f94
+	defw 090a4h,090b5h,090c5h,090d9h,09105h,09120h,09140h	; 8fa4
 
 ; ======================================================================
 ; CODIGO 0x8fb2..0x8fbb  (9 bytes)
@@ -2071,11 +2109,15 @@ L_8FB2:
 	call 040ceh		;8fb8
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8fbb..0x8fe1  (38 bytes)
-DATA_8FBB:
-	defb 0e1h,08fh,009h,090h,036h,090h,047h,090h,049h,091h,05ah,091h,083h,091h,0a4h,091h	; 8fbb  ....6.G.I.Z.....
-	defb 0b3h,091h,0c7h,091h,0f9h,091h,013h,092h,037h,092h,060h,092h,06fh,092h,07bh,092h	; 8fcb  ........7.`.o.{.
-	defb 08bh,092h,099h,092h,040h,091h	; 8fdb
+; DATOS tabla_8FBB: 19 destinos del despachador p00:40CE (call en p10:8FB8, el
+;   indice en A): 8FE1, 9009, 9036, 9047, 9149, 915A, 9183, 91A4, 91B3, 91C7,
+;   91F9, 9213, 9237, 9260, 926F, 927B, 928B, 9299, 9140; lo leen p10:8FB8 (38
+;   bytes)
+;   0x8fbb..0x8fe1  (38 bytes)
+DATA_tabla_8FBB:
+	defw 08fe1h,09009h,09036h,09047h,09149h,0915ah,09183h,091a4h	; 8fbb
+	defw 091b3h,091c7h,091f9h,09213h,09237h,09260h,0926fh,0927bh	; 8fcb
+	defw 0928bh,09299h,09140h	; 8fdb  -> L_928B L_9299 L_9140
 
 ; ======================================================================
 ; CODIGO 0x8fe1..0x9353  (882 bytes)
@@ -2508,23 +2550,41 @@ L_9342:
 	ret			;9352
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9353..0x944a  (247 bytes)
+; DATOS sin identificar  0x9353..0x9397  (68 bytes)
 DATA_9353:
 	defb 004h,005h,007h,00fh,005h,000h,002h,040h,007h,060h,00ah,0c0h,013h,034h,012h,056h	; 9353  .......@.`...4.V
 	defb 015h,0feh,01fh,0deh,024h,023h,024h,023h,02fh,06fh,02bh,0e3h,035h,045h,035h,03eh	; 9363  ....$#$#/o+.5E5>
 	defb 035h,06eh,03bh,0a4h,04fh,0deh,046h,04dh,046h,06ch,04eh,0b7h,05ah,0efh,057h,045h	; 9373  5n..O.FMFlN.Z.WE
 	defb 059h,061h,05dh,0e6h,06bh,0cbh,06dh,044h,061h,062h,06ah,0dah,07eh,045h,070h,043h	; 9383  Ya].k.mDabj.~EpC
-	defb 07eh,063h,076h,0adh,04ch,039h,02bh,01fh,01ch,000h,01ch,025h,01bh,0ffh,000h,000h	; 9393  ~cv.L9+....%....
-	defb 000h,000h,000h,000h,000h,010h,040h,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 93a3  ......@.........
-	defb 000h,000h,000h,011h,012h,013h,043h,042h,041h,000h,000h,000h,000h,000h,000h,000h	; 93b3  ......CBA.......
-	defb 000h,000h,000h,014h,015h,016h,046h,045h,044h,000h,000h,000h,000h,000h,000h,000h	; 93c3  ......FED.......
-	defb 000h,000h,017h,018h,019h,01ah,04ah,049h,048h,047h,000h,000h,000h,000h,027h,028h	; 93d3  ......JIHG....'(
-	defb 058h,057h,01bh,01ch,01dh,01eh,04eh,04dh,04ch,04bh,027h,028h,058h,057h,029h,02ah	; 93e3  XW....NMLK'(XW)*
-	defb 05ah,059h,01fh,020h,021h,022h,052h,051h,050h,04fh,029h,02ah,05ah,059h,02bh,02ch	; 93f3  ZY. !"RQPO)*ZY+,
-	defb 05ch,05bh,023h,024h,025h,026h,056h,055h,054h,053h,02bh,02ch,05ch,05bh,000h,000h	; 9403  \[#$%&VUTS+,\[..
-	defb 000h,02eh,05eh,000h,000h,000h,000h,000h,02fh,030h,060h,05fh,000h,000h,000h,031h	; 9413  ..^...../0`_...1
-	defb 032h,033h,063h,062h,061h,000h,034h,035h,036h,037h,067h,066h,065h,064h,038h,03ah	; 9423  23cba.4567gfed8:
-	defb 03bh,01eh,04eh,06bh,06ah,068h,01fh,020h,021h,039h,069h,051h,050h,04fh,02dh,05dh	; 9433  ..Nkjh. !9iQPO-]
+	defb 07eh,063h,076h,0adh	; 9393
+
+; ----------------------------------------------------------------------
+; DATOS lista_9397: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:9132 (10 bytes)
+;   0x9397..0x93a1  (10 bytes)
+DATA_lista_9397:
+	defb 04ch,039h,02bh,01fh,01ch,000h,01ch,025h,01bh,0ffh	; 9397  L9+....%..
+
+; ----------------------------------------------------------------------
+; DATOS sin identificar  0x93a1..0x9443  (162 bytes)
+DATA_93A1:
+	defb 000h,000h,000h,000h,000h,000h,000h,010h,040h,000h,000h,000h,000h,000h,000h,000h	; 93a1  ........@.......
+	defb 000h,000h,000h,000h,000h,011h,012h,013h,043h,042h,041h,000h,000h,000h,000h,000h	; 93b1  ........CBA.....
+	defb 000h,000h,000h,000h,000h,014h,015h,016h,046h,045h,044h,000h,000h,000h,000h,000h	; 93c1  ........FED.....
+	defb 000h,000h,000h,000h,017h,018h,019h,01ah,04ah,049h,048h,047h,000h,000h,000h,000h	; 93d1  ........JIHG....
+	defb 027h,028h,058h,057h,01bh,01ch,01dh,01eh,04eh,04dh,04ch,04bh,027h,028h,058h,057h	; 93e1  '(XW....NMLK'(XW
+	defb 029h,02ah,05ah,059h,01fh,020h,021h,022h,052h,051h,050h,04fh,029h,02ah,05ah,059h	; 93f1  )*ZY. !"RQPO)*ZY
+	defb 02bh,02ch,05ch,05bh,023h,024h,025h,026h,056h,055h,054h,053h,02bh,02ch,05ch,05bh	; 9401  +,\[#$%&VUTS+,\[
+	defb 000h,000h,000h,02eh,05eh,000h,000h,000h,000h,000h,02fh,030h,060h,05fh,000h,000h	; 9411  ....^...../0`_..
+	defb 000h,031h,032h,033h,063h,062h,061h,000h,034h,035h,036h,037h,067h,066h,065h,064h	; 9421  .123cba.4567gfed
+	defb 038h,03ah,03bh,01eh,04eh,06bh,06ah,068h,01fh,020h,021h,039h,069h,051h,050h,04fh	; 9431  8:..Nkjh. !9iQPO
+	defb 02dh,05dh	; 9441
+
+; ----------------------------------------------------------------------
+; DATOS rachas_d_9443: [destino en la VRAM] y rachas (p00:4D10 -> p00:4D16);
+;   lo leen p10:9337 (7 bytes)
+;   0x9443..0x944a  (7 bytes)
+DATA_rachas_d_9443:
 	defb 000h,018h,081h,080h,01fh,000h,000h	; 9443
 
 ; ======================================================================
@@ -3432,14 +3492,44 @@ L_9BDB:
 	jp L_874E		;9bf1
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9bf4..0x9c4d  (89 bytes)
+; DATOS sin identificar  0x9bf4..0x9c1a  (38 bytes)
 DATA_9BF4:
 	defb 0fah,09bh,003h,09ch,00ch,09ch,000h,041h,000h,040h,042h,043h,000h,044h,000h,000h	; 9bf4  .......A.@BC.D..
 	defb 04bh,000h,04ah,04ch,04dh,000h,04eh,000h,000h,046h,000h,045h,047h,048h,000h,049h	; 9c04  K.JLM.N..F.EGH.I
-	defb 000h,0e2h,039h,0bch,0bdh,0ffh,0e2h,039h,027h,023h,018h,025h,01ch,02bh,000h,0ffh	; 9c14  ..9....9'#.%.+..
-	defb 022h,03ah,029h,018h,01bh,018h,029h,0eah,0ebh,0ffh,022h,03ah,029h,018h,01bh,018h	; 9c24  ":)...)...":)...
-	defb 029h,0ffh,068h,03ah,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh	; 9c34  ).h:OOOOOOOOOOOO
-	defb 04fh,0ffh,0f7h,039h,02bh,020h,024h,01ch,0ffh	; 9c44  O..9+ $..
+	defb 000h,0e2h,039h,0bch,0bdh,0ffh	; 9c14
+
+; ----------------------------------------------------------------------
+; DATOS lista_9C1A: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:98E0 (10 bytes)
+;   0x9c1a..0x9c24  (10 bytes)
+DATA_lista_9C1A:
+	defb 0e2h,039h,027h,023h,018h,025h,01ch,02bh,000h,0ffh	; 9c1a  .9'#.%.+..
+
+; ----------------------------------------------------------------------
+; DATOS sin identificar  0x9c24..0x9c2e  (10 bytes)
+DATA_9C24:
+	defb 022h,03ah,029h,018h,01bh,018h,029h,0eah,0ebh,0ffh	; 9c24  ":)...)...
+
+; ----------------------------------------------------------------------
+; DATOS lista_9C2E: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:9912 (8 bytes)
+;   0x9c2e..0x9c36  (8 bytes)
+DATA_lista_9C2E:
+	defb 022h,03ah,029h,018h,01bh,018h,029h,0ffh	; 9c2e  ":)...).
+
+; ----------------------------------------------------------------------
+; DATOS lista_9C36: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:9923 (16 bytes)
+;   0x9c36..0x9c46  (16 bytes)
+DATA_lista_9C36:
+	defb 068h,03ah,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,04fh,0ffh	; 9c36  h:OOOOOOOOOOOOO.
+
+; ----------------------------------------------------------------------
+; DATOS lista_9C46: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:98A5 (7 bytes)
+;   0x9c46..0x9c4d  (7 bytes)
+DATA_lista_9C46:
+	defb 0f7h,039h,02bh,020h,024h,01ch,0ffh	; 9c46
 
 ; ======================================================================
 ; CODIGO 0x9c4d..0x9e03  (438 bytes)
@@ -3846,24 +3936,32 @@ L_9ECA:
 	ret			;9ed7
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9ed8..0xa000  (296 bytes)
-DATA_9ED8:
+; DATOS lista_9ED8: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p10:833D (44 bytes)
+;   0x9ed8..0x9f04  (44 bytes)
+DATA_lista_9ED8:
 	defb 06ah,03ah,034h,028h,025h,000h,026h,021h,02eh,034h,021h,033h,034h,029h,023h,0feh	; 9ed8  j:4(%.&!.4!34)#.
 	defb 0a4h,03ah,033h,030h,021h,023h,025h,000h,021h,024h,036h,025h,02eh,034h,035h,032h	; 9ee8  .:30!#%.!$6%.452
-	defb 025h,000h,023h,02fh,02dh,02dh,025h,02eh,023h,025h,033h,0ffh,0ffh,0ffh,0ffh,0ffh	; 9ef8  %.#/--%.#%3.....
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f08  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f18  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f28  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f38  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f48  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f58  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f68  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f78  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f88  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f98  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fa8  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fb8  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fc8  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fd8  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fe8  ................
-	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9ff8  ........
+	defb 025h,000h,023h,02fh,02dh,02dh,025h,02eh,023h,025h,033h,0ffh	; 9ef8  %.#/--%.#%3.
+
+; ----------------------------------------------------------------------
+; DATOS relleno_ff: 252 bytes a 0xFF hasta el final del banco: relleno; lo
+;   leen nadie (252 bytes)
+;   0x9f04..0xa000  (252 bytes)
+DATA_relleno_ff:
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f04  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f14  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f24  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f34  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f44  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f54  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f64  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f74  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f84  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9f94  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fa4  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fb4  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fc4  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fd4  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9fe4  ................
+	defb 0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh	; 9ff4  ............

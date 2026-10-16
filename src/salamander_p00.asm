@@ -1144,10 +1144,32 @@ L_4856:
 	jp L_4CE5		;4865
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4868..0x4882  (26 bytes)
-DATA_4868:
-	defb 010h,000h,000h,002h,000h,081h,0b0h,008h,000h,081h,070h,004h,000h,000h,010h,001h	; 4868  ..........p.....
-	defb 000h,081h,0b0h,007h,000h,081h,070h,007h,000h,000h	; 4878  ......p...
+; DATOS rachas3_4868: rachas a la VRAM en los tres tercios (p00:4CE5 ->
+;   p00:4D16); lo leen p00:485C (3 bytes)
+;   0x4868..0x486b  (3 bytes)
+DATA_rachas3_4868:
+	defb 010h,000h,000h	; 4868
+
+; ----------------------------------------------------------------------
+; DATOS rachas3_486B: rachas a la VRAM en los tres tercios (p00:4CE5 ->
+;   p00:4D16); lo leen p00:4865 (11 bytes)
+;   0x486b..0x4876  (11 bytes)
+DATA_rachas3_486B:
+	defb 002h,000h,081h,0b0h,008h,000h,081h,070h,004h,000h,000h	; 486b  .......p...
+
+; ----------------------------------------------------------------------
+; DATOS rachas3_4876: rachas a la VRAM en los tres tercios (p00:4CE5 ->
+;   p00:4D16); lo leen p00:484A (3 bytes)
+;   0x4876..0x4879  (3 bytes)
+DATA_rachas3_4876:
+	defb 010h,001h,000h	; 4876
+
+; ----------------------------------------------------------------------
+; DATOS rachas3_4879: rachas a la VRAM en los tres tercios (p00:4CE5 ->
+;   p00:4D16); lo leen p00:4853 (9 bytes)
+;   0x4879..0x4882  (9 bytes)
+DATA_rachas3_4879:
+	defb 081h,0b0h,007h,000h,081h,070h,007h,000h,000h	; 4879  .....p...
 
 ; ======================================================================
 ; CODIGO 0x4882..0x4b87  (773 bytes)
@@ -2749,10 +2771,13 @@ L_525D:
 	call L_40CE		;525d
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5260..0x527a  (26 bytes)
-DATA_5260:
-	defb 07ah,052h,0b4h,052h,0ebh,052h,040h,053h,09fh,053h,0fdh,053h,03ch,054h,0a9h,054h	; 5260  zR.R.R@S.S.S<T.T
-	defb 05fh,055h,0cch,055h,0e7h,056h,001h,056h,070h,056h	; 5270  _U.U.V.VpV
+; DATOS tabla_5260: 13 destinos del despachador p00:40CE (call en p00:525D, el
+;   indice en A): 527A, 52B4, 52EB, 5340, 539F, 53FD, 543C, 54A9, 555F, 55CC,
+;   56E7, 5601, 5670; lo leen p00:525D (26 bytes)
+;   0x5260..0x527a  (26 bytes)
+DATA_tabla_5260:
+	defw 0527ah,052b4h,052ebh,05340h,0539fh,053fdh,0543ch,054a9h	; 5260
+	defw 0555fh,055cch,056e7h,05601h,05670h	; 5270
 
 ; ======================================================================
 ; CODIGO 0x527a..0x57dc  (1378 bytes)
@@ -3951,12 +3976,15 @@ L_5B47:
 	call L_40CE		;5b50
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5b53..0x5b63  (16 bytes)
-DATA_5B53:
-	defb 01dh,0aah,00ah,0a8h,025h,0aeh,034h,0ach,05eh,0b3h,06fh,0b0h,063h,05bh,0e9h,0b4h	; 5b53  ....%.4.^.o.c[..
+; DATOS tabla_5B53: 8 destinos del despachador p00:40CE (call en p00:5B50, el
+;   indice en A): AA1D, A80A, AE25, AC34, B35E, B06F, 5B63, B4E9; lo leen
+;   p00:5B50 (16 bytes)
+;   0x5b53..0x5b63  (16 bytes)
+DATA_tabla_5B53:
+	defw 0aa1dh,0a80ah,0ae25h,0ac34h,0b35eh,0b06fh,05b63h,0b4e9h	; 5b53
 
 ; ======================================================================
-; CODIGO 0x5b63..0x5ba5  (66 bytes)
+; CODIGO 0x5b63..0x5bfe  (155 bytes)
 ; ======================================================================
 
 
@@ -3990,25 +4018,72 @@ L_5B91:
 	di			;5b91
 	ld a,0c9h		;5b92
 	ld (0fd9ah),a		;5b94
-	ld hl,05ba5h		;5b97
+	ld hl,L_5BA5		;5b97
 	ld de,0c000h		;5b9a
 	ld bc,00095h		;5b9d
 	ldir		;5ba0
 	jp 0c000h		;5ba2
+L_5BA5:
+	call 0c010h		;5ba5
+	call 0c03ch		;5ba8
+	call 0c024h		;5bab
+	ld a,0c3h		;5bae
+	ld (0fd9ah),a		;5bb0
+	ei			;5bb3
+	ret			;5bb4
+L_5BB5:
+	ld a,(0f0f4h)		;5bb5
+	call 0c030h		;5bb8
+L_5BBB:
+	ld a,007h		;5bbb
+	ld (07000h),a		;5bbd
+	inc a			;5bc0
+	ld (09000h),a		;5bc1
+	inc a			;5bc4
+	ld (0b000h),a		;5bc5
+	ret			;5bc8
+L_5BC9:
+	ld a,(0f0f6h)		;5bc9
+	call 0c030h		;5bcc
+	xor a			;5bcf
+	ld (05000h),a		;5bd0
+	jr L_5BBB		;5bd3
+L_5BD5:
+	push af			;5bd5
+	ld h,040h		;5bd6
+	call 00024h		;5bd8   ; BIOS ENASLT - Switches to specified slot and page definitively
+	pop af			;5bdb
+	ld h,080h		;5bdc
+	jp 00024h		;5bde   ; BIOS ENASLT - Switches to specified slot and page definitively
+L_5BE1:
+	ld de,0c100h		;5be1
+	ld hl,0c059h		;5be4
+	ld b,014h		;5be7
+L_5BE9:
+	push bc			;5be9
+	push hl			;5bea
+	ld c,(hl)			;5beb
+	ld b,000h		;5bec
+	inc hl			;5bee
+	ld a,(hl)			;5bef
+	inc hl			;5bf0
+	ld h,(hl)			;5bf1
+	ld l,a			;5bf2
+	ldir		;5bf3
+	pop hl			;5bf5
+	ld bc,00003h		;5bf6
+	add hl,bc			;5bf9
+	pop bc			;5bfa
+	djnz L_5BE9		;5bfb
+	ret			;5bfd
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5ba5..0x5c3a  (149 bytes)
-DATA_5BA5:
-	defb 0cdh,010h,0c0h,0cdh,03ch,0c0h,0cdh,024h,0c0h,03eh,0c3h,032h,09ah,0fdh,0fbh,0c9h	; 5ba5  ....<..$.>.2....
-	defb 03ah,0f4h,0f0h,0cdh,030h,0c0h,03eh,007h,032h,000h,070h,03ch,032h,000h,090h,03ch	; 5bb5  :...0.>.2.p<2..<
-	defb 032h,000h,0b0h,0c9h,03ah,0f6h,0f0h,0cdh,030h,0c0h,0afh,032h,000h,050h,018h,0e6h	; 5bc5  2...:...0..2.P..
-	defb 0f5h,026h,040h,0cdh,024h,000h,0f1h,026h,080h,0c3h,024h,000h,011h,000h,0c1h,021h	; 5bd5  .&@.$..&..$....!
-	defb 059h,0c0h,006h,014h,0c5h,0e5h,04eh,006h,000h,023h,07eh,023h,066h,06fh,0edh,0b0h	; 5be5  Y.....N..#~#fo..
-	defb 0e1h,001h,003h,000h,009h,0c1h,010h,0ech,0c9h,028h,0a7h,069h,0a7h,0b0h,06ah,020h	; 5bf5  .........(.i..j
-	defb 054h,071h,010h,057h,06bh,02eh,0cfh,069h,05dh,0fdh,069h,011h,05ah,06ah,02bh,06bh	; 5c05  Tq.Wk..i].i.Zj+k
-	defb 06ah,028h,0c6h,07fh,092h,098h,080h,01eh,00eh,087h,01eh,080h,087h,012h,0d4h,081h	; 5c15  j(..............
-	defb 02ch,0eeh,07fh,04ah,01ah,080h,012h,064h,080h,022h,076h,080h,076h,06dh,0bfh,022h	; 5c25  ,..J...d."v.vm."
-	defb 0c2h,099h,061h,001h,096h	; 5c35
+; DATOS sin identificar  0x5bfe..0x5c3a  (60 bytes)
+DATA_5BFE:
+	defb 028h,0a7h,069h,0a7h,0b0h,06ah,020h,054h,071h,010h,057h,06bh,02eh,0cfh,069h,05dh	; 5bfe  (.i..j Tq.Wk..i]
+	defb 0fdh,069h,011h,05ah,06ah,02bh,06bh,06ah,028h,0c6h,07fh,092h,098h,080h,01eh,00eh	; 5c0e  .i.Zj+kj(.......
+	defb 087h,01eh,080h,087h,012h,0d4h,081h,02ch,0eeh,07fh,04ah,01ah,080h,012h,064h,080h	; 5c1e  .......,..J...d.
+	defb 022h,076h,080h,076h,06dh,0bfh,022h,0c2h,099h,061h,001h,096h	; 5c2e  "v.vm."..a..
 
 ; ======================================================================
 ; CODIGO 0x5c3a..0x5cfa  (192 bytes)

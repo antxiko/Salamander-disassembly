@@ -743,9 +743,12 @@ L_8510:
 	call 040ceh		;8514
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8517..0x8525  (14 bytes)
-DATA_8517:
-	defb 025h,085h,0a5h,085h,0b5h,085h,0d2h,085h,026h,086h,036h,086h,0b4h,086h	; 8517  %.......&.6...
+; DATOS tabla_8517: 7 destinos del despachador p00:40CE (call en p02:8514, el
+;   indice en A): 8525, 85A5, 85B5, 85D2, 8626, 8636, 86B4; lo leen p02:8514
+;   (14 bytes)
+;   0x8517..0x8525  (14 bytes)
+DATA_tabla_8517:
+	defw 08525h,085a5h,085b5h,085d2h,08626h,08636h,086b4h	; 8517
 
 ; ======================================================================
 ; CODIGO 0x8525..0x876c  (583 bytes)
@@ -3287,9 +3290,12 @@ L_9909:
 	call 040ceh		;991b
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x991e..0x992a  (12 bytes)
-DATA_991E:
-	defb 02ah,099h,046h,099h,051h,099h,045h,099h,057h,099h,067h,099h	; 991e  *.F.Q.E.W.g.
+; DATOS tabla_991E: 6 destinos del despachador p00:40CE (call en p02:991B, el
+;   indice en A): 992A, 9946, 9951, 9945, 9957, 9967; lo leen p02:991B (12
+;   bytes)
+;   0x991e..0x992a  (12 bytes)
+DATA_tabla_991E:
+	defw 0992ah,09946h,09951h,09945h,09957h,09967h	; 991e
 
 ; ======================================================================
 ; CODIGO 0x992a..0x9c73  (841 bytes)
@@ -3793,9 +3799,11 @@ L_9C7B:
 	call 040ceh		;9c85
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9c88..0x9c90  (8 bytes)
-DATA_9C88:
-	defb 090h,09ch,0adh,09ch,0f9h,09ch,00bh,09dh	; 9c88  ........
+; DATOS tabla_9C88: 4 destinos del despachador p00:40CE (call en p02:9C85, el
+;   indice en A): 9C90, 9CAD, 9CF9, 9D0B; lo leen p02:9C85 (8 bytes)
+;   0x9c88..0x9c90  (8 bytes)
+DATA_tabla_9C88:
+	defw 09c90h,09cadh,09cf9h,09d0bh	; 9c88  -> L_9C90 L_9CAD L_9CF9 L_9D0B
 
 ; ======================================================================
 ; CODIGO 0x9c90..0x9d21  (145 bytes)

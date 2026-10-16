@@ -1,0 +1,28 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x81A9 0x81E6 lista_81A9  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:52DB (61 bytes)
+D 0x81ED 0x8237 tabla_81ED  37 destinos del despachador p00:40CE (call en p10:81EA, el indice en A): 8237, 828D, 82AD, 82E9, 8351, 8377, 8393, 83E2, 83FA, 8412, 8426, 843D, 844C, 846A, 8476, 8480, 849A, 84B1, 84C0, 84E4, 850D, 851F, 8530, 8542, 855C, 857A, 858C, 859D, 85B4, 85CE, 85DE, 85F2, 8623, 8641, 82AD, 82E9, 8351; lo leen p10:81EA (74 bytes)
+F 0x81ED w8
+D 0x8288 0x828D rachas_8288  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:8285 (5 bytes)
+D 0x884F 0x8861 tabla_884F  9 destinos del despachador p00:40CE (call en p10:884C, el indice en A): 8861, 8883, 8898, 88AA, 88D1, 88DB, 88ED, 88FB, 890C; lo leen p10:884C (18 bytes)
+F 0x884F w8
+D 0x8A8F 0x8A9B lista_8A8F  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:8A3F (12 bytes)
+D 0x8A9B 0x8AA4 lista_8A9B  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:8A69 (9 bytes)
+D 0x8C1C 0x8C2A tabla_8C1C  7 destinos del despachador p00:40CE (call en p10:8C19, el indice en A): 8C2A, 8C47, 8C62, 8C82, 8C97, 8CB8, 8C08; lo leen p10:8C19 (14 bytes)
+F 0x8C1C w7
+D 0x8DA5 0x8DAD tabla_8DA5  4 destinos del despachador p00:40CE (call en p10:8DA2, el indice en A): 8DAD, 8DC4, 8DD5, 8C08; lo leen p10:8DA2 (8 bytes)
+F 0x8DA5 w4
+D 0x8F94 0x8FB2 tabla_8F94  15 destinos del despachador p00:40CE (call en p10:8F91, el indice en A): 8FE1, 9009, 9036, 9047, 904E, 9064, 9077, 9088, 90A4, 90B5, 90C5, 90D9, 9105, 9120, 9140; lo leen p10:8F91 (30 bytes)
+F 0x8F94 w8
+D 0x8FBB 0x8FE1 tabla_8FBB  19 destinos del despachador p00:40CE (call en p10:8FB8, el indice en A): 8FE1, 9009, 9036, 9047, 9149, 915A, 9183, 91A4, 91B3, 91C7, 91F9, 9213, 9237, 9260, 926F, 927B, 928B, 9299, 9140; lo leen p10:8FB8 (38 bytes)
+F 0x8FBB w8
+D 0x9397 0x93A1 lista_9397  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:9132 (10 bytes)
+D 0x9443 0x944A rachas_d_9443  [destino en la VRAM] y rachas (p00:4D10 -> p00:4D16); lo leen p10:9337 (7 bytes)
+D 0x9C1A 0x9C24 lista_9C1A  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:98E0 (10 bytes)
+D 0x9C2E 0x9C36 lista_9C2E  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:9912 (8 bytes)
+D 0x9C36 0x9C46 lista_9C36  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:9923 (16 bytes)
+D 0x9C46 0x9C4D lista_9C46  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:98A5 (7 bytes)
+D 0x9ED8 0x9F04 lista_9ED8  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:833D (44 bytes)
+D 0x9F04 0xA000 relleno_ff  252 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (252 bytes)
+F 0x9F04 16
+# --- fin de los bloques de bloques.py ---

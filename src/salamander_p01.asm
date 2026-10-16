@@ -1043,17 +1043,24 @@ L_66BA:
 	call 040ceh		;66be
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x66c1..0x6743  (130 bytes)
-DATA_66C1:
-	defb 077h,080h,0a6h,067h,003h,0a1h,078h,09fh,09dh,067h,08bh,067h,02dh,0a0h,08ah,0a1h	; 66c1  w..g..x..g.g-...
-	defb 03ah,0a2h,067h,067h,043h,067h,04ch,067h,055h,067h,043h,093h,084h,0a7h,054h,0b9h	; 66d1  :.ggCgLgUgC...T.
-	defb 094h,067h,0e5h,0a4h,0e0h,067h,083h,0bbh,0bbh,0bah,05eh,067h,0b8h,067h,0afh,067h	; 66e1  .g...g....^g.g.g
-	defb 0beh,0a2h,0e0h,067h,095h,0a2h,079h,067h,082h,067h,0e6h,0a2h,085h,0a3h,0fbh,0a3h	; 66f1  ...g..yg.g......
-	defb 0bfh,0bdh,0e0h,067h,026h,093h,03ch,09eh,000h,0bdh,0f6h,081h,030h,0bdh,070h,067h	; 6701  ...g&.<.....0.pg
-	defb 04eh,082h,05bh,082h,0e0h,067h,0e0h,067h,0e0h,067h,0e0h,067h,0e0h,067h,060h,0a4h	; 6711  N.[..g.g.g.g.g`.
-	defb 0f8h,090h,0fch,090h,043h,093h,0c5h,092h,0bah,0bbh,036h,0bfh,0e0h,067h,0c1h,067h	; 6721  ....C.....6..g.g
-	defb 0deh,09eh,0e7h,09eh,0efh,09eh,0f7h,09eh,000h,09fh,0c2h,0b8h,037h,0bah,0bch,09dh	; 6731  ............7...
-	defb 029h,09dh	; 6741
+; DATOS tabla_66C1: 65 destinos del despachador p00:40CE (call en p01:66BE, el
+;   indice en A): 8077, 67A6, A103, 9F78, 679D, 678B, A02D, A18A, A23A, 6767,
+;   6743, 674C, 6755, 9343, A784, B954, 6794, A4E5, 67E0, BB83, BABB, 675E,
+;   67B8, 67AF, A2BE, 67E0, A295, 6779, 6782, A2E6, A385, A3FB, BDBF, 67E0,
+;   9326, 9E3C, BD00, 81F6, BD30, 6770, 824E, 825B, 67E0, 67E0, 67E0, 67E0,
+;   67E0, A460, 90F8, 90FC, 9343, 92C5, BBBA, BF36, 67E0, 67C1, 9EDE, 9EE7,
+;   9EEF, 9EF7, 9F00, B8C2, BA37, 9DBC, 9D29; lo leen p01:66BE (130 bytes)
+;   0x66c1..0x6743  (130 bytes)
+DATA_tabla_66C1:
+	defw 08077h,067a6h,0a103h,09f78h,0679dh,0678bh,0a02dh,0a18ah	; 66c1
+	defw 0a23ah,06767h,06743h,0674ch,06755h,09343h,0a784h,0b954h	; 66d1
+	defw 06794h,0a4e5h,067e0h,0bb83h,0babbh,0675eh,067b8h,067afh	; 66e1
+	defw 0a2beh,067e0h,0a295h,06779h,06782h,0a2e6h,0a385h,0a3fbh	; 66f1
+	defw 0bdbfh,067e0h,09326h,09e3ch,0bd00h,081f6h,0bd30h,06770h	; 6701
+	defw 0824eh,0825bh,067e0h,067e0h,067e0h,067e0h,067e0h,0a460h	; 6711
+	defw 090f8h,090fch,09343h,092c5h,0bbbah,0bf36h,067e0h,067c1h	; 6721
+	defw 09edeh,09ee7h,09eefh,09ef7h,09f00h,0b8c2h,0ba37h,09dbch	; 6731
+	defw 09d29h	; 6741
 
 ; ======================================================================
 ; CODIGO 0x6743..0x67e1  (158 bytes)
@@ -1285,17 +1292,24 @@ L_68EA:
 	call 040ceh		;68ee
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x68f1..0x6973  (130 bytes)
-DATA_68F1:
-	defb 0e9h,080h,0cdh,069h,021h,0a1h,0b2h,09fh,0c4h,069h,0b2h,069h,086h,0a0h,0aah,0a1h	; 68f1  ...i!....i.i....
-	defb 057h,0a2h,08eh,069h,073h,069h,07ch,069h,0dch,0a2h,087h,093h,0dch,0a2h,085h,0b9h	; 6901  W..isi|i........
-	defb 0bbh,069h,00fh,0a5h,0e2h,068h,09bh,0bbh,0d5h,0bah,085h,069h,0dfh,069h,0d6h,069h	; 6911  .i...h.....i.i.i
-	defb 0dch,0a2h,0e2h,068h,0a6h,0a2h,0a0h,069h,0a9h,069h,005h,0a3h,0a3h,0a3h,026h,0a4h	; 6921  ...h...i.i....&.
-	defb 0f2h,0bdh,0e2h,068h,07dh,093h,065h,09eh,0f1h,069h,00dh,082h,035h,0bdh,097h,069h	; 6931  ...h}.e..i..5..i
-	defb 0e2h,068h,0e2h,068h,0e2h,068h,0e2h,068h,0e2h,068h,0e2h,068h,0e2h,068h,06dh,0a4h	; 6941  .h.h.h.h.h.h.hm.
-	defb 029h,091h,029h,091h,087h,093h,0f9h,092h,0ech,0bbh,0bch,0beh,0e2h,068h,0fah,069h	; 6951  ).)..........h.i
-	defb 022h,09fh,022h,09fh,022h,09fh,022h,09fh,022h,09fh,0bch,0beh,0e8h,069h,0e3h,09dh	; 6961  "."."."."....i..
-	defb 047h,09dh	; 6971
+; DATOS tabla_68F1: 65 destinos del despachador p00:40CE (call en p01:68EE, el
+;   indice en A): 80E9, 69CD, A121, 9FB2, 69C4, 69B2, A086, A1AA, A257, 698E,
+;   6973, 697C, A2DC, 9387, A2DC, B985, 69BB, A50F, 68E2, BB9B, BAD5, 6985,
+;   69DF, 69D6, A2DC, 68E2, A2A6, 69A0, 69A9, A305, A3A3, A426, BDF2, 68E2,
+;   937D, 9E65, 69F1, 820D, BD35, 6997, 68E2, 68E2, 68E2, 68E2, 68E2, 68E2,
+;   68E2, A46D, 9129, 9129, 9387, 92F9, BBEC, BEBC, 68E2, 69FA, 9F22, 9F22,
+;   9F22, 9F22, 9F22, BEBC, 69E8, 9DE3, 9D47; lo leen p01:68EE (130 bytes)
+;   0x68f1..0x6973  (130 bytes)
+DATA_tabla_68F1:
+	defw 080e9h,069cdh,0a121h,09fb2h,069c4h,069b2h,0a086h,0a1aah	; 68f1
+	defw 0a257h,0698eh,06973h,0697ch,0a2dch,09387h,0a2dch,0b985h	; 6901
+	defw 069bbh,0a50fh,068e2h,0bb9bh,0bad5h,06985h,069dfh,069d6h	; 6911
+	defw 0a2dch,068e2h,0a2a6h,069a0h,069a9h,0a305h,0a3a3h,0a426h	; 6921
+	defw 0bdf2h,068e2h,0937dh,09e65h,069f1h,0820dh,0bd35h,06997h	; 6931
+	defw 068e2h,068e2h,068e2h,068e2h,068e2h,068e2h,068e2h,0a46dh	; 6941
+	defw 09129h,09129h,09387h,092f9h,0bbech,0bebch,068e2h,069fah	; 6951
+	defw 09f22h,09f22h,09f22h,09f22h,09f22h,0bebch,069e8h,09de3h	; 6961
+	defw 09d47h	; 6971
 
 ; ======================================================================
 ; CODIGO 0x6973..0x6c64  (753 bytes)
@@ -1800,9 +1814,12 @@ L_6E86:
 	call 040ceh		;6e86
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x6e89..0x6e99  (16 bytes)
-DATA_6E89:
-	defb 070h,0a8h,08dh,0a6h,0c8h,0ach,003h,0abh,054h,0b1h,0b4h,0aeh,09ch,0aeh,005h,0b4h	; 6e89  p.......T.......
+; DATOS tabla_6E89: 8 destinos del despachador p00:40CE (call en p01:6E86, el
+;   indice en A): A870, A68D, ACC8, AB03, B154, AEB4, AE9C, B405; lo leen
+;   p01:6E86 (16 bytes)
+;   0x6e89..0x6e99  (16 bytes)
+DATA_tabla_6E89:
+	defw 0a870h,0a68dh,0acc8h,0ab03h,0b154h,0aeb4h,0ae9ch,0b405h	; 6e89
 
 ; ======================================================================
 ; CODIGO 0x6e99..0x6f1d  (132 bytes)
@@ -1887,10 +1904,13 @@ L_6F18:
 	call 040ceh		;6f1a
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x6f1d..0x6f33  (22 bytes)
-DATA_6F1D:
-	defb 069h,071h,0afh,071h,05bh,073h,0eeh,072h,0c6h,071h,007h,073h,0bbh,072h,0c7h,073h	; 6f1d  iq.q[s.r.q.s.r.s
-	defb 04bh,072h,0bfh,071h,045h,072h	; 6f2d
+; DATOS tabla_6F1D: 11 destinos del despachador p00:40CE (call en p01:6F1A, el
+;   indice en A): 7169, 71AF, 735B, 72EE, 71C6, 7307, 72BB, 73C7, 724B, 71BF,
+;   7245; lo leen p01:6F1A (22 bytes)
+;   0x6f1d..0x6f33  (22 bytes)
+DATA_tabla_6F1D:
+	defw 07169h,071afh,0735bh,072eeh,071c6h,07307h,072bbh,073c7h	; 6f1d
+	defw 0724bh,071bfh,07245h	; 6f2d  -> L_724B L_71BF L_7245
 
 ; ======================================================================
 ; CODIGO 0x6f33..0x6ff8  (197 bytes)
@@ -3223,11 +3243,15 @@ L_7869:
 	call 040ceh		;786a
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x786d..0x789b  (46 bytes)
-DATA_786D:
-	defb 096h,0b7h,0dah,078h,068h,078h,0e3h,078h,0b6h,078h,0bfh,078h,0f0h,0b7h,0c8h,078h	; 786d  ...xhx.x.x.x...x
-	defb 068h,078h,0d4h,0b7h,09bh,078h,0d1h,078h,066h,0bah,0c6h,0b7h,0adh,078h,0a4h,078h	; 787d  hx...x.xf....x.x
-	defb 0fch,0b9h,096h,0b7h,0e6h,0b7h,09fh,0a4h,091h,0bch,0afh,0bch,044h,0ach	; 788d  ............D.
+; DATOS tabla_786D: 23 destinos del despachador p00:40CE (call en p01:786A, el
+;   indice en A): B796, 78DA, 7868, 78E3, 78B6, 78BF, B7F0, 78C8, 7868, B7D4,
+;   789B, 78D1, BA66, B7C6, 78AD, 78A4, B9FC, B796, B7E6, A49F, BC91, BCAF,
+;   AC44; lo leen p01:786A (46 bytes)
+;   0x786d..0x789b  (46 bytes)
+DATA_tabla_786D:
+	defw 0b796h,078dah,07868h,078e3h,078b6h,078bfh,0b7f0h,078c8h	; 786d
+	defw 07868h,0b7d4h,0789bh,078d1h,0ba66h,0b7c6h,078adh,078a4h	; 787d
+	defw 0b9fch,0b796h,0b7e6h,0a49fh,0bc91h,0bcafh,0ac44h	; 788d
 
 ; ======================================================================
 ; CODIGO 0x789b..0x7a17  (380 bytes)
@@ -3447,11 +3471,15 @@ L_7A13:
 	call 040ceh		;7a14
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x7a17..0x7a45  (46 bytes)
-DATA_7A17:
-	defb 0e9h,0b6h,084h,07ah,012h,07ah,08dh,07ah,060h,07ah,069h,07ah,0cch,0b8h,072h,07ah	; 7a17  ...z.z.z`ziz..rz
-	defb 012h,07ah,014h,0b8h,045h,07ah,07bh,07ah,071h,0bah,07fh,0b8h,057h,07ah,04eh,07ah	; 7a27  .z..Ez{zq...WzNz
-	defb 026h,0bah,0e9h,0b6h,0d1h,0b8h,0aah,0a4h,02ch,0bch,0c1h,0bch,096h,07ah	; 7a37  &.......,....z
+; DATOS tabla_7A17: 23 destinos del despachador p00:40CE (call en p01:7A14, el
+;   indice en A): B6E9, 7A84, 7A12, 7A8D, 7A60, 7A69, B8CC, 7A72, 7A12, B814,
+;   7A45, 7A7B, BA71, B87F, 7A57, 7A4E, BA26, B6E9, B8D1, A4AA, BC2C, BCC1,
+;   7A96; lo leen p01:7A14 (46 bytes)
+;   0x7a17..0x7a45  (46 bytes)
+DATA_tabla_7A17:
+	defw 0b6e9h,07a84h,07a12h,07a8dh,07a60h,07a69h,0b8cch,07a72h	; 7a17
+	defw 07a12h,0b814h,07a45h,07a7bh,0ba71h,0b87fh,07a57h,07a4eh	; 7a27
+	defw 0ba26h,0b6e9h,0b8d1h,0a4aah,0bc2ch,0bcc1h,07a96h	; 7a37
 
 ; ======================================================================
 ; CODIGO 0x7a45..0x7c77  (562 bytes)
@@ -3756,10 +3784,13 @@ L_7C6F:
 	call 040ceh		;7c74
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x7c77..0x7c8f  (24 bytes)
-DATA_7C77:
-	defb 08fh,07ch,04dh,07eh,04dh,07eh,04dh,07eh,090h,07dh,0fah,07ch,065h,07dh,0dah,07ch	; 7c77  .|M~M~M~.}.|e}.|
-	defb 065h,07dh,061h,07dh,04dh,07eh,04dh,07eh	; 7c87  e}a}M~M~
+; DATOS tabla_7C77: 12 destinos del despachador p00:40CE (call en p01:7C74, el
+;   indice en A): 7C8F, 7E4D, 7E4D, 7E4D, 7D90, 7CFA, 7D65, 7CDA, 7D65, 7D61,
+;   7E4D, 7E4D; lo leen p01:7C74 (24 bytes)
+;   0x7c77..0x7c8f  (24 bytes)
+DATA_tabla_7C77:
+	defw 07c8fh,07e4dh,07e4dh,07e4dh,07d90h,07cfah,07d65h,07cdah	; 7c77
+	defw 07d65h,07d61h,07e4dh,07e4dh	; 7c87  -> L_7D65 L_7D61 L_7E4D L_7E4D
 
 ; ======================================================================
 ; CODIGO 0x7c8f..0x7e7f  (496 bytes)

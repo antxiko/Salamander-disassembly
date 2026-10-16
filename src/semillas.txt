@@ -1,0 +1,48 @@
+# Semillas a mano: 'pNN 0xADDR b6000 b8000 bA000  # por que'.
+#
+# p00:5B91 (la fase 7, p00:44D3) copia los 0x95 bytes de p00:5BA5-5C39 a
+# 0xC000 con un ldir y salta a 0xC000: ese codigo corre en la RAM, y el
+# trazador no lo sigue por el `jp 0C000h`. Se lista donde esta en la ROM;
+# sus `call 0C0xxh` son las mismas rutinas copiadas (0xC000 + (pc - 0x5BA5)).
+# p00:5BFE-5C39 no es codigo: es la tabla que lee 0xC03C (ver lectores.py).
+p00 0x5BA5 7 8 9  # 0xC000: call 0xC010 / call 0xC03C / call 0xC024 y devuelve el gancho H.KEYI
+p00 0x5BB5 7 8 9  # 0xC010: pone en las paginas 1 y 2 el slot de 0xF0F4 (0xC030) y los bancos 7-8-9 de ESE cartucho
+p00 0x5BC9 7 8 9  # 0xC024: vuelve al slot de 0xF0F6, banco 0 en 0x5000 y 7-8-9
+p00 0x5BD5 7 8 9  # 0xC030: ENASLT (0x0024) con H = 0x40 y H = 0x80
+p00 0x5BE1 7 8 9  # 0xC03C: copia a 0xC100 los 20 trozos de la tabla 0xC059 (= p00:5BFE)
+#
+# p04:6DD4: los codigos 0xE0-0xFE de la partitura saltan por la tabla de
+# p04:6DE9 (HL = 0x6DE9 + 2 x (codigo & 0x1F); jp (hl) en p04:6DE8). Son 31
+# palabras: la tabla acaba donde empieza el primer destino (0x6E27). El
+# sonido corre con los bancos 4-5-6.
+p04 0x6E27 4 5 6  # codigo 0xE0 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6E3D 4 5 6  # codigo 0xE1 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6E27 4 5 6  # codigo 0xE2 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6E3D 4 5 6  # codigo 0xE3 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6E5A 4 5 6  # codigo 0xE4 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6E84 4 5 6  # codigo 0xE5 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6E98 4 5 6  # codigo 0xE6 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6EA8 4 5 6  # codigo 0xE7 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6EBA 4 5 6  # codigo 0xE8 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6ECB 4 5 6  # codigo 0xE9 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6ED2 4 5 6  # codigo 0xEA de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6ED9 4 5 6  # codigo 0xEB de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F2C 4 5 6  # codigo 0xEC de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F36 4 5 6  # codigo 0xED de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F3D 4 5 6  # codigo 0xEE de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F48 4 5 6  # codigo 0xEF de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F4E 4 5 6  # codigo 0xF0 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F58 4 5 6  # codigo 0xF1 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F73 4 5 6  # codigo 0xF2 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F82 4 5 6  # codigo 0xF3 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F88 4 5 6  # codigo 0xF4 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F8E 4 5 6  # codigo 0xF5 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F94 4 5 6  # codigo 0xF6 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6F9E 4 5 6  # codigo 0xF7 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6FA9 4 5 6  # codigo 0xF8 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6FC6 4 5 6  # codigo 0xF9 de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6FD1 4 5 6  # codigo 0xFA de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6FD9 4 5 6  # codigo 0xFB de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x6FF3 4 5 6  # codigo 0xFC de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x7008 4 5 6  # codigo 0xFD de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+p04 0x700B 4 5 6  # codigo 0xFE de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))

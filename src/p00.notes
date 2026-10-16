@@ -1,0 +1,11 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x4868 0x486B rachas3_4868  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:485C (3 bytes)
+D 0x486B 0x4876 rachas3_486B  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:4865 (11 bytes)
+D 0x4876 0x4879 rachas3_4876  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:484A (3 bytes)
+D 0x4879 0x4882 rachas3_4879  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:4853 (9 bytes)
+D 0x5260 0x527A tabla_5260  13 destinos del despachador p00:40CE (call en p00:525D, el indice en A): 527A, 52B4, 52EB, 5340, 539F, 53FD, 543C, 54A9, 555F, 55CC, 56E7, 5601, 5670; lo leen p00:525D (26 bytes)
+F 0x5260 w8
+D 0x5B53 0x5B63 tabla_5B53  8 destinos del despachador p00:40CE (call en p00:5B50, el indice en A): AA1D, A80A, AE25, AC34, B35E, B06F, 5B63, B4E9; lo leen p00:5B50 (16 bytes)
+F 0x5B53 w8
+# --- fin de los bloques de bloques.py ---

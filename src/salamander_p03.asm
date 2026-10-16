@@ -1224,10 +1224,13 @@ L_A873:
 	call 040ceh		;a875
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xa878..0xa890  (24 bytes)
-DATA_A878:
-	defb 0f0h,0a9h,07fh,0b0h,05bh,0b2h,049h,0b3h,068h,0adh,069h,0aah,0beh,0ach,0ddh,0abh	; a878  ....[.I.h.i.....
-	defb 069h,0aah,069h,0aah,098h,0b4h,0f0h,0a9h	; a888  i.i.....
+; DATOS tabla_A878: 12 destinos del despachador p00:40CE (call en p03:A875, el
+;   indice en A): A9F0, B07F, B25B, B349, AD68, AA69, ACBE, ABDD, AA69, AA69,
+;   B498, A9F0; lo leen p03:A875 (24 bytes)
+;   0xa878..0xa890  (24 bytes)
+DATA_tabla_A878:
+	defw 0a9f0h,0b07fh,0b25bh,0b349h,0ad68h,0aa69h,0acbeh,0abddh	; a878
+	defw 0aa69h,0aa69h,0b498h,0a9f0h	; a888  -> L_AA69 L_AA69 L_B498 L_A9F0
 
 ; ======================================================================
 ; CODIGO 0xa890..0xa99c  (268 bytes)
@@ -1375,9 +1378,12 @@ L_A991:
 	call 040ceh		;a999
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xa99c..0xa9aa  (14 bytes)
-DATA_A99C:
-	defb 0aah,0a9h,024h,0adh,00eh,0aah,050h,0ach,0b8h,0abh,09eh,0aeh,0e3h,0aeh	; a99c  ..$...P.......
+; DATOS tabla_A99C: 7 destinos del despachador p00:40CE (call en p03:A999, el
+;   indice en A): A9AA, AD24, AA0E, AC50, ABB8, AE9E, AEE3; lo leen p03:A999
+;   (14 bytes)
+;   0xa99c..0xa9aa  (14 bytes)
+DATA_tabla_A99C:
+	defw 0a9aah,0ad24h,0aa0eh,0ac50h,0abb8h,0ae9eh,0aee3h	; a99c
 
 ; ======================================================================
 ; CODIGO 0xa9aa..0xabaa  (512 bytes)
@@ -2442,9 +2448,11 @@ L_B07F:
 	call 040ceh		;b082
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xb085..0xb08d  (8 bytes)
-DATA_B085:
-	defb 08dh,0b0h,021h,0b1h,09ah,0b1h,001h,0b2h	; b085  ..!.....
+; DATOS tabla_B085: 4 destinos del despachador p00:40CE (call en p03:B082, el
+;   indice en A): B08D, B121, B19A, B201; lo leen p03:B082 (8 bytes)
+;   0xb085..0xb08d  (8 bytes)
+DATA_tabla_B085:
+	defw 0b08dh,0b121h,0b19ah,0b201h	; b085  -> L_B08D L_B121 L_B19A L_B201
 
 ; ======================================================================
 ; CODIGO 0xb08d..0xb269  (476 bytes)
@@ -2692,9 +2700,11 @@ L_B25B:
 	call 040ceh		;b266
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xb269..0xb271  (8 bytes)
-DATA_B269:
-	defb 071h,0b2h,0a9h,0b2h,0e3h,0b2h,015h,0b3h	; b269  q.......
+; DATOS tabla_B269: 4 destinos del despachador p00:40CE (call en p03:B266, el
+;   indice en A): B271, B2A9, B2E3, B315; lo leen p03:B266 (8 bytes)
+;   0xb269..0xb271  (8 bytes)
+DATA_tabla_B269:
+	defw 0b271h,0b2a9h,0b2e3h,0b315h	; b269  -> L_B271 L_B2A9 L_B2E3 L_B315
 
 ; ======================================================================
 ; CODIGO 0xb271..0xb494  (547 bytes)
@@ -3213,21 +3223,96 @@ L_B61F:
 	ret			;b620
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xb621..0xb6e9  (200 bytes)
+; DATOS sin identificar  0xb621..0xb63c  (27 bytes)
 DATA_B621:
 	defb 043h,044h,007h,051h,000h,030h,031h,013h,035h,0aah,0c1h,03ah,00dh,000h,000h,000h	; b621  CD.Q.01.5..:....
-	defb 00fh,000h,000h,000h,00bh,0feh,0e1h,03ah,002h,00ch,0ffh,0d1h,03ah,00eh,000h,000h	; b631  .......:....:...
-	defb 000h,00fh,000h,000h,000h,00bh,0feh,0f1h,03ah,003h,00ch,0ffh,02dh,03ah,011h,030h	; b641  ........:...-:.0
-	defb 02ch,021h,039h,025h,032h,0ffh,06dh,03ah,025h,038h,023h,028h,021h,02eh,027h,025h	; b651  ,!9%2.m:%8#(!.'%
-	defb 0ffh,0adh,03ah,024h,035h,021h,02ch,030h,02ch,021h,039h,0ffh,01bh,01ch,0ffh,0cch	; b661  ..:$5!,0,!9.....
-	defb 038h,030h,02ch,021h,039h,025h,032h,000h,011h,0ffh,0cch,038h,030h,02ch,021h,039h	; b671  80,!9%2....80,!9
-	defb 025h,032h,000h,012h,0ffh,00bh,039h,027h,021h,02dh,025h,000h,000h,02fh,036h,025h	; b681  %2....9'!-%../6%
-	defb 032h,0feh,04ah,039h,023h,02fh,02eh,034h,029h,02eh,035h,025h,000h,000h,026h,015h	; b691  2.J9#/.4).5%..&.
-	defb 0ffh,0cch,039h,028h,029h,000h,033h,023h,02fh,032h,025h,0ffh,028h,03ah,01ch,02fh	; b6a1  ..9().3#/2%.(:./
-	defb 02bh,01ch,025h,01bh,000h,027h,023h,018h,030h,036h,000h,030h,03ah,025h,0ffh,029h	; b6b1  +.%..'#.06.0:%.)
-	defb 03ah,027h,02ch,02ah,01fh,000h,02ah,027h,018h,01ah,01ch,000h,022h,01ch,030h,0ffh	; b6c1  :',*..*'....".0.
-	defb 02ch,03ah,02ah,026h,000h,023h,026h,025h,01eh,035h,0ffh,02ah,03ah,01eh,026h,000h	; b6d1  ,:*&.#&%.5.*:.&.
-	defb 01dh,026h,029h,000h,020h,02bh,035h,0ffh	; b6e1  .&). +5.
+	defb 00fh,000h,000h,000h,00bh,0feh,0e1h,03ah,002h,00ch,0ffh	; b631  .......:...
+
+; ----------------------------------------------------------------------
+; DATOS lista_B63C: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:5A29 (17 bytes)
+;   0xb63c..0xb64d  (17 bytes)
+DATA_lista_B63C:
+	defb 0d1h,03ah,00eh,000h,000h,000h,00fh,000h,000h,000h,00bh,0feh,0f1h,03ah,003h,00ch	; b63c  .:...........:..
+	defb 0ffh	; b64c
+
+; ----------------------------------------------------------------------
+; DATOS sin identificar  0xb64d..0xb662  (21 bytes)
+DATA_B64D:
+	defb 02dh,03ah,011h,030h,02ch,021h,039h,025h,032h,0ffh,06dh,03ah,025h,038h,023h,028h	; b64d  -:.0,!9%2.m:%8#(
+	defb 021h,02eh,027h,025h,0ffh	; b65d
+
+; ----------------------------------------------------------------------
+; DATOS lista_B662: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:535C, p00:535F (11 bytes)
+;   0xb662..0xb66d  (11 bytes)
+DATA_lista_B662:
+	defb 0adh,03ah,024h,035h,021h,02ch,030h,02ch,021h,039h,0ffh	; b662  .:$5!,0,!9.
+
+; ----------------------------------------------------------------------
+; DATOS lista_s_B66D: lista a la VRAM sin destino delante (p00:4CFD; 0xFE otro
+;   destino; 0xFF acaba); lo leen p02:90EB (3 bytes)
+;   0xb66d..0xb670  (3 bytes)
+DATA_lista_s_B66D:
+	defb 01bh,01ch,0ffh	; b66d
+
+; ----------------------------------------------------------------------
+; DATOS sin identificar  0xb670..0xb67b  (11 bytes)
+DATA_B670:
+	defb 0cch,038h,030h,02ch,021h,039h,025h,032h,000h,011h,0ffh	; b670  .80,!9%2...
+
+; ----------------------------------------------------------------------
+; DATOS lista_B67B: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:582A (11 bytes)
+;   0xb67b..0xb686  (11 bytes)
+DATA_lista_B67B:
+	defb 0cch,038h,030h,02ch,021h,039h,025h,032h,000h,012h,0ffh	; b67b  .80,!9%2...
+
+; ----------------------------------------------------------------------
+; DATOS lista_B686: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); se solapan 2 bloques: (lista_B693 B693-B6A2); lo
+;   leen p00:552A, p00:55F6 (28 bytes)
+;   0xb686..0xb6a2  (28 bytes)
+DATA_lista_B686:
+	defb 00bh,039h,027h,021h,02dh,025h,000h,000h,02fh,036h,025h,032h,0feh,04ah,039h,023h	; b686  .9'!-%../6%2.J9#
+	defb 02fh,02eh,034h,029h,02eh,035h,025h,000h,000h,026h,015h,0ffh	; b696  /.4).5%..&..
+
+; ----------------------------------------------------------------------
+; DATOS lista_B6A2: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:5A81 (11 bytes)
+;   0xb6a2..0xb6ad  (11 bytes)
+DATA_lista_B6A2:
+	defb 0cch,039h,028h,029h,000h,033h,023h,02fh,032h,025h,0ffh	; b6a2  .9().3#/2%.
+
+; ----------------------------------------------------------------------
+; DATOS lista_B6AD: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:5711, p00:5733, p00:5743 (19 bytes)
+;   0xb6ad..0xb6c0  (19 bytes)
+DATA_lista_B6AD:
+	defb 028h,03ah,01ch,02fh,02bh,01ch,025h,01bh,000h,027h,023h,018h,030h,036h,000h,030h	; b6ad  (:./+.%..'#.06.0
+	defb 03ah,025h,0ffh	; b6bd
+
+; ----------------------------------------------------------------------
+; DATOS lista_B6C0: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:5694 (17 bytes)
+;   0xb6c0..0xb6d1  (17 bytes)
+DATA_lista_B6C0:
+	defb 029h,03ah,027h,02ch,02ah,01fh,000h,02ah,027h,018h,01ah,01ch,000h,022h,01ch,030h	; b6c0  ):',*..*'....".0
+	defb 0ffh	; b6d0
+
+; ----------------------------------------------------------------------
+; DATOS lista_B6D1: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:5749 (11 bytes)
+;   0xb6d1..0xb6dc  (11 bytes)
+DATA_lista_B6D1:
+	defb 02ch,03ah,02ah,026h,000h,023h,026h,025h,01eh,035h,0ffh	; b6d1  ,:*&.#&%.5.
+
+; ----------------------------------------------------------------------
+; DATOS lista_B6DC: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
+;   destino; 0xFF acaba); lo leen p00:5739 (13 bytes)
+;   0xb6dc..0xb6e9  (13 bytes)
+DATA_lista_B6DC:
+	defb 02ah,03ah,01eh,026h,000h,01dh,026h,029h,000h,020h,02bh,035h,0ffh	; b6dc  *:.&..&). +5.
 
 ; ======================================================================
 ; CODIGO 0xb6e9..0xb9f6  (781 bytes)
@@ -3741,9 +3826,11 @@ L_BAD5:
 	call 040ceh		;baf6
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xbaf9..0xbb03  (10 bytes)
-DATA_BAF9:
-	defb 003h,0bbh,01ah,0bbh,034h,0bbh,01ah,0bbh,07bh,0bbh	; baf9  ....4...{.
+; DATOS tabla_BAF9: 5 destinos del despachador p00:40CE (call en p03:BAF6, el
+;   indice en A): BB03, BB1A, BB34, BB1A, BB7B; lo leen p03:BAF6 (10 bytes)
+;   0xbaf9..0xbb03  (10 bytes)
+DATA_tabla_BAF9:
+	defw 0bb03h,0bb1ah,0bb34h,0bb1ah,0bb7bh	; baf9
 
 ; ======================================================================
 ; CODIGO 0xbb03..0xbc06  (259 bytes)
@@ -3867,10 +3954,16 @@ L_BBEC:
 	call 040ceh		;bc03
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xbc06..0xbc1a  (20 bytes)
-DATA_BC06:
-	defb 0ffh,07eh,0f4h,07eh,01ah,0bch,024h,0bch,0dah,062h,06bh,0ddh,07eh,006h,0feh,0f8h	; bc06  .~.~..$..bk.~...
-	defb 0d8h,0c3h,062h,06bh	; bc16
+; DATOS tabla_BC06: 5 destinos del despachador p00:40CE (call en p03:BC03, el
+;   indice en A): 7EFF, 7EF4, BC1A, BC24, 62DA; lo leen p03:BC03 (10 bytes)
+;   0xbc06..0xbc10  (10 bytes)
+DATA_tabla_BC06:
+	defw 07effh,07ef4h,0bc1ah,0bc24h,062dah	; bc06
+
+; ----------------------------------------------------------------------
+; DATOS sin identificar  0xbc10..0xbc1a  (10 bytes)
+DATA_BC10:
+	defb 06bh,0ddh,07eh,006h,0feh,0f8h,0d8h,0c3h,062h,06bh	; bc10  k.~.....bk
 
 ; ======================================================================
 ; CODIGO 0xbc1a..0xbc89  (111 bytes)

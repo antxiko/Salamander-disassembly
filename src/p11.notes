@@ -1,0 +1,41 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA0F4 0xA100 tabla_A0F4  6 destinos del despachador p00:40CE (call en p11:A0F1, el indice en A): A148, A106, A128, A106, A128, A124; lo leen p11:A0F1 (12 bytes)
+F 0xA0F4 w6
+D 0xA19B 0xA1A7 tabla_A19B  6 destinos del despachador p00:40CE (call en p11:A198, el indice en A): A202, A1B2, A1DF, A1B2, A1DF, A1DB; lo leen p11:A198 (12 bytes)
+F 0xA19B w6
+D 0xA245 0xA251 tabla_A245  6 destinos del despachador p00:40CE (call en p11:A242, el indice en A): A2E5, A285, A2A7, A285, A25C, A260; lo leen p11:A242 (12 bytes)
+F 0xA245 w6
+D 0xA4CC 0xA4D4 tabla_A4CC  4 destinos del despachador p00:40CE (call en p11:A4C9, el indice en A): A4D4, A50C, A51B, A532; lo leen p11:A4C9 (8 bytes)
+F 0xA4CC w4
+D 0xA697 0xA6A3 tabla_A697  6 destinos del despachador p00:40CE (call en p11:A694, el indice en A): A6A3, A6C2, A6D1, A6D8, B543, B588; lo leen p11:A694 (12 bytes)
+F 0xA697 w6
+D 0xA713 0xA723 tabla_A713  8 destinos del despachador p00:40CE (call en p11:A710, el indice en A): A750, A723, A72A, A731, A736, A73D, A744, A74B; lo leen p11:A710 (16 bytes)
+F 0xA713 w8
+D 0xA87A 0xA886 tabla_A87A  6 destinos del despachador p00:40CE (call en p11:A877, el indice en A): A886, A8CB, A8DB, A8ED, B543, B588; lo leen p11:A877 (12 bytes)
+F 0xA87A w6
+D 0xA95B 0xA965 tabla_A95B  5 destinos del despachador p00:40CE (call en p11:A958, el indice en A): A965, A997, A96C, A9A3, A9B7; lo leen p11:A958 (10 bytes)
+F 0xA95B w5
+D 0xAB0D 0xAB1D tabla_AB0D  8 destinos del despachador p00:40CE (call en p11:AB0A, el indice en A): B4B3, AB1D, AB28, AB4F, AB5C, AB6F, B543, B588; lo leen p11:AB0A (16 bytes)
+F 0xAB0D w8
+D 0xACD2 0xACDC tabla_ACD2  5 destinos del despachador p00:40CE (call en p11:ACCF, el indice en A): ACF5, ACE1, AD39, B543, B4BF; lo leen p11:ACCF (10 bytes)
+F 0xACD2 w5
+D 0xAD8A 0xAD96 tabla_AD8A  6 destinos del despachador p00:40CE (call en p11:AD87, el indice en A): ADDB, AD96, ADAC, ADB4, ADC0, ADC6; lo leen p11:AD87 (12 bytes)
+F 0xAD8A w6
+D 0xAEA6 0xAEB4 tabla_AEA6  7 destinos del despachador p00:40CE (call en p11:AEA3, el indice en A): AECA, AED3, AEE2, AF11, AF23, AF45, B4BF; lo leen p11:AEA3 (14 bytes)
+F 0xAEA6 w7
+D 0xAEBE 0xAECA tabla_AEBE  6 destinos del despachador p00:40CE (call en p11:AEBB, el indice en A): AF5E, ACDC, AFA8, AFB5, B543, B4BF; lo leen p11:AEBB (12 bytes)
+F 0xAEBE w6
+D 0xB15E 0xB168 tabla_B15E  5 destinos del despachador p00:40CE (call en p11:B15B, el indice en A): B168, B1CC, B1E7, B543, B4BF; lo leen p11:B15B (10 bytes)
+F 0xB15E w5
+D 0xB2D0 0xB2DA tabla_B2D0  5 destinos del despachador p00:40CE (call en p11:B2CD, el indice en A): B2DA, B320, B32A, B32F, B359; lo leen p11:B2CD (10 bytes)
+F 0xB2D0 w5
+D 0xB40F 0xB419 tabla_B40F  5 destinos del despachador p00:40CE (call en p11:B40C, el indice en A): B419, B464, B470, B4AE, B4BF; lo leen p11:B40C (10 bytes)
+F 0xB40F w5
+D 0xBEB8 0xBEC0 tabla_BEB8  4 destinos del despachador p00:40CE (call en p11:BEB5, el indice en A): BEC0, BECC, BEC0, BEE1; lo leen p11:BEB5 (8 bytes)
+F 0xBEB8 w4
+D 0xBF0B 0xBF15 tabla_BF0B  5 destinos del despachador p00:40CE (call en p11:BF08, el indice en A): BF15, BF20, BF69, BF84, BF8D; lo leen p11:BF08 (10 bytes)
+F 0xBF0B w5
+D 0xBFEF 0xC000 relleno_ff  17 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (17 bytes)
+F 0xBFEF 16
+# --- fin de los bloques de bloques.py ---

@@ -1,0 +1,15 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA000 0xB9F5 partitura_752B_cola  partitura (p04:6A23: ordenes 0xD0-0xFF y notas) de los sonidos 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F y otros (sigue del banco 5); lo leen p04:6A2F (6645 bytes)
+F 0xA000 16
+D 0xB9F5 0xB9F6 suelto_B9F5  1 byte 0xFF de cierre que no se alcanza: la partitura de delante acaba saltando con 0xFD; lo leen nadie (1 bytes)
+F 0xB9F5 16
+D 0xB9F6 0xBDB2 partitura_B9F6  partitura (p04:6A23: ordenes 0xD0-0xFF y notas) de los sonidos 0x15, 0x37, 0x38, 0x39, 0x3C, 0x3E y otros; lo leen p04:6A2F (956 bytes)
+F 0xB9F6 16
+D 0xBDB2 0xBE06 suelto_BDB2  subpartitura de 84 bytes que acaba en 0xFA, como las que se llaman con 0xF9, pero no la llama ninguna: sin lector a la vista; lo leen nadie (84 bytes)
+F 0xBDB2 16
+D 0xBE06 0xBE62 partitura_BE06  partitura (p04:6A23: ordenes 0xD0-0xFF y notas) de los sonidos 0x4A; lo leen p04:6A2F (92 bytes)
+F 0xBE06 16
+D 0xBED5 0xC000 relleno_ff  299 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (299 bytes)
+F 0xBED5 16
+# --- fin de los bloques de bloques.py ---

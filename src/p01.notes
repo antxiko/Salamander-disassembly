@@ -1,0 +1,17 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x66C1 0x6743 tabla_66C1  65 destinos del despachador p00:40CE (call en p01:66BE, el indice en A): 8077, 67A6, A103, 9F78, 679D, 678B, A02D, A18A, A23A, 6767, 6743, 674C, 6755, 9343, A784, B954, 6794, A4E5, 67E0, BB83, BABB, 675E, 67B8, 67AF, A2BE, 67E0, A295, 6779, 6782, A2E6, A385, A3FB, BDBF, 67E0, 9326, 9E3C, BD00, 81F6, BD30, 6770, 824E, 825B, 67E0, 67E0, 67E0, 67E0, 67E0, A460, 90F8, 90FC, 9343, 92C5, BBBA, BF36, 67E0, 67C1, 9EDE, 9EE7, 9EEF, 9EF7, 9F00, B8C2, BA37, 9DBC, 9D29; lo leen p01:66BE (130 bytes)
+F 0x66C1 w8
+D 0x68F1 0x6973 tabla_68F1  65 destinos del despachador p00:40CE (call en p01:68EE, el indice en A): 80E9, 69CD, A121, 9FB2, 69C4, 69B2, A086, A1AA, A257, 698E, 6973, 697C, A2DC, 9387, A2DC, B985, 69BB, A50F, 68E2, BB9B, BAD5, 6985, 69DF, 69D6, A2DC, 68E2, A2A6, 69A0, 69A9, A305, A3A3, A426, BDF2, 68E2, 937D, 9E65, 69F1, 820D, BD35, 6997, 68E2, 68E2, 68E2, 68E2, 68E2, 68E2, 68E2, A46D, 9129, 9129, 9387, 92F9, BBEC, BEBC, 68E2, 69FA, 9F22, 9F22, 9F22, 9F22, 9F22, BEBC, 69E8, 9DE3, 9D47; lo leen p01:68EE (130 bytes)
+F 0x68F1 w8
+D 0x6E89 0x6E99 tabla_6E89  8 destinos del despachador p00:40CE (call en p01:6E86, el indice en A): A870, A68D, ACC8, AB03, B154, AEB4, AE9C, B405; lo leen p01:6E86 (16 bytes)
+F 0x6E89 w8
+D 0x6F1D 0x6F33 tabla_6F1D  11 destinos del despachador p00:40CE (call en p01:6F1A, el indice en A): 7169, 71AF, 735B, 72EE, 71C6, 7307, 72BB, 73C7, 724B, 71BF, 7245; lo leen p01:6F1A (22 bytes)
+F 0x6F1D w8
+D 0x786D 0x789B tabla_786D  23 destinos del despachador p00:40CE (call en p01:786A, el indice en A): B796, 78DA, 7868, 78E3, 78B6, 78BF, B7F0, 78C8, 7868, B7D4, 789B, 78D1, BA66, B7C6, 78AD, 78A4, B9FC, B796, B7E6, A49F, BC91, BCAF, AC44; lo leen p01:786A (46 bytes)
+F 0x786D w8
+D 0x7A17 0x7A45 tabla_7A17  23 destinos del despachador p00:40CE (call en p01:7A14, el indice en A): B6E9, 7A84, 7A12, 7A8D, 7A60, 7A69, B8CC, 7A72, 7A12, B814, 7A45, 7A7B, BA71, B87F, 7A57, 7A4E, BA26, B6E9, B8D1, A4AA, BC2C, BCC1, 7A96; lo leen p01:7A14 (46 bytes)
+F 0x7A17 w8
+D 0x7C77 0x7C8F tabla_7C77  12 destinos del despachador p00:40CE (call en p01:7C74, el indice en A): 7C8F, 7E4D, 7E4D, 7E4D, 7D90, 7CFA, 7D65, 7CDA, 7D65, 7D61, 7E4D, 7E4D; lo leen p01:7C74 (24 bytes)
+F 0x7C77 w8
+# --- fin de los bloques de bloques.py ---

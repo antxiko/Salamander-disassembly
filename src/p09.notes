@@ -1,0 +1,16 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA009 0xA042 rachas_A009  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:446F (57 bytes)
+D 0xA06F 0xA0D8 rachas_A06F  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:445E (105 bytes)
+D 0xA0F3 0xA113 rachas_A0F3  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:4480 (32 bytes)
+D 0xA122 0xA130 rachas_A122  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:4491 (14 bytes)
+D 0xA130 0xA145 rachas_A130  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p00:4455 (21 bytes)
+D 0xAA6E 0xAA8D rachas_AA6E  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:9966, p10:996F, p10:9978 (31 bytes)
+D 0xAA8D 0xAAC3 rachas_AA8D  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:9981 (54 bytes)
+D 0xAAC3 0xAAD6 rachas_AAC3  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:998A (19 bytes)
+D 0xAAD6 0xAAE9 rachas_AAD6  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:9993 (19 bytes)
+D 0xAAE9 0xAAFC rachas_AAE9  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:999C (19 bytes)
+D 0xAAFC 0xAB27 rachas_AAFC  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:99A5 (43 bytes)
+D 0xBF89 0xC000 relleno_ff  119 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (119 bytes)
+F 0xBF89 16
+# --- fin de los bloques de bloques.py ---

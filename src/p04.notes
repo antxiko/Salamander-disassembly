@@ -1,0 +1,223 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x6000 0x6052 ondas  41 punteros a las formas de onda del SCC (orden 0xF8 de la partitura, p04:6FAF: 0x6000 + 2 x n); apuntan a las 33 ondas de detras; lo leen p04:6FB8 (82 bytes)
+F 0x6000 w8
+D 0x6052 0x6072 onda_00  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6052 16
+D 0x6072 0x6092 onda_01  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6072 16
+D 0x6092 0x60B2 onda_02  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x6092 16
+D 0x60B2 0x60D2 onda_03  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x60B2 16
+D 0x60D2 0x60F2 onda_04  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x60D2 16
+D 0x60F2 0x6112 onda_05  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x60F2 16
+D 0x6112 0x6132 onda_06  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6112 16
+D 0x6132 0x6152 onda_07  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6132 16
+D 0x6152 0x6172 onda_08  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6152 16
+D 0x6172 0x6192 onda_09  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6172 16
+D 0x6192 0x61B2 onda_10  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6192 16
+D 0x61B2 0x61D2 onda_11  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x61B2 16
+D 0x61D2 0x61F2 onda_12  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x61D2 16
+D 0x61F2 0x6212 onda_13  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x61F2 16
+D 0x6212 0x6232 onda_14  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6212 16
+D 0x6232 0x6252 onda_15  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6232 16
+D 0x6252 0x6272 onda_16  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6252 16
+D 0x6272 0x6292 onda_17  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6272 16
+D 0x6292 0x62B2 onda_18  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6292 16
+D 0x62B2 0x62D2 onda_19  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x62B2 16
+D 0x62D2 0x62F2 onda_20  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x62D2 16
+D 0x62F2 0x6312 onda_21  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x62F2 16
+D 0x6312 0x6332 onda_22  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6312 16
+D 0x6332 0x6352 onda_23  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6332 16
+D 0x6352 0x6372 onda_24  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6352 16
+D 0x6372 0x6392 onda_25  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x6372 16
+D 0x6392 0x63B2 onda_26  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6392 16
+D 0x63B2 0x63D2 onda_27  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x63B2 16
+D 0x63D2 0x63F2 onda_28  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x63D2 16
+D 0x63F2 0x6412 onda_29  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x63F2 16
+D 0x6412 0x6432 onda_30  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6412 16
+D 0x6432 0x6452 onda_31  forma de onda del SCC: 32 muestras con signo (ninguna partitura la pide); lo leen p04:6FB8 (32 bytes)
+F 0x6432 16
+D 0x6452 0x6472 onda_32  forma de onda del SCC: 32 muestras con signo; lo leen p04:6FB8 (32 bytes)
+F 0x6452 16
+D 0x6563 0x656F canal_nuevo  12 bytes que p04:655A copia a un canal al arrancarlo (detras de la cuenta, el sonido y la partitura): todo a 0; lo leen p04:655A (12 bytes)
+F 0x6563 12
+D 0x6640 0x66F2 sonidos  89 punteros, uno por sonido del 1 al 0x59 (A en p04:6472, tabla en 0x663E + 2 x A): su cabecera [canales][prioridad][una palabra por canal]. La entrada 0 serian los bytes B0 C9 de `ldir / ret` (p04:663D): no hay sonido 0; lo leen p04:649A (178 bytes)
+F 0x6640 w8
+D 0x66F2 0x66F8 cabecera_56  cabecera del sonido 0x56: canales 0x30, prioridad 0x65 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x66F2 6
+D 0x66F8 0x66FE cabecera_57  cabecera del sonido 0x57: canales 0x30, prioridad 0x2E y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x66F8 6
+D 0x66FE 0x6704 cabecera_55  cabecera del sonido 0x55: canales 0x30, prioridad 0x2F y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x66FE 6
+D 0x6704 0x6716 cabecera_4E  cabecera del sonido 0x4E: canales 0xFF, prioridad 0x40 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x6704 18
+D 0x6716 0x671C cabecera_02  cabecera del sonido 0x02: canales 0x30, prioridad 0x70 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6716 6
+D 0x671C 0x6722 cabecera_41  cabecera del sonido 0x41: canales 0x30, prioridad 0x23 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x671C 6
+D 0x6722 0x6728 cabecera_42  cabecera del sonido 0x42: canales 0x30, prioridad 0x11 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6722 6
+D 0x6728 0x672E cabecera_33  cabecera del sonido 0x33: canales 0x30, prioridad 0x02 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6728 6
+D 0x672E 0x6734 cabecera_44  cabecera del sonido 0x44: canales 0x30, prioridad 0x02 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 2 bloques: (cabecera_45 672E-6734); lo leen p04:649A (6 bytes)
+F 0x672E 6
+D 0x6734 0x6746 cabecera_34  cabecera del sonido 0x34: canales 0xFF, prioridad 0x30 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x6734 18
+D 0x6746 0x674C cabecera_37  cabecera del sonido 0x37: canales 0x30, prioridad 0x13 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6746 6
+D 0x674C 0x6752 cabecera_38  cabecera del sonido 0x38: canales 0x30, prioridad 0x2A y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x674C 6
+D 0x6752 0x6758 cabecera_39  cabecera del sonido 0x39: canales 0x30, prioridad 0x02 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6752 6
+D 0x6758 0x675E cabecera_3C  cabecera del sonido 0x3C: canales 0x30, prioridad 0x19 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6758 6
+D 0x675E 0x6764 cabecera_3E  cabecera del sonido 0x3E: canales 0x30, prioridad 0x05 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x675E 6
+D 0x6764 0x676A cabecera_03  cabecera del sonido 0x03: canales 0x30, prioridad 0x02 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6764 6
+D 0x676A 0x6770 cabecera_04  cabecera del sonido 0x04: canales 0x30, prioridad 0x02 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x676A 6
+D 0x6770 0x6776 cabecera_05  cabecera del sonido 0x05: canales 0x30, prioridad 0x04 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6770 6
+D 0x6776 0x677C cabecera_06  cabecera del sonido 0x06: canales 0x30, prioridad 0x0A y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6776 6
+D 0x677C 0x6782 cabecera_07  cabecera del sonido 0x07: canales 0x30, prioridad 0x00 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 9 bloques: (cabecera_35 677C-6782) (cabecera_3A 677C-6782) (cabecera_3B 677C-6782) (cabecera_3D 677C-6782) (cabecera_3F 677C-6782) (cabecera_53 677C-6782) (cabecera_54 677C-6782) (cabecera_58 677C-6782); lo leen p04:649A (6 bytes)
+F 0x677C 6
+D 0x6782 0x6788 cabecera_08  cabecera del sonido 0x08: canales 0x30, prioridad 0x0B y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6782 6
+D 0x6788 0x678E cabecera_09  cabecera del sonido 0x09: canales 0x30, prioridad 0x0C y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6788 6
+D 0x678E 0x6794 cabecera_4A  cabecera del sonido 0x4A: canales 0x30, prioridad 0x05 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x678E 6
+D 0x6794 0x679A cabecera_4B  cabecera del sonido 0x4B: canales 0x30, prioridad 0x1A y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6794 6
+D 0x679A 0x67A0 cabecera_36  cabecera del sonido 0x36: canales 0x30, prioridad 0x11 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x679A 6
+D 0x67A0 0x67A6 cabecera_0A  cabecera del sonido 0x0A: canales 0x30, prioridad 0x1D y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67A0 6
+D 0x67A6 0x67AC cabecera_0B  cabecera del sonido 0x0B: canales 0x30, prioridad 0x12 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67A6 6
+D 0x67AC 0x67B2 cabecera_0C  cabecera del sonido 0x0C: canales 0x30, prioridad 0x24 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67AC 6
+D 0x67B2 0x67B8 cabecera_0D  cabecera del sonido 0x0D: canales 0x30, prioridad 0x10 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67B2 6
+D 0x67B8 0x67BE cabecera_0E  cabecera del sonido 0x0E: canales 0x30, prioridad 0x0F y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67B8 6
+D 0x67BE 0x67C4 cabecera_46  cabecera del sonido 0x46: canales 0x30, prioridad 0x11 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67BE 6
+D 0x67C4 0x67CA cabecera_0F  cabecera del sonido 0x0F: canales 0x30, prioridad 0x1A y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 4 bloques: (cabecera_40 67C4-67CA) (cabecera_51 67C4-67CA) (cabecera_59 67C4-67CA); lo leen p04:649A (6 bytes)
+F 0x67C4 6
+D 0x67CA 0x67D0 cabecera_50  cabecera del sonido 0x50: canales 0x30, prioridad 0x18 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67CA 6
+D 0x67D0 0x67D6 cabecera_43  cabecera del sonido 0x43: canales 0x30, prioridad 0x1E y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 2 bloques: (cabecera_4F 67D0-67D6); lo leen p04:649A (6 bytes)
+F 0x67D0 6
+D 0x67D6 0x67DC cabecera_52  cabecera del sonido 0x52: canales 0x30, prioridad 0x1F y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67D6 6
+D 0x67DC 0x67E2 cabecera_10  cabecera del sonido 0x10: canales 0x30, prioridad 0x14 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67DC 6
+D 0x67E2 0x67E8 cabecera_11  cabecera del sonido 0x11: canales 0x30, prioridad 0x2A y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67E2 6
+D 0x67E8 0x67EE cabecera_12  cabecera del sonido 0x12: canales 0x30, prioridad 0x30 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67E8 6
+D 0x67EE 0x67F4 cabecera_13  cabecera del sonido 0x13: canales 0x30, prioridad 0x09 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67EE 6
+D 0x67F4 0x67FA cabecera_14  cabecera del sonido 0x14: canales 0x30, prioridad 0x09 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x67F4 6
+D 0x67FA 0x6800 cabecera_15  cabecera del sonido 0x15: canales 0x30, prioridad 0x25 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 3 bloques: (cabecera_16 67FA-6800) (cabecera_4C 67FA-6800); lo leen p04:649A (6 bytes)
+F 0x67FA 6
+D 0x6800 0x6806 cabecera_17  cabecera del sonido 0x17: canales 0x30, prioridad 0x15 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6800 6
+D 0x6806 0x680C cabecera_18  cabecera del sonido 0x18: canales 0x30, prioridad 0x11 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (6 bytes)
+F 0x6806 6
+D 0x680C 0x681A cabecera_19  cabecera del sonido 0x19: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x680C 14
+D 0x681A 0x6828 cabecera_1A  cabecera del sonido 0x1A: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x681A 14
+D 0x6828 0x6836 cabecera_1B  cabecera del sonido 0x1B: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6828 14
+D 0x6836 0x6844 cabecera_1C  cabecera del sonido 0x1C: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6836 14
+D 0x6844 0x6852 cabecera_1D  cabecera del sonido 0x1D: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6844 14
+D 0x6852 0x6860 cabecera_1E  cabecera del sonido 0x1E: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6852 14
+D 0x6860 0x686E cabecera_1F  cabecera del sonido 0x1F: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6860 14
+D 0x686E 0x687C cabecera_20  cabecera del sonido 0x20: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x686E 14
+D 0x687C 0x688A cabecera_21  cabecera del sonido 0x21: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x687C 14
+D 0x688A 0x6898 cabecera_22  cabecera del sonido 0x22: canales 0xCF, prioridad 0x16 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x688A 14
+D 0x6898 0x68AA cabecera_24  cabecera del sonido 0x24: canales 0xFF, prioridad 0x46 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x6898 18
+D 0x68AA 0x68BC cabecera_25  cabecera del sonido 0x25: canales 0xFF, prioridad 0x46 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x68AA 18
+D 0x68BC 0x68CE cabecera_26  cabecera del sonido 0x26: canales 0xFF, prioridad 0x01 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x68BC 18
+D 0x68CE 0x68E0 cabecera_27  cabecera del sonido 0x27: canales 0xFF, prioridad 0x47 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x68CE 18
+D 0x68E0 0x68F2 cabecera_28  cabecera del sonido 0x28: canales 0xFF, prioridad 0x47 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x68E0 18
+D 0x68F2 0x68F8 cabecera_47  cabecera del sonido 0x47: canales 0x30, prioridad 0x48 y 2 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 2 bloques: (cabecera_4D 68F2-68F8); lo leen p04:649A (6 bytes)
+F 0x68F2 6
+D 0x68F8 0x690A cabecera_48  cabecera del sonido 0x48: canales 0xFF, prioridad 0x48 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x68F8 18
+D 0x690A 0x6918 cabecera_2E  cabecera del sonido 0x2E: canales 0xCF, prioridad 0x48 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x690A 14
+D 0x6918 0x6926 cabecera_2F  cabecera del sonido 0x2F: canales 0xCF, prioridad 0x48 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6918 14
+D 0x6926 0x6934 cabecera_30  cabecera del sonido 0x30: canales 0xCF, prioridad 0x48 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6926 14
+D 0x6934 0x6942 cabecera_31  cabecera del sonido 0x31: canales 0xCF, prioridad 0x48 y 6 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (14 bytes)
+F 0x6934 14
+D 0x6942 0x6954 cabecera_32  cabecera del sonido 0x32: canales 0xFF, prioridad 0x70 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x6942 18
+D 0x6954 0x6966 cabecera_23  cabecera del sonido 0x23: canales 0xFF, prioridad 0x00 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); se solapan 7 bloques: (cabecera_29 6954-6966) (cabecera_2A 6954-6966) (cabecera_2B 6954-6966) (cabecera_2C 6954-6966) (cabecera_2D 6954-6966) (cabecera_49 6954-6966); lo leen p04:649A (18 bytes)
+F 0x6954 18
+D 0x6966 0x6978 cabecera_01  cabecera del sonido 0x01: canales 0xFF, prioridad 0x80 y 8 partituras (p04:64A7 copia 18 bytes a 0xE1BA); lo leen p04:649A (18 bytes)
+F 0x6966 18
+D 0x6AAF 0x6ABC notas_psg  13 bytes: el divisor de cada nota (de do a do) que p04:6A7A lee con el indice < 12 (p04:6A76) y dobla por la octava; el 13 no lo lee nadie; lo leen p04:6A7A (13 bytes)
+F 0x6AAF 13
+D 0x6DE9 0x6E27 ordenes  31 destinos, uno por orden de la partitura de 0xE0 a 0xFE (p04:6DD4: HL = 0x6DE9 + 2 x (orden & 0x1F); jp (hl) en p04:6DE8); el 0xFF no llega aqui (lo mira antes p04:6A30); lo leen p04:6DE8 (62 bytes)
+F 0x6DE9 w8
+D 0x711E 0x712A mezclador  tres tablas de 4 bytes, una por canal del PSG, con los bits del registro 7 (tono/ruido) segun IX+0D & 3; p04:70EE/70F9/7104 las juntan y lo escriben con WRTPSG; lo leen p04:7117 (12 bytes)
+F 0x711E 4
+D 0x73C8 0x73DC golpes  10 punteros a los guiones de bateria (p04:6B3C: la cifra alta de la nota en los modos de bateria); lo leen p04:6B44 (20 bytes)
+F 0x73C8 w10
+D 0x73DC 0x752A partitura_73DC  partitura (p04:6A23: ordenes 0xD0-0xFF y notas) de los sonidos 0x01, 0x03, 0x04, golpe 0, golpe 1, golpe 2 y otros; lo leen p04:6A2F (334 bytes)
+F 0x73DC 16
+D 0x752A 0x752B suelto_752A  1 bytes 0xFF sueltos entre partituras: no los lee nadie; lo leen nadie (1 bytes)
+F 0x752A 16
+D 0x752B 0x8000 partitura_752B  partitura (p04:6A23: ordenes 0xD0-0xFF y notas) de los sonidos 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F y otros (sigue en el banco 5, en 0x8000); lo leen p04:6A2F (2773 bytes)
+F 0x752B 16
+# --- fin de los bloques de bloques.py ---

@@ -10,8 +10,11 @@
 
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8000..0xa000  (8192 bytes)
-DATA_8000:
+; DATOS partitura_752B_cola: partitura (p04:6A23: ordenes 0xD0-0xFF y notas)
+;   de los sonidos 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F y otros (sigue del banco
+;   4) (sigue en el banco 6, en 0xA000); lo leen p04:6A2F (8192 bytes)
+;   0x8000..0xa000  (8192 bytes)
+DATA_partitura_752B_cola:
 	defb 0b3h,080h,0b3h,000h,0b2h,080h,0fbh,002h,0fah,07fh,074h,000h,073h,080h,073h,000h	; 8000  ..........t.s.s.
 	defb 072h,080h,0fbh,002h,00ah,080h,044h,000h,043h,080h,043h,000h,042h,080h,0fbh,002h	; 8010  r.....D.C.C.B...
 	defb 016h,080h,014h,000h,013h,080h,013h,000h,012h,080h,004h,000h,003h,080h,003h,000h	; 8020  ................

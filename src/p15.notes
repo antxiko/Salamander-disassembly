@@ -1,0 +1,9 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA03C 0xA475 rachas3_A03C  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p10:80C7 (1081 bytes)
+D 0xA475 0xA745 rachas3_A475  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p10:80D0 (720 bytes)
+D 0xA745 0xA8FA rachas_A745  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:80D9 (437 bytes)
+D 0xA912 0xAC8A rachas_A912  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); se solapan 2 bloques: (rachas3_A912 A912-AC8A); lo leen p10:806A, p00:56FD, p01:7BB0 (888 bytes)
+D 0xBFB7 0xC000 relleno_ff  73 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (73 bytes)
+F 0xBFB7 16
+# --- fin de los bloques de bloques.py ---

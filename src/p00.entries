@@ -71,6 +71,11 @@
 0x5ADF   # p01:757A call cc
 0x5AE7   # p02:84AF call
 0x5B63   # p00:5B50 entrada 6 de la tabla de 0x5B53 (call 0x40CE en 0x5B50)
+0x5BA5   # 0xC000: call 0xC010 / call 0xC03C / call 0xC024 y devuelve el gancho H.KEYI
+0x5BB5   # 0xC010: pone en las paginas 1 y 2 el slot de 0xF0F4 (0xC030) y los bancos 7-8-9 de ESE cartucho
+0x5BC9   # 0xC024: vuelve al slot de 0xF0F6, banco 0 en 0x5000 y 7-8-9
+0x5BD5   # 0xC030: ENASLT (0x0024) con H = 0x40 y H = 0x80
+0x5BE1   # 0xC03C: copia a 0xC100 los 20 trozos de la tabla 0xC059 (= p00:5BFE)
 0x5E79   # p02:9938 jp
 0x5EF7   # p02:94D3 jp
 0x5F66   # p10:827C jp

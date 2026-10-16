@@ -1,0 +1,11 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x8000 0x80FC mapa_fase6_cola  mapa de la fase 6, en vertical: cada fila son 8 bloques; el recorrido va de 0x0048 a 0x0228 (p02:88F2) (sigue del banco 13); lo leen p00:4A88 (252 bytes)
+F 0x8000 8
+D 0x80FC 0x81EC mapa_fase6_cola  240 bytes mas del mapa de la fase 6 (el mismo formato, 30 filas), detras de donde acaba el recorrido medido (0xE623 = 0x0228): SIN LECTOR a la vista; lo leen nadie (240 bytes)
+F 0x80FC 8
+D 0x81EC 0x84BC mapa_fase7  mapa de la fase 7, en horizontal: cada columna son 6 bloques; el recorrido va de 0x0000 a 0x01E0 (p02:88F2); lo leen p00:49BB (720 bytes)
+F 0x81EC 6
+D 0x9E5F 0xA000 relleno_ff  417 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (417 bytes)
+F 0x9E5F 16
+# --- fin de los bloques de bloques.py ---

@@ -1,0 +1,25 @@
+
+# --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA878 0xA890 tabla_A878  12 destinos del despachador p00:40CE (call en p03:A875, el indice en A): A9F0, B07F, B25B, B349, AD68, AA69, ACBE, ABDD, AA69, AA69, B498, A9F0; lo leen p03:A875 (24 bytes)
+F 0xA878 w8
+D 0xA99C 0xA9AA tabla_A99C  7 destinos del despachador p00:40CE (call en p03:A999, el indice en A): A9AA, AD24, AA0E, AC50, ABB8, AE9E, AEE3; lo leen p03:A999 (14 bytes)
+F 0xA99C w7
+D 0xB085 0xB08D tabla_B085  4 destinos del despachador p00:40CE (call en p03:B082, el indice en A): B08D, B121, B19A, B201; lo leen p03:B082 (8 bytes)
+F 0xB085 w4
+D 0xB269 0xB271 tabla_B269  4 destinos del despachador p00:40CE (call en p03:B266, el indice en A): B271, B2A9, B2E3, B315; lo leen p03:B266 (8 bytes)
+F 0xB269 w4
+D 0xB63C 0xB64D lista_B63C  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5A29 (17 bytes)
+D 0xB662 0xB66D lista_B662  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:535C, p00:535F (11 bytes)
+D 0xB66D 0xB670 lista_s_B66D  lista a la VRAM sin destino delante (p00:4CFD; 0xFE otro destino; 0xFF acaba); lo leen p02:90EB (3 bytes)
+D 0xB67B 0xB686 lista_B67B  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:582A (11 bytes)
+D 0xB686 0xB6A2 lista_B686  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); se solapan 2 bloques: (lista_B693 B693-B6A2); lo leen p00:552A, p00:55F6 (28 bytes)
+D 0xB6A2 0xB6AD lista_B6A2  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5A81 (11 bytes)
+D 0xB6AD 0xB6C0 lista_B6AD  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5711, p00:5733, p00:5743 (19 bytes)
+D 0xB6C0 0xB6D1 lista_B6C0  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5694 (17 bytes)
+D 0xB6D1 0xB6DC lista_B6D1  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5749 (11 bytes)
+D 0xB6DC 0xB6E9 lista_B6DC  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5739 (13 bytes)
+D 0xBAF9 0xBB03 tabla_BAF9  5 destinos del despachador p00:40CE (call en p03:BAF6, el indice en A): BB03, BB1A, BB34, BB1A, BB7B; lo leen p03:BAF6 (10 bytes)
+F 0xBAF9 w5
+D 0xBC06 0xBC10 tabla_BC06  5 destinos del despachador p00:40CE (call en p03:BC03, el indice en A): 7EFF, 7EF4, BC1A, BC24, 62DA; lo leen p03:BC03 (10 bytes)
+F 0xBC06 w5
+# --- fin de los bloques de bloques.py ---
