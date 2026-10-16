@@ -1757,9 +1757,9 @@ C 0x5A84 el record
 C 0x5A87 en 0x3A2B
 C 0x5A8A 5 bytes
 C 0x5A8F cambia B bytes de HL y DE
-C 0x5A99 la columna: x / 8
-C 0x5A9D + la fila...
-C 0x5AA6 ...x 32
+C 0x5A99 L = la y: la fila (y / 8)...
+C 0x5A9D ...x 64...
+C 0x5AA6 ...+ la columna (H = la x, / 8)
 C 0x5AA9 + 0xCA00: en el mapa de la RAM
 C 0x5AAD + 0x40
 C 0x5AB4 + 0x80

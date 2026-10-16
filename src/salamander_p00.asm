@@ -3874,17 +3874,17 @@ L_5A8F:
 	djnz L_5A8F		;5a96
 	ret			;5a98
 hl_a_nombre:		; convierte las coordenadas de HL en una direccion de la tabla de nombres
-	ld a,l			;5a99   ; la columna: x / 8
+	ld a,l			;5a99   ; L = la y: la fila (y / 8)...
 	rra			;5a9a
 	rra			;5a9b
 	rra			;5a9c
-	or a			;5a9d   ; + la fila...
+	or a			;5a9d   ; ...x 64...
 	rr h		;5a9e
 	rra			;5aa0
 	rr h		;5aa1
 	rra			;5aa3
 	rr h		;5aa4
-	ld l,h			;5aa6   ; ...x 32
+	ld l,h			;5aa6   ; ...+ la columna (H = la x, / 8)
 	and 007h		;5aa7
 	add a,0cah		;5aa9   ; + 0xCA00: en el mapa de la RAM
 	ld h,a			;5aab
