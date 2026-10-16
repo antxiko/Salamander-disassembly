@@ -1,9 +1,203 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA000 0xA006 destinos_jp  3 direcciones de la VRAM, de 0xE6D1 = 2 a 4 (p01:7B39: 0x9FFC + 2 x B, version japonesa); lo leen p01:7B42 (6 bytes)
+F 0xA000 w3
+D 0xA006 0xA01E cifras_jp  4 fichas de 6 bytes, de las que la version japonesa copia 3 (p01:7B58: 0xA006 + 6 x 0xE309[B], LDIRVM de 3); lo leen p01:7B6D (24 bytes)
+F 0xA006 6
+D 0xA01E 0xA024 destinos_en  3 direcciones de la VRAM, de 0xE6D1 = 2 a 4 (p01:7B3E: 0xA01A + 2 x B, version inglesa); las dos palabras de delante son la ultima ficha japonesa; lo leen p01:7B42 (6 bytes)
+F 0xA01E w3
+D 0xA024 0xA03C cifras_en  4 fichas de 6 letras que copia la version inglesa (p01:7B5D: 0xA024 + 6 x 0xE309[B], LDIRVM de 6); lo leen p01:7B6D (24 bytes)
+F 0xA024 6
 D 0xA03C 0xA475 rachas3_A03C  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p10:80C7 (1081 bytes)
 D 0xA475 0xA745 rachas3_A475  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p10:80D0 (720 bytes)
 D 0xA745 0xA8FA rachas_A745  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:80D9 (437 bytes)
 D 0xA912 0xAC8A rachas_A912  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); se solapan 2 bloques: (rachas3_A912 A912-AC8A); lo leen p10:806A, p00:56FD, p01:7BB0 (888 bytes)
-D 0xBFB7 0xC000 relleno_ff  73 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (73 bytes)
-F 0xBFB7 16
+D 0xAC8A 0xAE8A copia3_AC8A  0x200 bytes que p00:4CC1 copia tal cual (LDIRVM) a 0x2560 (si 0xE6D1 = 5, en lugar de 0xAE8A) en los tres tercios; lo leen p01:7BCF (512 bytes)
+F 0xAC8A 16
+D 0xAE8A 0xAF9A copia3_AE8A  0x110 bytes que p00:4CC1 copia tal cual (LDIRVM) a 0x2560 en los tres tercios; lo leen p01:7BC2 (272 bytes)
+F 0xAE8A 16
+D 0xAF9A 0xB002 copia3_AF9A  0x68 bytes que p00:4CC1 copia tal cual (LDIRVM) a 0x2760 en los tres tercios; lo leen p01:7BB6 (104 bytes)
+F 0xAF9A 16
+D 0xB002 0xB02E textos_B002  22 punteros a los textos (version japonesa, por el byte 0x002B de la BIOS en p10:944C): p00:4E31 con A; lo leen p10:9451 (44 bytes)
+F 0xB002 w8
+D 0xB02E 0xB039 texto_B02E  texto 0 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (11 bytes)
+F 0xB02E 16
+D 0xB039 0xB05B texto_B039  texto 1 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (34 bytes)
+F 0xB039 16
+D 0xB05B 0xB07B texto_B05B  texto 2 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (32 bytes)
+F 0xB05B 16
+D 0xB07B 0xB08A texto_B07B  texto 3 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (15 bytes)
+F 0xB07B 16
+D 0xB08A 0xB0B6 texto_B08A  texto 4 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (44 bytes)
+F 0xB08A 16
+D 0xB0B6 0xB0E6 texto_B0B6  texto 5 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (48 bytes)
+F 0xB0B6 16
+D 0xB0E6 0xB0FD texto_B0E6  texto 6 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (23 bytes)
+F 0xB0E6 16
+D 0xB0FD 0xB121 texto_B0FD  texto 7 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (36 bytes)
+F 0xB0FD 16
+D 0xB121 0xB144 texto_B121  texto 8 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (35 bytes)
+F 0xB121 16
+D 0xB144 0xB1A2 texto_B144  texto 9 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (94 bytes)
+F 0xB144 16
+D 0xB1A2 0xB1E7 texto_B1A2  texto 12 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (69 bytes)
+F 0xB1A2 16
+D 0xB1E7 0xB222 texto_B1E7  texto 13 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (59 bytes)
+F 0xB1E7 16
+D 0xB222 0xB25E texto_B222  texto 14 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (60 bytes)
+F 0xB222 16
+D 0xB25E 0xB290 texto_B25E  texto 15 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (50 bytes)
+F 0xB25E 16
+D 0xB290 0xB2F2 texto_B290  texto 16 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (98 bytes)
+F 0xB290 16
+D 0xB2F2 0xB31A texto_B2F2  texto 17 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (40 bytes)
+F 0xB2F2 16
+D 0xB31A 0xB350 texto_B31A  texto 18 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (54 bytes)
+F 0xB31A 16
+D 0xB350 0xB37C texto_B350  texto 19 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (44 bytes)
+F 0xB350 16
+D 0xB37C 0xB3B7 texto_B37C  texto 20 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (59 bytes)
+F 0xB37C 16
+D 0xB3B7 0xB3E4 texto_B3B7  texto 21 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (45 bytes)
+F 0xB3B7 16
+D 0xB3E4 0xB42F texto_B3E4  texto 10 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (75 bytes)
+F 0xB3E4 16
+D 0xB42F 0xB4B6 texto_B42F  texto 11 de la tabla 0xB002 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (135 bytes)
+F 0xB42F 16
+D 0xB4B6 0xB4E2 textos_B4B6  22 punteros a los textos (version inglesa, por el byte 0x002B de la BIOS en p10:944C): p00:4E31 con A; lo leen p10:9456 (44 bytes)
+F 0xB4B6 w8
+D 0xB4E2 0xB503 texto_B4E2  texto 1 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (33 bytes)
+F 0xB4E2 16
+D 0xB503 0xB525 texto_B503  texto 4 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (34 bytes)
+F 0xB503 16
+D 0xB525 0xB55F texto_B525  texto 5 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (58 bytes)
+F 0xB525 16
+D 0xB55F 0xB581 texto_B55F  texto 9 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (34 bytes)
+F 0xB55F 16
+D 0xB581 0xB5C3 texto_B581  texto 12 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (66 bytes)
+F 0xB581 16
+D 0xB5C3 0xB5DC texto_B5C3  texto 10 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (25 bytes)
+F 0xB5C3 16
+D 0xB5DC 0xB5FC texto_B5DC  texto 11 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (32 bytes)
+F 0xB5DC 16
+D 0xB5FC 0xB63E texto_B5FC  texto 13 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (66 bytes)
+F 0xB5FC 16
+D 0xB63E 0xB654 texto_B63E  texto 14 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (22 bytes)
+F 0xB63E 16
+D 0xB654 0xB6A1 texto_B654  texto 16 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (77 bytes)
+F 0xB654 16
+D 0xB6A1 0xB6CA texto_B6A1  texto 17 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (41 bytes)
+F 0xB6A1 16
+D 0xB6CA 0xB6FB texto_B6CA  texto 19 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (49 bytes)
+F 0xB6CA 16
+D 0xB6FB 0xB723 texto_B6FB  texto 20 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (40 bytes)
+F 0xB6FB 16
+D 0xB723 0xB725 texto_B723  texto 2, 3, 15, 18 de la tabla 0xB4B6 (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (2 bytes)
+F 0xB723 16
+D 0xB725 0xB731 textos_B725  6 punteros a los textos (version japonesa, por el byte 0x002B de la BIOS en p10:944C): p00:4E31 con A; lo leen p10:9461 (12 bytes)
+F 0xB725 w8
+D 0xB731 0xB770 texto_B731  texto 0 de la tabla 0xB725 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (63 bytes)
+F 0xB731 16
+D 0xB770 0xB7AF texto_B770  texto 1 de la tabla 0xB725 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (63 bytes)
+F 0xB770 16
+D 0xB7AF 0xB81F texto_B7AF  texto 4 de la tabla 0xB725 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (112 bytes)
+F 0xB7AF 16
+D 0xB81F 0xB874 texto_B81F  texto 3 de la tabla 0xB725 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (85 bytes)
+F 0xB81F 16
+D 0xB874 0xB8CA texto_B874  texto 2 de la tabla 0xB725 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (86 bytes)
+F 0xB874 16
+D 0xB8CA 0xB90A texto_B8CA  texto 5 de la tabla 0xB725 (japonesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (64 bytes)
+F 0xB8CA 16
+D 0xB90A 0xB916 textos_B90A  6 punteros a los textos (version inglesa, por el byte 0x002B de la BIOS en p10:944C): p00:4E31 con A; lo leen p10:9466 (12 bytes)
+F 0xB90A w8
+D 0xB916 0xB9D7 texto_B916  texto 4 de la tabla 0xB90A (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (193 bytes)
+F 0xB916 16
+D 0xB9D7 0xBA85 texto_B9D7  texto 3 de la tabla 0xB90A (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (174 bytes)
+F 0xB9D7 16
+D 0xBA85 0xBB08 texto_BA85  texto 2 de la tabla 0xB90A (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (131 bytes)
+F 0xBA85 16
+D 0xBB08 0xBB6F texto_BB08  texto 5 de la tabla 0xB90A (inglesa): [columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, 0xFC mete el nombre del jugador (p10:954D); lo leen p10:94BA (103 bytes)
+F 0xBB08 16
+D 0xBB6F 0xBB81 ventanas_BB6F  9 punteros a cabeceras de ventana que p10:95BD elige con A (p00:4E28; p10:82BF); lo leen p10:82C2 (18 bytes)
+F 0xBB6F w9
+D 0xBB81 0xBB88 ventana_BB81  cabecera de ventana 0 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBBC0] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBB81 7
+D 0xBB88 0xBB8F ventana_BB88  cabecera de ventana 1 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBBDA] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBB88 7
+D 0xBB8F 0xBB96 ventana_BB8F  cabecera de ventana 2 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBBF4] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBB8F 7
+D 0xBB96 0xBB9D ventana_BB96  cabecera de ventana 3 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBC0E] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBB96 7
+D 0xBB9D 0xBBA4 ventana_BB9D  cabecera de ventana 4 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBC28] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBB9D 7
+D 0xBBA4 0xBBAB ventana_BBA4  cabecera de ventana 5 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBC42] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBBA4 7
+D 0xBBAB 0xBBB2 ventana_BBAB  cabecera de ventana 6 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBC5C] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBBAB 7
+D 0xBBB2 0xBBB9 ventana_BBB2  cabecera de ventana 7 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBC76] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBBB2 7
+D 0xBBB9 0xBBC0 ventana_BBB9  cabecera de ventana 8 de 0xBB6F: [modo][fila][1 filas][26 columnas][?][datos 0xBC90] que p10:95C1 copia a 0xEE10; lo leen p10:95BD (7 bytes)
+F 0xBBB9 7
+D 0xBBC0 0xBBDA ventana_datos_BBC0  1 x 26 caracteres de la ventana de 0xBB81 (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBBC0 26
+D 0xBBDA 0xBBF4 ventana_datos_BBDA  1 x 26 caracteres de la ventana de 0xBB88 (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBBDA 26
+D 0xBBF4 0xBC0E ventana_datos_BBF4  1 x 26 caracteres de la ventana de 0xBB8F (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBBF4 26
+D 0xBC0E 0xBC28 ventana_datos_BC0E  1 x 26 caracteres de la ventana de 0xBB96 (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBC0E 26
+D 0xBC28 0xBC42 ventana_datos_BC28  1 x 26 caracteres de la ventana de 0xBB9D (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBC28 26
+D 0xBC42 0xBC5C ventana_datos_BC42  1 x 26 caracteres de la ventana de 0xBBA4 (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBC42 26
+D 0xBC5C 0xBC76 ventana_datos_BC5C  1 x 26 caracteres de la ventana de 0xBBAB (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBC5C 26
+D 0xBC76 0xBC90 ventana_datos_BC76  1 x 26 caracteres de la ventana de 0xBBB2 (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBC76 26
+D 0xBC90 0xBCAA ventana_datos_BC90  1 x 26 caracteres de la ventana de 0xBBB9 (p10:9613 los copia fila a fila); lo leen p10:9613 (26 bytes)
+F 0xBC90 26
+D 0xBCAA 0xBCB1 ventana_BCAA  cabecera de ventana (HL fijo en p10:83AD): [modo][fila][6 filas][18 columnas][?][datos 0xBD85] que p10:95C1 copia a 0xEE10; lo leen p10:83AD (7 bytes)
+F 0xBCAA 7
+D 0xBCB1 0xBCB8 ventana_BCB1  cabecera de ventana (HL fijo en p10:8409): [modo][fila][8 filas][18 columnas][?][datos 0xBDF1] que p10:95C1 copia a 0xEE10; lo leen p10:8409 (7 bytes)
+F 0xBCB1 7
+D 0xBCB8 0xBCBF ventana_BCB8  cabecera de ventana (HL fijo en p10:8491): [modo][fila][8 filas][18 columnas][?][datos 0xBDF1] que p10:95C1 copia a 0xEE10; lo leen p10:8491 (7 bytes)
+F 0xBCB8 7
+D 0xBCBF 0xBCC6 ventana_BCBF  cabecera de ventana (HL fijo en p10:85C5): [modo][fila][7 filas][9 columnas][?][datos 0xBE81] que p10:95C1 copia a 0xEE10; lo leen p10:85C5 (7 bytes)
+F 0xBCBF 7
+D 0xBCC6 0xBCCD ventana_BCC6  cabecera de ventana (HL fijo en p10:85D5): [modo][fila][7 filas][9 columnas][?][datos 0xBEC0] que p10:95C1 copia a 0xEE10; lo leen p10:85D5 (7 bytes)
+F 0xBCC6 7
+D 0xBCCD 0xBCD4 ventana_BCCD  cabecera de ventana (HL fijo en p10:84D6): [modo][fila][5 filas][17 columnas][?][datos 0xBCDB] que p10:95C1 copia a 0xEE10; lo leen p10:84D6 (7 bytes)
+F 0xBCCD 7
+D 0xBCD4 0xBCDB ventana_BCD4  cabecera de ventana (HL fijo en p10:854E): [modo][fila][5 filas][17 columnas][?][datos 0xBD30] que p10:95C1 copia a 0xEE10; lo leen p10:854E (7 bytes)
+F 0xBCD4 7
+D 0xBCDB 0xBD30 ventana_datos_BCDB  5 x 17 caracteres de la ventana de 0xBCCD (p10:9613 los copia fila a fila); lo leen p10:9613 (85 bytes)
+F 0xBCDB 17
+D 0xBD30 0xBD85 ventana_datos_BD30  5 x 17 caracteres de la ventana de 0xBCD4 (p10:9613 los copia fila a fila); lo leen p10:9613 (85 bytes)
+F 0xBD30 17
+D 0xBD85 0xBDF1 ventana_datos_BD85  6 x 18 caracteres de la ventana de 0xBCAA (p10:9613 los copia fila a fila); lo leen p10:9613 (108 bytes)
+F 0xBD85 18
+D 0xBDF1 0xBE81 ventana_datos_BDF1  8 x 18 caracteres de la ventana de 0xBCB1 (p10:9613 los copia fila a fila); lo leen p10:9613 (144 bytes)
+F 0xBDF1 18
+D 0xBE81 0xBEC0 ventana_datos_BE81  7 x 9 caracteres de la ventana de 0xBCBF (p10:9613 los copia fila a fila); lo leen p10:9613 (63 bytes)
+F 0xBE81 9
+D 0xBEC0 0xBEFF ventana_datos_BEC0  7 x 9 caracteres de la ventana de 0xBCC6 (p10:9613 los copia fila a fila); lo leen p10:9613 (63 bytes)
+F 0xBEC0 9
+D 0xBEFF 0xBF0D rotulos_BEFD  7 punteros (fase 1 a 7; tabla en 0xBEFD + 2 x A): los rotulos de cada fase (p10:8A20 con A = 1, 0xE21B o 7); lo leen p10:8A2C (14 bytes)
+F 0xBEFF w7
+D 0xBF0D 0xBF1B rotulos_BF0B  7 punteros (fase 1 a 7; tabla en 0xBF0B + 2 x A): los rotulos de cada fase (p10:8A20 con A = 1, 0xE21B o 7); lo leen p10:8A31 (14 bytes)
+F 0xBF0D w7
+D 0xBF1B 0xBF39 rotulo_BF1B  lista a la VRAM (p00:4CF5) del rotulo de la fase 1, version japonesa; lo leen p10:8A39 (30 bytes)
+F 0xBF1B 16
+D 0xBF39 0xBF5A rotulo_BF39  lista a la VRAM (p00:4CF5) del rotulo de la fase 2, version japonesa; lo leen p10:8A39 (33 bytes)
+F 0xBF39 16
+D 0xBF5A 0xBF72 rotulo_BF5A  lista a la VRAM (p00:4CF5) del rotulo de la fase 3, 4, 5, version japonesa; lo leen p10:8A39 (24 bytes)
+F 0xBF5A 16
+D 0xBF72 0xBF87 rotulo_BF72  lista a la VRAM (p00:4CF5) del rotulo de la fase 6, version japonesa; lo leen p10:8A39 (21 bytes)
+F 0xBF72 16
+D 0xBF87 0xBF9A rotulo_BF87  lista a la VRAM (p00:4CF5) del rotulo de la fase 7, version japonesa; lo leen p10:8A39 (19 bytes)
+F 0xBF87 16
+D 0xBF9A 0xBFB8 rotulo_BF9A  lista a la VRAM (p00:4CF5) del rotulo de la fase 3, 4, 5, version inglesa; lo leen p10:8A39 (30 bytes)
+F 0xBF9A 16
+D 0xBFB8 0xC000 relleno_ff  72 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (72 bytes)
+F 0xBFB8 16
 # --- fin de los bloques de bloques.py ---

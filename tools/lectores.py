@@ -734,6 +734,79 @@ def banco9():
               "IY+38 < 4 (A x 17): un byte (ldi) y cuatro grupos que copia p02:8309", "p02:84F0", F=17)
 
 
+# ------------------------------------------------------------ el banco 15
+#
+# Los textos (p10:9470 y p10:94B7, con 1-10-15): HL = tabla + 2 x A
+# (p00:4E31); la japonesa o la inglesa segun el byte 0x002B de la BIOS
+# (p10:944C). Un texto es [columna] y letras; 0xFF acaba, 0xFE [columna]
+# salta de linea, 0xFD [columna] cambia de pagina y 0xFC mete un trozo de
+# p10:959A/95AB/95B5 (p10:954D) y vuelve al siguiente 0xFC.
+
+def texto(v, a):
+    """p10:94B7: devuelve el final (detras del 0xFF)."""
+    a += 1
+    while True:
+        x = v(a)
+        a += 1
+        if x == 0xFF:
+            return a
+        if x in (0xFE, 0xFD):
+            a += 1
+
+
+def banco15():
+    v = B.Ventana((1, 10, 15))
+    for tabla, n, sitio, que in ((0xB002, 22, "p10:9451", "japonesa"), (0xB4B6, 22, "p10:9456", "inglesa"),
+                                 (0xB725, 6, "p10:9461", "japonesa"), (0xB90A, 6, "p10:9466", "inglesa")):
+        B.declara(v, tabla, tabla + 2 * n, "textos_%04X" % tabla, "%d punteros a los textos (version "
+                  "%s, por el byte 0x002B de la BIOS en p10:944C): p00:4E31 con A" % (n, que), sitio, F="w8")
+        for p in sorted({v.w(tabla + 2 * k) for k in range(n)}):
+            ks = [k for k in range(n) if v.w(tabla + 2 * k) == p]
+            B.declara(v, p, texto(v, p), "texto_%04X" % p, "texto %s de la tabla 0x%04X (%s): "
+                      "[columna] y letras; 0xFF acaba, 0xFE/0xFD [columna] linea o pagina nueva, "
+                      "0xFC mete el nombre del jugador (p10:954D)" % (", ".join(map(str, ks)), tabla, que),
+                      "p10:94BA", F=16)
+    w = B.Ventana((1, 10, 15))
+    for a, n, sitio, que in ((0xAF9A, 0x68, "p01:7BB6", "0x2760"), (0xAE8A, 0x110, "p01:7BC2", "0x2560"),
+                             (0xAC8A, 0x200, "p01:7BCF", "0x2560 (si 0xE6D1 = 5, en lugar de 0xAE8A)")):
+        B.declara(w, a, a + n, "copia3_%04X" % a, "0x%X bytes que p00:4CC1 copia tal cual (LDIRVM) a "
+                  "%s en los tres tercios" % (n, que), sitio, F=16)
+    # ventanas: cabeceras de 7 bytes [modo][fila][filas][columnas][?][datos lo hi]
+    # que p10:95C1 copia a 0xEE10; p10:95CE pinta filas x columnas de los datos
+    def ventana(a, sitio, que):
+        filas, cols, dato = v(a + 2), v(a + 3), v.w(a + 5)
+        B.declara(v, a, a + 7, "ventana_%04X" % a, "cabecera de ventana %s: [modo][fila][%d filas]"
+                  "[%d columnas][?][datos 0x%04X] que p10:95C1 copia a 0xEE10" % (que, filas, cols, dato),
+                  sitio, F=7)
+        B.declara(v, dato, dato + filas * cols, "ventana_datos_%04X" % dato, "%d x %d caracteres "
+                  "de la ventana de 0x%04X (p10:9613 los copia fila a fila)" % (filas, cols, a),
+                  "p10:9613", F=cols)
+    for a, sitio in ((0xBCAA, "p10:83AD"), (0xBCB1, "p10:8409"), (0xBCB8, "p10:8491"),
+                     (0xBCBF, "p10:85C5"), (0xBCC6, "p10:85D5"), (0xBCCD, "p10:84D6"),
+                     (0xBCD4, "p10:854E")):
+        ventana(a, sitio, "(HL fijo en %s)" % sitio)
+    B.declara(v, 0xBB6F, 0xBB81, "ventanas_BB6F", "9 punteros a cabeceras de ventana que p10:95BD "
+              "elige con A (p00:4E28; p10:82BF)", "p10:82C2", F="w9")
+    for k in range(9):
+        ventana(v.w(0xBB6F + 2 * k), "p10:95BD", "%d de 0xBB6F" % k)
+    for tabla, sitio, que in ((0xBEFD, "p10:8A2C", "japonesa"), (0xBF0B, "p10:8A31", "inglesa")):
+        tabla_indice(v, tabla, list(FASES), "rotulos_%04X" % tabla, "fase", None, sitio,
+                     lambda v, p, ks, que=que: B.declara(
+                         v, p, lista_vram(v, p), "rotulo_%04X" % p,
+                         "lista a la VRAM (p00:4CF5) del rotulo de la fase %s, version %s"
+                         % (", ".join(map(str, ks)), que), "p10:8A39", F=16),
+                     "los rotulos de cada fase (p10:8A20 con A = 1, 0xE21B o 7)")
+    B.declara(w, 0xA000, 0xA006, "destinos_jp", "3 direcciones de la VRAM, de 0xE6D1 = 2 a 4 "
+              "(p01:7B39: 0x9FFC + 2 x B, version japonesa)", "p01:7B42", F="w3")
+    B.declara(w, 0xA006, 0xA01E, "cifras_jp", "4 fichas de 6 bytes, de las que la version japonesa "
+              "copia 3 (p01:7B58: 0xA006 + 6 x 0xE309[B], LDIRVM de 3)", "p01:7B6D", F=6)
+    B.declara(w, 0xA01E, 0xA024, "destinos_en", "3 direcciones de la VRAM, de 0xE6D1 = 2 a 4 "
+              "(p01:7B3E: 0xA01A + 2 x B, version inglesa); las dos palabras de delante son la "
+              "ultima ficha japonesa", "p01:7B42", F="w3")
+    B.declara(w, 0xA024, 0xA03C, "cifras_en", "4 fichas de 6 letras que copia la version inglesa "
+              "(p01:7B5D: 0xA024 + 6 x 0xE309[B], LDIRVM de 6)", "p01:7B6D", F=6)
+
+
 def de_puntero_en_puntero(v, tabla, n, hasta, nom, texto_tabla, texto_bloque, lector,
                           lector_bloque, F_tabla="w8", F_bloque=16):
     """Tabla de n punteros a bloques que van seguidos: cada uno acaba donde
@@ -753,3 +826,4 @@ def todo():
     banco789()
     banco14()
     banco9()
+    banco15()
