@@ -848,7 +848,7 @@ C 0x4C3A la columna nueva, la 0
 C 0x4C3D en 0xF000
 C 0x4C40 se guarda el scroll
 C 0x4C44 y se pone el de los altos
-C 0x4C4A el mapa de p14:818C (el de la fase 7)
+C 0x4C4A el mapa de p14:818C (los altos de lado: solo la fase 6, p02:8651 y 867B)
 C 0x4C4D p00:49BF: la columna
 C 0x4C50 el scroll de verdad otra vez
 C 0x4C55 hacia arriba: 0xE612 - 1
@@ -2145,7 +2145,7 @@ L 0x4E3A hay_enemigos NZ si queda algun enemigo (0xE700) o disparo (0xEA00) vivo
 L 0x4E58 azar mezcla R en 0xE606 (el azar)
 L 0x4E66 suceso_de_fase la ficha A de la lista de sucesos de la fase y compara su posicion con el scroll
 L 0x4EAF borra_atributos los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-L 0x5A99 hl_a_nombre convierte (L = y, H = x) en una direccion del mapa de la RAM (0xCA00, 64 por fila)
+L 0x5A99 hl_a_nombre convierte las coordenadas de HL en una direccion de la tabla de nombres
 L 0x5AD8 byte_de_tabla A = el byte HL + A
 L 0x5ADF menos_de DE = -DE
 L 0x5AE7 menos_hl HL = -HL

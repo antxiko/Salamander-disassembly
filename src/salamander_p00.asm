@@ -1731,7 +1731,7 @@ L_4C3D:
 	push hl			;4c43
 	ld hl,(0e612h)		;4c44   ; y se pone el de los altos
 	ld (0e302h),hl		;4c47   ; guarda la posicion del scroll (16 bits)
-	ld de,0818ch		;4c4a   ; el mapa de p14:818C (el de la fase 7)
+	ld de,0818ch		;4c4a   ; el mapa de p14:818C (los altos de lado: solo la fase 6, p02:8651 y 867B)
 	call L_49BF		;4c4d   ; p00:49BF: la columna
 	pop hl			;4c50   ; el scroll de verdad otra vez
 	ld (0e302h),hl		;4c51   ; guarda la posicion del scroll (16 bits)
@@ -3873,7 +3873,7 @@ L_5A8F:
 	inc de			;5a95
 	djnz L_5A8F		;5a96
 	ret			;5a98
-hl_a_nombre:		; convierte (L = y, H = x) en una direccion del mapa de la RAM (0xCA00, 64 por fila)
+hl_a_nombre:		; convierte las coordenadas de HL en una direccion de la tabla de nombres
 	ld a,l			;5a99   ; L = la y: la fila (y / 8)...
 	rra			;5a9a
 	rra			;5a9b
