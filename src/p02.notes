@@ -1308,19 +1308,19 @@ D 0x8517 0x8525 tabla_8517  7 destinos del despachador p00:40CE (call en p02:851
 F 0x8517 w7
 D 0x876C 0x877A listas_876A  7 punteros, uno por fase (p02:873D: 0x876A + 2 x fase, p00:4E28); lo leen p02:8740 (14 bytes)
 F 0x876C w8
-D 0x877A 0x8780 listas_876A_877A  lista de la fase 0 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x877A 0x8780 listas_876A_877A  lista de la fase 1 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x877A 6
-D 0x8780 0x8786 listas_876A_8780  lista de la fase 1 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x8780 0x8786 listas_876A_8780  lista de la fase 2 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x8780 6
-D 0x8786 0x878C listas_876A_8786  lista de la fase 2 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x8786 0x878C listas_876A_8786  lista de la fase 3 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x8786 6
-D 0x878C 0x8792 listas_876A_878C  lista de la fase 3 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x878C 0x8792 listas_876A_878C  lista de la fase 4 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x878C 6
-D 0x8792 0x8798 listas_876A_8792  lista de la fase 4 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x8792 0x8798 listas_876A_8792  lista de la fase 5 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x8792 6
-D 0x8798 0x879E listas_876A_8798  lista de la fase 5 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x8798 0x879E listas_876A_8798  lista de la fase 6 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x8798 6
-D 0x879E 0x87A4 listas_876A_879E  lista de la fase 6 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+D 0x879E 0x87A4 listas_876A_879E  lista de la fase 7 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 F 0x879E 6
 D 0x8853 0x885B pares_8853  4 palabras que p02:8843 elige con 0xE620 y B y copia a IY+24 (e IY+26); lo leen p02:8846 (8 bytes)
 F 0x8853 2

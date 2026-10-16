@@ -514,8 +514,8 @@ def banco789():
                                             "p00:449A", F=3),
                  "las listas de dibujos de sprite de cada fase (p00:449E)")
     for ix, sitio, que in ((0x6C63, "p00:44BB", "de todas las fases (p00:44B7)"),
-                           (0x6C8E, "p00:44CB", "si p00:4835 da acarreo (bit fase de 0x26: fases 1, 2 y 5)"),
-                           (0x6C95, "p00:44CB", "si p00:4835 no da acarreo")):
+                           (0x6C8E, "p00:44CB", "si p00:4835 no da acarreo (bit fase de 0x26: fases 1, 4, 5 y 7)"),
+                           (0x6C95, "p00:44CB", "si p00:4835 da acarreo (fases 2, 3 y 6, las verticales)")):
         B.declara(v, ix, lista_caracteres(v, ix, sitio), "caracteres_%04X" % ix,
                   "lista de caracteres (p00:4546) %s: fichas de 6 bytes, 0 acaba" % que, sitio, F=6)
 
@@ -1054,17 +1054,17 @@ def tablas_de_codigo():
     de_puntero_en_puntero(u, 0xA531, 7, 0xA5CE, "listas_A52F", "7 punteros, uno por fase (p12:A4CF: "
                           "0xA52F + 2 x fase, p00:4E21); 0 = la fase no tiene lista", "lista de "
                           "la fase %s que p12:A4D9 recorre (acaba donde empieza la siguiente)",
-                          "p12:A4D2", "p12:A4D9", F_bloque=8)
+                          "p12:A4D2", "p12:A4D9", F_bloque=8, primero=1)
     # p00:5DE2: 0x5E52 + 2 x B (de 1 a 7) apunta a listas de bytes que p00:5DEC
     # lee con C
     de_puntero_en_puntero(v, 0x5E54, 7, 0x5E79, "listas_5E52", "7 punteros (B de 1 a 7: "
                           "p00:5DE2 lee 0x5E52 + 2 x B con p00:4E28)", "lista de bytes de las "
                           "entradas %s de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la "
-                          "siguiente)", "p00:5DE6", "p00:5DEC", F_bloque=8)
+                          "siguiente)", "p00:5DE6", "p00:5DEC", F_bloque=8, primero=1)
     de_puntero_en_puntero(v, 0x876C, 7, 0x87A4, "listas_876A", "7 punteros, uno por fase "
                           "(p02:873D: 0x876A + 2 x fase, p00:4E28)", "lista de la fase %s que "
                           "p02:8748 lee de dos en dos (acaba donde empieza la siguiente)",
-                          "p02:8740", "p02:8748", F_bloque=6)
+                          "p02:8740", "p02:8748", F_bloque=6, primero=1)
     for a, sitio in ((0xB62B, "p00:5A21"), (0xB63C, "p00:5A26"), (0xB64D, "p00:534C"),
                      (0xB657, "p00:5351"), (0xB662, "p00:5357"), (0xB670, "p00:5822"),
                      (0xB67B, "p00:5827")):
@@ -1074,13 +1074,14 @@ def tablas_de_codigo():
 
 
 def de_puntero_en_puntero(v, tabla, n, hasta, nom, texto_tabla, texto_bloque, lector,
-                          lector_bloque, F_tabla="w8", F_bloque=16):
+                          lector_bloque, F_tabla="w8", F_bloque=16, primero=0):
     """Tabla de n punteros a bloques que van seguidos: cada uno acaba donde
-    empieza el siguiente (ordenados) y el ultimo en `hasta`."""
+    empieza el siguiente (ordenados) y el ultimo en `hasta`. primero: el
+    numero de la primera entrada (1 si la tabla se lee con A desde 1)."""
     B.declara(v, tabla, tabla + 2 * n, nom, texto_tabla, lector, F=F_tabla)
     ps = sorted({v.w(tabla + 2 * k) for k in range(n)} - {0})
     for a, f in zip(ps, ps[1:] + [hasta]):
-        ks = [k for k in range(n) if v.w(tabla + 2 * k) == a]
+        ks = [k + primero for k in range(n) if v.w(tabla + 2 * k) == a]
         B.declara(v, a, f, "%s_%04X" % (nom, a), texto_bloque % ", ".join(map(str, ks)),
                   lector_bloque, F=F_bloque)
 

@@ -317,7 +317,7 @@ C 0x44B1 descomprime los dibujos alli
 C 0x44B4 la ficha siguiente
 C 0x44B7 la lista de caracteres de todas las fases (p07:6C63)
 C 0x44BE segun la fase...
-C 0x44C1 p07:6C8E (fases 1, 2 y 5)
+C 0x44C1 p07:6C8E sin acarreo (fases 1, 4, 5 y 7)
 C 0x44C7 o p07:6C95
 C 0x44CE la fase
 C 0x44D1 la 7?
@@ -2038,7 +2038,7 @@ C 0x5FD5 justo en 0x150...
 C 0x5FD9 ...p01:603E
 C 0x5FDD antes de 0x150: p00:5FED
 C 0x5FDF 0xE630 = 3: p00:5FED
-C 0x5FE6 uno de cada 64 cuadros
+C 0x5FE6 uno de cada 64 cuadros se ve entero; los demas, sin el decorado (p01:6016): la base casi no se ve
 C 0x5FED el mapa de la RAM a la tabla de nombres: 0x3800
 C 0x5FF0 el puerto
 C 0x5FF4 desde 0xCA00
@@ -2081,19 +2081,19 @@ D 0x5CFA 0x5D18 cambios_de_fase  5 fichas de 6 bytes: [caracteres][copias en esp
 F 0x5CFA 6
 D 0x5E54 0x5E62 listas_5E52  7 punteros (B de 1 a 7: p00:5DE2 lee 0x5E52 + 2 x B con p00:4E28); lo leen p00:5DE6 (14 bytes)
 F 0x5E54 w8
-D 0x5E62 0x5E69 listas_5E52_5E62  lista de bytes de las entradas 0 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (7 bytes)
+D 0x5E62 0x5E69 listas_5E52_5E62  lista de bytes de las entradas 1 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (7 bytes)
 F 0x5E62 8
-D 0x5E69 0x5E6C listas_5E52_5E69  lista de bytes de las entradas 1 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
+D 0x5E69 0x5E6C listas_5E52_5E69  lista de bytes de las entradas 2 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
 F 0x5E69 8
-D 0x5E6C 0x5E6F listas_5E52_5E6C  lista de bytes de las entradas 2 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
+D 0x5E6C 0x5E6F listas_5E52_5E6C  lista de bytes de las entradas 3 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
 F 0x5E6C 8
-D 0x5E6F 0x5E71 listas_5E52_5E6F  lista de bytes de las entradas 3 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (2 bytes)
+D 0x5E6F 0x5E71 listas_5E52_5E6F  lista de bytes de las entradas 4 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (2 bytes)
 F 0x5E6F 8
-D 0x5E71 0x5E74 listas_5E52_5E71  lista de bytes de las entradas 4 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
+D 0x5E71 0x5E74 listas_5E52_5E71  lista de bytes de las entradas 5 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
 F 0x5E71 8
-D 0x5E74 0x5E78 listas_5E52_5E74  lista de bytes de las entradas 5 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (4 bytes)
+D 0x5E74 0x5E78 listas_5E52_5E74  lista de bytes de las entradas 6 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (4 bytes)
 F 0x5E74 8
-D 0x5E78 0x5E79 listas_5E52_5E78  lista de bytes de las entradas 6 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (1 bytes)
+D 0x5E78 0x5E79 listas_5E52_5E78  lista de bytes de las entradas 7 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (1 bytes)
 F 0x5E78 8
 # --- fin de los bloques de bloques.py ---
 
@@ -2124,7 +2124,7 @@ L 0x44F3 copias_de_tabla la lista de copias VRAM -> VRAM de la entrada A de la t
 L 0x44F9 copias la lista de copias VRAM -> VRAM de IX
 L 0x4540 caracteres_de_tabla la lista de caracteres de la entrada A de la tabla HL
 L 0x4546 caracteres la lista de caracteres de IX (dibujos y colores por rachas)
-L 0x4835 bit_de_fase acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+L 0x4835 bit_de_fase acarreo = el bit de la fase en 0x26 (fases 2, 3 y 6: las verticales)
 L 0x4CA4 borra_nombres borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 L 0x4CB1 puerto_vdp C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 L 0x4CBD copia_a_vram copia BC bytes de DE a la VRAM HL (LDIRVM)
@@ -2145,7 +2145,7 @@ L 0x4E3A hay_enemigos NZ si queda algun enemigo (0xE700) o disparo (0xEA00) vivo
 L 0x4E58 azar mezcla R en 0xE606 (el azar)
 L 0x4E66 suceso_de_fase la ficha A de la lista de sucesos de la fase y compara su posicion con el scroll
 L 0x4EAF borra_atributos los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-L 0x5A99 hl_a_nombre convierte las coordenadas de HL en una direccion de la tabla de nombres
+L 0x5A99 hl_a_nombre convierte (L = y, H = x) en una direccion del mapa de la RAM (0xCA00, 64 por fila)
 L 0x5AD8 byte_de_tabla A = el byte HL + A
 L 0x5ADF menos_de DE = -DE
 L 0x5AE7 menos_hl HL = -HL

@@ -1194,11 +1194,11 @@ F 0xA009 w4
 D 0xA347 0xA4A9 rachas_d_A347  [destino en la VRAM] y rachas (p00:4D10 -> p00:4D16); lo leen p12:A2EE (354 bytes)
 D 0xA531 0xA53F listas_A52F  7 punteros, uno por fase (p12:A4CF: 0xA52F + 2 x fase, p00:4E21); 0 = la fase no tiene lista; lo leen p12:A4D2 (14 bytes)
 F 0xA531 w8
-D 0xA53F 0xA55E listas_A52F_A53F  lista de la fase 3 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (31 bytes)
+D 0xA53F 0xA55E listas_A52F_A53F  lista de la fase 4 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (31 bytes)
 F 0xA53F 8
-D 0xA55E 0xA5AF listas_A52F_A55E  lista de la fase 4 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (81 bytes)
+D 0xA55E 0xA5AF listas_A52F_A55E  lista de la fase 5 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (81 bytes)
 F 0xA55E 8
-D 0xA5AF 0xA5CE listas_A52F_A5AF  lista de la fase 5 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (31 bytes)
+D 0xA5AF 0xA5CE listas_A52F_A5AF  lista de la fase 6 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (31 bytes)
 F 0xA5AF 8
 D 0xA86B 0xA871 pares_A86B  3 pares (p12:A851: 0xA869 + 2 x B, B de 1 a 3) que se suman a E y D; lo leen p12:A855 (6 bytes)
 F 0xA86B 2

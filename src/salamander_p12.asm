@@ -566,7 +566,7 @@ DATA_listas_A52F:
 	defw 00000h,00000h,00000h,0a53fh,0a55eh,0a5afh,00000h	; a531
 
 ; ----------------------------------------------------------------------
-; DATOS listas_A52F_A53F: lista de la fase 3 que p12:A4D9 recorre (acaba donde
+; DATOS listas_A52F_A53F: lista de la fase 4 que p12:A4D9 recorre (acaba donde
 ;   empieza la siguiente); lo leen p12:A4D9 (31 bytes)
 ;   0xa53f..0xa55e  (31 bytes)
 DATA_listas_A52F_A53F:
@@ -576,7 +576,7 @@ DATA_listas_A52F_A53F:
 	defb 000h,000h,099h,099h,000h,000h,018h	; a557
 
 ; ----------------------------------------------------------------------
-; DATOS listas_A52F_A55E: lista de la fase 4 que p12:A4D9 recorre (acaba donde
+; DATOS listas_A52F_A55E: lista de la fase 5 que p12:A4D9 recorre (acaba donde
 ;   empieza la siguiente); lo leen p12:A4D9 (81 bytes)
 ;   0xa55e..0xa5af  (81 bytes)
 DATA_listas_A52F_A55E:
@@ -593,7 +593,7 @@ DATA_listas_A52F_A55E:
 	defb 080h	; a5ae
 
 ; ----------------------------------------------------------------------
-; DATOS listas_A52F_A5AF: lista de la fase 5 que p12:A4D9 recorre (acaba donde
+; DATOS listas_A52F_A5AF: lista de la fase 6 que p12:A4D9 recorre (acaba donde
 ;   empieza la siguiente); lo leen p12:A4D9 (31 bytes)
 ;   0xa5af..0xa5ce  (31 bytes)
 DATA_listas_A52F_A5AF:

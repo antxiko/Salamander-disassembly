@@ -1103,49 +1103,49 @@ DATA_listas_876A:
 	defw 0877ah,08780h,08786h,0878ch,08792h,08798h,0879eh	; 876c
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_877A: lista de la fase 0 que p02:8748 lee de dos en dos
+; DATOS listas_876A_877A: lista de la fase 1 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x877a..0x8780  (6 bytes)
 DATA_listas_876A_877A:
 	defb 0f0h,001h,01bh,0ffh,0ffh,021h	; 877a
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_8780: lista de la fase 1 que p02:8748 lee de dos en dos
+; DATOS listas_876A_8780: lista de la fase 2 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x8780..0x8786  (6 bytes)
 DATA_listas_876A_8780:
 	defb 0f0h,001h,01ch,0ffh,0ffh,021h	; 8780
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_8786: lista de la fase 2 que p02:8748 lee de dos en dos
+; DATOS listas_876A_8786: lista de la fase 3 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x8786..0x878c  (6 bytes)
 DATA_listas_876A_8786:
 	defb 0fah,001h,01eh,0ffh,0ffh,021h	; 8786
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_878C: lista de la fase 3 que p02:8748 lee de dos en dos
+; DATOS listas_876A_878C: lista de la fase 4 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x878c..0x8792  (6 bytes)
 DATA_listas_876A_878C:
 	defb 040h,002h,01dh,0ffh,0ffh,021h	; 878c
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_8792: lista de la fase 4 que p02:8748 lee de dos en dos
+; DATOS listas_876A_8792: lista de la fase 5 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x8792..0x8798  (6 bytes)
 DATA_listas_876A_8792:
 	defb 0b0h,001h,01fh,0ffh,0ffh,021h	; 8792
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_8798: lista de la fase 5 que p02:8748 lee de dos en dos
+; DATOS listas_876A_8798: lista de la fase 6 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x8798..0x879e  (6 bytes)
 DATA_listas_876A_8798:
 	defb 008h,002h,020h,0ffh,0ffh,021h	; 8798
 
 ; ----------------------------------------------------------------------
-; DATOS listas_876A_879E: lista de la fase 6 que p02:8748 lee de dos en dos
+; DATOS listas_876A_879E: lista de la fase 7 que p02:8748 lee de dos en dos
 ;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
 ;   0x879e..0x87a4  (6 bytes)
 DATA_listas_876A_879E:

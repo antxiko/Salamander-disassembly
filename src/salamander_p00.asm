@@ -641,7 +641,7 @@ L_44B7:
 	ld ix,06c63h		;44b7   ; la lista de caracteres de todas las fases (p07:6C63)
 	call caracteres		;44bb   ; caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
 	call bit_de_fase		;44be   ; segun la fase...
-	ld ix,06c8eh		;44c1   ; p07:6C8E (fases 1, 2 y 5)
+	ld ix,06c8eh		;44c1   ; p07:6C8E sin acarreo (fases 1, 4, 5 y 7)
 	jr nc,L_44CB		;44c5
 	ld ix,06c95h		;44c7   ; o p07:6C95
 L_44CB:
@@ -1104,7 +1104,7 @@ L_4830:
 	ex af,af'			;4830
 	djnz L_481E		;4831   ; los n
 	jr L_47FA		;4833   ; las rachas siguientes
-bit_de_fase:		; acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
+bit_de_fase:		; acarreo = el bit de la fase en 0x26 (fases 2, 3 y 6: las verticales)
 	ld a,(0e301h)		;4835   ; la fase
 	ld b,a			;4838   ; en B
 	ld a,026h		;4839   ; 0x26 = 00100110: un bit por fase
@@ -3873,7 +3873,7 @@ L_5A8F:
 	inc de			;5a95
 	djnz L_5A8F		;5a96
 	ret			;5a98
-hl_a_nombre:		; convierte las coordenadas de HL en una direccion de la tabla de nombres
+hl_a_nombre:		; convierte (L = y, H = x) en una direccion del mapa de la RAM (0xCA00, 64 por fila)
 	ld a,l			;5a99   ; L = la y: la fila (y / 8)...
 	rra			;5a9a
 	rra			;5a9b
@@ -4472,7 +4472,7 @@ DATA_listas_5E52:
 	defw 05e62h,05e69h,05e6ch,05e6fh,05e71h,05e74h,05e78h	; 5e54
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E62: lista de bytes de las entradas 0 de 0x5E54 que
+; DATOS listas_5E52_5E62: lista de bytes de las entradas 1 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (7
 ;   bytes)
 ;   0x5e62..0x5e69  (7 bytes)
@@ -4480,7 +4480,7 @@ DATA_listas_5E52_5E62:
 	defb 001h,001h,001h,001h,001h,001h,001h	; 5e62
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E69: lista de bytes de las entradas 1 de 0x5E54 que
+; DATOS listas_5E52_5E69: lista de bytes de las entradas 2 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3
 ;   bytes)
 ;   0x5e69..0x5e6c  (3 bytes)
@@ -4488,7 +4488,7 @@ DATA_listas_5E52_5E69:
 	defb 002h,00ch,00dh	; 5e69
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E6C: lista de bytes de las entradas 2 de 0x5E54 que
+; DATOS listas_5E52_5E6C: lista de bytes de las entradas 3 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3
 ;   bytes)
 ;   0x5e6c..0x5e6f  (3 bytes)
@@ -4496,7 +4496,7 @@ DATA_listas_5E52_5E6C:
 	defb 003h,004h,005h	; 5e6c
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E6F: lista de bytes de las entradas 3 de 0x5E54 que
+; DATOS listas_5E52_5E6F: lista de bytes de las entradas 4 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (2
 ;   bytes)
 ;   0x5e6f..0x5e71  (2 bytes)
@@ -4504,7 +4504,7 @@ DATA_listas_5E52_5E6F:
 	defb 006h,00eh	; 5e6f
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E71: lista de bytes de las entradas 4 de 0x5E54 que
+; DATOS listas_5E52_5E71: lista de bytes de las entradas 5 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3
 ;   bytes)
 ;   0x5e71..0x5e74  (3 bytes)
@@ -4512,7 +4512,7 @@ DATA_listas_5E52_5E71:
 	defb 007h,009h,008h	; 5e71
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E74: lista de bytes de las entradas 5 de 0x5E54 que
+; DATOS listas_5E52_5E74: lista de bytes de las entradas 6 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (4
 ;   bytes)
 ;   0x5e74..0x5e78  (4 bytes)
@@ -4520,7 +4520,7 @@ DATA_listas_5E52_5E74:
 	defb 00ah,00ah,00ah,00ah	; 5e74
 
 ; ----------------------------------------------------------------------
-; DATOS listas_5E52_5E78: lista de bytes de las entradas 6 de 0x5E54 que
+; DATOS listas_5E52_5E78: lista de bytes de las entradas 7 de 0x5E54 que
 ;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (1
 ;   bytes)
 ;   0x5e78..0x5e79  (1 bytes)
@@ -4737,7 +4737,7 @@ L_5FC5:
 	ld a,(0e630h)		;5fdf   ; 0xE630 = 3: p00:5FED
 	cp 003h		;5fe2
 	jr z,L_5FED		;5fe4
-	ld a,(0e203h)		;5fe6   ; uno de cada 64 cuadros
+	ld a,(0e203h)		;5fe6   ; uno de cada 64 cuadros se ve entero; los demas, sin el decorado (p01:6016): la base casi no se ve
 	and 03fh		;5fe9
 	jr nz,$+43		;5feb
 L_5FED:

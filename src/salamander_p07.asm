@@ -482,9 +482,9 @@ DATA_bloque_645B:
 	defb 0a1h,0a2h,0a3h,0a4h	; 645b
 
 ; ----------------------------------------------------------------------
-; DATOS giro_16: 16 pares (y, x) de desplazamiento, uno por direccion de las
-;   16 de un circulo: p11:AA89 lee 0x6460 + C (x) y, con `dec hl`, 0x645F + C
-;   (y); lo leen p11:AA93 (32 bytes)
+; DATOS giro_16: 16 pares (x, y) de desplazamiento, uno por direccion de las
+;   16 de un circulo: p11:AA89 lee 0x6460 + C (y) y, con `dec hl`, 0x645F + C
+;   (x); lo leen p11:AA93 (32 bytes)
 ;   0x645f..0x647f  (32 bytes)
 DATA_giro_16:
 	defb 000h,0f0h	; 645f
@@ -1102,17 +1102,18 @@ DATA_caracteres_6C63:
 	defb 000h	; 6c8d
 
 ; ----------------------------------------------------------------------
-; DATOS caracteres_6C8E: lista de caracteres (p00:4546) si p00:4835 da acarreo
-;   (bit fase de 0x26: fases 1, 2 y 5): fichas de 6 bytes, 0 acaba; lo leen
-;   p00:44CB (7 bytes)
+; DATOS caracteres_6C8E: lista de caracteres (p00:4546) si p00:4835 no da
+;   acarreo (bit fase de 0x26: fases 1, 4, 5 y 7): fichas de 6 bytes, 0 acaba;
+;   lo leen p00:44CB (7 bytes)
 ;   0x6c8e..0x6c95  (7 bytes)
 DATA_caracteres_6C8E:
 	defb 007h,0e9h,071h,02ch,01ch,072h	; 6c8e
 	defb 000h	; 6c94
 
 ; ----------------------------------------------------------------------
-; DATOS caracteres_6C95: lista de caracteres (p00:4546) si p00:4835 no da
-;   acarreo: fichas de 6 bytes, 0 acaba; lo leen p00:44CB (7 bytes)
+; DATOS caracteres_6C95: lista de caracteres (p00:4546) si p00:4835 da acarreo
+;   (fases 2, 3 y 6, las verticales): fichas de 6 bytes, 0 acaba; lo leen
+;   p00:44CB (7 bytes)
 ;   0x6c95..0x6c9c  (7 bytes)
 DATA_caracteres_6C95:
 	defb 007h,04ah,072h,02ch,092h,072h	; 6c95

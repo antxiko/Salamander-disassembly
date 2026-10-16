@@ -91,7 +91,7 @@ RUTINAS.update({
     (0, 0x44F9): ("copias", "la lista de copias VRAM -> VRAM de IX"),
     (0, 0x4540): ("caracteres_de_tabla", "la lista de caracteres de la entrada A de la tabla HL"),
     (0, 0x4546): ("caracteres", "la lista de caracteres de IX (dibujos y colores por rachas)"),
-    (0, 0x4835): ("bit_de_fase", "acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)"),
+    (0, 0x4835): ("bit_de_fase", "acarreo = el bit de la fase en 0x26 (fases 2, 3 y 6: las verticales)"),
     (0, 0x5A99): ("hl_a_nombre", "convierte las coordenadas de HL en una direccion de la tabla de nombres"),
     (0, 0x5AD8): ("byte_de_tabla", "A = el byte HL + A"),
     (0, 0x5ADF): ("menos_de", "DE = -DE"),
