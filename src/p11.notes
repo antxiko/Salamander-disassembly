@@ -318,14 +318,14 @@ C 0xA816 los 4 trozos
 C 0xA81B el trozo x 4...
 C 0xA81E ...+ el dibujo (IX+7D)
 C 0xA824 su posicion
-C 0xA829 su dibujo de p01:6487
+C 0xA829 su dibujo de p07:6487
 C 0xA830 lo pinta
 C 0xA834 los 4
 C 0xA837 el color
 C 0xA83B dentro de la pantalla?
 C 0xA83F si: lo pinta
 C 0xA842 un byte con signo en DE
-C 0xA84A el trozo A de p01:6547 (4 bytes)
+C 0xA84A el trozo A de p07:6547 (4 bytes)
 C 0xA852 BC
 C 0xA856 el desplazamiento x
 C 0xA85A la x + el desplazamiento...
@@ -409,13 +409,13 @@ C 0xAA68 el anterior
 C 0xAA6C 5 trozos
 C 0xAA74 el dibujo y la posicion
 C 0xAA80 el byte + 8, / 8: el dibujo
-C 0xAA88 el desplazamiento de p01:6460...
+C 0xAA88 el desplazamiento de p07:6460...
 C 0xAA8F ...en x, acumulado en 0xEC96...
 C 0xAA95 ...+ la x del jefe
 C 0xAAA1 ...en y, acumulado en 0xEC95...
 C 0xAAA7 ...+ la y
-C 0xAAAD B = 1: el dibujo de p01:641B
-C 0xAAB0 2 x 2 de p01:645B
+C 0xAAAD B = 1: el dibujo de p07:641B
+C 0xAAB0 2 x 2 de p07:645B
 C 0xAAC5 los trozos tiemblan: a cual de los dos jugadores
 C 0xAAC8 la y + E
 C 0xAACD la x + D
@@ -869,7 +869,7 @@ C 0xB707 el dibujo
 C 0xB709 dentro?
 C 0xB70D lo pinta
 C 0xB710 el dibujo de 0xECE3
-C 0xB716 su ficha de p01:6079
+C 0xB716 su ficha de p07:6079
 C 0xB71E el ancho
 C 0xB723 el alto
 C 0xB728 su posicion en el jefe (C)
@@ -887,14 +887,14 @@ C 0xB77B lo que queda
 C 0xB77E el dibujo segun los trozos que quedan
 C 0xB782 0xECF4
 C 0xB789 cuantos
-C 0xB792 su ficha de p01:6079
+C 0xB792 su ficha de p07:6079
 C 0xB79C 2 x 2 en 0xC400
 C 0xB7A4 copia
 C 0xB7AC desde 0xC400
 C 0xB7B3 lo pinta
 C 0xB7B6 los trozos desde 0xECE9 y 0xECF4
 C 0xB7C1 lo que se pinta, en 0xC500-0xC507
-C 0xB7D2 su ficha de p01:6079
+C 0xB7D2 su ficha de p07:6079
 C 0xB7DD el tamano
 C 0xB7E2 los dibujos
 C 0xB7E6 un trozo: las filas pintadas a 0

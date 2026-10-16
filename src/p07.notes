@@ -92,7 +92,7 @@ D 0x6457 0x645B bloque_6457  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p1
 F 0x6457 4
 D 0x645B 0x645F bloque_645B  bloque de 2 x 2 caracteres que p11:AAB3 pone en DE (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
 F 0x645B 4
-D 0x645F 0x647F giro_16  16 pares (x, y) de desplazamiento, uno por direccion de las 16 de un circulo: p11:AA89 lee 0x6460 + C (y) y, con `dec hl`, 0x645F + C (x); lo leen p11:AA93 (32 bytes)
+D 0x645F 0x647F giro_16  16 pares (y, x) de desplazamiento, uno por direccion de las 16 de un circulo: p11:AA89 lee 0x6460 + C (x) y, con `dec hl`, 0x645F + C (y); lo leen p11:AA93 (32 bytes)
 F 0x645F 2
 D 0x647F 0x6487 detras_de_giro_16  8 bytes entre los 16 pares de 0x645F y la tabla de 0x6487: p11:AA89 solo llega a 0x647E (C <= 0x1E) y nadie mas los apunta: SIN LECTOR a la vista; lo leen nadie (8 bytes)
 F 0x647F 8

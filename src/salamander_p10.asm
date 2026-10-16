@@ -2671,18 +2671,18 @@ L_944A:
 L_944C:
 	ld a,(0002bh)		;944c   ; la version
 	and 00fh		;944f
-	ld hl,0b002h		;9451   ; el japones (p11:B002)...
+	ld hl,0b002h		;9451   ; el japones (p15:B002)...
 	jr z,L_9459		;9454
-	ld hl,0b4b6h		;9456   ; ...o el ingles (p11:B4B6)
+	ld hl,0b4b6h		;9456   ; ...o el ingles (p15:B4B6)
 L_9459:
 	xor a			;9459   ; en la pantalla
 	jr L_946C		;945a
 L_945C:
-	ld a,(0002bh)		;945c   ; los textos largos: el japones (p11:B725)...
+	ld a,(0002bh)		;945c   ; los textos largos: el japones (p15:B725)...
 	and 00fh		;945f
 	ld hl,0b725h		;9461
 	jr z,L_9469		;9464
-	ld hl,0b90ah		;9466   ; ...o el ingles (p11:B90A)
+	ld hl,0b90ah		;9466   ; ...o el ingles (p15:B90A)
 L_9469:
 	ld a,001h		;9469   ; en el mapa de la RAM, 1 cuadro por letra
 	ld b,a			;946b
@@ -3245,7 +3245,7 @@ L_9957:
 	ret			;995c
 L_995D:
 	call 041c7h		;995d   ; 0: los graficos de la eleccion
-	ld hl,03200h		;9960   ; los colores de p11:AA6E en 0x3200...
+	ld hl,03200h		;9960   ; los dibujos: las rachas de p15:AA6E en 0x3200...
 	ld de,0aa6eh		;9963
 	call 04d16h		;9966   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,03228h		;9969   ; ...0x3228...
@@ -3254,10 +3254,10 @@ L_995D:
 	ld hl,03250h		;9972   ; ...0x3250...
 	ld de,0aa6eh		;9975
 	call 04d16h		;9978   ; rachas: descomprime las rachas de DE en la VRAM HL
-	ld hl,03278h		;997b   ; ...y p11:AA8D en 0x3278
+	ld hl,03278h		;997b   ; ...y p15:AA8D en 0x3278
 	ld de,0aa8dh		;997e
 	call 04d16h		;9981   ; rachas: descomprime las rachas de DE en la VRAM HL
-	ld hl,01200h		;9984   ; los dibujos: p11:AAC3 en 0x1200...
+	ld hl,01200h		;9984   ; los colores: p15:AAC3 en 0x1200...
 	ld de,0aac3h		;9987
 	call 04d16h		;998a   ; rachas: descomprime las rachas de DE en la VRAM HL
 	ld hl,01228h		;998d   ; ...AAD6 en 0x1228...

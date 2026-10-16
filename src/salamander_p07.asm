@@ -482,9 +482,9 @@ DATA_bloque_645B:
 	defb 0a1h,0a2h,0a3h,0a4h	; 645b
 
 ; ----------------------------------------------------------------------
-; DATOS giro_16: 16 pares (x, y) de desplazamiento, uno por direccion de las
-;   16 de un circulo: p11:AA89 lee 0x6460 + C (y) y, con `dec hl`, 0x645F + C
-;   (x); lo leen p11:AA93 (32 bytes)
+; DATOS giro_16: 16 pares (y, x) de desplazamiento, uno por direccion de las
+;   16 de un circulo: p11:AA89 lee 0x6460 + C (x) y, con `dec hl`, 0x645F + C
+;   (y); lo leen p11:AA93 (32 bytes)
 ;   0x645f..0x647f  (32 bytes)
 DATA_giro_16:
 	defb 000h,0f0h	; 645f

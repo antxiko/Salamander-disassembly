@@ -1328,7 +1328,7 @@ L_A816:
 	call L_A84A		;a824   ; su posicion
 	pop af			;a827
 	push hl			;a828
-	ld hl,06487h		;a829   ; su dibujo de p01:6487
+	ld hl,06487h		;a829   ; su dibujo de p07:6487
 	call 04e28h		;a82c   ; palabra_de_hl: DE = la palabra HL + 2 x A
 	pop hl			;a82f
 	call L_A837		;a830   ; lo pinta
@@ -1349,7 +1349,7 @@ L_A842:
 	dec d			;a848
 	ret			;a849
 L_A84A:
-	ld hl,06547h		;a84a   ; el trozo A de p01:6547 (4 bytes)
+	ld hl,06547h		;a84a   ; el trozo A de p07:6547 (4 bytes)
 	add a,a			;a84d
 	add a,a			;a84e
 	call 040c4h		;a84f   ; hl_mas_a: HL = HL + A
@@ -1705,7 +1705,7 @@ L_AA80:
 	rra			;aa85
 	and 01eh		;aa86
 L_AA88:
-	ld c,a			;aa88   ; el desplazamiento de p01:6460...
+	ld c,a			;aa88   ; el desplazamiento de p07:6460...
 	ld hl,06460h		;aa89
 	call 040c4h		;aa8c   ; hl_mas_a: HL = HL + A
 	ld de,0ec96h		;aa8f   ; ...en x, acumulado en 0xEC96...
@@ -1728,9 +1728,9 @@ L_AA88:
 	add a,(ix+003h)		;aaa7   ; ...+ la y
 	ld l,a			;aaaa
 	ld h,000h		;aaab
-	dec b			;aaad   ; B = 1: el dibujo de p01:641B
+	dec b			;aaad   ; B = 1: el dibujo de p07:641B
 	jr z,L_AAB7		;aaae
-	ld bc,00202h		;aab0   ; 2 x 2 de p01:645B
+	ld bc,00202h		;aab0   ; 2 x 2 de p07:645B
 	ld de,0645bh		;aab3
 	ret			;aab6
 L_AAB7:
@@ -3665,7 +3665,7 @@ L_B710:
 	exx			;b713
 	ld c,006h		;b714
 L_B716:
-	exx			;b716   ; su ficha de p01:6079
+	exx			;b716   ; su ficha de p07:6079
 	ld de,06079h		;b717
 	call 04e21h		;b71a   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ex de,hl			;b71d
@@ -3764,7 +3764,7 @@ L_B789:
 	inc c			;b78f
 	jr L_B789		;b790
 L_B792:
-	ld a,c			;b792   ; su ficha de p01:6079
+	ld a,c			;b792   ; su ficha de p07:6079
 	ld de,06079h		;b793
 	call 04e21h		;b796   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ld b,002h		;b799
@@ -3801,7 +3801,7 @@ L_B7C1:
 	ld a,b			;b7cd
 	ld (0c502h),a		;b7ce
 	ld a,d			;b7d1
-	ld de,06079h		;b7d2   ; su ficha de p01:6079
+	ld de,06079h		;b7d2   ; su ficha de p07:6079
 	call 04e21h		;b7d5   ; palabra_de_de: DE = la palabra DE + 2 x A
 	ld a,(de)			;b7d8
 	ld l,a			;b7d9
