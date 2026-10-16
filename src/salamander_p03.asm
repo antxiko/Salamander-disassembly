@@ -873,11 +873,11 @@ L_A5EE:
 	ld b,004h		;a5ff
 L_A601:
 	push bc			;a601
-	call L_A60E		;a602
-	ld bc,00010h		;a605
+	call L_A60E		;a602   ; una
+	ld bc,00010h		;a605   ; la siguiente (16)
 	add ix,bc		;a608
 	pop bc			;a60a
-	djnz L_A601		;a60b
+	djnz L_A601		;a60b   ; las 4
 	ret			;a60d
 L_A60E:
 	ld a,(ix+000h)		;a60e   ; viva?
@@ -1101,11 +1101,11 @@ L_A759:
 	ld b,004h		;a75d
 L_A75F:
 	push bc			;a75f
-	call L_A76C		;a760
-	ld bc,00010h		;a763
+	call L_A76C		;a760   ; una
+	ld bc,00010h		;a763   ; la siguiente (16)
 	add ix,bc		;a766
 	pop bc			;a768
-	djnz L_A75F		;a769
+	djnz L_A75F		;a769   ; las 4
 	ret			;a76b
 L_A76C:
 	ld a,(ix+000h)		;a76c   ; viva?
@@ -1124,15 +1124,15 @@ L_A76C:
 	jp L_A668		;a77f   ; y el dibujo
 L_A782:
 	ld a,(0e324h)		;a782   ; dos: entre las dos naves, en tercios
-	exx			;a785
+	exx			;a785   ; la y de la 1 en L'
 	ld l,a			;a786
 	exx			;a787
 	ld e,a			;a788
-	ld a,(0e3a4h)		;a789
+	ld a,(0e3a4h)		;a789   ; la de la 2 - la de la 1...
 	sub e			;a78c
 	ld b,000h		;a78d
 	jr nc,L_A794		;a78f
-	neg		;a791
+	neg		;a791   ; ...positiva, con el signo en B
 	inc b			;a793
 L_A794:
 	srl a		;a794   ; / 4...
@@ -1145,28 +1145,28 @@ L_A794:
 	jr nz,L_A7A3		;a79f
 	neg		;a7a1
 L_A7A3:
-	exx			;a7a3
+	exx			;a7a3   ; el paso en y a E'
 	ld e,a			;a7a4
 	exx			;a7a5
-	ld a,(0e326h)		;a7a6
+	ld a,(0e326h)		;a7a6   ; la x de la 1 en H'
 	exx			;a7a9
 	ld h,a			;a7aa
 	exx			;a7ab
 	ld d,a			;a7ac
-	ld a,(0e3a6h)		;a7ad
+	ld a,(0e3a6h)		;a7ad   ; la de la 2 - la de la 1...
 	sub d			;a7b0
 	ld b,000h		;a7b1
 	jr nc,L_A7B8		;a7b3
-	neg		;a7b5
+	neg		;a7b5   ; ...positiva, con el signo en B
 	inc b			;a7b7
 L_A7B8:
-	srl a		;a7b8
+	srl a		;a7b8   ; la distancia / 4...
 	srl a		;a7ba
 	ld d,a			;a7bc
-	srl a		;a7bd
+	srl a		;a7bd   ; ...+ / 16: unos 5/16
 	srl a		;a7bf
 	add a,d			;a7c1
-	dec b			;a7c2
+	dec b			;a7c2   ; con el signo
 	jr nz,L_A7C7		;a7c3
 	neg		;a7c5
 L_A7C7:
@@ -1176,15 +1176,15 @@ L_A7C7:
 	jp L_A759		;a7ca
 L_A7CD:
 	ld a,(0e324h)		;a7cd   ; una: a medio camino
-	exx			;a7d0
+	exx			;a7d0   ; la y de la 1 en L'
 	ld l,a			;a7d1
 	exx			;a7d2
 	ld e,a			;a7d3
-	ld a,(0e3a4h)		;a7d4
+	ld a,(0e3a4h)		;a7d4   ; la de la 2 - la de la 1...
 	sub e			;a7d7
 	ld b,000h		;a7d8
 	jr nc,L_A7DF		;a7da
-	neg		;a7dc
+	neg		;a7dc   ; ...positiva, con el signo en B
 	inc b			;a7de
 L_A7DF:
 	srl a		;a7df   ; / 2
@@ -1192,19 +1192,19 @@ L_A7DF:
 	jr nz,L_A7E6		;a7e2
 	neg		;a7e4
 L_A7E6:
-	exx			;a7e6
+	exx			;a7e6   ; el paso en y a E'
 	ld e,a			;a7e7
 	exx			;a7e8
-	ld a,(0e326h)		;a7e9
+	ld a,(0e326h)		;a7e9   ; la x de la 1 en H'
 	exx			;a7ec
 	ld h,a			;a7ed
 	exx			;a7ee
 	ld d,a			;a7ef
-	ld a,(0e3a6h)		;a7f0
+	ld a,(0e3a6h)		;a7f0   ; la de la 2 - la de la 1...
 	sub d			;a7f3
 	ld b,000h		;a7f4
 	jr nc,L_A7FB		;a7f6
-	neg		;a7f8
+	neg		;a7f8   ; ...positiva, con el signo en B
 	inc b			;a7fa
 L_A7FB:
 	srl a		;a7fb
@@ -1683,12 +1683,12 @@ L_AB4A:
 	ld l,a			;ab4b
 	ld b,003h		;ab4c   ; 3 contadores
 L_AB4E:
-	inc (hl)			;ab4e
-	inc l			;ab4f
+	inc (hl)			;ab4e   ; el largo + 1...
+	inc l			;ab4f   ; ...lo que queda - 1...
 	dec (hl)			;ab50
-	jr z,L_AB58		;ab51
+	jr z,L_AB58		;ab51   ; ...acabado: el paso siguiente
 	dec l			;ab53
-	djnz L_AB4E		;ab54
+	djnz L_AB4E		;ab54   ; hasta 3 por cuadro
 	jr L_AB5B		;ab56
 L_AB58:
 	inc (iy+001h)		;ab58
@@ -1807,29 +1807,29 @@ L_ABDD:
 	jp L_AAA7		;ac12
 L_AC15:
 	inc l			;ac15   ; en vertical
-	ld a,(hl)			;ac16
+	ld a,(hl)			;ac16   ; el estado...
 	dec a			;ac17
-	jp z,L_AB77		;ac18
-	jp p,L_AB8B		;ac1b
-	ld c,(iy+008h)		;ac1e
+	jp z,L_AB77		;ac18   ; ...1: p03:AB77
+	jp p,L_AB8B		;ac1b   ; ...2 o mas: p03:AB8B
+	ld c,(iy+008h)		;ac1e   ; 0: quien lo dispara (IY+08/09)
 	ld b,(iy+009h)		;ac21
 	push bc			;ac24
 	pop ix		;ac25
-	call L_ABC9		;ac27
-	ld a,c			;ac2a
+	call L_ABC9		;ac27   ; su posicion
+	ld a,c			;ac2a   ; la y en su fila
 	and 0f8h		;ac2b
 	inc l			;ac2d
 	inc l			;ac2e
 	ld (hl),a			;ac2f
-	ld a,b			;ac30
+	ld a,b			;ac30   ; la x + 4 en su columna
 	add a,004h		;ac31
 	and 0f8h		;ac33
-	cp 0f8h		;ac35
+	cp 0f8h		;ac35   ; al borde: fuera
 	jp nc,L_AA64		;ac37
 	inc l			;ac3a
 	inc l			;ac3b
 	ld (hl),a			;ac3c
-	ld a,005h		;ac3d
+	ld a,005h		;ac3d   ; crece 5
 	jp L_AB4A		;ac3f
 
 ; ----------------------------------------------------------------------
@@ -1959,29 +1959,29 @@ L_ACBE:
 	jp L_AAA7		;acf3
 L_ACF6:
 	inc l			;acf6
-	ld a,(hl)			;acf7
+	ld a,(hl)			;acf7   ; el estado...
 	dec a			;acf8
-	jp z,L_AB77		;acf9
-	jp p,L_AB8B		;acfc
-	ld c,(iy+008h)		;acff
+	jp z,L_AB77		;acf9   ; ...1: p03:AB77
+	jp p,L_AB8B		;acfc   ; ...2 o mas: p03:AB8B
+	ld c,(iy+008h)		;acff   ; 0: quien lo dispara (IY+08/09)
 	ld b,(iy+009h)		;ad02
 	push bc			;ad05
 	pop ix		;ad06
-	call L_ABC9		;ad08
-	ld a,c			;ad0b
+	call L_ABC9		;ad08   ; su posicion
+	ld a,c			;ad0b   ; la y en su fila
 	and 0f8h		;ad0c
 	inc l			;ad0e
 	inc l			;ad0f
 	ld (hl),a			;ad10
-	ld a,b			;ad11
+	ld a,b			;ad11   ; la x + 4 en su columna
 	add a,004h		;ad12
 	and 0f8h		;ad14
-	cp 0f8h		;ad16
+	cp 0f8h		;ad16   ; al borde: fuera
 	jp nc,L_AA64		;ad18
 	inc l			;ad1b
 	inc l			;ad1c
 	ld (hl),a			;ad1d
-	ld a,005h		;ad1e
+	ld a,005h		;ad1e   ; crece 5
 	jp L_AB4A		;ad20
 L_AD23:
 	ret			;ad23   ; nada
@@ -2022,15 +2022,15 @@ L_AD44:
 L_AD59:
 	inc l			;ad59
 	inc l			;ad5a
-	ld a,c			;ad5b
+	ld a,c			;ad5b   ; la y en su fila
 	and 0f8h		;ad5c
 	ld (hl),a			;ad5e
 	inc l			;ad5f
 	inc l			;ad60
-	ld a,b			;ad61
+	ld a,b			;ad61   ; la x en su columna
 	and 0f8h		;ad62
 	ld (hl),a			;ad64
-	jp L_AD44		;ad65
+	jp L_AD44		;ad65   ; y sigue
 L_AD68:
 	ld a,(0e620h)		;ad68   ; el misil cada cuadro: en vertical p03:ADAE
 	or a			;ad6b
@@ -2239,16 +2239,16 @@ L_AE9E:
 L_AEC8:
 	ld de,000fch		;aec8   ; en vertical: desde (0, -4)
 	call L_AE4D		;aecb
-	ld a,d			;aece
+	ld a,d			;aece   ; la x en su columna
 	and 0f8h		;aecf
 	dec l			;aed1
 	dec l			;aed2
 	ld (hl),a			;aed3
 	inc l			;aed4
 	inc l			;aed5
-	ld d,034h		;aed6
+	ld d,034h		;aed6   ; el dibujo 0x34
 	call L_AE80		;aed8
-	ld de,0000ah		;aedb
+	ld de,0000ah		;aedb   ; la ficha
 	ld a,010h		;aede
 	jp L_AA35		;aee0
 L_AEE3:
@@ -2274,22 +2274,22 @@ L_AEE3:
 L_AF0D:
 	ld de,000f8h		;af0d   ; en vertical: desde (0, -8)
 	call L_AE4D		;af10
-	ld a,d			;af13
+	ld a,d			;af13   ; la x en su columna
 	and 0f8h		;af14
 	dec l			;af16
 	dec l			;af17
 	ld (hl),a			;af18
 	inc l			;af19
 	inc l			;af1a
-	ld a,e			;af1b
+	ld a,e			;af1b   ; la y de 0xF8 en adelante...
 	cp 0f8h		;af1c
 	jr c,L_AF22		;af1e
-	ld e,000h		;af20
+	ld e,000h		;af20   ; ...0
 L_AF22:
-	ld (hl),e			;af22
-	ld d,034h		;af23
+	ld (hl),e			;af22   ; la y
+	ld d,034h		;af23   ; el dibujo 0x34
 	call L_AE80		;af25
-	ld de,00012h		;af28
+	ld de,00012h		;af28   ; la ficha
 	ld a,00ch		;af2b
 	jp L_AA35		;af2d
 L_AF30:
@@ -2642,12 +2642,12 @@ L_B16B:
 	dec l			;b171
 	jp L_B0EB		;b172
 L_B175:
-	ld a,(iy+005h)		;b175
+	ld a,(iy+005h)		;b175   ; la x + 8...
 	add a,008h		;b178
 	ld h,a			;b17a
-	ld l,(iy+003h)		;b17b
+	ld l,(iy+003h)		;b17b   ; ...y la y - 1...
 	dec l			;b17e
-	jp L_B0EB		;b17f
+	jp L_B0EB		;b17f   ; ...el caracter de ahi
 L_B182:
 	ld a,(iy+005h)		;b182
 	add a,008h		;b185
@@ -2693,13 +2693,13 @@ L_B1CE:
 	ld l,(iy+003h)		;b1d4
 	jp L_B0EB		;b1d7
 L_B1DA:
-	ld a,(iy+005h)		;b1da
+	ld a,(iy+005h)		;b1da   ; la x + 8...
 	add a,008h		;b1dd
 	ld h,a			;b1df
-	ld a,(iy+003h)		;b1e0
+	ld a,(iy+003h)		;b1e0   ; ...y la y - 8...
 	sub 008h		;b1e3
 	ld l,a			;b1e5
-	jp L_B0EB		;b1e6
+	jp L_B0EB		;b1e6   ; ...el caracter de ahi
 L_B1E9:
 	ld h,(iy+005h)		;b1e9
 	ld a,(iy+003h)		;b1ec
@@ -2797,65 +2797,65 @@ L_B28D:
 	ld (iy+001h),001h		;b2a4   ; IY+01 = 1: subiendo
 	ret			;b2a8
 L_B2A9:
-	bit 0,(iy+001h)		;b2a9
-	ld (iy+001h),000h		;b2ad
+	bit 0,(iy+001h)		;b2a9   ; la direccion 1: venia subiendo un escalon?
+	ld (iy+001h),000h		;b2ad   ; IY+01 = 0
 	jr nz,L_B2C5		;b2b1
-	call L_B162		;b2b3
-	jp c,L_B15A		;b2b6
-	call L_B16B		;b2b9
-	jp nc,L_B141		;b2bc
-	call L_B175		;b2bf
-	jp nc,L_B139		;b2c2
+	call L_B162		;b2b3   ; el decorado?
+	jp c,L_B15A		;b2b6   ; si: p03:B15A
+	call L_B16B		;b2b9   ; delante?
+	jp nc,L_B141		;b2bc   ; no: p03:B141
+	call L_B175		;b2bf   ; delante, mas alla?
+	jp nc,L_B139		;b2c2   ; no: p03:B139
 L_B2C5:
-	call L_B182		;b2c5
-	jp nc,L_B0A2		;b2c8
-	call L_B18E		;b2cb
-	jp c,L_AA64		;b2ce
-	ld a,(iy+003h)		;b2d1
+	call L_B182		;b2c5   ; el siguiente?
+	jp nc,L_B0A2		;b2c8   ; no: avanza
+	call L_B18E		;b2cb   ; encima?
+	jp c,L_AA64		;b2ce   ; tambien: se acaba
+	ld a,(iy+003h)		;b2d1   ; la y + 4...
 	add a,004h		;b2d4
-	cp 0a0h		;b2d6
+	cp 0a0h		;b2d6   ; ...pasada 0xA0: se acaba
 	jp nc,L_AA64		;b2d8
 	ld (iy+003h),a		;b2db
-	ld (iy+001h),001h		;b2de
+	ld (iy+001h),001h		;b2de   ; IY+01 = 1: subiendo
 	ret			;b2e2
 L_B2E3:
-	bit 0,(iy+001h)		;b2e3
-	ld (iy+001h),000h		;b2e7
+	bit 0,(iy+001h)		;b2e3   ; la direccion 2: venia subiendo un escalon?
+	ld (iy+001h),000h		;b2e7   ; IY+01 = 0
 	jr nz,L_B2F9		;b2eb
-	call L_B1CE		;b2ed
-	jp nc,L_B1C0		;b2f0
-	call L_B1DA		;b2f3
-	jp nc,L_B1BD		;b2f6
+	call L_B1CE		;b2ed   ; el decorado?
+	jp nc,L_B1C0		;b2f0   ; no: p03:B1C0
+	call L_B1DA		;b2f3   ; delante?
+	jp nc,L_B1BD		;b2f6   ; no: p03:B1BD
 L_B2F9:
-	call L_B1E9		;b2f9
-	jp nc,L_B1AA		;b2fc
-	call L_B1F5		;b2ff
-	jp c,L_AA64		;b302
-	ld a,(iy+005h)		;b305
+	call L_B1E9		;b2f9   ; el siguiente?
+	jp nc,L_B1AA		;b2fc   ; no: avanza
+	call L_B1F5		;b2ff   ; encima?
+	jp c,L_AA64		;b302   ; tambien: se acaba
+	ld a,(iy+005h)		;b305   ; la x - 4...
 	sub 004h		;b308
-	jp c,L_AA64		;b30a
+	jp c,L_AA64		;b30a   ; ...pasa de 0: se acaba
 	ld (iy+005h),a		;b30d
-	ld (iy+001h),001h		;b310
+	ld (iy+001h),001h		;b310   ; IY+01 = 1: subiendo
 	ret			;b314
 L_B315:
-	bit 0,(iy+001h)		;b315
-	ld (iy+001h),000h		;b319
+	bit 0,(iy+001h)		;b315   ; la direccion 3: venia subiendo un escalon?
+	ld (iy+001h),000h		;b319   ; IY+01 = 0
 	jr nz,L_B32B		;b31d
-	call L_B22C		;b31f
-	jp nc,L_B217		;b322
-	call L_B236		;b325
-	jp nc,L_B214		;b328
+	call L_B22C		;b31f   ; el decorado a la izquierda?
+	jp nc,L_B217		;b322   ; no: p03:B217
+	call L_B236		;b325   ; a la izquierda y arriba?
+	jp nc,L_B214		;b328   ; no: p03:B214
 L_B32B:
-	call L_B243		;b32b
-	jp nc,L_B1AA		;b32e
-	call L_B24F		;b331
-	jp c,L_AA64		;b334
-	ld a,(iy+005h)		;b337
+	call L_B243		;b32b   ; arriba?
+	jp nc,L_B1AA		;b32e   ; no: avanza
+	call L_B24F		;b331   ; a la derecha?
+	jp c,L_AA64		;b334   ; tambien: se acaba
+	ld a,(iy+005h)		;b337   ; la x + 4...
 	add a,004h		;b33a
-	cp 0f8h		;b33c
+	cp 0f8h		;b33c   ; ...pasada 0xF8: se acaba
 	jp nc,L_AA64		;b33e
 	ld (iy+005h),a		;b341
-	ld (iy+001h),001h		;b344
+	ld (iy+001h),001h		;b344   ; IY+01 = 1: subiendo
 	ret			;b348
 L_B349:
 	ld l,(iy+012h)		;b349   ; el que persigue: su blanco (IY+12/13)
@@ -3134,16 +3134,16 @@ L_B52C:
 	ret			;b536
 L_B537:
 	ld b,000h		;b537   ; lo mismo en x
-	call L_B554		;b539
+	call L_B554		;b539   ; choca?
 	inc b			;b53c
-	dec b			;b53d
+	dec b			;b53d   ; si: nada
 	ret nz			;b53e
-	ld a,(0e627h)		;b53f
+	ld a,(0e627h)		;b53f   ; con el recorrido en marcha...
 	or a			;b542
 	ret z			;b543
-	ld a,(iy+005h)		;b544
+	ld a,(iy+005h)		;b544   ; ...la x...
 	jp p,L_B54E		;b547
-	add a,008h		;b54a
+	add a,008h		;b54a   ; ...+ 8
 	jr L_B550		;b54c
 L_B54E:
 	sub 008h		;b54e
@@ -3181,20 +3181,20 @@ L_B576:
 	inc b			;b57e
 	ret			;b57f
 L_B580:
-	push hl			;b580
+	push hl			;b580   ; el caracter de p03:B568
 	call L_B568		;b581
 	pop hl			;b584
-	inc b			;b585
+	inc b			;b585   ; choca?
 	dec b			;b586
-	jr z,L_B58E		;b587
-	ld (iy+00bh),001h		;b589
+	jr z,L_B58E		;b587   ; no: p03:B58E
+	ld (iy+00bh),001h		;b589   ; si: IY+0B = 1
 	ret			;b58d
 L_B58E:
-	call L_B564		;b58e
-	inc b			;b591
+	call L_B564		;b58e   ; el de p03:B564 (x + 9)
+	inc b			;b591   ; choca?
 	dec b			;b592
 	ret z			;b593
-	ld (iy+00bh),0ffh		;b594
+	ld (iy+00bh),0ffh		;b594   ; si: IY+0B = -1
 	ret			;b598
 L_B599:
 	xor a			;b599   ; busca Nemesis 2: 0xF0F5 = 0

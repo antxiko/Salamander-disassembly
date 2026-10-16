@@ -3126,7 +3126,7 @@ L_553D:
 L_5548:
 	xor a			;5548   ; 5 bytes a cero
 	ld (hl),a			;5549
-	inc l			;554a
+	inc l			;554a   ; el siguiente
 	ld (hl),a			;554b
 	inc l			;554c
 	ld (hl),a			;554d
@@ -3134,7 +3134,7 @@ L_5548:
 	ld (hl),a			;554f
 	inc l			;5550
 	ld (hl),a			;5551
-	ret			;5552
+	ret			;5552   ; los 5
 L_5553:
 	call banco_11_en_a000		;5553   ; con el 11: p11:B957 y p11:B911
 	call 0b957h		;5556

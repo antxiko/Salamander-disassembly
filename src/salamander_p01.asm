@@ -1565,14 +1565,14 @@ L_6B57:
 	ld a,(de)			;6b57   ; (HL) = (HL) + (DE), 16 bits
 	add a,(hl)			;6b58
 	ld (hl),a			;6b59
-	inc l			;6b5a
+	inc l			;6b5a   ; la parte alta...
 	inc e			;6b5b
 	ld a,(de)			;6b5c
-	adc a,(hl)			;6b5d
+	adc a,(hl)			;6b5d   ; ...con el acarreo
 	ld (hl),a			;6b5e
 	inc l			;6b5f
 	inc e			;6b60
-	ret			;6b61
+	ret			;6b61   ; HL y DE dos mas
 L_6B62:
 	ld hl,0e652h		;6b62   ; un enemigo menos
 	dec (hl)			;6b65
@@ -4321,16 +4321,16 @@ L_7FA9:
 	ld a,(iy+026h)		;7fa9   ; en vertical: la x + 4, la y + 8
 	add a,004h		;7fac
 	ld h,a			;7fae
-	ld a,(iy+024h)		;7faf
+	ld a,(iy+024h)		;7faf   ; la y + 8...
 	add a,008h		;7fb2
 	ld l,a			;7fb4
-	and 007h		;7fb5
+	and 007h		;7fb5   ; ...en la mitad de abajo del caracter?
 	cp 004h		;7fb7
 	push af			;7fb9
-	call L_7CF5		;7fba
+	call L_7CF5		;7fba   ; mira el caracter
 	pop af			;7fbd
 	jr nc,L_7FC4		;7fbe
-	call L_7F5C		;7fc0
+	call L_7F5C		;7fc0   ; abajo: p01:7F5C
 	ret c			;7fc3
 L_7FC4:
 	ld a,040h		;7fc4   ; y los dos de abajo

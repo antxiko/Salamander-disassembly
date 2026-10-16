@@ -554,6 +554,9 @@ C 0x6B45 la x de 0xF9 en adelante: fuera
 C 0x6B4B el 0x0A: con la velocidad x hacia la izquierda...
 C 0x6B51 ...la x de 0xF8 en adelante: fuera
 C 0x6B57 (HL) = (HL) + (DE), 16 bits
+C 0x6B5A la parte alta...
+C 0x6B5D ...con el acarreo
+C 0x6B61 HL y DE dos mas
 C 0x6B62 un enemigo menos
 C 0x6B66 la ficha de su tipo (0x6C5D + 7 x tipo)
 C 0x6B77 el primer byte
@@ -1449,6 +1452,10 @@ C 0x7F82 el estado 3: en vertical p01:7FA9
 C 0x7F88 la y + 8
 C 0x7FA1 y los dos siguientes
 C 0x7FA9 en vertical: la x + 4, la y + 8
+C 0x7FAF la y + 8...
+C 0x7FB5 ...en la mitad de abajo del caracter?
+C 0x7FBA mira el caracter
+C 0x7FC0 abajo: p01:7F5C
 C 0x7FC4 y los dos de abajo
 C 0x7FD4 con jefe: no se rompe nada
 C 0x7FD9 la fase

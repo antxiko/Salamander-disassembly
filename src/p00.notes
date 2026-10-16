@@ -1455,6 +1455,8 @@ C 0x5536 0xE229 = 0
 C 0x553D 0xE27A...
 C 0x5540 ...o 0xE275 si 0xE22C
 C 0x5548 5 bytes a cero
+C 0x554A el siguiente
+C 0x5552 los 5
 C 0x5553 con el 11: p11:B957 y p11:B911
 C 0x555C de vuelta el 2 y el 3
 C 0x5561 con el 10 y el 15: p10:8BEB y p10:87E9

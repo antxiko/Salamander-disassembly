@@ -924,18 +924,18 @@ L_8626:
 L_8636:
 	ld a,(0e309h)		;8636   ; la fase 6
 	dec a			;8639
-	jr z,L_8664		;863a
+	jr z,L_8664		;863a   ; el tramo 1: p02:8664
 	dec a			;863c
-	jr z,L_8676		;863d
+	jr z,L_8676		;863d   ; el 2: p02:8676
 	dec a			;863f
-	jr z,L_868E		;8640
+	jr z,L_868E		;8640   ; el 3: p02:868E
 	dec a			;8642
-	jr z,L_86A0		;8643
+	jr z,L_86A0		;8643   ; el 4: p02:86A0
 	dec a			;8645
-	jr z,L_86AA		;8646
+	jr z,L_86AA		;8646   ; el 5: p02:86AA
 	dec a			;8648
-	jp z,L_86EF		;8649
-	ld a,(0e629h)		;864c
+	jp z,L_86EF		;8649   ; el 6: p02:86EF
+	ld a,(0e629h)		;864c   ; el 0: el recorrido en marcha?
 	and a			;864f
 	ret z			;8650
 	ld a,003h		;8651   ; los altos a la izquierda (0xE610 = 3), de 0x20 a 0
@@ -944,7 +944,7 @@ L_8636:
 	ld (0e614h),hl		;8659
 	ld l,020h		;865c
 	ld (0e612h),hl		;865e
-	jp L_85A0		;8661
+	jp L_85A0		;8661   ; y el tramo siguiente
 L_8664:
 	ld a,(0e629h)		;8664   ; el scroll normal hasta 0x167
 	and a			;8667
@@ -1544,13 +1544,13 @@ L_8BB4:
 	ld a,(0ec20h)		;8bb4   ; lo borra del mapa de la RAM
 	or a			;8bb7
 	ret z			;8bb8
-	ld hl,(0ec23h)		;8bb9
+	ld hl,(0ec23h)		;8bb9   ; su sitio en el mapa
 	xor a			;8bbc
-	ld (hl),a			;8bbd
+	ld (hl),a			;8bbd   ; dos caracteres a 0...
 	inc l			;8bbe
 	ld (hl),a			;8bbf
 	ld bc,0003fh		;8bc0
-	add hl,bc			;8bc3
+	add hl,bc			;8bc3   ; ...y los dos de debajo
 	ld (hl),a			;8bc4
 	inc l			;8bc5
 	ld (hl),a			;8bc6
@@ -1883,32 +1883,32 @@ L_8DF5:
 	ret			;8df8
 L_8DF9:
 	ld a,(iy+00ah)		;8df9   ; el rayo en vertical: su punta
-	dec a			;8dfc
+	dec a			;8dfc   ; la largura - 1, x 8...
 	add a,a			;8dfd
 	add a,a			;8dfe
 	add a,a			;8dff
-	neg		;8e00
-	add a,(iy+003h)		;8e02
+	neg		;8e00   ; ...hacia arriba...
+	add a,(iy+003h)		;8e02   ; ...desde la y del rayo
 	ld c,a			;8e05
-	ld a,(ix+004h)		;8e06
+	ld a,(ix+004h)		;8e06   ; la y de la pieza + la de la caja
 	add a,(hl)			;8e09
-	sub c			;8e0a
-	jp nc,L_8DDD		;8e0b
-	jp L_8DD3		;8e0e
+	sub c			;8e0a   ; dentro?
+	jp nc,L_8DDD		;8e0b   ; no: p02:8DDD
+	jp L_8DD3		;8e0e   ; si: p02:8DD3
 L_8E11:
 	ld a,(iy+00ah)		;8e11   ; lo mismo para las piezas sin caja
-	dec a			;8e14
+	dec a			;8e14   ; la largura - 1, x 8...
 	add a,a			;8e15
 	add a,a			;8e16
 	add a,a			;8e17
 	neg		;8e18
-	add a,(iy+003h)		;8e1a
+	add a,(iy+003h)		;8e1a   ; ...desde la y del rayo
 	ld c,a			;8e1d
-	ld a,(ix+004h)		;8e1e
+	ld a,(ix+004h)		;8e1e   ; la y de la pieza + la de la caja
 	add a,(hl)			;8e21
 	sub c			;8e22
-	jp nc,L_8E51		;8e23
-	jp L_8E40		;8e26
+	jp nc,L_8E51		;8e23   ; no: p02:8E51
+	jp L_8E40		;8e26   ; si: p02:8E40
 L_8E29:
 	ld a,c			;8e29   ; C = el tipo del disparo
 	sub 006h		;8e2a
@@ -2481,13 +2481,13 @@ L_9221:
 	ld b,004h		;9229
 L_922B:
 	push bc			;922b
-	call L_923C		;922c
-	ld bc,00008h		;922f
+	call L_923C		;922c   ; una
+	ld bc,00008h		;922f   ; la siguiente de 0xEC00 (8)...
 	add ix,bc		;9232
-	ld c,010h		;9234
+	ld c,010h		;9234   ; ...y de 0xEAC0 (16)
 	add iy,bc		;9236
 	pop bc			;9238
-	djnz L_922B		;9239
+	djnz L_922B		;9239   ; las 4
 	ret			;923b
 L_923C:
 	ld a,(ix+000h)		;923c   ; viva?
@@ -2513,11 +2513,11 @@ L_925A:
 	ld b,004h		;925e
 L_9260:
 	push bc			;9260
-	call L_926D		;9261
-	ld bc,00008h		;9264
+	call L_926D		;9261   ; una
+	ld bc,00008h		;9264   ; la siguiente (8)
 	add ix,bc		;9267
 	pop bc			;9269
-	djnz L_9260		;926a
+	djnz L_9260		;926a   ; las 4
 	ret			;926c
 L_926D:
 	ld a,(ix+000h)		;926d   ; viva?
@@ -2534,13 +2534,13 @@ L_926D:
 	ld d,(ix+005h)		;9282
 	ld a,004h		;9285   ; 4 filas de 4
 L_9287:
-	ld bc,00004h		;9287
+	ld bc,00004h		;9287   ; una fila de 4
 	ldir		;928a
-	ld c,03ch		;928c
+	ld c,03ch		;928c   ; la siguiente del mapa (+0x3C)
 	ex de,hl			;928e
 	add hl,bc			;928f
 	ex de,hl			;9290
-	dec a			;9291
+	dec a			;9291   ; las 4
 	jr nz,L_9287		;9292
 	ret			;9294
 
@@ -2930,33 +2930,33 @@ L_954D:
 	ld hl,01808h		;9562
 	ret			;9565
 L_9566:
-	ld a,(iy+020h)		;9566
+	ld a,(iy+020h)		;9566   ; la caja de los disparos de la nave: el estado (IY+20)...
 	cp 004h		;9569
-	ld de,00404h		;956b
+	ld de,00404h		;956b   ; ...normal...
 	ld hl,0080ch		;956e
 	ret nz			;9571
-	ld de,00408h		;9572
+	ld de,00408h		;9572   ; ...o el del estado 4
 	ld hl,00418h		;9575
 	ret			;9578
 L_9579:
 	ld a,(0e620h)		;9579   ; la caja contra los enemigos
 	or a			;957c
 	jr nz,L_9592		;957d
-	ld a,(iy+020h)		;957f
+	ld a,(iy+020h)		;957f   ; en horizontal: el estado...
 	cp 004h		;9582
-	ld de,00c01h		;9584
+	ld de,00c01h		;9584   ; ...normal...
 	ld hl,00c10h		;9587
 	ret nz			;958a
-	ld de,01801h		;958b
+	ld de,01801h		;958b   ; ...o el 4
 	ld hl,00310h		;958e
 	ret			;9591
 L_9592:
-	ld a,(iy+020h)		;9592
+	ld a,(iy+020h)		;9592   ; en vertical: el estado...
 	cp 004h		;9595
-	ld de,00000h		;9597
+	ld de,00000h		;9597   ; ...normal...
 	ld hl,01008h		;959a
 	ret nz			;959d
-	ld de,00000h		;959e
+	ld de,00000h		;959e   ; ...o el 4
 	ld hl,0100ch		;95a1
 	ret			;95a4
 L_95A5:

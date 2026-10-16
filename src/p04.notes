@@ -415,12 +415,42 @@ C 0x7150 ...y la copia nueva
 C 0x7152 el alto
 C 0x7162 el volumen
 C 0x7172 el canal 5 (0xE0BA)
+C 0x7186 el periodo alto del canal 5: distinto de la copia?
+C 0x718E si: la marca (0xE1D8 bit 3)...
+C 0x7192 ...y la copia nueva
+C 0x7196 el volumen: 0xE1D9 bit 3
+C 0x719A distinto?
+C 0x71A2 la copia nueva
 C 0x71A4 el 6 (0xE0E6)
+C 0x71B8 el periodo alto del canal 6: distinto?
+C 0x71C0 la marca (0xE1D8 bit 5)...
+C 0x71C4 ...y la copia nueva
+C 0x71C8 el volumen: 0xE1D9 bit 4
+C 0x71CC distinto?
+C 0x71D4 la copia nueva
 C 0x71D6 el 7 (0xE112)
+C 0x71EA el periodo alto del canal 7: distinto?
+C 0x71F2 la marca (0xE1D8 bit 7)...
+C 0x71F6 ...y la copia nueva
+C 0x71FA el volumen: 0xE1D9 bit 5
+C 0x71FE distinto?
+C 0x7206 la copia nueva
 C 0x7208 el 8 (0xE13E)
+C 0x721C el periodo alto del canal 8: distinto?
+C 0x7224 la marca (0xE1D9 bit 1)...
+C 0x7228 ...y la copia nueva
+C 0x722C el volumen: 0xE1D9 bit 6
+C 0x7230 distinto?
+C 0x7238 la copia nueva
 C 0x723C los canales que suenan: los modos de los 5 del SCC...
 C 0x7243 ...con modo, su bit
 C 0x724D el siguiente bit
+C 0x7256 el modo del canal 6 (0xE0E9)
+C 0x7259 su bit
+C 0x7262 el del 7 (0xE115)
+C 0x7265 su bit
+C 0x726E el del 8 (0xE141)
+C 0x7271 su bit
 C 0x727A la copia de 0xE1E9
 C 0x727E igual: p04:7288
 C 0x7281 la nueva...
@@ -432,6 +462,8 @@ C 0x7295 desde 0x9880 (los periodos)
 C 0x7298 cambia?
 C 0x729E escribe el registro
 C 0x72A1 el siguiente
+C 0x733D el siguiente: con el bit 7 de 0xE1D9...
+C 0x7342 ...lo escribe
 C 0x7346 el byte...
 C 0x7348 ...con el SCC en 0x9800...
 C 0x734E ...al registro
@@ -441,7 +473,17 @@ C 0x735C una vez
 C 0x735E su puntero (IX+27/28)
 C 0x7365 a 0x9800
 C 0x736B la del 5 a 0x9820
+C 0x7370 cambia?
+C 0x7372 una vez
+C 0x7374 su puntero
+C 0x737B a 0x9820
+C 0x737E las 32 muestras
 C 0x7381 la del 6 a 0x9840
+C 0x7386 cambia?
+C 0x7388 una vez
+C 0x738A su puntero
+C 0x7391 a 0x9840
+C 0x7394 las 32 muestras
 C 0x7397 la del 7 a 0x9860
 C 0x73A9 el SCC en 0x9800
 C 0x73AE todos callados mientras

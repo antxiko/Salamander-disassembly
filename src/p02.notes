@@ -265,7 +265,15 @@ C 0x8622 el jefe 4
 C 0x8626 la fase 5
 C 0x8632 el jefe 5
 C 0x8636 la fase 6
+C 0x863A el tramo 1: p02:8664
+C 0x863D el 2: p02:8676
+C 0x8640 el 3: p02:868E
+C 0x8643 el 4: p02:86A0
+C 0x8646 el 5: p02:86AA
+C 0x8649 el 6: p02:86EF
+C 0x864C el 0: el recorrido en marcha?
 C 0x8651 los altos a la izquierda (0xE610 = 3), de 0x20 a 0
+C 0x8661 y el tramo siguiente
 C 0x8664 el scroll normal hasta 0x167
 C 0x867B los altos a la derecha (4), de 0x1F a 0x3F
 C 0x868E el scroll normal hasta 0x227
@@ -411,6 +419,9 @@ C 0x8BA2 en 0xEC23
 C 0x8BA5 los caracteres 0x24 y 0x25...
 C 0x8BAE ...y debajo 0x26 y 0x27
 C 0x8BB4 lo borra del mapa de la RAM
+C 0x8BB9 su sitio en el mapa
+C 0x8BBD dos caracteres a 0...
+C 0x8BC3 ...y los dos de debajo
 C 0x8BC8 los disparos contra los enemigos: 0xE63E = 1 (con puntos)
 C 0x8BCD los 12 enemigos
 C 0x8BD4 IX+10 bit 1: se le puede dar?
@@ -514,7 +525,19 @@ C 0x8DE1 la x + dx - la del disparo
 C 0x8DEF a la izquierda: menos que el ancho de la caja?
 C 0x8DF5 a la derecha: menos que el del disparo?
 C 0x8DF9 el rayo en vertical: su punta
+C 0x8DFC la largura - 1, x 8...
+C 0x8E00 ...hacia arriba...
+C 0x8E02 ...desde la y del rayo
+C 0x8E06 la y de la pieza + la de la caja
+C 0x8E0A dentro?
+C 0x8E0B no: p02:8DDD
+C 0x8E0E si: p02:8DD3
 C 0x8E11 lo mismo para las piezas sin caja
+C 0x8E14 la largura - 1, x 8...
+C 0x8E1A ...desde la y del rayo
+C 0x8E1E la y de la pieza + la de la caja
+C 0x8E23 no: p02:8E51
+C 0x8E26 si: p02:8E40
 C 0x8E29 C = el tipo del disparo
 C 0x8E37 la y de la pieza - la del disparo
 C 0x8E40 por encima: menos que IX+0A x 8?
@@ -690,16 +713,26 @@ C 0x9215 de 4 caracteres
 C 0x9218 copia
 C 0x921A la fila siguiente (60 mas)
 C 0x9221 y lo devuelve
+C 0x922C una
+C 0x922F la siguiente de 0xEC00 (8)...
+C 0x9234 ...y de 0xEAC0 (16)
+C 0x9239 las 4
 C 0x923C viva?
 C 0x9241 su sitio en la RAM
 C 0x9247 lo guardado
 C 0x924A 4 filas
 C 0x924C de 4
 C 0x925A pinta las explosiones
+C 0x9261 una
+C 0x9264 la siguiente (8)
+C 0x926A las 4
 C 0x926D viva?
 C 0x9272 la ficha de 0x9295 por el cuadro (IX+06 x 16)
 C 0x927F su sitio en la RAM
 C 0x9285 4 filas de 4
+C 0x9287 una fila de 4
+C 0x928C la siguiente del mapa (+0x3C)
+C 0x9291 las 4
 C 0x92C5 la animacion desde el principio
 C 0x92C8 IX+27 = 24
 C 0x92CC IX+24 = 4
@@ -820,7 +853,16 @@ C 0x954D la caja de la nave contra los disparos: en vertical p02:9566
 C 0x9553 el estado 4...
 C 0x9558 ...DE y HL de la caja normal...
 C 0x955F ...o la del estado 4
+C 0x9566 la caja de los disparos de la nave: el estado (IY+20)...
+C 0x956B ...normal...
+C 0x9572 ...o el del estado 4
 C 0x9579 la caja contra los enemigos
+C 0x957F en horizontal: el estado...
+C 0x9584 ...normal...
+C 0x958B ...o el 4
+C 0x9592 en vertical: el estado...
+C 0x9597 ...normal...
+C 0x959E ...o el 4
 C 0x95A5 el escudo de los dos jugadores
 C 0x95B0 el estado 2...
 C 0x95B7 ...o el 3 con IY+22

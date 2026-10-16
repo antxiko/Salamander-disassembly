@@ -2238,22 +2238,22 @@ L_7172:
 L_7184:
 	inc de			;7184
 	inc hl			;7185
-	ld a,(de)			;7186
+	ld a,(de)			;7186   ; el periodo alto del canal 5: distinto de la copia?
 	res 3,(ix+000h)		;7187
 	cp (hl)			;718b
 	jr z,L_7194		;718c
-	set 3,(ix+000h)		;718e
-	ld a,(hl)			;7192
+	set 3,(ix+000h)		;718e   ; si: la marca (0xE1D8 bit 3)...
+	ld a,(hl)			;7192   ; ...y la copia nueva
 	ld (de),a			;7193
 L_7194:
 	inc de			;7194
 	inc hl			;7195
-	res 3,(ix+001h)		;7196
-	ld a,(bc)			;719a
+	res 3,(ix+001h)		;7196   ; el volumen: 0xE1D9 bit 3
+	ld a,(bc)			;719a   ; distinto?
 	cp (hl)			;719b
 	jr z,L_71A4		;719c
 	set 3,(ix+001h)		;719e
-	ld a,(hl)			;71a2
+	ld a,(hl)			;71a2   ; la copia nueva
 	ld (bc),a			;71a3
 L_71A4:
 	inc bc			;71a4   ; el 6 (0xE0E6)
@@ -2268,22 +2268,22 @@ L_71A4:
 L_71B6:
 	inc de			;71b6
 	inc hl			;71b7
-	ld a,(de)			;71b8
+	ld a,(de)			;71b8   ; el periodo alto del canal 6: distinto?
 	res 5,(ix+000h)		;71b9
 	cp (hl)			;71bd
 	jr z,L_71C6		;71be
-	set 5,(ix+000h)		;71c0
-	ld a,(hl)			;71c4
+	set 5,(ix+000h)		;71c0   ; la marca (0xE1D8 bit 5)...
+	ld a,(hl)			;71c4   ; ...y la copia nueva
 	ld (de),a			;71c5
 L_71C6:
 	inc de			;71c6
 	inc hl			;71c7
-	res 4,(ix+001h)		;71c8
-	ld a,(bc)			;71cc
+	res 4,(ix+001h)		;71c8   ; el volumen: 0xE1D9 bit 4
+	ld a,(bc)			;71cc   ; distinto?
 	cp (hl)			;71cd
 	jr z,L_71D6		;71ce
 	set 4,(ix+001h)		;71d0
-	ld a,(hl)			;71d4
+	ld a,(hl)			;71d4   ; la copia nueva
 	ld (bc),a			;71d5
 L_71D6:
 	inc bc			;71d6   ; el 7 (0xE112)
@@ -2298,22 +2298,22 @@ L_71D6:
 L_71E8:
 	inc de			;71e8
 	inc hl			;71e9
-	ld a,(de)			;71ea
+	ld a,(de)			;71ea   ; el periodo alto del canal 7: distinto?
 	res 7,(ix+000h)		;71eb
 	cp (hl)			;71ef
 	jr z,L_71F8		;71f0
-	set 7,(ix+000h)		;71f2
-	ld a,(hl)			;71f6
+	set 7,(ix+000h)		;71f2   ; la marca (0xE1D8 bit 7)...
+	ld a,(hl)			;71f6   ; ...y la copia nueva
 	ld (de),a			;71f7
 L_71F8:
 	inc de			;71f8
 	inc hl			;71f9
-	res 5,(ix+001h)		;71fa
-	ld a,(bc)			;71fe
+	res 5,(ix+001h)		;71fa   ; el volumen: 0xE1D9 bit 5
+	ld a,(bc)			;71fe   ; distinto?
 	cp (hl)			;71ff
 	jr z,L_7208		;7200
 	set 5,(ix+001h)		;7202
-	ld a,(hl)			;7206
+	ld a,(hl)			;7206   ; la copia nueva
 	ld (bc),a			;7207
 L_7208:
 	inc bc			;7208   ; el 8 (0xE13E)
@@ -2328,22 +2328,22 @@ L_7208:
 L_721A:
 	inc de			;721a
 	inc hl			;721b
-	ld a,(de)			;721c
+	ld a,(de)			;721c   ; el periodo alto del canal 8: distinto?
 	res 1,(ix+001h)		;721d
 	cp (hl)			;7221
 	jr z,L_722A		;7222
-	set 1,(ix+001h)		;7224
-	ld a,(hl)			;7228
+	set 1,(ix+001h)		;7224   ; la marca (0xE1D9 bit 1)...
+	ld a,(hl)			;7228   ; ...y la copia nueva
 	ld (de),a			;7229
 L_722A:
 	inc de			;722a
 	inc hl			;722b
-	res 6,(ix+001h)		;722c
-	ld a,(bc)			;7230
+	res 6,(ix+001h)		;722c   ; el volumen: 0xE1D9 bit 6
+	ld a,(bc)			;7230   ; distinto?
 	cp (hl)			;7231
 	jr z,L_723A		;7232
 	set 6,(ix+001h)		;7234
-	ld a,(hl)			;7238
+	ld a,(hl)			;7238   ; la copia nueva
 	ld (bc),a			;7239
 L_723A:
 	inc bc			;723a
@@ -2368,8 +2368,8 @@ L_7248:
 L_7254:
 	or e			;7254
 	ld e,a			;7255
-	ld hl,0e0e9h		;7256
-	sla c		;7259
+	ld hl,0e0e9h		;7256   ; el modo del canal 6 (0xE0E9)
+	sla c		;7259   ; su bit
 	ld a,(hl)			;725b
 	or a			;725c
 	jr z,L_7260		;725d
@@ -2377,8 +2377,8 @@ L_7254:
 L_7260:
 	or e			;7260
 	ld e,a			;7261
-	ld hl,0e115h		;7262
-	sla c		;7265
+	ld hl,0e115h		;7262   ; el del 7 (0xE115)
+	sla c		;7265   ; su bit
 	ld a,(hl)			;7267
 	or a			;7268
 	jr z,L_726C		;7269
@@ -2386,8 +2386,8 @@ L_7260:
 L_726C:
 	or e			;726c
 	ld e,a			;726d
-	ld hl,0e141h		;726e
-	sla c		;7271
+	ld hl,0e141h		;726e   ; el del 8 (0xE141)
+	sla c		;7271   ; su bit
 	ld a,(hl)			;7273
 	or a			;7274
 	jr z,L_7278		;7275
@@ -2501,9 +2501,9 @@ L_7330:
 L_733B:
 	inc hl			;733b
 	inc de			;733c
-	bit 7,(ix+001h)		;733d
+	bit 7,(ix+001h)		;733d   ; el siguiente: con el bit 7 de 0xE1D9...
 	ret z			;7341
-	call L_7346		;7342
+	call L_7346		;7342   ; ...lo escribe
 	ret			;7345
 L_7346:
 	ld a,(hl)			;7346   ; el byte...
@@ -2530,27 +2530,27 @@ L_7355:
 L_736B:
 	ld hl,0e0bfh		;736b   ; la del 5 a 0x9820
 	bit 7,(hl)		;736e
-	jr z,L_7381		;7370
-	res 7,(hl)		;7372
-	ld hl,0e0d7h		;7374
+	jr z,L_7381		;7370   ; cambia?
+	res 7,(hl)		;7372   ; una vez
+	ld hl,0e0d7h		;7374   ; su puntero
 	ld e,(hl)			;7377
 	inc hl			;7378
 	ld d,(hl)			;7379
 	ex de,hl			;737a
-	ld de,09820h		;737b
-	call L_73A9		;737e
+	ld de,09820h		;737b   ; a 0x9820
+	call L_73A9		;737e   ; las 32 muestras
 L_7381:
 	ld hl,0e0ebh		;7381   ; la del 6 a 0x9840
 	bit 7,(hl)		;7384
-	jr z,L_7397		;7386
-	res 7,(hl)		;7388
-	ld hl,0e103h		;738a
+	jr z,L_7397		;7386   ; cambia?
+	res 7,(hl)		;7388   ; una vez
+	ld hl,0e103h		;738a   ; su puntero
 	ld e,(hl)			;738d
 	inc hl			;738e
 	ld d,(hl)			;738f
 	ex de,hl			;7390
-	ld de,09840h		;7391
-	call L_73A9		;7394
+	ld de,09840h		;7391   ; a 0x9840
+	call L_73A9		;7394   ; las 32 muestras
 L_7397:
 	ld hl,0e117h		;7397   ; la del 7 a 0x9860
 	bit 7,(hl)		;739a

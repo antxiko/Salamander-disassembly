@@ -298,6 +298,9 @@ C 0xA5EB la x
 C 0xA5EE el reloj 6: p03:A711
 C 0xA5F6 0xF000 = 1
 C 0xA5FB las 4 opciones
+C 0xA602 una
+C 0xA605 la siguiente (16)
+C 0xA60B las 4
 C 0xA60E viva?
 C 0xA613 de quien es
 C 0xA623 el estado 4...
@@ -348,6 +351,9 @@ C 0xA73B la distancia x...
 C 0xA74D .../ 4
 C 0xA756 el paso x
 C 0xA759 las 4 opciones
+C 0xA760 una
+C 0xA763 la siguiente (16)
+C 0xA769 las 4
 C 0xA76C viva?
 C 0xA771 un paso mas en y
 C 0xA775 su y
@@ -355,10 +361,27 @@ C 0xA778 un paso mas en x
 C 0xA77B su x
 C 0xA77F y el dibujo
 C 0xA782 dos: entre las dos naves, en tercios
+C 0xA785 la y de la 1 en L'
+C 0xA789 la de la 2 - la de la 1...
+C 0xA791 ...positiva, con el signo en B
 C 0xA794 / 4...
 C 0xA799 ...+ / 16
+C 0xA7A3 el paso en y a E'
+C 0xA7A6 la x de la 1 en H'
+C 0xA7AD la de la 2 - la de la 1...
+C 0xA7B5 ...positiva, con el signo en B
+C 0xA7B8 la distancia / 4...
+C 0xA7BD ...+ / 16: unos 5/16
+C 0xA7C2 con el signo
 C 0xA7CD una: a medio camino
+C 0xA7D0 la y de la 1 en L'
+C 0xA7D4 la de la 2 - la de la 1...
+C 0xA7DC ...positiva, con el signo en B
 C 0xA7DF / 2
+C 0xA7E6 el paso en y a E'
+C 0xA7E9 la x de la 1 en H'
+C 0xA7F0 la de la 2 - la de la 1...
+C 0xA7F8 ...positiva, con el signo en B
 C 0xA808 el rastro de los dos jugadores
 C 0xA813 en marcha?
 C 0xA818 el rastro del 1...
@@ -524,6 +547,10 @@ C 0xAB39 ...con la x en el borde...
 C 0xAB3E ...0
 C 0xAB43 el dibujo 0x34
 C 0xAB4C 3 contadores
+C 0xAB4E el largo + 1...
+C 0xAB4F ...lo que queda - 1...
+C 0xAB51 ...acabado: el paso siguiente
+C 0xAB54 hasta 3 por cuadro
 C 0xAB5B el largo x 8...
 C 0xAB62 ...desde la y...
 C 0xAB66 ...cabe: fuera
@@ -554,6 +581,15 @@ C 0xAC08 en el borde: se acaba
 C 0xAC0F la x
 C 0xAC10 5 bytes mas
 C 0xAC15 en vertical
+C 0xAC16 el estado...
+C 0xAC18 ...1: p03:AB77
+C 0xAC1B ...2 o mas: p03:AB8B
+C 0xAC1E 0: quien lo dispara (IY+08/09)
+C 0xAC27 su posicion
+C 0xAC2A la y en su fila
+C 0xAC30 la x + 4 en su columna
+C 0xAC35 al borde: fuera
+C 0xAC3D crece 5
 C 0xAC50 el tipo 8 de 0xAC42...
 C 0xAC59 ...o 0xAC49 en vertical
 C 0xAC5C con el sonido 8
@@ -586,6 +622,15 @@ C 0xACC7 el paso
 C 0xACD9 su y y su x
 C 0xACDC y + 4
 C 0xACE4 x + 16
+C 0xACF7 el estado...
+C 0xACF9 ...1: p03:AB77
+C 0xACFC ...2 o mas: p03:AB8B
+C 0xACFF 0: quien lo dispara (IY+08/09)
+C 0xAD08 su posicion
+C 0xAD0B la y en su fila
+C 0xAD11 la x + 4 en su columna
+C 0xAD16 al borde: fuera
+C 0xAD1E crece 5
 C 0xAD23 nada
 C 0xAD24 el misil: hay hueco?
 C 0xAD28 el tipo 5
@@ -598,6 +643,9 @@ C 0xAD44 2 de largo
 C 0xAD4C 16 x 16
 C 0xAD51 de quien es
 C 0xAD54 el sonido 6
+C 0xAD5B la y en su fila
+C 0xAD61 la x en su columna
+C 0xAD65 y sigue
 C 0xAD68 el misil cada cuadro: en vertical p03:ADAE
 C 0xAD6E la x + 8
 C 0xAD73 se sale: se acaba
@@ -668,12 +716,21 @@ C 0xAEBB el dibujo 0x34
 C 0xAEC0 largo 10, 0
 C 0xAEC3 16
 C 0xAEC8 en vertical: desde (0, -4)
+C 0xAECE la x en su columna
+C 0xAED6 el dibujo 0x34
+C 0xAEDB la ficha
 C 0xAEE3 el rayo 0x0A: hay hueco?
 C 0xAEE7 el sonido 5
 C 0xAEEC el tipo 0x0A
 C 0xAEF7 desde (-8, 16)
 C 0xAF05 largo 18
 C 0xAF0D en vertical: desde (0, -8)
+C 0xAF13 la x en su columna
+C 0xAF1B la y de 0xF8 en adelante...
+C 0xAF20 ...0
+C 0xAF22 la y
+C 0xAF23 el dibujo 0x34
+C 0xAF28 la ficha
 C 0xAF30 la bomba: solo la nave
 C 0xAF35 el hueco de 0xE470
 C 0xAF38 hay sitio?
@@ -781,11 +838,17 @@ C 0xB121 la direccion 1 (arriba y adelante)
 C 0xB148 el dibujo 0x20: arriba
 C 0xB14C la y - B
 C 0xB150 se sale: se acaba
+C 0xB175 la x + 8...
+C 0xB17B ...y la y - 1...
+C 0xB17F ...el caracter de ahi
 C 0xB19A la direccion 2 (en vertical, a la derecha)
 C 0xB1AA el dibujo 0x24
 C 0xB1B0 la y - B...
 C 0xB1B4 ...menos de 8: se acaba
 C 0xB1C0 el dibujo 0x28
+C 0xB1DA la x + 8...
+C 0xB1E0 ...y la y - 8...
+C 0xB1E6 ...el caracter de ahi
 C 0xB201 la direccion 3 (en vertical, a la izquierda): el decorado?
 C 0xB217 el dibujo 0x20
 C 0xB21D 2 arriba
@@ -812,6 +875,47 @@ C 0xB293 encima?
 C 0xB296 tambien: se acaba
 C 0xB299 sube 4
 C 0xB2A4 IY+01 = 1: subiendo
+C 0xB2A9 la direccion 1: venia subiendo un escalon?
+C 0xB2AD IY+01 = 0
+C 0xB2B3 el decorado?
+C 0xB2B6 si: p03:B15A
+C 0xB2B9 delante?
+C 0xB2BC no: p03:B141
+C 0xB2BF delante, mas alla?
+C 0xB2C2 no: p03:B139
+C 0xB2C5 el siguiente?
+C 0xB2C8 no: avanza
+C 0xB2CB encima?
+C 0xB2CE tambien: se acaba
+C 0xB2D1 la y + 4...
+C 0xB2D6 ...pasada 0xA0: se acaba
+C 0xB2DE IY+01 = 1: subiendo
+C 0xB2E3 la direccion 2: venia subiendo un escalon?
+C 0xB2E7 IY+01 = 0
+C 0xB2ED el decorado?
+C 0xB2F0 no: p03:B1C0
+C 0xB2F3 delante?
+C 0xB2F6 no: p03:B1BD
+C 0xB2F9 el siguiente?
+C 0xB2FC no: avanza
+C 0xB2FF encima?
+C 0xB302 tambien: se acaba
+C 0xB305 la x - 4...
+C 0xB30A ...pasa de 0: se acaba
+C 0xB310 IY+01 = 1: subiendo
+C 0xB315 la direccion 3: venia subiendo un escalon?
+C 0xB319 IY+01 = 0
+C 0xB31F el decorado a la izquierda?
+C 0xB322 no: p03:B217
+C 0xB325 a la izquierda y arriba?
+C 0xB328 no: p03:B214
+C 0xB32B arriba?
+C 0xB32E no: avanza
+C 0xB331 a la derecha?
+C 0xB334 tambien: se acaba
+C 0xB337 la x + 4...
+C 0xB33C ...pasada 0xF8: se acaba
+C 0xB344 IY+01 = 1: subiendo
 C 0xB349 el que persigue: su blanco (IY+12/13)
 C 0xB34F vivo?
 C 0xB351 no: p03:B3C1
@@ -902,11 +1006,23 @@ C 0xB527 ...choca: hacia abajo
 C 0xB52C ...y abajo...
 C 0xB532 ...choca: hacia arriba
 C 0xB537 lo mismo en x
+C 0xB539 choca?
+C 0xB53D si: nada
+C 0xB53F con el recorrido en marcha...
+C 0xB544 ...la x...
+C 0xB54A ...+ 8
 C 0xB55B el paso x
 C 0xB564 hacia la derecha: x + 9
 C 0xB568 el caracter
 C 0xB56F y el de abajo
 C 0xB576 el paso x cambia de signo
+C 0xB580 el caracter de p03:B568
+C 0xB585 choca?
+C 0xB587 no: p03:B58E
+C 0xB589 si: IY+0B = 1
+C 0xB58E el de p03:B564 (x + 9)
+C 0xB591 choca?
+C 0xB594 si: IY+0B = -1
 C 0xB599 busca Nemesis 2: 0xF0F5 = 0
 C 0xB59D 4 slots primarios
 C 0xB5A0 EXPTBL
