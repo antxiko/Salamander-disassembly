@@ -1,4 +1,1201 @@
 
+
+# --- A MANO: comentarios escritos leyendo el codigo ---
+C 0x8000 la presentacion: con el 9 en 0xA000
+C 0x8003 0xE21C = 1, 0xE21D = 0: por pasos
+C 0x8009 los caracteres de p09:A505 en 0xE220
+C 0x800F las copias de p09:A572...
+C 0x8015 ...y p09:A593
+C 0x801B y vuelve con el 10 y el 15
+C 0x801E el menu A en 0xE63A
+C 0x8024 la presentacion por pasos (p00:4708)
+C 0x8029 0xE639 = 1...
+C 0x802D ...o 0
+C 0x8031 con el 11: p11:A32A
+C 0x8039 con el 11: p11:B957 y p11:B8D7
+C 0x8044 la ventana B: la cifra alta...
+C 0x8046 ...x 0x800: el tercio
+C 0x804C en 0xF012
+C 0x8050 + 0x2000: los dibujos
+C 0x8054 en 0xF010
+C 0x8057 con el 11: p11:B9BF
+C 0x805D con el 15
+C 0x8060 el tercio + 0x190...
+C 0x8067 ...las rachas del marco de p15:A912
+C 0x806E la cifra baja de B...
+C 0x8071 ...la lista de p15:A8F8
+C 0x8077 cuantas fichas
+C 0x807A el trozo de dibujo...
+C 0x807C ...de la tabla de p15:A90A
+C 0x8084 cuantos caracteres...
+C 0x8089 ...x 8: los bytes
+C 0x8090 el caracter de destino...
+C 0x8095 ...x 8
+C 0x8099 + el tercio
+C 0x809F a la VRAM
+C 0x80A4 todas
+C 0x80A6 los colores: 0x70 del tercio...
+C 0x80AE ...0x790 bytes...
+C 0x80B1 ...0xF0
+C 0x80B3 FILVRM
+C 0x80B9 el borde: 0xE0
+C 0x80BB el registro 7 del VDP
+C 0x80BE los graficos del 11
+C 0x80C1 el rotulo: las rachas de p15:A03C a 0x2200 en los tres tercios...
+C 0x80CA ...los colores de p15:A475 a 0x0200...
+C 0x80D3 ...y los sprites de p15:A745 a 0x1800
+C 0x80DC con el 9
+C 0x80DF el menu B
+C 0x80E3 sus caracteres
+C 0x80E6 las copias en espejo...
+C 0x80EA ...de p09:A4CB
+C 0x80F5 y cabeza abajo...
+C 0x80F9 ...de p09:A4D7
+C 0x8107 la cifra baja...
+C 0x8109 ...la lista de p09:A4BF
+C 0x810F a IX
+C 0x8112 el primer byte
+C 0x8116 0: acaba
+C 0x8117 IX un byte atras: fichas de 5
+C 0x811A B bit 4: el tercio de arriba
+C 0x811F p00:456D
+C 0x8124 bit 5: el del medio
+C 0x812E bit 6: el de abajo
+C 0x8137 5 bytes por ficha (6 - 1)
+C 0x813E los sprites fuera
+C 0x8141 borra la pantalla
+C 0x8144 la tabla de atributos de 0x3B00
+C 0x8147 el titulo: 9 filas de 0x18 de p15:BBC0...
+C 0x814A ...en 0x3884
+C 0x8150 una fila
+C 0x8153 LDIRVM
+C 0x8156 la fila siguiente
+C 0x815B en la 3...
+C 0x815E ...0x20 mas en el origen
+C 0x8166 una de cada dos...
+C 0x816A ...4 mas en el destino
+C 0x8170 las 9
+C 0x8172 la sombra del titulo: 28 sprites de 0x8846...
+C 0x8175 ...a 0xEF80
+C 0x817B la y - 24
+C 0x8181 la x
+C 0x8187 el dibujo: (numero - 1) x 4
+C 0x818F los 28
+C 0x8191 los 4 bytes de 0xEFE4 a 0xEFD8
+C 0x819C 0xEE06 = 0
+C 0x81A0 la paleta falsa (p10:876B)
+C 0x81A3 los colores de la sombra (p10:8313)
+C 0x81A6 y la copia del titulo (p10:87C9)
+C 0x81E6 el paso de la presentacion (0xE217)...
+C 0x81EA ...por la tabla de detras
+C 0x8237 prepara la pantalla (p10:8265)
+C 0x823A borra la pantalla
+C 0x823D los sprites fuera
+C 0x8240 los graficos del 11
+C 0x8243 0xEE33, 0xEE08 y 0xEE32 a 0
+C 0x824D el sonido 0x29
+C 0x8252 0xEE02 = 0x90
+C 0x8257 p10:827F
+C 0x825A la cuenta de cuadros a 0
+C 0x8260 el paso siguiente
+C 0x8265 borra 0xC700
+C 0x8268 la pantalla
+C 0x826B los sprites
+C 0x826E y 0xED00-0xEDFF
+C 0x8277 0xE63A = 1
+C 0x827C la tabla de atributos de 0x3B00
+C 0x827F las rachas de p10:8288 a 0x1FE0
+C 0x828D p10:9C4D
+C 0x8290 p10:9681
+C 0x8293 0xEE32?
+C 0x8298 se acabo: los sprites fuera...
+C 0x829B ...la pantalla...
+C 0x829E ...0xEE03 y 0xEE04 a 0...
+C 0x82A5 ...borra 0xC700...
+C 0x82A8 ...y el rotulo
+C 0x82AD 0xEE03: la ventana abierta?
+C 0x82B2 si: p10:82DC
+C 0x82B4 la abre
+C 0x82B5 la siguiente (0xEE04)...
+C 0x82BA ...10 o mas: p10:82CA
+C 0x82BE la ventana de p15:BB6F
+C 0x82C5 el sonido 0x34
+C 0x82CA se acabaron: la paleta falsa
+C 0x82CD 0xEE05 y 0xEE06 a 0
+C 0x82D4 el paso siguiente
+C 0x82D7 el sonido 0x4E
+C 0x82DC pinta la ventana (p10:95CE)
+C 0x82DF acabada?
+C 0x82E4 si: 0xEE03 = 0
+C 0x82E9 0xEE05: la sombra que entra
+C 0x82EF 29 o mas: p10:8332
+C 0x82F3 la 22...
+C 0x82F6 ...p10:8343
+C 0x82F9 su sitio de la tabla de p10:8810
+C 0x8300 su sprite: 31 - B...
+C 0x8303 ...x 4
+C 0x8305 en 0xEF80
+C 0x830B la y
+C 0x830D la x
+C 0x830F el dibujo: B x 4
+C 0x8313 el color de la sombra: 0xEE06 + 1...
+C 0x8318 ...de 0 a 4
+C 0x831E de la tabla de p10:880B
+C 0x8325 a los 32 sprites
+C 0x832A el color de este sprite
+C 0x832B el siguiente: 4 bytes mas
+C 0x832F los 32
+C 0x8332 0xE217: 32 o mas...
+C 0x833A ...la lista de p10:9ED8
+C 0x8343 los 4 bytes de 0xEFF4 a 0xEFE8
+C 0x8351 espera 0x180 cuadros
+C 0x8357 aun no: los colores
+C 0x835E los sprites fuera
+C 0x8361 la pantalla
+C 0x8364 0xE217 de 32 en adelante...
+C 0x836C ...si no, 0xEE07 = 0x40...
+C 0x8374 ...o vuelve a 0
+C 0x8377 espera 0x78 cuadros
+C 0x837D aun no
+C 0x837E los graficos del 11
+C 0x8381 0x900...
+C 0x8384 ...256 bytes a 0x90
+C 0x838C 0xEE38 = 0
+C 0x8393 espera 0x100 cuadros
+C 0x8399 aun no: p10:83BB
+C 0x839B borra la fila 2
+C 0x83A0 la ventana 0x11
+C 0x83A5 los graficos 0x11
+C 0x83AA borra 0xC700
+C 0x83AD la ventana de p15:BCAA
+C 0x83B3 el sonido 0x2E
+C 0x83BB 0xEE38...
+C 0x83C1 ...8 o mas: fuera
+C 0x83C2 impar: p10:83DA
+C 0x83C5 el paso siguiente
+C 0x83C7 0xEE39 = 48
+C 0x83C9 la pantalla
+C 0x83CC el sonido 0x17
+C 0x83D1 el texto 0 de 0x394C (p10:944C)
+C 0x83DA la espera
+C 0x83DC aun no: el texto letra a letra
+C 0x83DF el paso siguiente
+C 0x83E2 espera 0x80 cuadros o el boton
+C 0x83E8 aun no
+C 0x83E9 la ficha de p10:83F7
+C 0x83EC el sitio
+C 0x83F0 el texto
+C 0x83F1 lo empieza
+C 0x83FA la flecha que parpadea (p10:8675)
+C 0x83FD espera 0x88 cuadros
+C 0x8404 los graficos 0x42
+C 0x8409 la ventana de p15:BCB1
+C 0x8412 espera 0x80
+C 0x8419 borra la fila 2
+C 0x841E la ficha de p10:8423
+C 0x8426 p10:8697
+C 0x8429 espera 0xC0
+C 0x8430 borra la fila 2
+C 0x8435 la ficha de p10:843A
+C 0x843D la flecha
+C 0x8440 espera 0x80...
+C 0x8446 ...mientras, el texto
+C 0x844C espera 0x80
+C 0x8452 el boton: p00:58E9
+C 0x8455 los graficos 0x33
+C 0x845A la ventana 0x21
+C 0x845F el texto C = 0 de 0x388C
+C 0x846A espera 0x80
+C 0x8471 el texto 4
+C 0x8476 espera 0x140
+C 0x8480 espera 0x80
+C 0x8489 los graficos 0x22
+C 0x848E borra 0xC700
+C 0x8491 la ventana de p15:BCB8
+C 0x849A espera 0x80
+C 0x84A1 borra la fila 3
+C 0x84A6 el texto 5
+C 0x84A8 en 0x3A24
+C 0x84B1 p10:869C
+C 0x84B4 espera 0x1C0...
+C 0x84BA ...mientras, el texto
+C 0x84C0 espera 0x80
+C 0x84C9 la ventana 0x21
+C 0x84CE los graficos 0x33
+C 0x84D6 la ventana de p15:BCCD
+C 0x84DC el sonido 0x4D
+C 0x84E4 espera 0x80
+C 0x84EB los graficos 0x45
+C 0x84F0 p10:9E13 con A = 1, C = 1, B = 0x60, HL = 0x1288
+C 0x84FB 7 x 9 caracteres de p15:BE81 en 0x39FF
+C 0x8507 7 filas de 9
+C 0x850D espera 0x80
+C 0x8513 p10:9E56
+C 0x8516 la ficha de p10:851C
+C 0x851F el texto
+C 0x8522 acabado?
+C 0x8527 la ficha de p10:852D
+C 0x8530 espera 0x100
+C 0x8537 borra la fila 3
+C 0x853C p10:86CB
+C 0x8542 espera 0x80
+C 0x8548 mientras, p10:86E8
+C 0x854B borra 0xCA00
+C 0x854E la ventana de p15:BCD4
+C 0x8554 el sonido 0x4D
+C 0x855C espera 0x80
+C 0x8563 p10:9E13
+C 0x856E 7 x 9 de p15:BEC0 en 0x3A18
+C 0x857A espera 0x80
+C 0x8583 la ficha de p10:8589
+C 0x858C el texto
+C 0x8594 la ficha de p10:859A
+C 0x859D espera 0x100
+C 0x85A4 borra la fila 3
+C 0x85A9 los graficos 0x43
+C 0x85AE p10:871D
+C 0x85B4 espera 0x80
+C 0x85BA mientras, p10:8725
+C 0x85BD borra 0xCA00
+C 0x85C0 los graficos 0x25
+C 0x85C5 la ventana de p15:BCBF
+C 0x85CE la ventana acabada?
+C 0x85D2 no: sigue
+C 0x85D5 la de p15:BCC6
+C 0x85DE espera 0x100
+C 0x85E5 p10:9E13 con A = 0
+C 0x85F2 espera 0x80
+C 0x85FB la pantalla
+C 0x85FE los graficos 0x33
+C 0x8603 la ventana 0x21
+C 0x8608 los dibujos de la VRAM a cero
+C 0x8612 el resultado en 0x388C
+C 0x8617 p10:8CF0
+C 0x861A la presentacion otra vez
+C 0x861D borra 0xED00
+C 0x8623 espera 0xC0
+C 0x8629 el menu 0x35
+C 0x862E la ventana 0x21
+C 0x8636 el texto 9 en 0x3A24
+C 0x8641 p10:9C50
+C 0x8644 espera 0x470
+C 0x864B la pantalla
+C 0x864E los sprites
+C 0x8651 el rotulo
+C 0x865A espera DE cuadros (p00:4DA1)
+C 0x865D ha pasado: NC
+C 0x865E aun no: el texto letra a letra (p10:9497)
+C 0x8661 acarreo
+C 0x8663 espera DE cuadros
+C 0x8667 mientras, la ventana (p10:95CE)
+C 0x866C borra 0xED00-0xEDFF
+C 0x8675 la flecha: 0xEE40
+C 0x8678 con el texto acabado...
+C 0x867E ...desde el principio
+C 0x8680 la cuenta
+C 0x8681 + 1
+C 0x8682 cada 16 cuadros...
+C 0x8686 ...la flecha de p10:86C1...
+C 0x868B ...o la de p10:86BF
+C 0x868E en 0x38AF
+C 0x8691 2 x 1
+C 0x8697 en 0x3A8A
+C 0x869C en 0x398A
+C 0x869F la cuenta
+C 0x86AA + 1
+C 0x86AB cada 16...
+C 0x86B1 ...p10:86C3 o p10:86C7
+C 0x86B9 2 x 2
+C 0x86CB en 0x3947 la ventana de p15:BCDB
+C 0x86D1 0xEE70 = 1: en marcha
+C 0x86D6 8 pasos
+C 0x86DB cada 6 cuadros
+C 0x86E0 el destino
+C 0x86E3 el origen
+C 0x86E8 hacia arriba (0xF000 = 0)
+C 0x86EC en marcha?
+C 0x86F1 la espera
+C 0x86F6 6 cuadros
+C 0x86F8 borra la de antes
+C 0x86FB el destino...
+C 0x86FE ...una fila...
+C 0x8701 ...arriba...
+C 0x870C ...o abajo
+C 0x8710 la pinta
+C 0x8713 un paso menos
+C 0x8718 se acabo
+C 0x871D en 0x3947 la de p15:BD30
+C 0x8725 hacia abajo (0xF000 = 1)
+C 0x872C borra 5 filas de 19
+C 0x8733 una fila...
+C 0x8738 ...con FILVRM
+C 0x873B la siguiente
+C 0x8743 5 filas de 17
+C 0x874E una fila
+C 0x8751 LDIRVM
+C 0x8754 la siguiente fila de la VRAM
+C 0x8759 B filas
+C 0x875C la fila A - 1...
+C 0x8763 ...de la tabla de nombres
+C 0x8764 a cero
+C 0x8765 256 bytes
+C 0x8768 FILVRM
+C 0x876B la paleta falsa: 0x130 bytes...
+C 0x876E ...a 0xEA00...
+C 0x8771 ...de los colores de 0x0550
+C 0x8774 RDVRM
+C 0x877F y de 0xEA00...
+C 0x8782 ...a 0xEB80 con otros colores
+C 0x8788 cada byte de color...
+C 0x8789 ...con sus dos colores cambiados
+C 0x878D a DE
+C 0x8790 BC bytes
+C 0x8796 el byte de color
+C 0x8798 la cifra baja (el fondo)...
+C 0x879A ...cambiada
+C 0x879D la alta (la tinta)
+C 0x87A5 cambiada
+C 0x87A8 las dos juntas
+C 0x87AF el color 12 pasa a 15...
+C 0x87B4 ...el 2 a 11...
+C 0x87B9 ...el 3 a 10...
+C 0x87BD ...el 11 a 9...
+C 0x87C1 ...el 15 a 6...
+C 0x87C6 ...los demas a 0
+C 0x87C9 cada 8 cuadros...
+C 0x87CE ...los colores normales...
+C 0x87D3 ...o los falsos
+C 0x87D6 0x130 bytes a 0x0D50...
+C 0x87E3 ...y a 0x1550
+C 0x87E9 los atributos de 0xEF80 a 0x3B00
+C 0x87EF 128 bytes
+C 0x87F5 borra 0xC700-0xCFFF
+C 0x87FB BC + 1 bytes de HL a 0
+C 0x8803 borra 0xCA00-0xCCFF
+C 0x8848 el paso del final (0xE217)...
+C 0x884C ...por la tabla de detras
+C 0x8861 prepara la pantalla
+C 0x8864 los graficos 0x34
+C 0x8869 borra 0xC700
+C 0x886C p10:8918
+C 0x886F p10:8AE9 con 0x34
+C 0x8874 p10:8B04
+C 0x8877 la fase 0
+C 0x887B el sonido 0x28
+C 0x8883 p10:8934
+C 0x8886 0xEE75: quedan pasos?
+C 0x888A si: fuera
+C 0x888B p10:895A
+C 0x888E p10:89E6
+C 0x8891 el sonido 0x47
+C 0x8898 p10:89BC
+C 0x889B 0xEE0B?
+C 0x88A0 el sonido 0x48
+C 0x88A5 p10:89F0
+C 0x88AA un jugador...
+C 0x88AE ...p10:89F8
+C 0x88B1 p10:8972
+C 0x88B4 quedan pasos?
+C 0x88B9 un jugador...
+C 0x88BF el sonido 0x28
+C 0x88C4 p10:891D
+C 0x88C9 tres pasos mas adelante
+C 0x8901 0xEE01 menos de 32: fuera
+C 0x8904 el rotulo de la fase 1
+C 0x890C espera 0xB4 cuadros
+C 0x8912 aun no
+C 0x8913 vuelta a empezar: 0xE217 = 0
+C 0x8918 la ventana de p15:BCDB...
+C 0x891D ...o la de p15:BD30
+C 0x8920 el origen
+C 0x8924 en 0x39A2
+C 0x892A 0x48 cuadros
+C 0x892F la espera a 0
+C 0x8934 la cuenta - 1
+C 0x8939 cada 8 cuadros...
+C 0x893C ...una fila mas
+C 0x893F 6 o mas...
+C 0x8943 ...borra la de antes y se queda en 5
+C 0x8948 las filas
+C 0x894A el destino...
+C 0x894D ...una fila mas arriba
+C 0x8955 17 de ancho
+C 0x8957 la pinta
+C 0x895A la ventana de p15:BCDB...
+C 0x895F ...o p15:BD30...
+C 0x8966 ...en 0x3882...
+C 0x896C ...30 pasos
+C 0x8972 borra la de antes
+C 0x8975 un paso menos
+C 0x8979 acabados: fuera
+C 0x897A una columna a la derecha
+C 0x8981 lo que cabe hasta el borde...
+C 0x898A ...como mucho 17
+C 0x898E el ancho
+C 0x898F 5 filas
+C 0x8998 una fila
+C 0x899C LDIRVM
+C 0x899F la fila siguiente de la VRAM
+C 0x89A5 y del origen
+C 0x89AA las 5
+C 0x89AC cada 4 cuadros...
+C 0x89B1 ...la llama 1 o 3
+C 0x89B7 en 0xEE0C
+C 0x89BC la cuenta 0xEE0B
+C 0x89C1 cada 4...
+C 0x89C5 ...la siguiente
+C 0x89C7 la llama de la tabla de p10:8AC1
+C 0x89D2 delante de la ventana
+C 0x89D5 su columna...
+C 0x89D8 ...pasada la 0x1C: no
+C 0x89DB 0x3E mas
+C 0x89E0 2 x 4
+C 0x89E6 0xEE0B = 32 y 0xEE0C = 0
+C 0x89F0 0xEE00 y 0xEE01 a 0
+C 0x89F8 0xEE01: cada cuanto...
+C 0x89FE ...menos de 8: cada 4...
+C 0x8A04 ...menos de 16: cada 2...
+C 0x8A08 ...si no, cada cuadro
+C 0x8A0B la cuenta
+C 0x8A0F la fila siguiente
+C 0x8A12 desde 0xCA40 + la fila
+C 0x8A18 a 0x39A0
+C 0x8A1B 24 filas
+C 0x8A20 el rotulo de la fase A
+C 0x8A21 borra la pantalla
+C 0x8A24 los graficos del 11
+C 0x8A27 la version
+C 0x8A2C la tabla japonesa (p15:BEFD)...
+C 0x8A31 ...o la inglesa (p15:BF0B)
+C 0x8A36 la lista de la fase
+C 0x8A39 la pinta
+C 0x8A3C y la de p10:8A8F
+C 0x8A44 la segunda linea de p10:8A6A
+C 0x8A4A con mascara 0xFF
+C 0x8A4C en 0x3933
+C 0x8A53 las fases 3, 4 y 5...
+C 0x8A58 ...una tercera linea de p10:8AA4...
+C 0x8A60 ...en 0x39D0
+C 0x8A66 y la lista de p10:8A9B
+C 0x8AE9 el dibujo de p10:8B20 en el mapa de la RAM (0xCA40)
+C 0x8AEF el principio de la fila
+C 0x8AF1 el byte
+C 0x8AF3 0xFF: acaba
+C 0x8AF5 0xFE: fila siguiente
+C 0x8AF8 a la RAM
+C 0x8AFD la fila siguiente (64)
+C 0x8B04 el mapa de la RAM a la tabla de nombres
+C 0x8B0A 24 filas
+C 0x8B0D 32 caracteres
+C 0x8B10 LDIRVM
+C 0x8B13 la fila siguiente de la VRAM
+C 0x8B17 y de la RAM (64)
+C 0x8B1D las 24
+C 0x8B7B la fase siguiente: tras la 7, la 6
+C 0x8B84 tras la 1, la 2
+C 0x8B89 las fases del medio jugadas (0xE362-0xE364)
+C 0x8B8C 3 bytes, C = cuantas quedan
+C 0x8B8F jugada?
+C 0x8B93 no: una que queda
+C 0x8B97 cuantas quedan...
+C 0x8B98 ...dos o tres: p10:8BE1
+C 0x8B9C una: p10:8BAF
+C 0x8B9F ninguna: con Nemesis 2...
+C 0x8BA3 ...sin el: la 6
+C 0x8BA7 0xE30A?
+C 0x8BAB 0: la 6
+C 0x8BAD si no, p10:8BE5
+C 0x8BAF la que queda...
+C 0x8BB4 ...la primera sin jugar
+C 0x8BBC tres cuentas mas
+C 0x8BC4 la que queda - 3...
+C 0x8BC7 ...su byte...
+C 0x8BCB ...en 0xE35F
+C 0x8BCE la fase B: se marca jugada...
+C 0x8BD6 ...en 0xE360 + B - 1
+C 0x8BD9 la fase del jugador
+C 0x8BDC 0xE232 = 0: a la fase
+C 0x8BE1 0xE232 = 1: se elige
+C 0x8BE5 0xE232 = 2
+C 0x8BEB el paso entre fases: 0xE232
+C 0x8BF2 1: p10:8C17
+C 0x8BF5 2: p10:8DA0
+C 0x8BF8 0: el paso de la presentacion
+C 0x8BFA 1...
+C 0x8BFC ...prepara la pantalla...
+C 0x8BFF ...el rotulo de la fase
+C 0x8C08 espera 0xB4 cuadros
+C 0x8C0F borra la pantalla
+C 0x8C12 y 0xE217 = 0
+C 0x8C17 el paso...
+C 0x8C19 ...por la tabla de detras
+C 0x8C2A prepara la pantalla
+C 0x8C2D p10:9D95
+C 0x8C30 p10:827F
+C 0x8C33 los graficos de p10:8F37
+C 0x8C36 el sonido 0x2F
+C 0x8C3B con el 11: p11:A000
+C 0x8C47 p10:9DC4
+C 0x8C4A espera 0xB4
+C 0x8C50 mientras, las naves (p10:8CF6)
+C 0x8C53 0xEEC0 y 0xEEC1 a 0
+C 0x8C5A el sonido 0x4A
+C 0x8C62 p10:9DC4
+C 0x8C65 el recuadro que crece (p10:8E24)
+C 0x8C68 0xEEC0?
+C 0x8C6D las ventanas 0x11...
+C 0x8C72 ...y 0x21
+C 0x8C77 el texto 12 en 0x3A04
+C 0x8C82 p10:9DC4
+C 0x8C85 espera 0x1A4...
+C 0x8C8B ...mientras, el texto
+C 0x8C8E borra el recuadro
+C 0x8C91 p10:8CE2
+C 0x8C97 p10:9DC4
+C 0x8C9A p10:988A
+C 0x8C9D 0xEEA0?
+C 0x8CA2 0xEEC0 = 0...
+C 0x8CA6 ...0xEEC1 = 15
+C 0x8CAB los sonidos 0x4A...
+C 0x8CB0 ...y 0xF1
+C 0x8CB8 p10:9DC4
+C 0x8CBB las naves se van (p10:8D15)
+C 0x8CBE el recuadro mengua (p10:8E16)
+C 0x8CC1 de la fase 4 en adelante...
+C 0x8CC8 ...hasta que la nave llega a la derecha...
+C 0x8CD0 ...si no, hasta arriba
+C 0x8CD6 los sprites fuera
+C 0x8CD9 y el rotulo de la fase
+C 0x8CE2 borra 0xEEA0-0xEEB0
+C 0x8CF0 el texto C en DE, entero de una vez
+C 0x8CF6 la nave 1 a su sitio
+C 0x8CF9 ya: p10:8D01
+C 0x8CFB hacia (0x30, 0x88)
+C 0x8CFE la mueve
+C 0x8D01 con dos jugadores...
+C 0x8D08 ...la 2 a su sitio
+C 0x8D0D hacia (0x40, 0x68)
+C 0x8D15 las naves se van: sin velocidad
+C 0x8D20 la fase 4 o mas...
+C 0x8D25 ...hacia arriba (-8 en y)...
+C 0x8D2C ...o a la derecha (+8 en x)
+C 0x8D32 la 1
+C 0x8D3C y la 2
+C 0x8D3F sin mandos
+C 0x8D46 los sprites de las naves (p00:4030)
+C 0x8D49 con el 11: p11:A000
+C 0x8D52 la nave 1 en (0x2E, 0x86)?
+C 0x8D62 la 2 en (0x3E, 0x66)?
+C 0x8D72 la nave 1 + la velocidad
+C 0x8D89 la nave 2 + la velocidad
+C 0x8DA0 el paso...
+C 0x8DA2 ...por la tabla de detras
+C 0x8DAD prepara la pantalla
+C 0x8DB0 p10:827F
+C 0x8DB3 el sonido 0x2F
+C 0x8DB8 con el 11: p11:A000
+C 0x8DC4 espera 0xB4...
+C 0x8DCA ...mientras, p10:9C50
+C 0x8DCD la orden 0xF1
+C 0x8DD5 las naves (p10:8DF0)
+C 0x8DD8 p10:9C50
+C 0x8DDB espera 0x78
+C 0x8DE2 los sprites fuera
+C 0x8DE5 la fase 7
+C 0x8DEA y su rotulo
+C 0x8DF0 la nave 1 hacia (0x58, 0x78)
+C 0x8DF9 con dos jugadores, la 2
+C 0x8E0D borra el recuadro y 0xEEC0 = 1
+C 0x8E16 el recuadro mengua: 0xEEC0?
+C 0x8E1C el tamano (0xEEC1)
+C 0x8E1E - 1
+C 0x8E20 0: acabado
+C 0x8E24 crece: 0xEEC0?
+C 0x8E2B el tamano
+C 0x8E2C + 1
+C 0x8E2D 15: acabado
+C 0x8E31 borra (p10:8EF6)
+C 0x8E36 el tamano de p10:8F00
+C 0x8E3C la cifra baja: el ancho
+C 0x8E40 (16 - ancho) x 2
+C 0x8E45 la alta: el alto
+C 0x8E4D (5 - alto) x 2
+C 0x8E52 la esquina: fila (alto + 14) x 32...
+C 0x8E5D ...+ columna
+C 0x8E62 + 0x3800
+C 0x8E69 la esquina de arriba (0x0B)
+C 0x8E6E la linea de arriba (0x0C)
+C 0x8E7A FILVRM
+C 0x8E86 la otra esquina
+C 0x8E8D la fila de abajo
+C 0x8E99 los lados (0x0D)
+C 0x8EAE todas las filas
+C 0x8EB0 la fila de abajo del todo
+C 0x8EBE las esquinas y la linea de abajo
+C 0x8EE1 borra 8 filas de 0x1C...
+C 0x8EE3 ...desde 0x39E2
+C 0x8EEB FILVRM
+C 0x8EF6 borra 0x140 desde 0x39C0
+C 0x8F0F la nave 1 hacia (0x30, 0x88)...
+C 0x8F12 ...desde su sitio
+C 0x8F1C la nave 2 hacia (0x40, 0x68)
+C 0x8F27 el destino
+C 0x8F2A rapidez 0x30
+C 0x8F2F la direccion
+C 0x8F34 la velocidad
+C 0x8F37 los dibujos de p10:8F4F a 0x2058...
+C 0x8F43 ...y los colores de p10:8F67 a 0x0058
+C 0x8F7F el final: con Nemesis 2...
+C 0x8F85 ...y 0xE30A...
+C 0x8F8B ...el final bueno (B = 0)
+C 0x8F8D por el paso (0xE226), la tabla de detras
+C 0x8FB2 sin Nemesis 2 (B = 1)
+C 0x8FE1 en 0xE216
+C 0x8FE6 la musica 0x31...
+C 0x8FEA ...o 0x30
+C 0x8FEF prepara la pantalla
+C 0x8FF2 los graficos 0x36
+C 0x8FF7 la ventana 0x21
+C 0x8FFC borra la pantalla
+C 0x8FFF el paso siguiente (0xE226)
+C 0x9004 la espera en 0xEE58
+C 0x9009 la nave grande (p10:901F)
+C 0x900C el texto 13
+C 0x9011 0x294 cuadros
+C 0x9017 en 0x3A04...
+C 0x901A ...8 filas
+C 0x901F la nave de p10:93A1...
+C 0x9022 ...en 0x38E8...
+C 0x9025 ...7 filas de 16
+C 0x9028 una fila
+C 0x902B LDIRVM
+C 0x9033 las filas
+C 0x9036 la espera (p10:930C)
+C 0x9039 mientras, el texto
+C 0x903C 60 cuadros
+C 0x9042 el sonido 0x54
+C 0x9047 la espera
+C 0x904E borra la pantalla
+C 0x9051 los graficos 0x33
+C 0x9056 el texto 0 entero
+C 0x905E 240 cuadros
+C 0x9064 la espera
+C 0x9068 0xE6AB = 0
+C 0x9072 el sonido 0x53
+C 0x9077 la espera...
+C 0x907A ...mientras, p10:8029
+C 0x907D el texto 19
+C 0x9082 480 cuadros
+C 0x9088 la espera
+C 0x908E borra la pantalla
+C 0x9091 p10:92A0
+C 0x9094 p10:9334
+C 0x9097 el texto 20
+C 0x909F el sonido 0x4D
+C 0x90A4 p10:9316
+C 0x90A7 p10:92E4
+C 0x90AA 0xEE77?
+C 0x90AF 960 cuadros
+C 0x90BE 0xEE77 = 0
+C 0x90C8 p10:92DE
+C 0x90D0 los sprites fuera
+C 0x90D3 240 cuadros
+C 0x90DD borra la pantalla
+C 0x90E0 los graficos del 11
+C 0x90E3 los graficos 0x32
+C 0x90E8 p10:9E13
+C 0x90F3 8 x 18 de p15:BDF1 en 0x3906
+C 0x90FF 240 cuadros
+C 0x9105 la espera...
+C 0x9108 ...mientras, p10:9E56
+C 0x910B la ventana 0x21
+C 0x9110 el texto 21 en 0x3A24
+C 0x911A 720 cuadros
+C 0x9120 la flecha
+C 0x9129 borra la pantalla
+C 0x912C p10:9251
+C 0x912F la lista de p10:9397
+C 0x9135 la orden 0xF1
+C 0x913A 240 cuadros
+C 0x9144 0xE226 = 0: se acabo
+C 0x9149 borra la pantalla
+C 0x914C la nave grande
+C 0x914F 0x382F
+C 0x9155 el sonido 0x4B
+C 0x915A uno de cada dos cuadros
+C 0x9160 2 x 1 de p10:9441...
+C 0x9163 ...en 0xEE58
+C 0x916C hasta 0x396F...
+C 0x9175 ...una fila mas abajo
+C 0x917D llego: 60 cuadros
+C 0x9183 la espera
+C 0x9187 borra la pantalla
+C 0x918A la nave grande
+C 0x918D 6 x 8 de p10:9411 en 0x38EC
+C 0x9199 60 cuadros
+C 0x919F el sonido 0x4C
+C 0x91A4 la espera
+C 0x91A8 el texto 14
+C 0x91AD 720 cuadros
+C 0x91B3 la espera
+C 0x91BC el texto 15
+C 0x91C7 la espera
+C 0x91D0 los graficos 0x35
+C 0x91D5 la ventana 0x21
+C 0x91DA p10:9E13
+C 0x91E6 el texto 1 entero en 0x38CC
+C 0x91EE el texto 16
+C 0x91F3 1.200 cuadros
+C 0x9200 la espera acabada?
+C 0x9201 no: el texto
+C 0x9204 240 cuadros
+C 0x920A uno de cada 8 cuadros...
+C 0x9210 ...p10:9E56
+C 0x9213 la espera acabada?
+C 0x9217 con 0xE35E...
+C 0x921D ...los sprites fuera...
+C 0x921F ...y el texto 0x11
+C 0x9225 720 cuadros
+C 0x922B 120 cuadros y tres pasos mas
+C 0x9237 la espera, mientras el texto
+C 0x923D los sprites fuera
+C 0x9240 las tres ventanas
+C 0x9243 el texto 5 entero en 0x38C4
+C 0x924B 240 cuadros
+C 0x9251 las ventanas 1, 0x11 y 0x21
+C 0x9260 la espera acabada?
+C 0x9264 el texto 0x12
+C 0x9269 720 cuadros
+C 0x926F la espera, mientras el texto
+C 0x9275 120 cuadros
+C 0x927B la espera acabada? si no, los sprites fuera
+C 0x9281 las ventanas
+C 0x9284 0xEE32 = 0
+C 0x9288 el paso siguiente
+C 0x928B p10:9681
+C 0x928E acabado (0xEE32)?
+C 0x9293 240 cuadros
+C 0x9299 la espera acabada?
+C 0x929D al paso de p10:9129
+C 0x92A0 las cuentas a 0
+C 0x92AA borra el mapa de la RAM
+C 0x92AD los jugadores (0xE227)
+C 0x92B1 uno: solo la ventana 1
+C 0x92B4 tres...
+C 0x92B6 ...dos: con 0xE321...
+C 0x92BA ...si no, solo la 1
+C 0x92BC la ventana de p15:BD30 en 0xCAF0
+C 0x92C2 5 filas
+C 0x92C5 17 bytes
+C 0x92CB la fila siguiente (+0x4F)
+C 0x92D3 las dos
+C 0x92D6 la de p15:BCDB en 0xC84C
+C 0x92DE el subir lento: cada 2 cuadros, hasta 0x34
+C 0x92E4 el rapido: cada 8, hasta 0x1C
+C 0x92E8 la cuenta de cuadros
+C 0x92EE aun no
+C 0x92EF las filas subidas
+C 0x92F2 todas: p10:9306
+C 0x92F4 una mas
+C 0x92F5 0x40 - las filas...
+C 0x92F8 ...el origen en el mapa de la RAM
+C 0x92FE a la tabla de nombres...
+C 0x9301 ...16 filas
+C 0x9306 acabado: 0xEE77 = 1
+C 0x930C la espera (0xEE58) - 1...
+C 0x9313 ...Z si llega a 0
+C 0x9316 las estrellas: 32 sprites desde 0xEF81
+C 0x9319 el cuadro & 3...
+C 0x931E ...el color de p10:9353
+C 0x9326 32
+C 0x9328 la y - 8
+C 0x932E el color
+C 0x9331 los 32
+C 0x9334 los dibujos de p10:9443
+C 0x933A los atributos de los sprites
+C 0x933D las posiciones de p10:9357
+C 0x9340 32
+C 0x9343 la y
+C 0x9345 la x
+C 0x9347 el dibujo 0
+C 0x934B el color 6
+C 0x9350 los 32
+C 0x944A los textos cortos, 4 cuadros por letra
+C 0x944C la version
+C 0x9451 el japones (p11:B002)...
+C 0x9456 ...o el ingles (p11:B4B6)
+C 0x9459 en la pantalla
+C 0x945C los textos largos: el japones (p11:B725)...
+C 0x9466 ...o el ingles (p11:B90A)
+C 0x9469 en el mapa de la RAM, 1 cuadro por letra
+C 0x946C 0xEE2E: pantalla o RAM
+C 0x946F el numero del texto
+C 0x9470 su direccion en la tabla
+C 0x9473 los cuadros por letra
+C 0x947A 0xEE21 (acabado) a 0...
+C 0x947E ...y 0xEE2D (pausa)
+C 0x9481 el principio de la linea...
+C 0x9485 ...y del texto
+C 0x9489 el primer byte: desplazamiento
+C 0x948C el destino
+C 0x948F la posicion
+C 0x9493 y el puntero
+C 0x9497 una letra por vuelta...
+C 0x949A ...o el texto entero de golpe
+C 0x949C en 0xF000
+C 0x949F acabado: nada
+C 0x94A4 de golpe: p10:94B7
+C 0x94AA en pausa?
+C 0x94AF si: p10:9540
+C 0x94B2 la cuenta de la letra
+C 0x94B7 el byte siguiente
+C 0x94BF 0xFF: acaba
+C 0x94C3 0xFE: linea nueva
+C 0x94C6 0xFD: pagina nueva
+C 0x94C9 0xFC: el nombre
+C 0x94CD una letra...
+C 0x94D0 ...WRTVRM
+C 0x94D3 la posicion + 1
+C 0x94DA en la pantalla...
+C 0x94DE ...con el sonido 0x33
+C 0x94E5 acabado: 0xEE21 = 1
+C 0x94EB linea nueva: el desplazamiento
+C 0x94F3 en la RAM...
+C 0x94F7 ...64 por linea...
+C 0x94FC ...en la pantalla 32
+C 0x94FF el principio de la linea siguiente
+C 0x9506 + el desplazamiento
+C 0x950A la posicion
+C 0x950D la cuenta otra vez
+C 0x9510 de golpe: la letra siguiente
+C 0x9518 pagina nueva: el desplazamiento
+C 0x9521 al principio
+C 0x952D + el desplazamiento
+C 0x9534 120 cuadros de pausa
+C 0x9539 la cuenta de la letra otra vez
+C 0x9540 la pausa - 1
+C 0x9542 acabada: borra la linea...
+C 0x9547 ...256 desde su principio
+C 0x954A FILVRM
+C 0x954D el nombre: ya dentro?
+C 0x9552 si: vuelve al texto
+C 0x9554 se marca
+C 0x9556 la vuelta en 0xEE1E
+C 0x955C los jugadores...
+C 0x955F ...uno: p10:95AB
+C 0x9565 tres: p10:959A
+C 0x956C dos: con 0xE321 p10:95B5
+C 0x9578 el desplazamiento
+C 0x9585 la primera letra
+C 0x958A la escribe
+C 0x958D el nombre acabado...
+C 0x958F ...vuelve al texto
+C 0x9597 la letra
+C 0x95BD la ventana A de la tabla DE
+C 0x95C1 sus 7 bytes en 0xEE10...
+C 0x95C9 ...y dos a 0 (0xEE17, 0xEE18)
+C 0x95CE la ventana ya abierta (0xEE18)?
+C 0x95D3 en el mapa de la RAM
+C 0x95D6 0xEE10: de 32 o de 64
+C 0x95DC 32 por fila
+C 0x95E1 + la fila de 0xEE11
+C 0x95E4 + lo abierto
+C 0x95EA - el ancho
+C 0x95F5 64 por fila
+C 0x95FD - lo abierto
+C 0x9606 el alto (0xEE12)
+C 0x960A el dibujo (0xEE15)
+C 0x960F el ancho
+C 0x9613 una fila del dibujo
+C 0x961A la fila siguiente (+0x60)
+C 0x9620 todas
+C 0x9622 lo que se copia a la pantalla: la fila...
+C 0x9625 ...16 o mas: 6 filas desde la 2
+C 0x962C ...8 o mas: 3 desde la 1
+C 0x9633 ...si no, desde arriba
+C 0x9636 el origen en la RAM
+C 0x963E el destino
+C 0x9645 8 filas
+C 0x9647 32 caracteres
+C 0x964D LDIRVM
+C 0x9652 la fila siguiente de la VRAM
+C 0x9657 y de la RAM (64)
+C 0x965D las 8
+C 0x965F lo abierto + 2
+C 0x9665 ya todo?
+C 0x966A abierta: 0xEE18 = 1
+C 0x9670 la fila (0xEE11) x 96...
+C 0x967F ...+ DE
+C 0x9681 el paso de los destellos: 0xEE32 acabado?
+C 0x9686 el paso (0xEE08)
+C 0x968A 0: el destello
+C 0x968F acabado?
+C 0x9695 si: espera 0xF0
+C 0x969C el paso siguiente
+C 0x96A1 1: la espera
+C 0x96A8 los destellos a 0
+C 0x96AD 2: el apagado
+C 0x96B8 acabado: el paso 0
+C 0x96BE 3: el paso a 4
+C 0x96BF las veces (0xEE33)
+C 0x96C3 menos de 2...
+C 0x96C7 ...otra pantalla
+C 0x96CF 2: se acabo
+C 0x96D5 los sprites fuera
+C 0x96D9 la paleta a 0
+C 0x96DC los destellos a 0
+C 0x96E3 el final (0xE226)...
+C 0x96E6 ...0: p10:9751
+C 0x96EC si no, el japones (p10:9755)...
+C 0x96F6 ...o el ingles (p10:9759)
+C 0x96F9 la pantalla de la vez
+C 0x96FC su direccion
+C 0x96FF la pinta
+C 0x9702 el destello: los colores de p10:9736
+C 0x9705 cada 8 cuadros
+C 0x970D el paso del color
+C 0x9711 + 1
+C 0x9713 6: acabado
+C 0x9718 el color del paso
+C 0x971C los colores desde 0x0800...
+C 0x9720 ...en el final 0...
+C 0x9724 ...0x200 bytes...
+C 0x9729 ...si no, 0x7C0
+C 0x972D FILVRM
+C 0x9730 acabado: 0xEE32 = 1
+C 0x9742 las cuentas del destello a 0
+C 0x974C el apagado: los colores de p10:973C
+C 0x9885 el paso siguiente (0xEEA1)
+C 0x988A el paso de la eleccion de fase (0xEEA1)
+C 0x988E de 3 en adelante...
+C 0x9893 ...el reloj - 1
+C 0x9897 el reloj (0xEEAC) a 0...
+C 0x989D ...elige la fase solo
+C 0x98A0 1: la pantalla de p10:9C46
+C 0x98A8 los graficos 1...
+C 0x98AB ...10 caracteres desde 0x1008
+C 0x98B3 el reloj
+C 0x98B9 2: cada 8 cuadros...
+C 0x98C1 ...el aparecer
+C 0x98C4 acabado?
+C 0x98CC 3: borra 0x14 filas
+C 0x98D3 la version
+C 0x98D8 el japones (p10:9C15)...
+C 0x98DD ...o el ingles (p10:9C1A)
+C 0x98E0 el rotulo
+C 0x98E4 la fase senalada...
+C 0x98ED ...de la lista 0xEEA2
+C 0x98F3 su nombre japones (p10:9AA9)...
+C 0x98F8 ...o ingles (p10:9ABF)
+C 0x98FC la entrada
+C 0x9900 entero
+C 0x9902 lo escribe
+C 0x990A la linea japonesa (p10:9C24)...
+C 0x990F ...o inglesa (p10:9C2E)
+C 0x9915 los graficos 1...
+C 0x9918 ...0x15 caracteres desde 0x1200
+C 0x9920 p10:9C36
+C 0x9926 las armas de la fase
+C 0x9929 el dibujo de la fase
+C 0x992F 4: cada 8 cuadros...
+C 0x9937 ...el aparecer
+C 0x9942 5: la flecha
+C 0x9947 arriba o abajo...
+C 0x994C ...p10:9957
+C 0x994E el disparo...
+C 0x9953 ...elige
+C 0x9957 al paso 3: otra fase
+C 0x995D 0: los graficos de la eleccion
+C 0x9960 los colores de p11:AA6E en 0x3200...
+C 0x9969 ...0x3228...
+C 0x9972 ...0x3250...
+C 0x997B ...y p11:AA8D en 0x3278
+C 0x9984 los dibujos: p11:AAC3 en 0x1200...
+C 0x998D ...AAD6 en 0x1228...
+C 0x9996 ...AAE9 en 0x1250...
+C 0x999F ...AAFC en 0x1278
+C 0x99AB las fases 3 a 5 jugadas...
+C 0x99B1 jugada?
+C 0x99B3 no: para
+C 0x99B5 la siguiente
+C 0x99B9 la primera sin jugar en 0xE21B
+C 0x99BD la lista de las que quedan en 0xEEA2
+C 0x99C7 jugada?
+C 0x99CB no: a la lista
+C 0x99CE la siguiente
+C 0x99D3 fin de la lista
+C 0x99D5 cuantas - 1 en 0xEEAE
+C 0x99DA la senalada: la primera
+C 0x99DE escribe la lista
+C 0x99E1 el reloj: 30 segundos (BCD)
+C 0x99E7 alguna jugada?
+C 0x99F1 ninguna: uno de los 8 ordenes al azar...
+C 0x99F6 ...de p10:9A14...
+C 0x99FE ...a 0xE233
+C 0x9A09 si no, los tres + 1
+C 0x9A34 elegida: la de la lista...
+C 0x9A3E ...+ 3 en 0xE21B
+C 0x9A43 la fase - 3...
+C 0x9A48 ...su numero en 0xE233...
+C 0x9A4F ...en 0xE35F
+C 0x9A52 hecho: 0xEEA0 = 1
+C 0x9A57 y se marca jugada (0xE360 + fase - 1)
+C 0x9A64 la lista de las que quedan
+C 0x9A68 en japones desde 0x3A58...
+C 0x9A72 ...en ingles desde 0x3A57
+C 0x9A78 la fase
+C 0x9A7B 0xFF: acaba
+C 0x9A7E la escribe
+C 0x9A81 la siguiente
+C 0x9A85 el nombre de la fase A
+C 0x9A8B japones (p10:9AA9)...
+C 0x9A90 ...o ingles (p10:9ABF)
+C 0x9A94 la entrada
+C 0x9A97 la posicion
+C 0x9A9B dos filas mas abajo
+C 0x9AA4 entero
+C 0x9AA6 lo escribe
+C 0x9ADC la flecha: la senalada
+C 0x9ADF arriba o abajo?
+C 0x9AE4 nada: p10:9B08
+C 0x9AE6 arriba...
+C 0x9AE9 ...el sonido 0x45...
+C 0x9AEE ...una menos...
+C 0x9AF3 ...pasada la primera, la ultima
+C 0x9AF9 abajo: el sonido...
+C 0x9AFE ...una mas...
+C 0x9B06 ...pasada la ultima, la primera
+C 0x9B08 borra las tres flechas
+C 0x9B1D la senalada...
+C 0x9B20 ...su posicion de p10:9B2C
+C 0x9B27 la flecha (0x55)
+C 0x9B32 el reloj - 1 (BCD)
+C 0x9B3A sin acarreo: lo pinta
+C 0x9B3D la cifra alta - 1
+C 0x9B42 el reloj en 0x3A1A...
+C 0x9B48 ...2 cifras
+C 0x9B4D las armas de la fase senalada...
+C 0x9B57 ...su numero en 0xE233...
+C 0x9B5E ...x 3
+C 0x9B61 los tres bytes de p10:9BCC
+C 0x9B6A en 0x3A0A
+C 0x9B70 el segundo en 0x3A0E
+C 0x9B78 el tercero en 0x3A12
+C 0x9B7D los dos bits bajos: los iconos 0x50/0x51
+C 0x9B88 los 2-3: 0x52/0x53
+C 0x9B95 los 4-5: 0x00/0x54
+C 0x9BA2 cuantos
+C 0x9BA3 el icono, izquierda...
+C 0x9BA8 ...y derecha
+C 0x9BAC la fila siguiente
+C 0x9BB3 la fila 0x3A60...
+C 0x9BBF ...se salta
+C 0x9BC9 los B
+C 0x9BDB el dibujo de la fase senalada...
+C 0x9BE5 ...de p10:9BF4
+C 0x9BEB 3 x 3 en 0x3A45
+C 0x9C4D las estrellas: sin meter nuevas sin cuenta...
+C 0x9C50 ...o siempre
+C 0x9C52 en 0xEE0A
+C 0x9C55 mete una
+C 0x9C58 las mueve
+C 0x9C5B y quita las que llegan al centro
+C 0x9C5E las 16 estrellas de 0xED00 a los sprites
+C 0x9C63 viva?
+C 0x9C6A la siguiente (16 bytes)
+C 0x9C72 su sprite en 0xEFC0 + numero x 4
+C 0x9C7D la y
+C 0x9C84 la x
+C 0x9C87 el dibujo 0xFC
+C 0x9C8B el color 15
+C 0x9C8F una estrella nueva cada 4 cuadros
+C 0x9C96 un hueco entre las 16
+C 0x9C9F ocupado: el siguiente
+C 0x9CA7 siempre?
+C 0x9CAD si no, la cuenta 0xEE02...
+C 0x9CB3 ...a 0: no
+C 0x9CB6 viva
+C 0x9CBA el cuadro: el bit 2...
+C 0x9CBE ...si: por arriba o abajo
+C 0x9CC0 por los lados: el bit 3, derecha (0xBF)...
+C 0x9CC5 ...o izquierda (0)
+C 0x9CC6 la y
+C 0x9CCA la x al azar
+C 0x9CD2 por arriba o abajo: la y al azar
+C 0x9CDB el bit 3: abajo (0xFF) o arriba (0)
+C 0x9CE2 la x
+C 0x9CE4 la velocidad hacia el centro
+C 0x9CEA en IX+5..8
+C 0x9CFE las 16 estrellas
+C 0x9D04 viva?
+C 0x9D08 la mueve
+C 0x9D0B la siguiente
+C 0x9D13 la y + IX+05/06
+C 0x9D1C la x + IX+07/08
+C 0x9D22 IX+03/04 + DE
+C 0x9D30 IX+01/02 + DE
+C 0x9D3E las que llegan al centro, fuera
+C 0x9D43 viva?
+C 0x9D47 si: llego al centro?
+C 0x9D4C la siguiente (16 bytes)
+C 0x9D51 las 16
+C 0x9D54 la y, en 0x54..0x6B?
+C 0x9D5C la x, en 0x74..0x8B?
+C 0x9D68 dentro: se quita
+C 0x9D6A borra sus 10 bytes
+C 0x9D74 y su sprite (y = 0xE0)
+C 0x9D82 la direccion hacia (0x60, 0x80)...
+C 0x9D84 ...rapidez 0x40
+C 0x9D8D el angulo
+C 0x9D90 y la velocidad
+C 0x9D95 los sprites fuera
+C 0x9D98 las 16 estrellas de p10:9E03
+C 0x9DA1 viva
+C 0x9DA6 la cifra alta: la y
+C 0x9DAC la baja x 16: la x
+C 0x9DB5 la siguiente (12 mas)
+C 0x9DBC 0xEE0D y 0xEE0E a 0
+C 0x9DC4 las estrellas pasan: de la fase 4 en adelante...
+C 0x9DCB ...hacia abajo, si no a la izquierda
+C 0x9DD1 las 16
+C 0x9DD8 la mueve
+C 0x9DE3 y a los sprites
+C 0x9DE6 la direccion
+C 0x9DEC a la izquierda: x - 1,5
+C 0x9DF2 hacia abajo: y + 1,5...
+C 0x9DF8 ...pasada la 0x70...
+C 0x9DFE ...vuelve arriba
+C 0x9E13 el aparecer: con los colores (A) o los dibujos
+C 0x9E17 cuantos caracteres
+C 0x9E1B el color
+C 0x9E1F la direccion de la VRAM
+C 0x9E22 la linea 0
+C 0x9E26 en marcha
+C 0x9E2B los dibujos: nada mas
+C 0x9E2D la copia de los colores en 0xE700
+C 0x9E30 los bytes
+C 0x9E33 y los borra al color
+C 0x9E3E los caracteres x 8 en BC
+C 0x9E4A copia la VRAM a 0xE700
+C 0x9E50 LDIRMV
+C 0x9E56 una linea mas: en marcha?
+C 0x9E5B con colores: p10:9E97
+C 0x9E62 los dibujos: los caracteres
+C 0x9E69 la linea de cada uno...
+C 0x9E73 ...un byte...
+C 0x9E7A ...rellena
+C 0x9E7F el siguiente caracter (8)
+C 0x9E86 la linea + 1
+C 0x9E8A las 8: acabado
+C 0x9E92 0xEE50 = 0
+C 0x9E97 con colores: de la copia
+C 0x9EA4 la linea
+C 0x9EAB el color
+C 0x9EAF a la VRAM
+C 0x9EB2 el siguiente caracter
+C 0x9EBE la linea + 1
+C 0x9ECA la linea & 7 en HL y DE
+# --- fin de lo escrito a mano ---
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
 D 0x81A9 0x81E6 lista_81A9  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:52DB (61 bytes)
 D 0x81ED 0x8237 tabla_81ED  37 destinos del despachador p00:40CE (call en p10:81EA, el indice en A): 8237, 828D, 82AD, 82E9, 8351, 8377, 8393, 83E2, 83FA, 8412, 8426, 843D, 844C, 846A, 8476, 8480, 849A, 84B1, 84C0, 84E4, 850D, 851F, 8530, 8542, 855C, 857A, 858C, 859D, 85B4, 85CE, 85DE, 85F2, 8623, 8641, 82AD, 82E9, 8351; lo leen p10:81EA (74 bytes)
@@ -96,66 +1293,38 @@ L 0x8107 caracteres_menu la lista de caracteres de la entrada B & 0x0F de 0xA4BF
 L 0x87F5 borra_c700 borra 0xC700-0xCFFF
 L 0x9470 empieza_texto prepara el texto A de la tabla HL para escribirlo letra a letra
 L 0x95C1 abre_ventana copia la cabecera de ventana de HL (7 bytes) a 0xEE10
-C 0x8000 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x801B bancos_10_15: pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x801E guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
 C 0x8021 banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x8031 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x8039 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x8057 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x805D banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x806A rachas: descomprime las rachas de DE en la VRAM HL
 C 0x8074 palabra_a_hl: HL = la palabra HL + 2 x A
 C 0x807F palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x809F copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x80C7 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x80D0 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x80D9 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x80DC banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x80E0 guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x80E3 caracteres_menu: la lista de caracteres de la entrada B & 0x0F de 0xA4BF
 C 0x80ED lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 C 0x80F2 copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
 C 0x80FC lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 C 0x8101 copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
 C 0x810C palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x813E borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x8141 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x8153 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x8163 hl_mas_a: HL = HL + A
 C 0x816D de_mas_a: DE = DE + A
-C 0x8175 apunta a los atributos de sprite en la RAM (32 x 4)
-C 0x81EA despacha: salta a la entrada A de la tabla que va detras del call
-C 0x823A borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x823D borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 C 0x824F pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x825D guarda la cuenta de interrupciones (16 bits)
-C 0x8265 borra_c700: borra 0xC700-0xCFFF
-C 0x8268 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x826B borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 C 0x8279 guarda el menu o pantalla de la presentacion (0xE63A & 0x0F)
 C 0x8285 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x8298 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x829B borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x82A5 borra_c700: borra 0xC700-0xCFFF
 C 0x82C7 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x82D9 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x82FD palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x8305 apunta a los atributos de sprite en la RAM (32 x 4)
 C 0x8308 hl_mas_a: HL = HL + A
 C 0x8321 hl_mas_a: HL = HL + A
 C 0x833D lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x8354 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x835E borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x8361 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x837A cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x8396 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x83A2 ventana_menu: pinta la ventana del menu B
 C 0x83A7 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
-C 0x83AA borra_c700: borra 0xC700-0xCFFF
 C 0x83B0 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 C 0x83B5 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x83C9 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x83CE pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x8406 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 C 0x840C abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
@@ -165,7 +1334,6 @@ C 0x8457 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (
 C 0x845C ventana_menu: pinta la ventana del menu B
 C 0x8483 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x848B graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
-C 0x848E borra_c700: borra 0xC700-0xCFFF
 C 0x8494 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 C 0x84B7 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x84C3 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
@@ -186,64 +1354,36 @@ C 0x85C2 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (
 C 0x85C8 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 C 0x85D8 abre_ventana: copia la cabecera de ventana de HL (7 bytes) a 0xEE10
 C 0x85F5 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x85FB borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x8600 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 C 0x8605 ventana_menu: pinta la ventana del menu B
 C 0x8626 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x8630 ventana_menu: pinta la ventana del menu B
-C 0x864B borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x864E borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x865A cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x8663 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x8751 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
-C 0x876E apunta a los disparos (8 fichas de 0x10 bytes)
-C 0x877F apunta a los disparos (8 fichas de 0x10 bytes)
-C 0x87C9 lee la cuenta de cuadros del juego
-C 0x87CE apunta a los disparos (8 fichas de 0x10 bytes)
 C 0x87DE copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x87E6 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x87EC apunta a los atributos de sprite en la RAM (32 x 4)
 C 0x87F2 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
-C 0x884C despacha: salta a la entrada A de la tabla que va detras del call
 C 0x8866 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
-C 0x8869 borra_c700: borra 0xC700-0xCFFF
 C 0x8878 guarda la fase (de 1 a 7; 0 en la presentacion)
 C 0x887D pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x8893 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x88A2 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x88AA lee cuantos jugadores (o el modo de dos)
-C 0x88B9 lee cuantos jugadores (o el modo de dos)
 C 0x88C1 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x88E5 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x890F cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x899C copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x89A7 de_mas_a: DE = DE + A
-C 0x89AC lee la cuenta de cuadros del juego
 C 0x89CF palabra_de_hl: DE = la palabra HL + 2 x A
 C 0x89DD hl_mas_a: HL = HL + A
 C 0x8A15 de_mas_a: DE = DE + A
-C 0x8A21 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x8A36 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x8A39 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x8A3F lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x8A47 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0x8A4F lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 C 0x8A5B palabra_de_hl: DE = la palabra HL + 2 x A
 C 0x8A63 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 C 0x8A69 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
-C 0x8B10 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x8B19 de_mas_a: DE = DE + A
-C 0x8B7B lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x8B9F lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
-C 0x8BC7 hl_mas_a: HL = HL + A
 C 0x8BD3 hl_mas_a: HL = HL + A
-C 0x8BD9 guarda la fase en curso
-C 0x8BFF lee la fase en curso
 C 0x8C0B cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x8C0F borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x8C19 despacha: salta a la entrada A de la tabla que va detras del call
 C 0x8C38 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x8C3B banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x8C41 banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x8C4D cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x8C5C pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
@@ -252,24 +1392,14 @@ C 0x8C74 ventana_menu: pinta la ventana del menu B
 C 0x8C88 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x8CAD pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x8CB2 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x8CC1 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x8CD6 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x8CD9 lee la fase en curso
-C 0x8D01 lee cuantos jugadores (o el modo de dos)
-C 0x8D20 lee la fase (de 1 a 7; 0 en la presentacion)
 C 0x8D35 lee cuantos jugadores (o el modo de dos)
-C 0x8D49 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x8D4F banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
-C 0x8DA2 despacha: salta a la entrada A de la tabla que va detras del call
 C 0x8DB5 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x8DB8 banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x8DBE banco_15_en_a000: pone el banco 15 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x8DC7 cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
 C 0x8DCF pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x8DDE cuadros_desde: compara la cuenta de cuadros (0xF0F7) con DE
-C 0x8DE2 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 C 0x8DE7 guarda la fase en curso
-C 0x8DF9 lee cuantos jugadores (o el modo de dos)
 C 0x8E39 hl_mas_a: HL = HL + A
 C 0x8E5E hl_mas_a: HL = HL + A
 C 0x8E82 hl_mas_a: HL = HL + A
@@ -279,80 +1409,48 @@ C 0x8EAB hl_mas_a: HL = HL + A
 C 0x8ED8 hl_mas_a: HL = HL + A
 C 0x8F40 copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
 C 0x8F4C copia_a_vram_3: copia BC bytes de DE a la VRAM HL en los tres tercios
-C 0x8F7F lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
 C 0x8F91 despacha: salta a la entrada A de la tabla que va detras del call
 C 0x8FB8 despacha: salta a la entrada A de la tabla que va detras del call
 C 0x8FEC pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x8FF4 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 C 0x8FF9 ventana_menu: pinta la ventana del menu B
-C 0x8FFC borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x902B copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x9044 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x904E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x9053 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 C 0x9074 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x908E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x90A1 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x90D0 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x90DD borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x90E5 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 C 0x910D ventana_menu: pinta la ventana del menu B
-C 0x9129 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x9132 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x9137 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x9149 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x9157 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x915A lee la cuenta de cuadros del juego
-C 0x9187 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x91A1 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x91B9 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x91CD borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x91D2 graficos_menu: con el 9 en 0xA000, los caracteres y copias del menu B (0xE63A)
 C 0x91D7 ventana_menu: pinta la ventana del menu B
-C 0x920A lee la cuenta de cuadros del juego
-C 0x921D borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x923D borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x9253 ventana_menu: pinta la ventana del menu B
 C 0x9258 ventana_menu: pinta la ventana del menu B
 C 0x925D ventana_menu: pinta la ventana del menu B
 C 0x927E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x92AA borra_c700: borra 0xC700-0xCFFF
-C 0x92AD lee cuantos jugadores (o el modo de dos)
 C 0x92CD de_mas_a: DE = DE + A
 C 0x92FB de_mas_a: DE = DE + A
-C 0x9319 lee la cuenta de cuadros del juego
 C 0x9321 de_mas_a: DE = DE + A
 C 0x9337 rachas_con_destino: [destino] y rachas de DE a la VRAM
-C 0x933A apunta a los atributos de sprite en la RAM (32 x 4)
-C 0x9470 palabra_a_hl: HL = la palabra HL + 2 x A
-C 0x948C de_mas_a: DE = DE + A
 C 0x94E0 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x9507 hl_mas_a: HL = HL + A
-C 0x952D de_mas_a: DE = DE + A
-C 0x955C lee cuantos jugadores (o el modo de dos)
 C 0x957E de_mas_a: DE = DE + A
-C 0x95BD palabra_de_hl: DE = la palabra HL + 2 x A
 C 0x95DE de_mas_a: DE = DE + A
 C 0x95E7 hl_mas_a: HL = HL + A
 C 0x95F7 de_mas_a: DE = DE + A
 C 0x961C hl_mas_a: HL = HL + A
-C 0x964D copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x9654 hl_mas_a: HL = HL + A
 C 0x9659 de_mas_a: DE = DE + A
-C 0x96D5 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x96FC palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x96FF lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
-C 0x9718 de_mas_a: DE = DE + A
 C 0x98A5 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x98BB lee la cuenta de cuadros del juego
-C 0x98E0 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x98EA hl_mas_a: HL = HL + A
-C 0x98FC palabra_de_de: DE = la palabra DE + 2 x A
-C 0x9902 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 C 0x9912 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x9923 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x9931 lee la cuenta de cuadros del juego
-C 0x995D banco_9_en_a000: pone el banco 9 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x9966 rachas: descomprime las rachas de DE en la VRAM HL
 C 0x996F rachas: descomprime las rachas de DE en la VRAM HL
 C 0x9978 rachas: descomprime las rachas de DE en la VRAM HL
@@ -366,13 +1464,9 @@ C 0x99BA guarda la fase en curso
 C 0x99FB hl_mas_a: HL = HL + A
 C 0x9A3A de_mas_a: DE = DE + A
 C 0x9A40 guarda la fase en curso
-C 0x9A43 lee la fase en curso
 C 0x9A4B de_mas_a: DE = DE + A
-C 0x9A57 lee la fase en curso
 C 0x9A5E hl_mas_a: HL = HL + A
-C 0x9A94 palabra_de_de: DE = la palabra DE + 2 x A
 C 0x9A9D hl_mas_a: HL = HL + A
-C 0x9AA6 lista_a_vram_aqui: la lista de DE en la VRAM HL (sin destino delante)
 C 0x9AEB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x9AFB pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x9B23 palabra_de_de: DE = la palabra DE + 2 x A
@@ -385,13 +1479,10 @@ C 0x9BE1 de_mas_a: DE = DE + A
 C 0x9BE8 palabra_de_de: DE = la palabra DE + 2 x A
 C 0x9C6C hl_mas_a: HL = HL + A
 C 0x9C7A de_mas_a: DE = DE + A
-C 0x9C8F lee la cuenta de cuadros del juego
 C 0x9CA1 hl_mas_a: HL = HL + A
 C 0x9D4E hl_mas_a: HL = HL + A
 C 0x9D7C hl_mas_a: HL = HL + A
 C 0x9DB7 de_mas_a: DE = DE + A
-C 0x9DC4 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x9E50 apunta a los enemigos (12 fichas de 0x40 bytes)
 C 0x9E70 hl_mas_a: HL = HL + A
 C 0x9E9E apunta a los enemigos (12 fichas de 0x40 bytes)
 C 0x9ECD hl_mas_a: HL = HL + A
