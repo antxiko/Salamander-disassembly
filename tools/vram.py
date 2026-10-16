@@ -209,6 +209,55 @@ def tramos(fase):
     return out
 
 
+# ------------------------------------------------------------------ sprites
+#
+# Los dibujos de sprite (16 x 16: 32 bytes, la columna izquierda y luego la
+# derecha) van en 0x1800. p00:438C pone los de la fase, con 7-8-9:
+#   p00:444F  rachas de p09:A130 a 0x1880 y de p09:A06F a 0x1960; segun la
+#             fase (p00:4835: las verticales) p09:A009/A042 a 0x18C0,
+#             p09:A0F3/A0D8 a 0x1900 y p09:A122/A113 a 0x18A0
+#   p00:4494  la lista de la fase p08:8B26[fase]: [n][rachas] a 0x1800 + 8 x n
+#   p00:43A7  las fichas p08:8BD3[fase]: [tipo][cuantos][origen][destino]
+#             (numeros de dibujo de 8 bytes); el tipo 1 copia cabeza abajo
+#             (p00:4411 invierte las 16 filas de cada columna) y los demas en
+#             espejo (p00:4D3B invierte los bits y cambia una columna por la
+#             otra; el destino es 0x1810 + 8 x n)
+
+def copias_de_sprites(vram, v, ix):
+    """p00:43A7."""
+    while v(ix) != 0:
+        tipo, n, o, d = v(ix), v(ix + 1), v(ix + 2), v(ix + 3)
+        for k in range(n):
+            src = bytes(vram[SPRITES + o * 8 + 32 * k:SPRITES + o * 8 + 32 * k + 32])
+            if tipo == 1:
+                dst = src[0:16][::-1] + src[16:32][::-1]
+            else:
+                r = bytes(int("{:08b}".format(x)[::-1], 2) for x in src)
+                dst = r[16:32] + r[0:16]
+            a = SPRITES + d * 8 + 32 * k
+            vram[a:a + 32] = dst
+        ix += 4
+
+
+def sprites_de_la_fase(fase, vram=None):
+    """La VRAM con los dibujos de sprite que deja p00:438C en la fase."""
+    if vram is None:
+        vram = bytearray(0x4000)
+    v = ventana_789(fase)
+    rachas(vram, v, 0xA130, 0x1880)
+    rachas(vram, v, 0xA06F, 0x1960)
+    c = verticales(fase)
+    rachas(vram, v, 0xA009 if c else 0xA042, 0x18C0)
+    rachas(vram, v, 0xA0F3 if c else 0xA0D8, 0x1900)
+    rachas(vram, v, 0xA122 if c else 0xA113, 0x18A0)
+    a = v.w(0x8B26 + 2 * fase)
+    while v(a):
+        rachas(vram, v, v.w(a + 1), SPRITES + 8 * v(a))
+        a += 3
+    copias_de_sprites(vram, v, v.w(0x8BD3 + 2 * fase))
+    return vram
+
+
 # p12:A4A9: cada 4 cuadros (16 en la fase 4), sin jefe, un paso de la lista de
 # la fase (p12:A52F + 2 x fase; 0 = sin lista). Primer byte: los pasos (bits
 # 0-6) y, con el bit 7, que son colores (0x0000) y no dibujos (0x2000). Cada

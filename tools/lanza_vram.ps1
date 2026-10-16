@@ -1,10 +1,12 @@
 # lanza_vram.ps1 <dir> "<tiempos>" "<teclas>" "<pokes>": UN openMSX con tools/omsx_vram.tcl,
 # fuera del sandbox, y espera a que acabe.
-param([string]$dir, [string]$tiempos = "30 45 60", [string]$teclas = "", [string]$pokes = "", [string]$bp = "", [string]$wp = "", [string]$fase = "", [string]$fijo = "", [string]$rom = "salamander.rom", [string]$vecino = "")
+param([string]$dir, [string]$tiempos = "30 45 60", [string]$teclas = "", [string]$pokes = "", [string]$bp = "", [string]$wp = "", [string]$fase = "", [string]$fijo = "", [string]$rom = "salamander.rom", [string]$vecino = "", [string]$traza = "", [string]$enemigos = "")
 $env:VRAM_BP = $bp
 $env:VRAM_WP = $wp
 $env:VRAM_FASE = $fase
 $env:VRAM_FIJO = $fijo
+$env:VRAM_TRAZA = $traza
+$env:VRAM_ENEMIGOS = $enemigos
 $raiz = Split-Path -Parent $PSScriptRoot
 Set-Location $raiz
 $env:VRAM_SALIDA = "work/$dir"

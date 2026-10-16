@@ -73,5 +73,27 @@ proc fija {} {
     after time 0.1 fija
 }
 if {$::FIJO ne ""} { after time [opcion VRAM_FIJO_DESDE 21] fija }
+# VRAM_TRAZA "pc ...": en cada pc apunta en traza.txt PC, HL, DE, BC, la pila y
+# los bancos (0x5000/0x7000/0x9000/0xB000 no se leen: se apunta la sombra F0F1-3)
+set ::TRLOG [open [file join $::SALIDA "traza.txt"] w]
+foreach pc [opcion VRAM_TRAZA {}] {
+    debug set_bp $pc {} "puts \$::TRLOG \[format {%04X HL=%04X DE=%04X BC=%04X SP0=%04X F0F1=%02X%02X%02X t=%.3f} \[reg PC\] \[reg HL\] \[reg DE\] \[reg BC\] \[peek16 \[reg SP\]\] \[peek 0xF0F1\] \[peek 0xF0F2\] \[peek 0xF0F3\] \[machine_info time\]\]; flush \$::TRLOG"
+}
+# VRAM_ENEMIGOS "cada": cada tantos segundos anade a enemigos.bin la RAM de los
+# 12 enemigos (0xE700, 0x300 bytes), los 8 disparos (0xEA00) y el jefe (0xEC80)
+set ::ENE [opcion VRAM_ENEMIGOS {}]
+if {$::ENE ne ""} {
+    set ::ENEF [open [file join $::SALIDA "enemigos.bin"] wb]
+    fconfigure $::ENEF -translation binary
+    proc mira_enemigos {} {
+        puts -nonewline $::ENEF [debug read_block memory 0xE700 0x300]
+        puts -nonewline $::ENEF [debug read_block memory 0xEA00 0x80]
+        puts -nonewline $::ENEF [debug read_block memory 0xEC80 0x80]
+        puts -nonewline $::ENEF [debug read_block memory 0xE300 0x10]
+        flush $::ENEF
+        after time $::ENE mira_enemigos
+    }
+    after time 21 mira_enemigos
+}
 foreach t $::TIEMPOS { after time $t "vuelca $t" }
 after time [expr {[lindex $::TIEMPOS end] + 1}] exit
