@@ -1,4 +1,1370 @@
 
+
+# --- A MANO: comentarios escritos leyendo el codigo ---
+C 0xA002 vivo?
+C 0xA005 si: muere (p02:8C7B)
+C 0xA008 el anterior (64 atras)
+C 0xA00E los 12
+C 0xA010 el sonido 0x11
+C 0xA015 el paso siguiente
+C 0xA018 hacia (0xB0, x) a la rapidez de A (p01:6801)
+C 0xA01D la cuenta de cuadros & 3...
+C 0xA022 ...el color de la tabla HL
+C 0xA025 a IX+31
+C 0xA02D la animacion desde el principio
+C 0xA030 IX+19 + 16...
+C 0xA035 ...a IX+02
+C 0xA038 IX+19 x 128: la rapidez
+C 0xA041 0xE65A bit 0...
+C 0xA046 ...hacia el otro lado
+C 0xA049 en la direccion del scroll
+C 0xA04C al azar...
+C 0xA051 ...una palabra de 0xA0C8
+C 0xA057 en la otra direccion
+C 0xA05F y otra de 0xA0D8
+C 0xA065 a IX+20/21 (o 22/23)
+C 0xA068 en vertical IX+09/0A, en horizontal IX+07/08
+C 0xA072 al reves
+C 0xA07C en vertical IX+20/21, en horizontal IX+22/23
+C 0xA086 el color parpadea
+C 0xA089 la animacion
+C 0xA08C el paso
+C 0xA094 en vertical...
+C 0xA09A ...IX+07 + IX+20...
+C 0xA09F ...si no, IX+09 + IX+20
+C 0xA0A2 la espera
+C 0xA0A6 8 cuadros
+C 0xA0AA el paso siguiente
+C 0xA0AE la espera
+C 0xA0B2 la dificultad / 4...
+C 0xA0B9 ...la rapidez de 0xA0C4
+C 0xA0BF hacia el jugador
+C 0xA0E8 la animacion de 0xA0EE
+C 0xA0F4 cada 2 cuadros...
+C 0xA0FA ...el color XOR 4
+C 0xA103 la animacion a 0
+C 0xA107 IX+10 bit 3
+C 0xA10A IX+10 bit 2 a cero
+C 0xA10E 2 x 2...
+C 0xA111 ...16 x 16
+C 0xA114 IX+14 = D, IX+13 = E
+C 0xA11A IX+0F = B, IX+0E = C
+C 0xA121 dispara (p03:A177)
+C 0xA124 la animacion (p03:A160)
+C 0xA127 no ha cambiado: fuera
+C 0xA128 el cuadro x 2
+C 0xA12C su par de 0xA154
+C 0xA132 la x + el desplazamiento
+C 0xA136 hacia la izquierda...
+C 0xA13A ...en 0xF8: se va
+C 0xA13F la x
+C 0xA142 la y + el desplazamiento
+C 0xA149 el tamano
+C 0xA14D x 8: los pixeles
+C 0xA152 IX+13/14 e IX+0E/0F
+C 0xA160 el cuadro de antes
+C 0xA163 cada 4 cuadros, de 0 a 5
+C 0xA166 los dibujos de 0xA171
+C 0xA16C ha cambiado? (Z si no)
+C 0xA177 la espera del disparo
+C 0xA17A aun no
+C 0xA17B la siguiente
+C 0xA181 la y y la x
+C 0xA187 dispara hacia el jugador
+C 0xA18A la animacion a 0
+C 0xA18D a la altura del jugador
+C 0xA193 sin velocidad y
+C 0xA196 la velocidad x: -2
+C 0xA19C 0x80 de aceleracion...
+C 0xA1A2 ...hacia el centro
+C 0xA1AA dispara (p03:A1D2)
+C 0xA1AD la animacion
+C 0xA1B0 la velocidad + la aceleracion
+C 0xA1B3 la velocidad y...
+C 0xA1B9 ...sin signo...
+C 0xA1BE ...llega a 0x600?
+C 0xA1C2 entonces la aceleracion cambia de signo
+C 0xA1C6 la animacion de 0xA1CC
+C 0xA1D2 la fase 1: no dispara
+C 0xA1D7 el jugador a la derecha...
+C 0xA1DD ...no: fuera
+C 0xA1DF ...a menos de 8: fuera
+C 0xA1E3 la espera
+C 0xA1E7 la siguiente
+C 0xA1EA tres disparos
+C 0xA1F4 el numero - 1
+C 0xA1F6 su desplazamiento de 0xA237
+C 0xA1FD la x del jugador + el desplazamiento
+C 0xA204 si se pasa, la y - el desplazamiento
+C 0xA209 la y del jugador
+C 0xA20D rapidez 0x60
+C 0xA20F desde la y y la x del enemigo
+C 0xA215 hacia (H, L)
+C 0xA220 la direccion
+C 0xA223 la velocidad
+C 0xA226 desde un poco mas a la derecha
+C 0xA22F el disparo
+C 0xA232 la espera a 1
+C 0xA23A en la fase 4...
+C 0xA241 ...el dibujo 0xD0
+C 0xA245 8 de espera
+C 0xA249 la velocidad y: 4
+C 0xA24F la velocidad x: IX+19
+C 0xA257 el paso
+C 0xA25F la espera
+C 0xA263 14 cuadros
+C 0xA267 el paso siguiente
+C 0xA26A IX+10 bit 2 a cero
+C 0xA26E a quien apunta
+C 0xA277 rapidez 0x90
+C 0xA279 dispara
+C 0xA27C la espera
+C 0xA280 el paso siguiente
+C 0xA283 IX+10 bit 2
+C 0xA287 la velocidad y: -4
+C 0xA28D con dificultad 8 o mas...
+C 0xA293 ...dispara otra vez
+C 0xA295 32 de espera
+C 0xA299 4 x 4
+C 0xA2A1 IX+10 bit 2 a cero
+C 0xA2A6 la x = 0: se va
+C 0xA2AD la espera
+C 0xA2B1 4 cuadros
+C 0xA2B5 la x - 8
+C 0xA2BE IX+10 bit 4
+C 0xA2C1 IX+24 = 4
+C 0xA2C5 sin velocidad x
+C 0xA2C8 al azar de 1 a 8...
+C 0xA2CF ...x 0x80...
+C 0xA2D2 ...+ 0x400
+C 0xA2D8 la velocidad y
+C 0xA2DC los dibujos de 0xA2E2
+C 0xA2E6 IX+10 = 4
+C 0xA2EA 8 de espera
+C 0xA2EE 18 vueltas
+C 0xA2F2 la espera del disparo
+C 0xA2F8 la direccion 6
+C 0xA2FD rapidez 2
+C 0xA2FF la velocidad de la direccion (p00:4F1E)
+C 0xA302 a IX+07-0A
+C 0xA305 IX+01 bit 0: ya girado
+C 0xA30B las vueltas
+C 0xA30E de 14 en adelante...
+C 0xA310 ...el dibujo 0x70 color 4
+C 0xA315 de 9...
+C 0xA317 ...0x74 color 5
+C 0xA31C IX+10 = 7
+C 0xA320 de 5...
+C 0xA322 ...0x78 color 7
+C 0xA327 menos: 0x7C, color 15 u 8 segun IX+0C
+C 0xA333 el dibujo
+C 0xA336 el color
+C 0xA339 la espera
+C 0xA33C aun no
+C 0xA33D la espera siguiente: (22 - vueltas) / 8 + 1
+C 0xA34B una vuelta menos
+C 0xA34E quedan: gira
+C 0xA350 se acabo: el paso siguiente
+C 0xA354 la direccion - 1...
+C 0xA358 ...de 0 a 15
+C 0xA35D rapidez 3
+C 0xA361 dispara cada tanto (p02:81CE)
+C 0xA364 0x40 de velocidad y
+C 0xA36A hacia la x del jugador
+C 0xA377 la velocidad x
+C 0xA37A el dibujo 0x78 o 0x7C segun la cuenta
+C 0xA385 24 de espera
+C 0xA389 IX+19...
+C 0xA38F ...la y 0x98
+C 0xA393 sin velocidad x
+C 0xA396 0x180 de velocidad y...
+C 0xA39D ...hacia arriba o abajo
+C 0xA3A3 el paso
+C 0xA3AB la espera
+C 0xA3AF IX+10 bit 2 a cero
+C 0xA3B3 16 de espera
+C 0xA3B7 el paso siguiente
+C 0xA3BB la espera
+C 0xA3BE acabada: p03:A3E5
+C 0xA3C0 a los 14...
+C 0xA3C6 ...suelta uno 0x31...
+C 0xA3C9 ...arriba o abajo segun IX+19
+C 0xA3D9 el tipo 0x31
+C 0xA3E0 el sonido 0x36
+C 0xA3E5 el paso siguiente
+C 0xA3E8 IX+10 bit 2
+C 0xA3EC 0x100 de velocidad x...
+C 0xA3EF ...hacia el jugador
+C 0xA3FB IX+10 = 0x1B
+C 0xA3FF 4 x 2
+C 0xA407 IX+19...
+C 0xA40B ...el paso -8...
+C 0xA40F ...o +8
+C 0xA411 en IX+29
+C 0xA414 la espera: 2 con dificultad 10, si no 4
+C 0xA41F en IX+28 e IX+2A
+C 0xA426 la espera
+C 0xA429 aun no
+C 0xA42A choca? (p03:A43D)
+C 0xA42D de nuevo
+C 0xA433 la y + el paso
+C 0xA43D hacia abajo?
+C 0xA443 la y + 16
+C 0xA448 en L
+C 0xA449 la x en H
+C 0xA44C decorado?
+C 0xA44F no: fuera
+C 0xA450 si: el paso cambia de signo
+C 0xA459 hacia arriba: la y - 8
+C 0xA460 32 de espera
+C 0xA464 IX+10 = 2
+C 0xA468 hacia el jugador a 0x70
+C 0xA46D el paso
+C 0xA471 1: fuera
+C 0xA472 la espera
+C 0xA477 el paso siguiente
+C 0xA47A el color 5
+C 0xA47E IX+10 = 7
+C 0xA483 los colores de 0xA499...
+C 0xA486 ...IX+27 de 0 a 5
+C 0xA492 el color
+C 0xA49F la caja 0x38, 2 x 4, 8 x 16 (p03:B804)
+C 0xA4AA en la pantalla?
+C 0xA4AD no: fuera
+C 0xA4AE el paso
+C 0xA4B6 la espera
+C 0xA4BA el paso siguiente
+C 0xA4BD 16 disparos
+C 0xA4C1 el sonido 0x38
+C 0xA4C6 la y + 2
+C 0xA4CC la x
+C 0xA4CF el tipo 0x12
+C 0xA4D3 B = IX+0B
+C 0xA4D6 lo crea
+C 0xA4D9 uno menos
+C 0xA4DD el paso de antes
+C 0xA4E0 20 de espera
+C 0xA4E5 IX+10 = 0x0F
+C 0xA4E9 16 de espera
+C 0xA4ED al azar de -4 a 3...
+C 0xA4F7 ...la velocidad y
+C 0xA4FA al azar de 2 a 5...
+C 0xA501 ...hacia un lado segun IX+19
+C 0xA50C la velocidad x
+C 0xA50F p03:A53B
+C 0xA512 IX+01 bit 0?
+C 0xA518 la espera
+C 0xA51C el paso siguiente
+C 0xA520 la y
+C 0xA526 la x
+C 0xA527 decorado?
+C 0xA52A si: muere
+C 0xA52C dos mas a la derecha
+C 0xA534 decorado?
+C 0xA537 no: fuera
+C 0xA53B IX+19 bit 0...
+C 0xA53F ...0x40 de velocidad x...
+C 0xA544 ...o -0x40
+C 0xA54A las opciones: 0xE60B = 0
+C 0xA54E borra las 4 de 0xE400
+C 0xA55B las del jugador 1
+C 0xA562 y las del 2
+C 0xA566 en marcha?
+C 0xA56B cuantas tiene (IY+30)
+C 0xA56F ninguna: fuera
+C 0xA571 las cuenta otra vez
+C 0xA576 una mas
+C 0xA57C y una mas en total
+C 0xA57D la crea
+C 0xA584 el rastro del 1 (0xE280)...
+C 0xA58C ...o del 2 (0xE2C0)
+C 0xA58F el rastro de los dos jugadores
+C 0xA59A HL = IY + 0x24: su y y su x
+C 0xA5A4 su rastro
+C 0xA5A7 32 posiciones
+C 0xA5AC la y
+C 0xA5AF y la x
+C 0xA5B4 IY+33 = 0: el rastro empieza
+C 0xA5B8 un hueco en 0xE400
+C 0xA5C5 1: viva
+C 0xA5C8 IX+01 = de quien es
+C 0xA5CD IX+02 = su numero
+C 0xA5D1 x 8: cuanto va por detras
+C 0xA5D4 IY+33 - eso...
+C 0xA5D9 ...dando la vuelta a las 32
+C 0xA5DE x 2: la posicion del rastro
+C 0xA5E6 la y
+C 0xA5EB la x
+C 0xA5EE el reloj 6: p03:A711
+C 0xA5F6 0xF000 = 1
+C 0xA5FB las 4 opciones
+C 0xA60E viva?
+C 0xA613 de quien es
+C 0xA623 el estado 4...
+C 0xA628 ...las del otro
+C 0xA62B en marcha?
+C 0xA630 los estados 3 y 4: por orden (0xF000)
+C 0xA63B IY+34?
+C 0xA641 su numero
+C 0xA644 x 8: cuanto va por detras
+C 0xA647 la posicion del rastro
+C 0xA64C dando la vuelta
+C 0xA651 x 2
+C 0xA652 en el rastro del 1...
+C 0xA65B ...o del 2
+C 0xA65F la y
+C 0xA664 la x
+C 0xA668 el dibujo de la cuenta / 2 & 3...
+C 0xA66E ...del 1 de 0xA684...
+C 0xA677 ...o del 2 de 0xA68C
+C 0xA67D a IX+07/08
+C 0xA694 la formacion: en horizontal 0xA6FF...
+C 0xA69D ...en vertical 0xA707
+C 0xA6A0 la opcion IX+02
+C 0xA6A6 la y de la nave + la de la tabla
+C 0xA6AD sin salirse
+C 0xA6B0 la x de la tabla...
+C 0xA6B5 ...+ la de la nave
+C 0xA6BA o - si es negativa
+C 0xA6C2 la x
+C 0xA6C5 sin salirse
+C 0xA6C8 y el dibujo
+C 0xA6CB de 0xE0 en adelante: 0
+C 0xA6D4 de 0x9C en adelante: 0x9C
+C 0xA6DC en horizontal...
+C 0xA6E3 ...de 0xE8 en adelante...
+C 0xA6E7 ...0
+C 0xA6EF en vertical, de 0xF0 en adelante...
+C 0xA6F3 ...0xF0
+C 0xA711 el reloj 6: cuantas opciones
+C 0xA715 ninguna: fuera
+C 0xA717 una: p03:A7CD
+C 0xA71A dos: p03:A782
+C 0xA71D tres o cuatro: de la nave 1...
+C 0xA724 ...a la 2: la distancia y...
+C 0xA72F .../ 4
+C 0xA738 el paso y
+C 0xA73B la distancia x...
+C 0xA74D .../ 4
+C 0xA756 el paso x
+C 0xA759 las 4 opciones
+C 0xA76C viva?
+C 0xA771 un paso mas en y
+C 0xA775 su y
+C 0xA778 un paso mas en x
+C 0xA77B su x
+C 0xA77F y el dibujo
+C 0xA782 dos: entre las dos naves, en tercios
+C 0xA794 / 4...
+C 0xA799 ...+ / 16
+C 0xA7CD una: a medio camino
+C 0xA7DF / 2
+C 0xA808 el rastro de los dos jugadores
+C 0xA813 en marcha?
+C 0xA818 el rastro del 1...
+C 0xA821 ...o del 2
+C 0xA824 los mandos
+C 0xA829 quieto: no se apunta
+C 0xA82A las dos direcciones a la vez: tampoco
+C 0xA833 la posicion del rastro (IY+33) x 2
+C 0xA839 la y
+C 0xA83D la x
+C 0xA842 la siguiente...
+C 0xA845 ...de 0 a 31
+C 0xA851 los 15 disparos del jugador
+C 0xA858 p03:A864
+C 0xA864 vivo?
+C 0xA869 los tipos 5-10...
+C 0xA86F ...vuelven por p01:7E7F
+C 0xA873 por el tipo, la tabla de detras
+C 0xA890 con dos jugadores...
+C 0xA896 ...en el estado 3 o 4...
+C 0xA89E el mayor de 0xE340 y 0xE3C0...
+C 0xA8A9 ...en 0xE63B
+C 0xA8AE el mayor de 0xE341 y 0xE3C1...
+C 0xA8B3 ...en 0xE63C
+C 0xA8B7 los disparos de los dos jugadores
+C 0xA8C5 el estado 3: no
+C 0xA8CB en marcha?
+C 0xA8CD el boton recien pulsado?
+C 0xA8D2 si: dispara
+C 0xA8D4 el boton pulsado?
+C 0xA8D9 si: p03:A8E0
+C 0xA8DB no: la cuenta a 0
+C 0xA8E0 la cuenta + 1
+C 0xA8E6 cada 15 cuadros dispara solo
+C 0xA8E9 la cuenta a 0
+C 0xA8ED IX = IY
+C 0xA8F4 con dos jugadores...
+C 0xA8FB ...el 2...
+C 0xA901 ...el sitio 0x48
+C 0xA903 en 0xE6A0
+C 0xA906 primero la nave (0xE6A2 = 0)
+C 0xA90A sus armas (p03:A943)
+C 0xA90D luego las opciones (0xE6A2 = 1)
+C 0xA912 desde 0x90...
+C 0xA915 ...las de 0xE400
+C 0xA919 3...
+C 0xA91B ...con dos jugadores...
+C 0xA922 ...o 4 con uno, desde 0x48
+C 0xA928 viva?
+C 0xA92D sus armas
+C 0xA930 la siguiente
+C 0xA935 el sitio siguiente para sus disparos: 0x48 mas
+C 0xA940 todas
+C 0xA943 el arma principal (IY+40)...
+C 0xA948 ...o, en el estado 4, la de 0xE63B
+C 0xA950 la hay?
+C 0xA951 dispara (p03:A991)
+C 0xA954 el arma del panel (IY+41)...
+C 0xA95E ...o, en el estado 4, la de 0xE63C
+C 0xA962 la bomba (IY+42)?
+C 0xA966 si: p03:A96F
+C 0xA969 si no, el arma del panel
+C 0xA96B dispara (p03:AF4F)
+C 0xA96F la bomba: hay sitio? (p03:AF30)
+C 0xA972 no: fuera
+C 0xA973 una bomba menos
+C 0xA976 la ultima: el marcador de armas
+C 0xA979 la cuenta de bombas a la VRAM: DE = IY + 0x42
+C 0xA981 el 1 en 0x3ACE...
+C 0xA98A ...o el 2 en 0x3ADE
+C 0xA98C una cifra doble
+C 0xA991 el arma
+C 0xA992 la bomba en marcha?
+C 0xA996 si: fuera
+C 0xA998 el arma - 1...
+C 0xA999 ...por la tabla de detras
+C 0xA9AA el disparo normal: hay hueco en el primero?
+C 0xA9AD libre: lo usa
+C 0xA9AF si no, el segundo (p03:ADF3)
+C 0xA9B2 tampoco: fuera
+C 0xA9B3 el tipo 1
+C 0xA9B6 desde (8, 16) de la nave
+C 0xA9BF ...o (8, 7) en vertical
+C 0xA9C2 la y y la x
+C 0xA9C5 la x & 0xF8
+C 0xA9C8 el dibujo 0x2C...
+C 0xA9CA ...+ la postura
+C 0xA9CD 8 x 2...
+C 0xA9D6 ...o 2 x 8 en vertical
+C 0xA9D9 6 bytes mas
+C 0xA9DD el alto y el ancho
+C 0xA9E0 de quien es
+C 0xA9E3 el sonido 3...
+C 0xA9EB ...o 4 el jugador 2
+C 0xA9F0 el disparo normal cada cuadro: en vertical...
+C 0xA9F6 ...la y - 8...
+C 0xA9FB ...se sale: se acaba
+C 0xAA02 en horizontal: la x + 12
+C 0xAA07 se sale: se acaba
+C 0xAA0E el rayo: hay hueco?
+C 0xAA12 el sonido 5
+C 0xAA17 el tipo 6
+C 0xAA1A el paso 0
+C 0xAA1C en vertical: p03:AA49
+C 0xAA22 desde (8, 16)
+C 0xAA28 la x & 0xF8
+C 0xAA2B el dibujo 0x34
+C 0xAA30 el largo: 0, 2
+C 0xAA33 28
+C 0xAA35 la ficha: la de quien lo dispara (IX)...
+C 0xAA3E ...y el largo, el ancho y el alto
+C 0xAA46 de quien es
+C 0xAA49 en vertical: desde (4, 7)
+C 0xAA5C 20, ancho 2
+C 0xAA64 el disparo se acaba
+C 0xAA69 el rayo cada cuadro: HL = IY
+C 0xAA6C en vertical: p03:AAFF
+C 0xAA73 el paso
+C 0xAA75 1: p03:AAD4
+C 0xAA78 2 o mas: p03:AAE3
+C 0xAA7B 0: sigue a quien lo dispara (IY+08/09)
+C 0xAA84 desde (8, 16)...
+C 0xAA87 ...el tipo 6...
+C 0xAA8E ...el 9 desde (4, 16)...
+C 0xAA94 ...los demas desde (0, 16)
+C 0xAA96 su y y su x
+C 0xAA99 la x & 0xF8
+C 0xAA9B en el borde: se acaba
+C 0xAA9F la x
+C 0xAAA0 el dibujo 0x34
+C 0xAAA5 4 mas
+C 0xAAA9 3 contadores
+C 0xAAAB uno sube...
+C 0xAAAD ...y el siguiente baja
+C 0xAAAE llega a 0: el paso siguiente
+C 0xAAB8 el largo x 8...
+C 0xAABE ...desde la x...
+C 0xAAC3 ...cabe: fuera
+C 0xAAC4 lo que se sale...
+C 0xAAC9 .../ 8...
+C 0xAACB ...se quita del largo
+C 0xAAD4 el paso 1: avanza (p03:AAF6)
+C 0xAAD7 se sale: se acaba
+C 0xAAD9 recorta el largo
+C 0xAADF 0: se acaba
+C 0xAAE3 el paso 2: avanza
+C 0xAAE9 el largo - 4...
+C 0xAAEE ...se acaba...
+C 0xAAF1 ...o + 1: mengua de 3 en 3
+C 0xAAF6 la x + 24
+C 0xAAFF en vertical: el paso
+C 0xAB07 0: sigue a quien lo dispara
+C 0xAB10 desde (4, 7)...
+C 0xAB16 ...el tipo 6...
+C 0xAB1C ...el 9 desde (4, 3)...
+C 0xAB20 ...los demas desde (4, -1)
+C 0xAB22 su y y su x
+C 0xAB25 la y & 0xF8
+C 0xAB28 arriba del todo: se acaba
+C 0xAB2F la y
+C 0xAB32 el tipo 0x0A...
+C 0xAB39 ...con la x en el borde...
+C 0xAB3E ...0
+C 0xAB43 el dibujo 0x34
+C 0xAB4C 3 contadores
+C 0xAB5B el largo x 8...
+C 0xAB62 ...desde la y...
+C 0xAB66 ...cabe: fuera
+C 0xAB67 lo que se sale se quita del largo
+C 0xAB77 el paso 1: avanza (p03:ABA1)
+C 0xAB7A se sale: se acaba
+C 0xAB80 recorta el largo
+C 0xAB8B el paso 2: avanza
+C 0xAB94 mengua de 3 en 3
+C 0xABA1 la y - 24
+C 0xABB8 el tipo 9 de 0xABAA...
+C 0xABC1 ...o 0xABB1 en vertical
+C 0xABC4 con el sonido 9
+C 0xABC9 IY+11 bit 0...
+C 0xABCF ...la y y la x de la nave...
+C 0xABD6 ...o las de la opcion
+C 0xABDD el rayo 0x0A: en vertical p03:AC15
+C 0xABE6 el paso
+C 0xABE9 1: p03:AAD4
+C 0xABEC 2 o mas: p03:AAE3
+C 0xABEF 0: sigue a quien lo dispara
+C 0xABF8 su y y su x
+C 0xABFB y + 8
+C 0xABFE & 0xF8
+C 0xAC02 la y
+C 0xAC03 x + 16
+C 0xAC08 en el borde: se acaba
+C 0xAC0F la x
+C 0xAC10 5 bytes mas
+C 0xAC15 en vertical
+C 0xAC50 el tipo 8 de 0xAC42...
+C 0xAC59 ...o 0xAC49 en vertical
+C 0xAC5C con el sonido 8
+C 0xAC5E la ficha de 7 bytes en 0xE64B
+C 0xAC61 el sonido en 0xE64D
+C 0xAC64 hay hueco?
+C 0xAC67 no: fuera
+C 0xAC68 la y y la x de quien dispara
+C 0xAC6B la ficha
+C 0xAC6F el tipo
+C 0xAC72 el paso 0
+C 0xAC74 la y + la de la ficha...
+C 0xAC77 ...& 0xF8
+C 0xAC7C la x + la de la ficha...
+C 0xAC7F ...& 0xF8
+C 0xAC84 el dibujo
+C 0xAC8A quien lo dispara
+C 0xAC90 0
+C 0xAC94 el largo
+C 0xAC98 el ancho
+C 0xAC9C el alto
+C 0xAC9F de quien es
+C 0xACA2 el sonido
+C 0xACA6 sin sonido: fuera
+C 0xACAA la nave (0xE6A2 = 0)...
+C 0xACB0 ...C = su y, B = su x
+C 0xACB7 ...o la opcion
+C 0xACBE el rayo 8: en vertical p03:ACF6
+C 0xACC7 el paso
+C 0xACD9 su y y su x
+C 0xACDC y + 4
+C 0xACE4 x + 16
+C 0xAD23 nada
+C 0xAD24 el misil: hay hueco?
+C 0xAD28 el tipo 5
+C 0xAD2B 4 cuadros
+C 0xAD2D la y y la x de quien dispara
+C 0xAD30 en vertical: p03:AD59
+C 0xAD38 la y & 0xF8
+C 0xAD3E la x + 16, & 0xF8
+C 0xAD44 2 de largo
+C 0xAD4C 16 x 16
+C 0xAD51 de quien es
+C 0xAD54 el sonido 6
+C 0xAD68 el misil cada cuadro: en vertical p03:ADAE
+C 0xAD6E la x + 8
+C 0xAD73 se sale: se acaba
+C 0xAD79 la espera
+C 0xAD7C aun no
+C 0xAD7D 4 cuadros
+C 0xAD81 la y...
+C 0xAD84 ...en 0: una fila mas...
+C 0xAD89 ...si no, dos y 8 arriba
+C 0xAD8F el largo + las filas
+C 0xAD96 la y / 8...
+C 0xAD9E ...+ el largo - 22...
+C 0xADA3 ...sin pasarse: fuera
+C 0xADA4 lo que se pasa...
+C 0xADA7 ...se quita del largo
+C 0xADAE en vertical: la y - 8
+C 0xADB3 se sale: se acaba
+C 0xADB9 la espera
+C 0xADBD 4 cuadros
+C 0xADC1 la x...
+C 0xADC7 ...en 0: una columna mas, si no dos y 8 a la izquierda
+C 0xADCF el largo + las columnas
+C 0xADD6 la x / 8...
+C 0xADDE ...+ el largo - 33...
+C 0xADE4 ...lo que se pasa se quita del largo
+C 0xADEE el limite 0xA5E8 desde el hueco de 0xE470
+C 0xADF3 el segundo hueco (0xE458)
+C 0xADF8 el primer hueco (0xE440)
+C 0xADFB el limite 0xA6D9
+C 0xADFE la nave o la opcion?
+C 0xAE02 la opcion: p03:AE19
+C 0xAE04 la y de la nave...
+C 0xAE07 ...pasado el limite: no dispara
+C 0xAE0A en horizontal...
+C 0xAE10 ...la x pasado el limite: no
+C 0xAE19 la opcion: en el estado 4...
+C 0xAE20 ...si no, la opcion tiene que ser suya
+C 0xAE27 la y de la opcion
+C 0xAE2B pasado el limite: no
+C 0xAE33 la x
+C 0xAE39 el hueco: 0xE6A0 + DE
+C 0xAE3D libre? (Z)
+C 0xAE40 NZ: no dispara
+C 0xAE44 IY+11 bit 0: la opcion...
+C 0xAE4D la nave o la opcion?
+C 0xAE53 la y de la nave + D
+C 0xAE5A al disparo
+C 0xAE5B la x + E
+C 0xAE61 la y de la opcion + D
+C 0xAE69 la x de la opcion
+C 0xAE6C + E
+C 0xAE70 al disparo
+C 0xAE72 en vertical...
+C 0xAE78 ...el dibujo C + (D / 2) & 3
+C 0xAE80 ...o C + (E / 2) & 3
+C 0xAE88 3 mas
+C 0xAE8B el jugador: de la nave (IX+21)...
+C 0xAE94 ...o de la opcion (IX+01)
+C 0xAE97 al disparo
+C 0xAE99 y de donde sale (0xE6A2)
+C 0xAE9E el doble: hay hueco?
+C 0xAEA2 el sonido 5
+C 0xAEA7 el tipo 9
+C 0xAEAC en vertical: p03:AEC8
+C 0xAEB2 desde (-4, 16)
+C 0xAEB8 la x & 0xF8
+C 0xAEBB el dibujo 0x34
+C 0xAEC0 largo 10, 0
+C 0xAEC3 16
+C 0xAEC8 en vertical: desde (0, -4)
+C 0xAEE3 el rayo 0x0A: hay hueco?
+C 0xAEE7 el sonido 5
+C 0xAEEC el tipo 0x0A
+C 0xAEF7 desde (-8, 16)
+C 0xAF05 largo 18
+C 0xAF0D en vertical: desde (0, -8)
+C 0xAF30 la bomba: solo la nave
+C 0xAF35 el hueco de 0xE470
+C 0xAF38 hay sitio?
+C 0xAF3B no: fuera
+C 0xAF3C el sonido 0x41
+C 0xAF41 el tipo 0x0C
+C 0xAF48 5 atras: el disparo a 0
+C 0xAF4F el arma del panel: el hueco de 0xE470
+C 0xAF52 hay sitio?
+C 0xAF56 el arma (IY+41)...
+C 0xAF5E ...o, en el estado 4, la de 0xE63C
+C 0xAF63 la 4: p03:B43F
+C 0xAF68 + 1: el tipo
+C 0xAF6A el tipo
+C 0xAF6B en 0xF000
+C 0xAF6E el paso 0
+C 0xAF71 desde (8, 8)...
+C 0xAF7A ...o (0, 8) en vertical
+C 0xAF7D la y y la x
+C 0xAF80 la y & 0xFC
+C 0xAF83 0: no
+C 0xAF87 la y
+C 0xAF88 en 0xF002
+C 0xAF8D la x & 0xFC
+C 0xAF91 en 0xF003
+C 0xAF95 el tipo
+C 0xAF99 el 0x0C: el dibujo 0x14...
+C 0xAF9F ...si no, 0x24
+C 0xAFA3 el color: 10 el tipo 2...
+C 0xAFAA ...3 el 3...
+C 0xAFAF ...9 el 4...
+C 0xAFB4 ...15 los demas
+C 0xAFB6 el color
+C 0xAFB9 en vertical: p03:AFCD
+C 0xAFBF 8 x 2
+C 0xAFC2 por encima de 0x50...
+C 0xAFC5 ...la direccion 0...
+C 0xAFC9 ...si no, 1
+C 0xAFCD en vertical: 2 x 8
+C 0xAFD0 a la izquierda de 0x80...
+C 0xAFD3 ...2, si no 3
+C 0xAFD8 la direccion
+C 0xAFDC el alto
+C 0xAFDE el ancho
+C 0xAFDF de quien es
+C 0xAFE2 el tipo 4 (el que busca)...
+C 0xAFE7 ...si no, fuera
+C 0xAFE8 la ficha en 0xF004
+C 0xAFEB lo mas cerca: ninguno
+C 0xAFF1 la distancia: 0xFFFF
+C 0xAFF5 busca entre las piezas de 0xEB00
+C 0xAFF8 8
+C 0xAFFA viva?
+C 0xAFFE IX+03 (y alta) = 0?
+C 0xB006 si no, la siguiente
+C 0xB008 IX+08...
+C 0xB013 ...0: p03:B03E
+C 0xB015 la siguiente
+C 0xB01B la mas cerca
+C 0xB020 hay: p03:B02C
+C 0xB022 ninguna: el tipo 3
+C 0xB02C su ficha en el disparo
+C 0xB035 y 4 bytes a 0
+C 0xB03E la y y la x del disparo
+C 0xB043 la y de la pieza
+C 0xB047 - la del disparo
+C 0xB04A sin signo
+C 0xB04D en DE'
+C 0xB053 la x de la pieza
+C 0xB054 - la del disparo
+C 0xB057 sin signo
+C 0xB05A + la distancia y
+C 0xB05F la mas cerca hasta ahora...
+C 0xB065 ...esta no lo es
+C 0xB067 la nueva distancia
+C 0xB06E la pieza (6 atras)...
+C 0xB072 ...en 0xF006
+C 0xB07F el misil del suelo: por su direccion (IY+09)...
+C 0xB082 ...la tabla de detras
+C 0xB08D la direccion 0 (abajo y adelante): el decorado debajo?
+C 0xB090 si: p03:B0D1
+C 0xB092 delante abajo?
+C 0xB095 no: p03:B0B9
+C 0xB097 delante?
+C 0xB09A no: p03:B0B3
+C 0xB09C delante arriba?
+C 0xB09F tambien: se acaba
+C 0xB0A2 el dibujo 0x24: adelante
+C 0xB0A8 la x + B
+C 0xB0AC se sale: se acaba
+C 0xB0B3 baja y avanza
+C 0xB0B9 2 adelante
+C 0xB0BE el dibujo 0x28: abajo
+C 0xB0C4 la y + B
+C 0xB0C8 de 0xA4 en adelante: se acaba
+C 0xB0D1 adelante y 8 arriba
+C 0xB0D9 el decorado en el sitio (p01:7E9C)
+C 0xB0E2 debajo: y + 8
+C 0xB0EB el primer caracter del decorado
+C 0xB0F1 decorado? (p01:7EA2)
+C 0xB0F4 delante abajo: x + 8, y + 8
+C 0xB103 delante: x + 8
+C 0xB10F encima: y - 8
+C 0xB121 la direccion 1 (arriba y adelante)
+C 0xB148 el dibujo 0x20: arriba
+C 0xB14C la y - B
+C 0xB150 se sale: se acaba
+C 0xB19A la direccion 2 (en vertical, a la derecha)
+C 0xB1AA el dibujo 0x24
+C 0xB1B0 la y - B...
+C 0xB1B4 ...menos de 8: se acaba
+C 0xB1C0 el dibujo 0x28
+C 0xB201 la direccion 3 (en vertical, a la izquierda): el decorado?
+C 0xB217 el dibujo 0x20
+C 0xB21D 2 arriba
+C 0xB220 la x - 4
+C 0xB225 se sale: se acaba
+C 0xB22C a la izquierda
+C 0xB236 a la izquierda y arriba
+C 0xB243 arriba
+C 0xB24F a la derecha + 6
+C 0xB25B con el scroll (p03:B3F3)
+C 0xB25E sigue vivo?
+C 0xB263 por la direccion, la tabla de detras
+C 0xB271 IY+01 bit 0: venia subiendo un escalon?
+C 0xB275 IY+01 = 0
+C 0xB27B el decorado debajo?
+C 0xB27E si: p03:B0D1
+C 0xB281 delante abajo?
+C 0xB284 no: baja
+C 0xB287 delante?
+C 0xB28A no: avanza bajando
+C 0xB28D delante?
+C 0xB290 no: avanza
+C 0xB293 encima?
+C 0xB296 tambien: se acaba
+C 0xB299 sube 4
+C 0xB2A4 IY+01 = 1: subiendo
+C 0xB349 el que persigue: su blanco (IY+12/13)
+C 0xB34F vivo?
+C 0xB351 no: p03:B3C1
+C 0xB353 cada 4 cuadros...
+C 0xB35B ...el sitio del blanco
+C 0xB363 en 0xF000
+C 0xB367 desde el disparo
+C 0xB36D la direccion hacia el
+C 0xB370 rapidez 0xC0
+C 0xB377 la velocidad
+C 0xB37A la x en IY+16/17
+C 0xB380 la y en IY+14/15
+C 0xB389 la x + la velocidad x
+C 0xB39B se sale: se acaba
+C 0xB3A0 la y + la velocidad y
+C 0xB3B2 se sale: se acaba
+C 0xB3B7 decorado?
+C 0xB3C0 no: fuera
+C 0xB3C1 sin blanco o contra el decorado: se vuelve misil de suelo
+C 0xB3C7 la direccion por el signo de la velocidad
+C 0xB3D0 IY+09
+C 0xB3D3 el tipo 3
+C 0xB3D7 la y & 0xFC
+C 0xB3DF la x & 0xFC
+C 0xB3E8 en vertical, por la x
+C 0xB3F3 IY+01 bit 0...
+C 0xB3F8 columna nueva: con el scroll (p03:B41F)
+C 0xB3FB fila nueva?
+C 0xB400 hacia arriba: p03:B411
+C 0xB403 la y + 8
+C 0xB408 de 0xA4 en adelante: se acaba
+C 0xB411 la y - 8
+C 0xB416 menos de 8: se acaba
+C 0xB41F columna nueva?
+C 0xB424 a la derecha: p03:B433
+C 0xB427 la x - 8
+C 0xB42C se sale: se acaba
+C 0xB433 la x + 8
+C 0xB43F el arma 0x0B: hacia donde se apunta
+C 0xB442 el paso 0
+C 0xB444 desde la nave o la opcion
+C 0xB44C la y & 0xF8
+C 0xB453 la x & 0xF8
+C 0xB457 el dibujo 0x10
+C 0xB45A el color 11
+C 0xB45F los mandos
+C 0xB463 arriba/abajo...
+C 0xB465 ...el paso y de 0xB494
+C 0xB46C a IY+0A
+C 0xB46E izquierda/derecha...
+C 0xB473 ...el paso x de 0xB494
+C 0xB47B a IY+0B
+C 0xB47C quieto...
+C 0xB47F ...no dispara
+C 0xB486 16 x 16
+C 0xB48C de quien es
+C 0xB48F el sonido 0x0A
+C 0xB498 el arma 0x0B cada cuadro: el primer caracter del decorado
+C 0xB49C rebota en y (p03:B4D5)
+C 0xB49F rebota en x (p03:B537)
+C 0xB4A2 el paso y
+C 0xB4A6 0: no se mueve en y
+C 0xB4A8 8 o -8
+C 0xB4AF la y
+C 0xB4B5 fuera de 8-0xA0: se acaba
+C 0xB4BC el paso x
+C 0xB4C1 8 o -8
+C 0xB4C8 la x
+C 0xB4CE fuera de 8-0xF8: se acaba
+C 0xB4D5 B = 0: sin choque
+C 0xB4D7 p03:B4F5
+C 0xB4DA ha chocado: fuera
+C 0xB4DD fila nueva?
+C 0xB4E2 la y de la fila de al lado
+C 0xB4F5 la y
+C 0xB4F8 - 1
+C 0xB4F9 la x
+C 0xB4FC el paso y
+C 0xB500 0: p03:B51E
+C 0xB505 hacia abajo: y + 9
+C 0xB509 el caracter
+C 0xB50C decorado?
+C 0xB510 y el de al lado
+C 0xB514 si: el paso y cambia de signo
+C 0xB51C B = 1: ha chocado
+C 0xB51E quieto en y: mira arriba...
+C 0xB527 ...choca: hacia abajo
+C 0xB52C ...y abajo...
+C 0xB532 ...choca: hacia arriba
+C 0xB537 lo mismo en x
+C 0xB55B el paso x
+C 0xB564 hacia la derecha: x + 9
+C 0xB568 el caracter
+C 0xB56F y el de abajo
+C 0xB576 el paso x cambia de signo
+C 0xB599 busca Nemesis 2: 0xF0F5 = 0
+C 0xB59D 4 slots primarios
+C 0xB5A0 EXPTBL
+C 0xB5A5 el slot expandido?
+C 0xB5A8 si: los 4 secundarios (p03:B5CB)
+C 0xB5AA no: mira en el
+C 0xB5AF encontrado (bit 0)?
+C 0xB5B3 si: p03:B5C6
+C 0xB5B5 el siguiente
+C 0xB5BF el slot expandido encontrado
+C 0xB5C7 el slot del vecino en 0xF0F4
+C 0xB5CB el slot con su bit de expandido
+C 0xB5CF 4 secundarios
+C 0xB5D2 mira en el
+C 0xB5D6 encontrado?
+C 0xB5DC el siguiente secundario
+C 0xB5E3 la cabecera "CD 07 51" (Nemesis 2)...
+C 0xB5E6 ...en su 0x4010
+C 0xB5E9 4 bytes
+C 0xB5EB comparados
+C 0xB5EE no: p03:B5F5
+C 0xB5F0 si: 0xF0F5 bit 0
+C 0xB5F5 los 6 bytes de 0xB625...
+C 0xB5F8 ...en su 0x7FFA
+C 0xB600 no: fuera
+C 0xB601 si: 0xF0F5 bit 1, Nemesis 2 de verdad
+C 0xB606 y el gancho 0xFFA7 a `ret`
+C 0xB60C se guardan
+C 0xB60E el slot
+C 0xB60F RDSLT: un byte del otro cartucho
+C 0xB614 comparado con el de la firma
+C 0xB617 distinto: NC
+C 0xB619 el siguiente
+C 0xB61D todos iguales: acarreo
+C 0xB6E9 la pieza de cada cuadro: dentro? (p01:7AE3)
+C 0xB6EE fuera de la pantalla: nada
+C 0xB6F2 el paso
+C 0xB6F8 la espera
+C 0xB6FC el tipo 0x12...
+C 0xB703 ...si no, la forma siguiente
+C 0xB706 el paso 1
+C 0xB709 8 de espera
+C 0xB70E IX+0B bit 1: en vertical...
+C 0xB714 ...la y hasta 0x98
+C 0xB71C la x desde 0x18
+C 0xB722 dispara (p03:B747)
+C 0xB725 le quedan?
+C 0xB72A la tanda: 5
+C 0xB72E la espera: 40 - dificultad / 2
+C 0xB73A el paso de antes
+C 0xB73D el tipo 0x12...
+C 0xB743 ...si no, la forma de antes
+C 0xB747 IX+0B en 0xE65A
+C 0xB74D quedan disparos?
+C 0xB752 la espera
+C 0xB756 1
+C 0xB75A uno menos
+C 0xB75D desde +16...
+C 0xB765 ...o -8 en x segun hacia donde mira
+C 0xB767 +8 en y
+C 0xB769 en vertical...
+C 0xB76D ...cambiados
+C 0xB770 la x
+C 0xB775 la y
+C 0xB77A 0xE67F + 1...
+C 0xB781 ...cada 4, C = 1
+C 0xB788 B = los que quedan + 1
+C 0xB78D el tipo 7
+C 0xB792 B y C cambiados
+C 0xB796 IX+08 = 6
+C 0xB79A 4 x 2...
+C 0xB79D ...o 2 x 4 en vertical
+C 0xB7A5 IX+09 e IX+0A
+C 0xB7AC el tipo 0x12...
+C 0xB7B1 ...la forma 0x55 + IX+0B...
+C 0xB7B6 ...si no, 0x3E + 2 x IX+0B
+C 0xB7BA en IX+07
+C 0xB7BD 52 de espera
+C 0xB7C1 5 disparos
+C 0xB7C6 la forma 0x55 + IX+0B, 4 x 2, 8 x 16
+C 0xB7D4 2 x 4, 8 x 16: la forma 0x42...
+C 0xB7E2 ...o 0x44
+C 0xB7E6 la forma 0x55, 4 x 2, 16 x 16
+C 0xB7F0 16 x 16, 3 x 3, la forma 0x1A...
+C 0xB7FF ...o, en la fase 3, 0x46 y 5 x 6
+C 0xB804 IX+07 = la forma, IX+08 = la vida
+C 0xB80A IX+09 = el ancho, IX+0A = el alto
+C 0xB810 IX+02 = la espera
+C 0xB814 dentro? (p01:7AE3)
+C 0xB819 la y alta: fuera
+C 0xB81D el paso
+C 0xB826 la espera
+C 0xB82B a los 9...
+C 0xB831 ...la forma siguiente
+C 0xB835 el paso 1
+C 0xB839 10 de espera
+C 0xB83D 4 disparos
+C 0xB842 la espera
+C 0xB846 10 cuadros
+C 0xB84A desde x - 12...
+C 0xB856 ...o + 20 segun hacia donde mira
+C 0xB85E el tipo 0x10
+C 0xB865 uno menos
+C 0xB869 8 de espera
+C 0xB86F la espera
+C 0xB873 la forma de antes
+C 0xB876 40 de espera
+C 0xB87A el paso 0
+C 0xB87F dentro?
+C 0xB894 6 de espera
+C 0xB898 5 disparos
+C 0xB89E la espera
+C 0xB8A2 6 cuadros
+C 0xB8A6 desde y - 12 o + 20
+C 0xB8B7 x + 8
+C 0xB8BD el tipo 2
+C 0xB8C4 uno menos
+C 0xB8C8 el paso siguiente
+C 0xB8CC IX+01 = 0xFF: nada
+C 0xB8D1 la y alta: fuera
+C 0xB8D5 dentro?
+C 0xB8DE el paso
+C 0xB8E6 la espera
+C 0xB8EB en la fase 3...
+C 0xB8F2 ...con la forma 0x48 no cambia
+C 0xB8F8 a los 9 y al 1...
+C 0xB901 ...la forma siguiente
+C 0xB905 en las demas, a los 6...
+C 0xB908 ...hasta la forma 0x67
+C 0xB910 10 de espera
+C 0xB914 5 disparos
+C 0xB91A la espera
+C 0xB91E 10 cuadros
+C 0xB922 desde (y + 2, x + 8)
+C 0xB92E en la fase 3...
+C 0xB935 ...C de p01:705D
+C 0xB938 el tipo 0x1E
+C 0xB93D uno menos
+C 0xB941 con dificultad 8 o mas...
+C 0xB948 ...el paso siguiente...
+C 0xB94C ...si no, otra tanda tras 24
+C 0xB954 la animacion a 0
+C 0xB957 11 de espera
+C 0xB95B 26 vueltas
+C 0xB95F la espera del disparo
+C 0xB965 arriba o abajo de 0x54...
+C 0xB96E ...+ IX+19: el cuadrante
+C 0xB971 en IX+27
+C 0xB974 la direccion: 8...
+C 0xB979 ...o 0
+C 0xB97A en IX+25
+C 0xB97D rapidez 4
+C 0xB97F la velocidad de la direccion
+C 0xB982 a IX+07-0A
+C 0xB985 la animacion
+C 0xB988 dispara cada tanto
+C 0xB98B IX+01 bit 0: ya ha acabado
+C 0xB990 la espera
+C 0xB994 una vuelta menos
+C 0xB997 quedan: gira
+C 0xB999 se acabo: el paso 1
+C 0xB99E la espera: vueltas / 8 + 4
+C 0xB9AC el cuadrante
+C 0xB9B2 la direccion - 1...
+C 0xB9B8 ...o + 1
+C 0xB9BA de 0 a 15
+C 0xB9BF rapidez 3
+C 0xB9C3 al final: hacia el jugador...
+C 0xB9C5 ...rapidez 0x80
+C 0xB9CE hacia arriba (0xA0) o abajo (0)...
+C 0xB9DA ...y la x del jugador
+C 0xB9E0 la direccion
+C 0xB9E3 la velocidad
+C 0xB9E6 a IX+07-0A
+C 0xB9F0 la animacion de 0xB9F6
+C 0xB9FC con los altos...
+C 0xBA00 ...83 de espera...
+C 0xBA04 ...o 16
+C 0xBA09 3 disparos
+C 0xBA0D 4 x 2
+C 0xBA15 16 de vida
+C 0xBA19 la forma 5...
+C 0xBA21 ...o 4
+C 0xBA26 dentro?
+C 0xBA2F la y alta: fuera
+C 0xBA33 la espera
+C 0xBA37 6 cuadros
+C 0xBA3B un disparo menos
+C 0xBA40 la tanda siguiente: 3...
+C 0xBA44 ...tras 64
+C 0xBA48 la x
+C 0xBA4B hacia el otro lado
+C 0xBA53 desde y - 8 o + 16
+C 0xBA5E el tipo 0x31 (p03:A3D9)
+C 0xBA61 el sonido 6
+C 0xBA66 la forma 0x3E, 4 x 2, 8 x 24
+C 0xBA71 dentro?
+C 0xBA7A la espera
+C 0xBA7E el paso
+C 0xBA87 la forma siguiente
+C 0xBA8A 8 de espera
+C 0xBA8E el paso siguiente
+C 0xBA92 dispara: el tipo 0x15 desde (y - 16, x)
+C 0xBAA5 la espera: 48, o 16 con dificultad 10
+C 0xBAB3 el paso 0
+C 0xBAB7 la forma de antes
+C 0xBABB la y en IX+26
+C 0xBAC1 3 de espera
+C 0xBAC5 4 x 3
+C 0xBACD sin velocidad y
+C 0xBAD0 la x: -8
+C 0xBAD5 la x = 0: se va
+C 0xBADC IX+10 bit 2 a cero
+C 0xBAE0 la espera
+C 0xBAE4 IX+10 bit 2
+C 0xBAE8 el paso 5...
+C 0xBAED ...espera 2...
+C 0xBAF2 ...si no, 3
+C 0xBAF6 por el paso, la tabla de detras
+C 0xBB03 la y de 0x41 en adelante: nada
+C 0xBB09 3
+C 0xBB0D el paso siguiente
+C 0xBB11 sin velocidad x
+C 0xBB14 la velocidad y: -8
+C 0xBB1A la espera
+C 0xBB1E sin velocidad y
+C 0xBB22 la x: 8 o -8 segun el paso
+C 0xBB2F el paso 2
+C 0xBB34 la y del jugador - la suya...
+C 0xBB3D ...a menos de 9: p03:BB41
+C 0xBB41 el paso 4
+C 0xBB45 8 de espera
+C 0xBB4A sin velocidad x
+C 0xBB4F la velocidad y: -8
+C 0xBB52 IX+10 bit 2 a cero
+C 0xBB56 y + 8
+C 0xBB5C x - 16, si cabe
+C 0xBB65 el tipo 0x14
+C 0xBB6C la y menos de 0x21: p03:BB41
+C 0xBB71 por debajo de la de salida: nada
+C 0xBB75 2
+C 0xBB7B IX+10 bit 2
+C 0xBB7F el paso siguiente
+C 0xBB83 1 x 2
+C 0xBB8B 8 de espera
+C 0xBB8F IX+10 = 1
+C 0xBB93 sin velocidad y
+C 0xBB96 la x: -16
+C 0xBB9B el paso
+C 0xBBA1 la espera
+C 0xBBA5 IX+10 bit 2
+C 0xBBA9 el paso siguiente
+C 0xBBAC el sonido 0x13
+C 0xBBB1 la x menos de 16: se va
+C 0xBBBA IX+10 bit 4
+C 0xBBBD 2 x 2
+C 0xBBC8 IX+10 bit 2 a cero
+C 0xBBCC 4 de espera
+C 0xBBD0 sin velocidad
+C 0xBBD3 8...
+C 0xBBD6 ...hacia un lado segun IX+19
+C 0xBBDD en horizontal la x...
+C 0xBBE6 ...en vertical la y
+C 0xBBE9 NZ
+C 0xBBEC IX+10 bit 2 a cero
+C 0xBBF0 la espera
+C 0xBBF4 4 cuadros
+C 0xBBF8 IX+10 bit 2
+C 0xBBFC al volver, p03:BC0E
+C 0xBC00 por IX+19, la tabla de detras: el decorado delante
+C 0xBC0E decorado: se va
+C 0xBC11 la x de 0xF8 en adelante: se va
+C 0xBC1A el decorado a la izquierda
+C 0xBC24 el decorado a la derecha (+16)
+C 0xBC2C IX+0F: dispara ya?
+C 0xBC32 la espera
+C 0xBC36 24 cuadros
+C 0xBC3A IX+0F = 1
+C 0xBC3E vertical x 2 + IX+0B...
+C 0xBC46 ...el desplazamiento de 0xBC89
+C 0xBC4D la x de 16 bits
+C 0xBC53 + el desplazamiento x
+C 0xBC54 p03:BC79
+C 0xBC58 se sale: fuera
+C 0xBC5B la y de 16 bits
+C 0xBC5E + el desplazamiento y
+C 0xBC65 se sale: fuera
+C 0xBC67 C = 0
+C 0xBC69 la capsula 0x35
+C 0xBC6E no cabe: fuera
+C 0xBC6F IX+0F = 0
+C 0xBC73 una menos
+C 0xBC76 se acabaron: se va
+C 0xBC79 HL + E con signo
+C 0xBC81 H = 0: dentro
+C 0xBC84 se va
+C 0xBC91 IX+0F = 0
+C 0xBC95 IX+0D = 0xFF
+C 0xBC99 IX+0B / 2 & 3: cuantas capsulas
+C 0xBC9F en IX+0C
+C 0xBCA2 IX+0B & 1: el lado
+C 0xBCAA 1 de espera
+C 0xBCAF la forma 0x38, 4 x 4, 8 x 16
+C 0xBCBA la espera del disparo
+C 0xBCC1 la y alta: fuera
+C 0xBCC5 dentro?
+C 0xBCCA la espera
+C 0xBCCE el paso
+C 0xBCD4 5 de espera
+C 0xBCD8 3 disparos
+C 0xBCDC el paso 1
+C 0xBCE0 5 de espera
+C 0xBCE4 desde (y + 16, x + 16)
+C 0xBCF1 la velocidad hacia el jugador
+C 0xBCF5 el disparo
+C 0xBCFB IX = el disparo
+C 0xBD02 el tipo 0x83
+C 0xBD06 10 de espera
+C 0xBD0A el color 15
+C 0xBD10 uno menos
+C 0xBD14 se acabo: el paso de antes
+C 0xBD19 rapidez 0x60 hacia el jugador
+C 0xBD30 IX+10 bit 1 a cero
+C 0xBD35 la espera
+C 0xBD39 el bit 7 del tipo a cero
+C 0xBD3E 0xE671 = 1
+C 0xBD43 900 cuadros...
+C 0xBD46 ...o 1.200 en la segunda vuelta
+C 0xBD4F en 0xE649
+C 0xBD53 0xE671?
+C 0xBD57 0: fuera
+C 0xBD58 1: la cuenta
+C 0xBD5E - 1
+C 0xBD64 aun no: p03:BD85
+C 0xBD66 acabada: 0xE671 = 2
+C 0xBD6B los enemigos
+C 0xBD74 queda alguno?
+C 0xBD78 si: fuera
+C 0xBD7D ninguno: 0xE671 y 0xE648 a 0
+C 0xBD85 3 del tipo 0x21
+C 0xBD89 hay alguno con el numero C?
+C 0xBD92 el tipo 0x21...
+C 0xBD99 ...con IX+19 = C?
+C 0xBD9D si: ya esta
+C 0xBDA3 no: lo crea
+C 0xBDA4 su sitio de 0xBDB9
+C 0xBDAB B = el numero
+C 0xBDAE el tipo 0x21
+C 0xBDB5 el siguiente numero
+C 0xBDBF IX+19 bit 1: 2 x 3...
+C 0xBDC9 ...o 3 x 2
+C 0xBDCC el ancho y el alto
+C 0xBDD2 el caracter 0x1E + IX+19
+C 0xBDD7 su caja (p00:4FA0)
+C 0xBDDA al azar...
+C 0xBDE1 ...en IX+26
+C 0xBDE4 la velocidad (p03:BE74)
+C 0xBDE7 la espera al azar: 16 a 40
+C 0xBDF2 el paso
+C 0xBDFB en horizontal o en vertical
+C 0xBE00 la x de 16 bits...
+C 0xBE06 ...el limite 0xB8 menos 16
+C 0xBE0C la y de 16 bits, limite 0x60 menos 32
+C 0xBE1A llega al limite...
+C 0xBE1D ...rebota (p03:BE6A)
+C 0xBE20 la espera
+C 0xBE24 16
+C 0xBE28 IX+10 bit 2 a cero
+C 0xBE2C el paso siguiente
+C 0xBE2F la espera
+C 0xBE33 16
+C 0xBE37 el paso siguiente
+C 0xBE3A el desplazamiento de 0xBEB6
+C 0xBE44 la x + el desplazamiento
+C 0xBE49 la y + el desplazamiento
+C 0xBE50 el tipo 0x36
+C 0xBE55 el sonido 0x13
+C 0xBE5A la espera
+C 0xBE5E la espera siguiente
+C 0xBE61 IX+10 bit 2
+C 0xBE65 el paso 0
+C 0xBE6A en vertical: la x cambia de signo
+C 0xBE71 si no, la y
+C 0xBE74 la velocidad: la de 0xBEAE...
+C 0xBE82 ...a IX+07-0A
+C 0xBE85 + IX+26...
+C 0xBE8E ...a la velocidad y...
+C 0xBE9E ...o a la x
+C 0xBEBC la animacion
+C 0xBEBF p03:BEC5
+C 0xBEC2 su caja
+C 0xBEC5 el paso
+C 0xBECB la espera
+C 0xBECF 1
+C 0xBED2 13 filas: crece del todo
+C 0xBED9 26 columnas
+C 0xBEE0 IX+19 = 1: crece hacia arriba
+C 0xBEE6 la y - 8
+C 0xBEEE una fila mas
+C 0xBEF7 hasta abajo del todo
+C 0xBEFF 2: crece a la izquierda
+C 0xBF02 la x - 8
+C 0xBF0A una columna mas
+C 0xBF0E el paso siguiente
+C 0xBF12 mengua: la espera
+C 0xBF16 1
+C 0xBF19 por IX+19...
+C 0xBF22 ...la y + 8
+C 0xBF2A una fila menos
+C 0xBF2F una columna menos
+C 0xBF32 queda: fuera
+C 0xBF33 nada: se va
+C 0xBF36 IX+29 = 0
+C 0xBF3A IX+10 bit 2 a cero
+C 0xBF3E 1 x 1
+C 0xBF46 su caja
+C 0xBF49 1 de espera
+C 0xBF4E la demostracion: los dos jugadores en 0xFF
+C 0xBF56 la dificultad a 0
+C 0xBF5A los mandos a 0
+C 0xBF5D 0xE207, 0xE20D, 0xE239 y 0xE305 a 0
+C 0xBF69 la cuenta de mandos a 1...
+C 0xBF6C ...del jugador 1...
+C 0xBF6F ...y del 2
+C 0xBF72 la partida en marcha (0xE213 = 1)
+C 0xBF75 la fase 1
+C 0xBF78 dos jugadores
+C 0xBF7C empieza la partida
+C 0xBF7F las armas
+C 0xBF82 y el marcador
+C 0xBF85 cada cuadro de la demo: los mandos a 0
+C 0xBF92 los del jugador 1 (p14:9419)
+C 0xBF95 su cuenta
+C 0xBF98 - 1
+C 0xBF99 aun no: siguen los mismos
+C 0xBF9B el par siguiente
+C 0xBF9E la cuenta 0xFF: se acaba la demo
+C 0xBFA1 el boton recien pulsado
+C 0xBFA7 los mandos...
+C 0xBFAA ...con el bit 4: dispara siempre
+C 0xBFAF y recien pulsado
+C 0xBFB4 los del jugador 2 (p14:94DA)
+C 0xBFD6 y el cuadro de la partida
+C 0xBFD9 la demo se acaba: 0xE213 = 0
+C 0xBFDE el bit 5 de lo recien pulsado...
+C 0xBFE1 ...del par
+C 0xBFE7 el par siguiente
+C 0xBFEA la cuenta (HL + 2)
+C 0xBFEB + 1
+C 0xBFEC con el 14 en 0x8000
+C 0xBFEF la entrada x 2...
+C 0xBFF3 ...+ el guion
+C 0xBFF4 la cuenta del par
+C 0xBFF7 a la cuenta del jugador
+C 0xBFFA las teclas
+C 0xBFFB a sus mandos
+C 0xBFFC y vuelve a 1-2-3
+# --- fin de lo escrito a mano ---
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
 D 0xA000 0xA002 partida_A000  los 2 ultimos bytes de la instruccion de p02:9FFF (DD 7E 19), que empieza en el banco 2; lo leen p02:9FFF (2 bytes)
 F 0xA000 2
@@ -92,153 +1458,89 @@ F 0xBFFF 1
 
 # --- ANOTACIONES AUTOMATICAS (seccion que reescribe tools/anota.py; no editar a mano) ---
 C 0xA012 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xA01D lee la cuenta de cuadros del juego
-C 0xA022 byte_de_tabla: A = el byte HL + A
-C 0xA046 menos_de: DE = -DE
-C 0xA04C azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
 C 0xA054 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0xA05A azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
 C 0xA062 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0xA068 lee 1 si la fase va en vertical
 C 0xA06C pon_ix09: IX+09/0A = DE
 C 0xA06F pon_ix07: IX+07/08 = DE
-C 0xA072 lee 1 si la fase va en vertical
 C 0xA076 pon_ix07: IX+07/08 = DE
 C 0xA079 pon_ix09: IX+09/0A = DE
-C 0xA07C lee 1 si la fase va en vertical
-C 0xA094 lee 1 si la fase va en vertical
 C 0xA0BC byte_de_tabla: A = el byte HL + A
 C 0xA0EB anima_6: cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
-C 0xA0F4 lee la cuenta de cuadros del juego
 C 0xA12F hl_mas_a: HL = HL + A
 C 0xA169 anima_c: cada (B+1) cuadros avanza IX+26 de 0 a C-1
 C 0xA199 pon_ix09: IX+09/0A = DE
 C 0xA1A4 menos_de: DE = -DE
 C 0xA1BB menos_de: DE = -DE
 C 0xA1C9 anima_6: cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
-C 0xA1D2 lee la fase (de 1 a 7; 0 en la presentacion)
 C 0xA1F9 byte_de_tabla: A = el byte HL + A
-C 0xA23A lee la fase (de 1 a 7; 0 en la presentacion)
 C 0xA24C pon_ix07: IX+07/08 = DE
 C 0xA254 pon_ix09: IX+09/0A = DE
 C 0xA28A pon_ix07: IX+07/08 = DE
-C 0xA2C8 azar: mezcla R en 0xE606 (el azar)
 C 0xA2D9 pon_ix07: IX+07/08 = DE
-C 0xA37A lee la cuenta de cuadros del juego
-C 0xA39D menos_de: DE = -DE
 C 0xA3A0 pon_ix07: IX+07/08 = DE
 C 0xA3DD crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xA3E2 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xA3F5 menos_de: DE = -DE
 C 0xA3F8 pon_ix09: IX+09/0A = DE
-C 0xA492 byte_de_tabla: A = el byte HL + A
 C 0xA4C3 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xA4D6 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
-C 0xA4ED azar: mezcla R en 0xE606 (el azar)
-C 0xA4F7 pon_ix07: IX+07/08 = DE
-C 0xA4FA azar_r: un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
-C 0xA50C pon_ix09: IX+09/0A = DE
-C 0xA55B apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0xA562 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0xA58F apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0xA596 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0xA616 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0xA61F apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0xA628 otro_jugador: IY a la ficha del otro jugador (0xE300 <-> 0xE380)
-C 0xA668 lee la cuenta de cuadros del juego
 C 0xA67A palabra_de_hl: DE = la palabra HL + 2 x A
 C 0xA697 lee 1 si la fase va en vertical
 C 0xA6A3 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0xA6DD lee 1 si la fase va en vertical
-C 0xA808 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0xA80F apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0xA875 despacha: salta a la entrada A de la tabla que va detras del call
-C 0xA890 lee cuantos jugadores (o el modo de dos)
 C 0xA8BA apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0xA8C1 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0xA8F4 lee cuantos jugadores (o el modo de dos)
-C 0xA91B lee cuantos jugadores (o el modo de dos)
-C 0xA999 despacha: salta a la entrada A de la tabla que va detras del call
 C 0xA9B9 lee 1 si la fase va en vertical
 C 0xA9D0 lee 1 si la fase va en vertical
 C 0xA9ED pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xA9F0 lee 1 si la fase va en vertical
 C 0xAA14 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xAA1C lee 1 si la fase va en vertical
-C 0xAA6C lee 1 si la fase va en vertical
 C 0xABBB lee 1 si la fase va en vertical
 C 0xABE0 lee 1 si la fase va en vertical
 C 0xAC53 lee 1 si la fase va en vertical
 C 0xACA7 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xACC1 lee 1 si la fase va en vertical
-C 0xAD30 lee 1 si la fase va en vertical
 C 0xAD56 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xAD68 lee 1 si la fase va en vertical
-C 0xAE0A lee 1 si la fase va en vertical
 C 0xAE2D lee 1 si la fase va en vertical
-C 0xAE72 lee 1 si la fase va en vertical
 C 0xAEA4 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xAEAC lee 1 si la fase va en vertical
 C 0xAEE9 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xAEF1 lee 1 si la fase va en vertical
 C 0xAF3E pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xAF74 lee 1 si la fase va en vertical
-C 0xAFB9 lee 1 si la fase va en vertical
-C 0xB082 despacha: salta a la entrada A de la tabla que va detras del call
-C 0xB0EB lee el byte de 0x88E2 de la fase (y el del jefe)
 C 0xB118 lee el byte de 0x88E2 de la fase (y el del jefe)
 C 0xB266 despacha: salta a la entrada A de la tabla que va detras del call
-C 0xB353 lee la cuenta de cuadros del juego
-C 0xB3C1 lee 1 si la fase va en vertical
 C 0xB468 de_mas_a: DE = DE + A
 C 0xB476 de_mas_a: DE = DE + A
 C 0xB491 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0xB498 lee el byte de 0x88E2 de la fase (y el del jefe)
-C 0xB509 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
-C 0xB568 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
 C 0xB59A guarda lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
-C 0xB5AF lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
-C 0xB5C7 guarda el slot del cartucho vecino
-C 0xB5D6 lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
-C 0xB5F0 apunta a lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
-C 0xB601 apunta a lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
 C 0xB78F crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xB7F6 lee la fase (de 1 a 7; 0 en la presentacion)
 C 0xB862 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xB8C1 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
-C 0xB8EB lee la fase (de 1 a 7; 0 en la presentacion)
-C 0xB92E lee la fase (de 1 a 7; 0 en la presentacion)
 C 0xB93A crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xB9F3 anima_6: cada 4 cuadros avanza IX+26 de 0 a 5 y pone el dibujo de la tabla HL
 C 0xBA63 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xBAA2 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xBAD2 pon_ix07: IX+07/08 = DE
-C 0xBAF6 despacha: salta a la entrada A de la tabla que va detras del call
 C 0xBB69 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xBB98 pon_ix09: IX+09/0A = DE
 C 0xBBAE pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xBBDA menos_de: DE = -DE
-C 0xBBDD lee 1 si la fase va en vertical
 C 0xBBE2 pon_ix07: IX+07/08 = DE
-C 0xBBE6 pon_ix09: IX+09/0A = DE
 C 0xBC03 despacha: salta a la entrada A de la tabla que va detras del call
-C 0xBC3E lee 1 si la fase va en vertical
 C 0xBC49 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0xBC6B crea_enemigo_ix: crea un enemigo de tipo A guardando IX
-C 0xBD6B apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0xBD89 apunta a los enemigos (12 fichas de 0x40 bytes)
 C 0xBDA8 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0xBDB0 crea_enemigo: crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
-C 0xBDDA azar: mezcla R en 0xE606 (el azar)
-C 0xBDE7 azar: mezcla R en 0xE606 (el azar)
 C 0xBE41 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0xBE52 crea_enemigo_ix: crea un enemigo de tipo A guardando IX
 C 0xBE57 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0xBE7D hl_mas_a: HL = HL + A
 C 0xBE94 hl_mas_a: HL = HL + A
 C 0xBEA4 hl_mas_a: HL = HL + A
-C 0xBF75 guarda la fase (de 1 a 7; 0 en la presentacion)
 C 0xBF79 guarda cuantos jugadores (o el modo de dos)
-C 0xBFEC banco_14_en_8000: pone el banco 14 en 0x8000 (y su copia en 0xF0F1-3)
-C 0xBFFC bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 # --- fin de las anotaciones de anota.py ---
