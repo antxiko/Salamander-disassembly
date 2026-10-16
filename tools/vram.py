@@ -258,6 +258,26 @@ def sprites_de_la_fase(fase, vram=None):
     return vram
 
 
+# p00:4DC8, al llegar el jefe (0xE640): el 8 no carga nada; el 3 y el 6 dejan
+# en 0xE220-0xE225 la lista p07:6822 y sus copias p07:6895 (espejo) y p07:68C0
+# (cabeza abajo), que se pintan poco a poco (p00:4763); los demas, la entrada
+# del jefe de p07:67D6, p07:67E4 (espejo) y p07:67F2 (cabeza abajo).
+
+def del_jefe(fase, jefe, vram):
+    v = ventana_789(fase)
+    if jefe == 8:
+        return vram
+    if jefe in (3, 6):
+        lista_caracteres(vram, v, 0x6822)
+        copias(vram, v, 0x6895, False)
+        copias(vram, v, 0x68C0, True)
+        return vram
+    lista_caracteres(vram, v, v.w(0x67D6 + 2 * jefe))
+    copias(vram, v, v.w(0x67E4 + 2 * jefe), False)
+    copias(vram, v, v.w(0x67F2 + 2 * jefe), True)
+    return vram
+
+
 # p12:A4A9: cada 4 cuadros (16 en la fase 4), sin jefe, un paso de la lista de
 # la fase (p12:A52F + 2 x fase; 0 = sin lista). Primer byte: los pasos (bits
 # 0-6) y, con el bit 7, que son colores (0x0000) y no dibujos (0x2000). Cada

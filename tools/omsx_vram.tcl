@@ -95,5 +95,45 @@ if {$::ENE ne ""} {
     }
     after time 21 mira_enemigos
 }
+# VRAM_DISPARA t: desde t segundos se pulsa y se suelta el espacio cada 0,1 s
+set ::DISPARA [opcion VRAM_DISPARA {}]
+proc dispara {} {
+    keymatrixdown 8 0x01
+    after time 0.05 {keymatrixup 8 0x01}
+    after time 0.1 dispara
+}
+if {$::DISPARA ne ""} { after time $::DISPARA dispara }
+# VRAM_JEFE: vuelca cuando cambia el jefe (0xE640) o el objeto de 0xE6C8, a los
+# 4 y 8 segundos de cambiar
+set ::JEFE [opcion VRAM_JEFE {}]
+set ::jefe_antes 0
+proc mira_jefe {} {
+    set j [expr {[debug read memory 0xE640] * 256 + [debug read memory 0xE6C8]}]
+    if {$j != $::jefe_antes} {
+        set ::jefe_antes $j
+        set et [format "jefe%04X" $j]
+        set ds $::JEFE
+        if {$ds eq "1"} { set ds {4 8} }
+        foreach d $ds { after time $d "vuelca ${et}_$d" }
+    }
+    after time 0.5 mira_jefe
+}
+if {$::JEFE ne ""} { after time 21 mira_jefe }
+# VRAM_MATA "jefes": a los 10 s de salir uno de esos jefes se hace lo de
+# p11:B58D (se acabo el jefe): 0xE640 = 0, 0xEC80 = 0, 0xE644 = 1
+set ::MATA [opcion VRAM_MATA {}]
+set ::mata_desde -1
+proc mira_mata {} {
+    set j [debug read memory 0xE640]
+    if {[lsearch $::MATA $j] >= 0} {
+        if {$::mata_desde < 0} { set ::mata_desde [machine_info time] }
+        if {[machine_info time] - $::mata_desde > [opcion VRAM_MATA_TRAS 10]} {
+            poke 0xE640 0; poke 0xEC80 0; poke 0xE644 1
+            set ::mata_desde -1
+        }
+    } else { set ::mata_desde -1 }
+    after time 0.5 mira_mata
+}
+if {$::MATA ne ""} { after time 21 mira_mata }
 foreach t $::TIEMPOS { after time $t "vuelca $t" }
 after time [expr {[lindex $::TIEMPOS end] + 1}] exit
