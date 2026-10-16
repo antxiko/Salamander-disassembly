@@ -1,0 +1,104 @@
+# Puntos de entrada del banco 2 (se ejecuta en 0x8000).
+#
+# Cada uno lleva la instruccion que lo justifica. Los que ponen "pNN:XXXX"
+# vienen de OTRO banco: el trazador de una sola pagina no puede seguirlos,
+# porque en esa direccion -segun lo que haya en el registro del mapper- puede
+# estar cualquiera de seis bancos. Los que ponen "tabla" salen de una tabla
+# del despachador (cartucho.DESPACHADOR), que va pegada detras de su `call` y esta declarada
+# como datos en el .nocode: el trazador tampoco puede seguirla.
+#
+# Los saltos y llamadas DENTRO del propio banco no se ponen aqui: los
+# encuentra tools/z80trace.py solo, siguiendo el flujo.
+#
+# Este fichero lo regenera `make semillas` (tools/bancos.py escribe).
+0x8000   # p01:7FFF sigue de largo (el codigo cruza la frontera de banco)
+0x8002   # p01:7FE3 jr cc
+0x800D   # p01:7FE6 jr cc
+0x8025   # p00:50B2 call
+0x8031   # p01:6E99 call
+0x8077   # p01:66BE entrada 0 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x80E9   # p01:68EE entrada 0 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x81CE   # p03:A361 call
+0x81D2   # p12:B1A7 jp
+0x81F6   # p01:66BE entrada 37 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x820D   # p01:68EE entrada 37 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x824E   # p01:66BE entrada 40 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x825B   # p01:66BE entrada 41 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x8263   # p00:403C call
+0x8510   # p00:421C call
+0x8525   # p02:8514 entrada 0 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x85A5   # p02:8514 entrada 1 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x85B5   # p02:8514 entrada 2 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x85D2   # p02:8514 entrada 3 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x8626   # p02:8514 entrada 4 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x8636   # p02:8514 entrada 5 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x86B4   # p02:8514 entrada 6 de la tabla de 0x8517 (call 0x40CE en 0x8514)
+0x8703   # p00:5764 call
+0x8720   # p00:4224 call
+0x87A4   # p00:5636 call
+0x885B   # p00:5B13 call
+0x886A   # p00:5B10 call
+0x8929   # p00:4249 call
+0x8B61   # p00:4267 call
+0x8B97   # p00:42C4 call
+0x8BB4   # p00:434F call
+0x8BC8   # p00:42AC call
+0x8C9C   # p12:B047 jp cc
+0x8D05   # p01:6B9A call
+0x8D66   # p00:42AF call
+0x8EF1   # p00:42F8 call
+0x8FA0   # p00:429D call
+0x90BA   # p00:52C6 jp cc
+0x90F8   # p01:66BE entrada 48 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x90FC   # p01:66BE entrada 49 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9129   # p01:68EE entrada 48 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9157   # p03:BEBC call
+0x9183   # p00:4282 call
+0x91E1   # p00:42FB call
+0x9221   # p00:4349 call
+0x925A   # p00:430D call
+0x92C5   # p01:66BE entrada 51 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x92F9   # p01:68EE entrada 51 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9326   # p01:66BE entrada 34 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9343   # p01:66BE entrada 13 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x937D   # p01:68EE entrada 34 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9387   # p01:68EE entrada 13 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9473   # p00:42BE call
+0x94A3   # p01:7F16 jp cc
+0x95A5   # p00:42B5 call
+0x95CD   # p00:42B2 call
+0x9649   # p00:42BB call
+0x9684   # p01:7F19 jp
+0x9837   # p00:42A0 call
+0x98D3   # p00:42B8 call
+0x992A   # p02:991B entrada 0 de la tabla de 0x991E (call 0x40CE en 0x991B)
+0x9945   # p02:991B entrada 3 de la tabla de 0x991E (call 0x40CE en 0x991B)
+0x9946   # p02:991B entrada 1 de la tabla de 0x991E (call 0x40CE en 0x991B)
+0x9951   # p02:991B entrada 2 de la tabla de 0x991E (call 0x40CE en 0x991B)
+0x9957   # p02:991B entrada 4 de la tabla de 0x991E (call 0x40CE en 0x991B)
+0x9967   # p02:991B entrada 5 de la tabla de 0x991E (call 0x40CE en 0x991B)
+0x996E   # p00:42C1 call
+0x9A1A   # p00:42A3 call
+0x9C3B   # p00:42A9 call
+0x9C43   # p00:42A6 call
+0x9C7B   # p00:428E call
+0x9C90   # p02:9C85 entrada 0 de la tabla de 0x9C88 (call 0x40CE en 0x9C85)
+0x9CAD   # p02:9C85 entrada 1 de la tabla de 0x9C88 (call 0x40CE en 0x9C85)
+0x9CF9   # p02:9C85 entrada 2 de la tabla de 0x9C88 (call 0x40CE en 0x9C85)
+0x9D0B   # p02:9C85 entrada 3 de la tabla de 0x9C88 (call 0x40CE en 0x9C85)
+0x9D29   # p01:66BE entrada 64 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9D47   # p01:68EE entrada 64 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9DBC   # p01:66BE entrada 63 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9DE3   # p01:68EE entrada 63 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9E3C   # p01:66BE entrada 35 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9E58   # p01:68D7 call cc
+0x9E65   # p01:68EE entrada 35 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9EDE   # p01:66BE entrada 56 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9EE7   # p01:66BE entrada 57 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9EEF   # p01:66BE entrada 58 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9EF7   # p01:66BE entrada 59 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9F00   # p01:66BE entrada 60 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9F22   # p01:68EE entrada 56 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9F78   # p01:66BE entrada 3 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0x9FB2   # p01:68EE entrada 3 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x9FF7   # p03:A00E jr cc

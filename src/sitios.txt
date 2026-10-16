@@ -1,0 +1,56 @@
+# Sitios con el reparto FORZADO.
+#
+#   'pNN 0xPC b6000 b8000 bA000  # por que'   en esa instruccion
+#   'entrada pNN 0xCALL k b6000 b8000 bA000'  la entrada k de la tabla del
+#                                             despachador de ese call
+#
+# El trazador junta en una instruccion todos los repartos con los que llega a
+# ella; aqui se dice cual hay DE VERDAD cuando eso no lo puede saber solo.
+#
+# p01:66BE es el despachador por tipo de enemigo (0xE650 - 1; lo guarda
+# p01:65BD, al que llaman con el tipo en A). Se llega a el con 3, 11 o 12 en
+# 0xA000 segun la fase, asi que el trazador seguia las 22 entradas que caen en
+# 0xA000-0xBFFF en los tres bancos. Cada tipo vive en uno solo, y se ve en sus
+# primeras instrucciones: una rutina de enemigo empieza por `ld (ix+n),...` o
+# por `call 4EAA/4F9B/6BCD`; en los otros dos bancos esa direccion cae en
+# medio de otra rutina, en datos o en el relleno. Donde un banco crea el tipo
+# (`ld a,N` delante del call a p01:65B5/65BD) coincide siempre.
+entrada p01 0x66BE 2  1 2 3    # tipo 3 -> p03:A103 (ld (ix+026h),0 / call 4F9B)
+entrada p01 0x66BE 6  1 2 3    # tipo 7 -> p03:A02D (call 6BCD / ld a,(ix+019h); lo crea p03)
+entrada p01 0x66BE 7  1 2 3    # tipo 8 -> p03:A18A (call 6BCD / ld a,(0E324h))
+entrada p01 0x66BE 8  1 2 3    # tipo 9 -> p03:A23A (ld a,(0E301h) / cp 4)
+entrada p01 0x66BE 14 1 2 12   # tipo 15 -> p12:A784 (call 4EAA / ld (ix+028h),0; lo crea p12)
+entrada p01 0x66BE 15 1 2 3    # tipo 16 -> p03:B954 (call 6BCD / ld (ix+002h),0Bh; lo crea p03)
+entrada p01 0x66BE 17 1 2 3    # tipo 18 -> p03:A4E5 (ld (ix+010h),0Fh; lo crea p03)
+entrada p01 0x66BE 19 1 2 3    # tipo 20 -> p03:BB83 (ld (ix+013h),1; lo crea p03)
+entrada p01 0x66BE 20 1 2 3    # tipo 21 -> p03:BABB (ld a,(ix+004h); lo crea p03)
+entrada p01 0x66BE 24 1 2 3    # tipo 25 -> p03:A2BE (call 4EAA / ld (ix+024h),4)
+entrada p01 0x66BE 26 1 2 3    # tipo 27 -> p03:A295 (ld (ix+002h),20h)
+entrada p01 0x66BE 29 1 2 3    # tipo 30 -> p03:A2E6 (ld (ix+010h),4; lo crea p03)
+entrada p01 0x66BE 30 1 2 3    # tipo 31 -> p03:A385 (ld (ix+002h),18h)
+entrada p01 0x66BE 31 1 2 3    # tipo 32 -> p03:A3FB (ld (ix+010h),1Bh)
+entrada p01 0x66BE 32 1 2 3    # tipo 33 -> p03:BDBF (ld a,(ix+019h); lo crea p03)
+entrada p01 0x66BE 36 1 2 12   # tipo 37 -> p12:BD00 (ld (ix+002h),1Ah; lo crea p12)
+entrada p01 0x66BE 38 1 2 3    # tipo 39 -> p03:BD30 (res 1,(ix+010h) tras un jp; en el 12 cae a mitad de rutina (p12:BD2A))
+entrada p01 0x66BE 47 1 2 3    # tipo 48 -> p03:A460 (ld (ix+025h),20h)
+entrada p01 0x66BE 52 1 2 3    # tipo 53 -> p03:BBBA (call 4EAA; lo crea p03)
+entrada p01 0x66BE 53 1 2 3    # tipo 54 -> p03:BF36 (ld (ix+029h),0; lo crea p03; en el 12 es relleno 0xFF)
+entrada p01 0x66BE 61 1 2 11   # tipo 62 -> p11:B8C2 (ld (ix+029h),0; lo crea p11)
+entrada p01 0x66BE 62 1 2 12   # tipo 63 -> p12:BA37 (ld (ix+026h),0 / call 4F9B; lo crea p12)
+#
+# p01:786A (desde p01:7869, `dec a`) reparte por tipo los tamanos de choque:
+# casi todas las rutinas son `ld c,N / ld de,alto-ancho / ld hl,...`. Se llega
+# con 3 u 11 en 0xA000. En el 3 las once primeras siguen ese molde; la 22 en el
+# 3 es `nop / nop / jr` y en el 11 una rutina con (ix+n).
+entrada p01 0x786A 0  1 2 3    # -> p03:B796
+entrada p01 0x786A 6  1 2 3    # -> p03:B7F0
+entrada p01 0x786A 9  1 2 3    # -> p03:B7D4
+entrada p01 0x786A 12 1 2 3    # -> p03:BA66
+entrada p01 0x786A 13 1 2 3    # -> p03:B7C6
+entrada p01 0x786A 16 1 2 3    # -> p03:B9FC
+entrada p01 0x786A 17 1 2 3    # -> p03:B796
+entrada p01 0x786A 18 1 2 3    # -> p03:B7E6
+entrada p01 0x786A 19 1 2 3    # -> p03:A49F
+entrada p01 0x786A 20 1 2 3    # -> p03:BC91
+entrada p01 0x786A 21 1 2 3    # -> p03:BCAF
+entrada p01 0x786A 22 1 2 11   # -> p11:AC44
