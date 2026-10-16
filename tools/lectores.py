@@ -492,9 +492,10 @@ def banco789():
                  cop("p00:44F0", "la fase", "cabeza abajo (0xF000 = 1)"), "copias cabeza abajo de cada fase (p00:44F3)")
     jefes = list(range(1, 8))
     tabla_indice(v, 0x67D6, jefes, "caracteres_jefe", "0xE640 =", 0x4540, "p00:4DE1",
-                 car("p00:4DE1", "0xE640 ="), "listas de caracteres al llegar el jefe; p00:4DC8 solo "
-                 "las pide con 0xE640 = 1, 2 o 7 (con 3, 6 y 8 sale antes, y 4 y 5 no los pone nadie: "
-                 "p02:8591-86AF)")
+                 car("p00:4DE1", "0xE640 ="), "listas de caracteres al llegar el jefe; p00:4DC8 las "
+                 "pide con 0xE640 = 1, 2 o 7; con 3 y 6 p00:4E08 pone 0x6822 en 0xE220 (la misma "
+                 "lista que las entradas 3 y 6), con 8 no carga nada, y 4 y 5 no los pone nadie "
+                 "(p02:8591-86AF)")
     tabla_indice(v, 0x67E4, jefes, "copias_jefe_a", "0xE640 =", 0x44F3, "p00:4DEE",
                  cop("p00:4DEE", "0xE640 =", "en espejo"), "copias en espejo al llegar el jefe")
     tabla_indice(v, 0x67F2, jefes, "copias_jefe_b", "0xE640 =", 0x44F3, "p00:4DFB",
@@ -620,6 +621,119 @@ def banco14():
                   "leen %s para poner los caracteres 0x50/0x51 del fondo" % que, sitio, F=16)
 
 
+def rachas_sd(v, a):
+    """p00:47F7: como p00:4D16 pero sin el 0x80 de destino (n & 0x7F == 0
+    copiaria 256 bytes con el djnz)."""
+    while True:
+        n = v(a)
+        a += 1
+        if n == 0:
+            return a
+        if n < 0x80:
+            a += 1
+        else:
+            a += (n & 0x7F) or 256
+
+
+def lista_caracteres_sd(v, a, sitio):
+    """p00:4763: fichas de 6 bytes como las de p00:4540, con las rachas de p00:47F7."""
+    ini, k = a, 0
+    while v(a) != 0:
+        for q, que in ((v.w(a + 1), "dibujos"), (v.w(a + 4), "colores")):
+            if q < 0xC000:
+                B.declara(v, q, rachas_sd(v, q), "%s_%04X" % (que, q),
+                          "rachas (p00:47F7, sin destino) con los %s de los caracteres desde el "
+                          "%d, ficha %d de la lista 0x%04X (p00:4763)" % (que, v(a + 3), k, ini), sitio)
+        a += 6
+        k += 1
+    return a + 1
+
+
+def lista_caracteres5(v, a, sitio):
+    """p10:8107: fichas de 5 bytes [dibujos][caracter][colores]; un 0 en el
+    primer byte acaba (IX va un byte por detras: `dec ix`)."""
+    ini, k = a, 0
+    while v(a) != 0:
+        for q, que in ((v.w(a), "dibujos"), (v.w(a + 3), "colores")):
+            B.declara(v, q, rachas(v, q), "%s_%04X" % (que, q),
+                      "rachas (p00:4D16, por p00:456D) con los %s de los caracteres desde el %d, "
+                      "ficha %d de la lista 0x%04X (p10:8107)" % (que, v(a + 2), k, ini), sitio)
+        a += 5
+        k += 1
+    return a + 1
+
+
+def banco9():
+    v = B.Ventana((7, 8, 9))
+    for a, sitio, que in ((0xA042, "p00:446F", "0x18C0"), (0xA0D8, "p00:4480", "0x1900"),
+                          (0xA113, "p00:4491", "0x18A0")):
+        B.declara(v, a, rachas(v, a), "rachas_%04X" % a, "rachas a la VRAM %s (p00:4D16): la otra "
+                  "rama del `jr nc` de p00:4835 (bit fase de 0x26), que el trazador no ve" % que, sitio)
+    t = B.Ventana((1, 10, 9))
+    idx = list(range(1, 7))
+    tabla_indice(t, 0xA4BF, idx, "caracteres_menu", "0xE63A & 0x0F =", None, "p10:810C",
+                 lambda v, p, ks: B.declara(v, p, lista_caracteres5(v, p, "p10:8107"), "caracteres5_%04X" % p,
+                                            "lista de caracteres de p10:8107 (0xE63A & 0x0F = %s): fichas "
+                                            "de 5 bytes [dibujos][caracter][colores], 0 acaba; los tercios, "
+                                            "de los bits 4-6 de B" % ", ".join(map(str, ks)), "p10:810C", F=5),
+                 "las listas de caracteres de p10:8107")
+    for tabla, sitio, modo in ((0xA4CB, "p10:80F2", "en espejo (0xF000 = 0)"),
+                               (0xA4D7, "p10:8101", "cabeza abajo (0xF000 = 1)")):
+        tabla_indice(t, tabla, idx, "copias_menu_%04X" % tabla, "0xE63A & 0x0F =", None, sitio,
+                     lambda v, p, ks, sitio=sitio, modo=modo: B.declara(
+                         v, p, lista_copias(v, p), "copias_%04X" % p,
+                         "lista de copias VRAM -> VRAM %s (p00:44F3) con 0xE63A & 0x0F = %s"
+                         % (modo, ", ".join(map(str, ks))), sitio, F=4),
+                     "las listas de copias de p00:44F3")
+    # la presentacion (p10:8009-8018) y el jefe 3/6 (p00:4E0E-4E1A) ponen en
+    # 0xE220-0xE224 lo que leen p00:4763 (caracteres) y p00:47E5/47F0 (copias)
+    B.declara(t, 0xA505, lista_caracteres5(t, 0xA505, "p10:8009"), "caracteres5_A505",
+              "lista de caracteres de la presentacion (p10:8009 -> 0xE220): p00:4763 la lee con "
+              "0xE63A distinto de 0 por p00:4794, fichas de 5 bytes, 0 acaba; es tambien la "
+              "entrada 3 de 0xA4BF", "p10:8009", F=5)
+    for a, sitio in ((0xA572, "p10:800F"), (0xA593, "p10:8015")):
+        B.declara(t, a, lista_copias(t, a), "copias_%04X" % a, "lista de copias VRAM -> VRAM de "
+                  "la presentacion (%s -> 0xE222/0xE224, p00:44F9)" % sitio, sitio, F=4)
+    w = B.Ventana((7, 8, 9))
+    B.declara(w, 0x6822, lista_caracteres_sd(w, 0x6822, "p00:4E0E"), "caracteres_6822",
+              "lista de caracteres del jefe con 0xE640 = 3 o 6 (p00:4E0E -> 0xE220, p00:4763; "
+              "tambien las entradas 3 y 6 de 0x67D6)", "p00:4E0E", F=6)
+    for a, sitio in ((0x6895, "p00:4E14"), (0x68C0, "p00:4E1A")):
+        B.declara(w, a, lista_copias(w, a), "copias_%04X" % a, "lista de copias VRAM -> VRAM del "
+                  "jefe con 0xE640 = 3 o 6 (%s -> 0xE222/0xE224, p00:44F9)" % sitio, sitio, F=4)
+    # p00:4882: C x 4 en 0xA331: dos punteros a rachas en los tres tercios
+    # (p00:4CE5), a 0x2120 (dibujos) y 0x0120 (colores)
+    u = B.Ventana((1, 2, 9))
+    B.declara(u, 0xA331, 0xA34D, "pares_A331", "7 fichas de 4 bytes (C x 4, p00:4882): dos "
+              "punteros a rachas en los tres tercios, dibujos a 0x2120 y colores a 0x0120; la "
+              "primera es 0000 0000", "p00:488A", F=4)
+    for k in range(1, 7):
+        for j, que in ((0, "dibujos (0x2120)"), (2, "colores (0x0120)")):
+            q = u.w(0xA331 + 4 * k + j)
+            B.declara(u, q, rachas(u, q), "rachas3_%04X" % q, "rachas en los tres tercios "
+                      "(p00:4CE5) con los %s de la ficha %d de 0xA331" % (que, k), "p00:4895", F=16)
+    B.declara(u, 0xA2F5, 0xA335, "valores_A2F5", "16 fichas de 4 bytes [lo hi][lo hi] que "
+              "p02:8447 elige con (IY+0F) & 0x0F (x 4); la ultima son los cuatro ceros con que "
+              "empieza 0xA331", "p02:8454", F=4)
+    for a, n, sitio, cual in ((0xA145, 3, "p02:8326", "IY+20 = 1, en horizontal"),
+                              (0xA160, 4, "p02:832A", "IY+20 distinto de 1, en horizontal"),
+                              (0xA184, 3, "p02:832F", "IY+20 = 1, en vertical (0xE620)"),
+                              (0xA19F, 4, "p02:8333", "IY+20 distinto de 1, en vertical")):
+        B.declara(u, a, a + 9 * n, "fichas9_%04X" % a, "%d fichas de 9 bytes que p02:82C7 elige "
+                  "con B x 9 (la tabla la da p02:831C: %s): un byte que va a IY+27 (ldi) y dos "
+                  "grupos de 4 que p02:8309 copia sumando IY+24 e IY+26 a los dos primeros"
+                  % (n, cual), sitio, F=9)
+    for a, n, sitio, cual in ((0xA1C3, 3, "p02:83BE", "IY+22 = 0, en horizontal"),
+                              (0xA229, 4, "p02:83C2", "IY+22 distinto de 0, en horizontal"),
+                              (0xA1F6, 3, "p02:83C8", "IY+22 = 0, en vertical (0xE620)"),
+                              (0xA26D, 4, "p02:83CC", "IY+22 distinto de 0, en vertical")):
+        B.declara(u, a, a + 17 * n, "fichas17_%04X" % a, "%d fichas de 17 bytes que p02:8375 "
+                  "elige con A x 17 (la tabla la da p02:83B3: %s): un byte (ldi) y cuatro grupos "
+                  "de 4 de p02:8309" % (n, cual), sitio, F=17)
+    B.declara(u, 0xA2B1, 0xA2F5, "fichas_A2B1", "4 fichas de 17 bytes que p02:8375 elige con "
+              "IY+38 < 4 (A x 17): un byte (ldi) y cuatro grupos que copia p02:8309", "p02:84F0", F=17)
+
+
 def de_puntero_en_puntero(v, tabla, n, hasta, nom, texto_tabla, texto_bloque, lector,
                           lector_bloque, F_tabla="w8", F_bloque=16):
     """Tabla de n punteros a bloques que van seguidos: cada uno acaba donde
@@ -638,3 +752,4 @@ def todo():
     mapa()
     banco789()
     banco14()
+    banco9()
