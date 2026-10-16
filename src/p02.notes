@@ -1,9 +1,73 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x818E 0x819E tabla_818E  16 bytes que p02:8138 elige con 0xE64F en horizontal; lo leen p02:8135 (16 bytes)
+F 0x818E 16
+D 0x819E 0x81AE tabla_819E  16 bytes que p02:8138 elige con 0xE64F en vertical (0xE620); lo leen p02:8130 (16 bytes)
+F 0x819E 16
+D 0x81AE 0x81CE tabla_81AE  32 bytes que p02:80D0 elige con IX+26; lo leen p02:80D0 (32 bytes)
+F 0x81AE 16
+D 0x81EE 0x81F6 pares_81EE  4 pares que p02:8219 elige con A & 6 y copia a IX+30 e IX+31; lo leen p02:821C (8 bytes)
+F 0x81EE 2
 D 0x8517 0x8525 tabla_8517  7 destinos del despachador p00:40CE (call en p02:8514, el indice en A): 8525, 85A5, 85B5, 85D2, 8626, 8636, 86B4; lo leen p02:8514 (14 bytes)
 F 0x8517 w7
+D 0x876C 0x877A listas_876A  7 punteros, uno por fase (p02:873D: 0x876A + 2 x fase, p00:4E28); lo leen p02:8740 (14 bytes)
+F 0x876C w8
+D 0x877A 0x8780 listas_876A_877A  lista de la fase 0 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x877A 6
+D 0x8780 0x8786 listas_876A_8780  lista de la fase 1 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x8780 6
+D 0x8786 0x878C listas_876A_8786  lista de la fase 2 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x8786 6
+D 0x878C 0x8792 listas_876A_878C  lista de la fase 3 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x878C 6
+D 0x8792 0x8798 listas_876A_8792  lista de la fase 4 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x8792 6
+D 0x8798 0x879E listas_876A_8798  lista de la fase 5 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x8798 6
+D 0x879E 0x87A4 listas_876A_879E  lista de la fase 6 que p02:8748 lee de dos en dos (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+F 0x879E 6
+D 0x8853 0x885B pares_8853  4 palabras que p02:8843 elige con 0xE620 y B y copia a IY+24 (e IY+26); lo leen p02:8846 (8 bytes)
+F 0x8853 2
+D 0x88E3 0x88EA e605_por_fase  7 bytes, uno por fase, que p02:888E copia a 0xE605 (0x88E2 + fase); lo leen p02:8891 (7 bytes)
+F 0x88E3 7
+D 0x88EA 0x88F8 posicion_por_fase  7 palabras, una por fase (p02:88BF: 0x88E8 + 2 x fase, p00:4E28), que se comparan con el scroll; lo leen p02:88C2 (14 bytes)
+F 0x88EA w7
+D 0x88F8 0x8922 recorrido_por_fase  7 fichas de 6 bytes, una por fase (p02:88A2: 0x88F2 + 6 x fase): principio y final del recorrido del mapa (0xE621, 0xE623) y 0xE625; lo leen p02:88AE (42 bytes)
+F 0x88F8 6
+D 0x8922 0x8929 vertical_por_fase  7 bytes, uno por fase (p02:88B3: 0x8921 + fase): 0xE620, 1 si la fase va en vertical; lo leen p02:88B6 (7 bytes)
+F 0x8922 7
+D 0x8CE4 0x8CE9 sonidos_8CE4  5 numeros de sonido que p02:8CB9 pide (p00:4D6E) con la cifra alta de la ficha del tipo (< 5); lo leen p02:8CBC (5 bytes)
+F 0x8CE4 5
+D 0x8F9C 0x8FA0 bloque_8F9C  bloque de 2 x 2 caracteres (p02:8F96: DE = 0x8F9C, BC = 0x0202, p00:5042); lo leen p02:8F99 (4 bytes)
+F 0x8F9C 4
+D 0x90EE 0x90F8 tabla_90EE  10 bytes que p02:90C8 lee de dos en dos con 0xE227 x 2; lo leen p02:90CB (10 bytes)
+F 0x90EE 2
+D 0x9295 0x92C5 fichas_9295  3 fichas de 16 bytes que p02:9272 elige con IX+06 x 16; lo leen p02:927C (48 bytes)
+F 0x9295 16
+D 0x92E9 0x92F9 fichas_92E9  4 fichas de 4 bytes (p02:92DE: 0x92E5 + 4 x A, A de 1 a 4: los cuatro bytes de 0x92E5 son el propio `call`/`jp`) que sigue p01:6C2D; lo leen p02:92E3 (16 bytes)
+F 0x92E9 4
+D 0x9322 0x9326 cuadros_9322  4 bytes que p02:9300 pasa a p03:A01D (HL); lo leen p02:9303 (4 bytes)
+F 0x9322 4
+D 0x946B 0x9473 tabla_946B  8 bytes que p02:943D elige con IX+26 (de 0 a 7); lo leen p02:9440 (8 bytes)
+F 0x946B 8
 D 0x991E 0x992A tabla_991E  6 destinos del despachador p00:40CE (call en p02:991B, el indice en A): 992A, 9946, 9951, 9945, 9957, 9967; lo leen p02:991B (12 bytes)
 F 0x991E w6
+D 0x9C73 0x9C7B tabla_9C73  8 bytes (p02:9A51: 0x9C72 + A); lo leen p02:9A54 (8 bytes)
+F 0x9C73 8
 D 0x9C88 0x9C90 tabla_9C88  4 destinos del despachador p00:40CE (call en p02:9C85, el indice en A): 9C90, 9CAD, 9CF9, 9D0B; lo leen p02:9C85 (8 bytes)
 F 0x9C88 w4
+D 0x9D21 0x9D29 tabla_9D21  8 bytes que p02:9CCE elige con (HL) & 7; lo leen p02:9CD1 (8 bytes)
+F 0x9D21 8
+D 0x9D44 0x9D47 tabla_9D44  3 bytes (p02:9D3A: 0x9D44 + IX+19); lo leen p02:9D3D (3 bytes)
+F 0x9D44 3
+D 0x9DB4 0x9DB8 cuadros_9DB4  4 bytes que p02:9D4D pasa a p02:9DA7 (HL); lo leen p02:9D50 (4 bytes)
+F 0x9DB4 4
+D 0x9DB8 0x9DBC cuadros_9DB8  4 bytes que p02:9D47 pasa a p03:A01D (HL); lo leen p02:9D4A (4 bytes)
+F 0x9DB8 4
+D 0x9FEB 0x9FF1 cuadros_9FEB  6 caracteres de una animacion que p02:9FE5 pasa a p01:6BD5; lo leen p02:9FE8 (6 bytes)
+F 0x9FEB 6
+D 0x9FFF 0xA000 partida_9FFF  los 1 primeros bytes de una instruccion de 3 (DD 7E 19) que sigue en el banco 3: el trazador de un solo banco no puede verla entera (tools/bancos.py); lo leen p02:9FFF (1 bytes)
+F 0x9FFF 1
+D 0x8969 0x8B1F resto_8969  lo apuntan con el banco puesto p02:8B2F (0x8AF8), p02:8B43 (0x8B08), p02:8B22 (0x8B17); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p02:8B2F, p02:8B43, p02:8B22 (438 bytes)
+F 0x8969 16
 # --- fin de los bloques de bloques.py ---

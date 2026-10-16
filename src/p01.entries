@@ -23,12 +23,16 @@
 0x62C2   # p00:42C7 call
 0x63C4   # p02:8E77 call
 0x63CF   # p02:8EAF call
+0x64F8   # p00:506F call
 0x6505   # p03:A1C2 call cc
 0x650E   # p03:A1A7 jp
 0x6515   # p03:A083 jp
+0x651C   # codigo huerfano: 12 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x651C
 0x6528   # p03:A1B0 call
 0x653B   # p03:A09F call
+0x654E   # codigo huerfano: 19 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x654E
 0x6561   # p12:B101 call
+0x6571   # codigo huerfano: 16 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x6571
 0x6587   # p12:B059 call
 0x6591   # p12:B1C3 jp
 0x65AB   # p02:942E call
@@ -53,9 +57,11 @@
 0x6801   # p12:BD10 jp
 0x6807   # p02:93BC call
 0x681A   # p03:A46A jp
+0x6830   # ld a,0x80 que cae en p01:6832; nadie la llama ni la carga
 0x6832   # p12:A7C8 call
-0x6856   # p02:9D41 jp
-0x685D   # p02:9D34 call
+0x6856   # p12:A7DD jp
+0x6864   # codigo huerfano: 7 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x6864
+0x686B   # codigo huerfano: 7 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x686B
 0x6872   # p03:BBD0 call
 0x6877   # p02:9DDB call
 0x6881   # p03:A302 jp
@@ -79,6 +85,7 @@
 0x69E8   # p01:68EE entrada 62 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
 0x69F1   # p01:68EE entrada 36 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
 0x69FA   # p01:68EE entrada 55 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0x6B62   # p03:BC0E jp cc
 0x6BBE   # p12:B4B8 jp
 0x6BCD   # p12:B31E call
 0x6BD5   # p12:B46D jp
@@ -90,8 +97,11 @@
 0x6E2B   # p02:804C call
 0x6E76   # p00:4291 call
 0x6E99   # p00:4264 call
+0x6FF8   # codigo huerfano (ld hl,(0xE302) / ld de,0x40 / rst 20h ...); nadie la llama ni la carga
+0x7055   # codigo huerfano detras de la tabla por fase de 0x704E (p01:6FD4): ld c,7 / jr; el trazado no entra y ninguna instruccion la carga
 0x705D   # p03:B935 call cc
 0x706A   # p00:50B8 call
+0x707C   # codigo huerfano: 12 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x707C
 0x7169   # p01:6F1A entrada 0 de la tabla de 0x6F1D (call 0x40CE en 0x6F1A)
 0x71BF   # p01:6F1A entrada 9 de la tabla de 0x6F1D (call 0x40CE en 0x6F1A)
 0x71C6   # p01:6F1A entrada 4 de la tabla de 0x6F1D (call 0x40CE en 0x6F1A)
@@ -107,9 +117,8 @@
 0x74A2   # p12:ABB1 call
 0x74C5   # p02:820A jp
 0x74EA   # p03:BCF5 call
+0x752C   # ld a,0x80 que cae en p01:752E; nadie la llama ni la carga
 0x7534   # p03:BD2D jp
-0x7536   # p10:9D92 jp
-0x75B4   # p10:9D8D call
 0x7626   # p12:B5BD call
 0x777A   # p00:50B5 call
 0x77A1   # p00:427F call
@@ -153,6 +162,7 @@
 0x7D65   # p01:7C74 entrada 6 de la tabla de 0x7C77 (call 0x40CE en 0x7C74)
 0x7D90   # p01:7C74 entrada 4 de la tabla de 0x7C77 (call 0x40CE en 0x7C74)
 0x7E4D   # p01:7C74 entrada 1 de la tabla de 0x7C77 (call 0x40CE en 0x7C74)
+0x7E7F   # direccion de vuelta: p03:A86F la carga en HL y la empuja antes del despachador
 0x7E9C   # p03:B11E jp
 0x7EBF   # p12:AE47 call
 0x7EC5   # p12:AE59 call

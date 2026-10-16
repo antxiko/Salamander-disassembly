@@ -79,6 +79,15 @@ def huecos(estado, ORG):
     return out
 
 
+def sin_explicar(work, src):
+    """[(pagina, ini, fin)] de los rangos que nadie explica."""
+    fuera = []
+    for p in range(N_PAGINAS):
+        for a, b in huecos(reparte(work, src, p), org(p)):
+            fuera.append((p, a, b))
+    return fuera
+
+
 def main():
     if len(sys.argv) < 3:
         sys.exit(__doc__)

@@ -46,3 +46,46 @@ p04 0x6FD9 4 5 6  # codigo 0xFB de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
 p04 0x6FF3 4 5 6  # codigo 0xFC de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
 p04 0x7008 4 5 6  # codigo 0xFD de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
 p04 0x700B 4 5 6  # codigo 0xFE de la partitura: tabla 0x6DE9 (p04:6DE8 jp (hl))
+#
+# Codigo que el trazado no alcanza (tools/huerfanas.py --semillas, revisado a mano:
+# fuera p01:704E, que es una tabla, y p03:BC10, que es la cola de 0xBC0E).
+p00 0x4033 1 2 3  # tabla de saltos de 0x4030 (la entrada 0 la llama p10:8D46): jp 0x4042
+p00 0x4036 1 2 3  # tabla de saltos de 0x4030: jp 0x404B
+p00 0x4042 1 2 3  # codigo huerfano: 9 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4042
+p00 0x404B 1 2 3  # codigo huerfano: 9 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x404B
+p00 0x4054 1 2 3  # la apunta la segunda cabecera (palabra de 0x4023, la que lee el Game Master)
+p00 0x416B 1 2 3  # codigo huerfano: 3 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x416B
+p00 0x4173 1 2 3  # codigo huerfano: 5 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4173
+p00 0x41D4 1 2 3  # codigo huerfano: 4 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x41D4
+p00 0x4BD8 1 2 3  # codigo huerfano: 14 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x4BD8
+p00 0x4C9C 1 2 3  # codigo huerfano: 8 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4C9C
+p00 0x4FB3 1 2 3  # codigo huerfano: 10 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4FB3
+p00 0x4FBD 1 2 3  # codigo huerfano: 5 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4FBD
+p00 0x5034 1 2 3  # codigo huerfano: 7 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x5034
+p00 0x503B 1 2 3  # codigo huerfano: 7 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x503B
+p00 0x506E 1 2 3  # codigo huerfano: 10 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x506E
+p00 0x51FF 1 2 3  # codigo huerfano: 9 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x51FF
+p01 0x651C 1 2 3  # codigo huerfano: 12 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x651C
+p01 0x654E 1 2 3  # codigo huerfano: 19 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x654E
+p01 0x6571 1 2 3  # codigo huerfano: 16 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x6571
+p01 0x6864 1 2 3  # codigo huerfano: 7 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x6864
+p01 0x686B 1 2 3  # codigo huerfano: 7 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x686B
+p01 0x707C 1 2 3  # codigo huerfano: 12 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x707C
+p11 0xA123 1 2 11  # codigo huerfano: 1 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0xA123
+p11 0xB696 1 2 11  # codigo huerfano: 5 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0xB696
+p12 0xA7A7 1 2 12  # codigo huerfano: 10 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0xA7A7
+p03 0xBC0E 1 2 3  # direccion de vuelta: p03:BBFC la empuja (push hl) antes del despachador p00:40CE
+p01 0x7055 1 2 3  # codigo huerfano detras de la tabla por fase de 0x704E (p01:6FD4): ld c,7 / jr; el trazado no entra y ninguna instruccion la carga
+#
+# Mas codigo que el trazado no alcanza (revisado a mano):
+p00 0x41B0 1 2 3  # ld a,10 de las rutinas de banco: cae en p00:41B2; nadie la llama ni la carga
+p00 0x4FC7 1 2 3  # call 0x509F / jr: tres entradas seguidas (0x4FC7, 0x4FCC, 0x4FD1) que caen en p00:4FD4; nadie las llama ni las carga
+p00 0x4FCC 1 2 3  # call 0x506E / jr (ver 0x4FC7)
+p00 0x4FD1 1 2 3  # call 0x5078 y cae en p00:4FD4 (ver 0x4FC7)
+p00 0x57DC 1 2 3  # direccion de vuelta: p00:5250 la carga en HL y la empuja (p00:525C) antes de saltar
+p01 0x6830 1 2 3  # ld a,0x80 que cae en p01:6832; nadie la llama ni la carga
+p01 0x6FF8 1 2 3  # codigo huerfano (ld hl,(0xE302) / ld de,0x40 / rst 20h ...); nadie la llama ni la carga
+p01 0x752C 1 2 3  # ld a,0x80 que cae en p01:752E; nadie la llama ni la carga
+p01 0x7E7F 1 2 3  # direccion de vuelta: p03:A86F la carga en HL y la empuja antes del despachador
+p03 0xAD23 1 2 3  # un `ret` suelto que el trazado no alcanza; nadie salta ni lo carga
+p10 0x802D 1 10 15  # xor a: la otra entrada de 0x8029 (ld a,1 / jr 0x802E); nadie la llama ni la carga

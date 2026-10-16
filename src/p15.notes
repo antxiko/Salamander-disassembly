@@ -200,4 +200,6 @@ D 0xBF9A 0xBFB8 rotulo_BF9A  lista a la VRAM (p00:4CF5) del rotulo de la fase 3,
 F 0xBF9A 16
 D 0xBFB8 0xC000 relleno_ff  72 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (72 bytes)
 F 0xBFB8 16
+D 0xA8FA 0xA912 resto_A8FA  lo apuntan con el banco puesto p10:807C (0xA90A); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:807C (24 bytes)
+F 0xA8FA 16
 # --- fin de los bloques de bloques.py ---

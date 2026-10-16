@@ -3,6 +3,16 @@
 D 0xA009 0xA011 tabla_A009  4 destinos del despachador p00:40CE (call en p12:A006, el indice en A): A011, A04C, A0A3, A0D8; lo leen p12:A006 (8 bytes)
 F 0xA009 w4
 D 0xA347 0xA4A9 rachas_d_A347  [destino en la VRAM] y rachas (p00:4D10 -> p00:4D16); lo leen p12:A2EE (354 bytes)
+D 0xA531 0xA53F listas_A52F  7 punteros, uno por fase (p12:A4CF: 0xA52F + 2 x fase, p00:4E21); 0 = la fase no tiene lista; lo leen p12:A4D2 (14 bytes)
+F 0xA531 w8
+D 0xA53F 0xA55E listas_A52F_A53F  lista de la fase 3 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (31 bytes)
+F 0xA53F 8
+D 0xA55E 0xA5AF listas_A52F_A55E  lista de la fase 4 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (81 bytes)
+F 0xA55E 8
+D 0xA5AF 0xA5CE listas_A52F_A5AF  lista de la fase 5 que p12:A4D9 recorre (acaba donde empieza la siguiente); lo leen p12:A4D9 (31 bytes)
+F 0xA5AF 8
+D 0xA86B 0xA871 pares_A86B  3 pares (p12:A851: 0xA869 + 2 x B, B de 1 a 3) que se suman a E y D; lo leen p12:A855 (6 bytes)
+F 0xA86B 2
 D 0xAD0F 0xAD15 tabla_AD0F  3 destinos del despachador p00:40CE (call en p12:AD0C, el indice en A): AD15, AD7B, ADA5; lo leen p12:AD0C (6 bytes)
 F 0xAD0F w3
 D 0xAE92 0xAE9A tabla_AE92  4 destinos del despachador p00:40CE (call en p12:AE8F, el indice en A): AE9A, AF0F, AF44, AF64; lo leen p12:AE8F (8 bytes)
@@ -11,6 +21,8 @@ D 0xB367 0xB371 tabla_B367  5 destinos del despachador p00:40CE (call en p12:B36
 F 0xB367 w5
 D 0xB4C1 0xB4C9 tabla_B4C1  4 destinos del despachador p00:40CE (call en p12:B4BE, el indice en A): B4C9, B55F, B593, B5BD; lo leen p12:B4BE (8 bytes)
 F 0xB4C1 w4
+D 0xB789 0xB7C9 fichas_B789  4 fichas de 16 bytes (p12:B763: 0xB779 + 16 x A, A de 1 a 4: los 16 de 0xB779 son codigo) que p12:B776 copia de 4 en 4; lo leen p12:B766 (64 bytes)
+F 0xB789 16
 D 0xB9B7 0xB9EF lista_B9B7  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p12:B88C (56 bytes)
 D 0xB9EF 0xB9FA lista_B9EF  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p12:B898 (11 bytes)
 D 0xBA05 0xBA10 lista_BA05  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p12:B8BD (11 bytes)
@@ -18,4 +30,48 @@ D 0xBA10 0xBA28 lista_BA10  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE o
 D 0xBA28 0xBA37 lista_BA28  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); se solapan 2 bloques: (lista_s_BA2A BA2A-BA37); lo leen p12:B97E, p12:B987 (15 bytes)
 D 0xBF2B 0xC000 relleno_ff  213 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (213 bytes)
 F 0xBF2B 16
+D 0xA044 0xA04C resto_A044  lo apuntan con el banco puesto p12:A02D (0xA044), p12:A03F (0xA048); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:A02D, p12:A03F (8 bytes)
+F 0xA044 16
+D 0xA0F7 0xA1C2 resto_A0F7  lo apuntan con el banco puesto p01:7C0C (0xA181); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p01:7C0C (203 bytes)
+F 0xA0F7 16
+D 0xA6FA 0xA715 resto_A6FA  lo apuntan con el banco puesto p12:A677 (0xA6FA), p12:A681 (0xA702), p12:A688 (0xA70A), p12:A696 (0xA70C), p12:A6A0 (0xA710), p12:A6A7 (0xA714); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:A677, p12:A681, p12:A688, p12:A696, p12:A6A0, p12:A6A7 (27 bytes)
+F 0xA6FA 16
+D 0xA75C 0xA784 resto_A75C  lo apuntan con el banco puesto p12:A74D (0xA75C), p12:A73A (0xA764); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:A74D, p12:A73A (40 bytes)
+F 0xA75C 16
+D 0xA7EE 0xA804 resto_A7EE  lo apuntan con el banco puesto p12:A7BF (0xA7F4); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:A7BF (22 bytes)
+F 0xA7EE 16
+D 0xAAE9 0xAAED resto_AAE9  lo apuntan con el banco puesto p12:AA49 (0xAAE9); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:AA49 (4 bytes)
+F 0xAAE9 16
+D 0xABB9 0xABC4 resto_ABB9  lo apuntan con el banco puesto p12:AC73 (0xABB9), p12:AB8C (0xABBB), p12:AC79 (0xABBE), p12:AB92 (0xABC0); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:AC73, p12:AB8C, p12:AC79, p12:AB92 (11 bytes)
+F 0xABB9 16
+D 0xAFEC 0xAFF4 resto_AFEC  lo apuntan con el banco puesto p12:AFD4 (0xAFEC); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:AFD4 (8 bytes)
+F 0xAFEC 16
+D 0xB1C6 0xB1CE resto_B1C6  lo apuntan con el banco puesto p12:B1AE (0xB1C6); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B1AE (8 bytes)
+F 0xB1C6 16
+D 0xB280 0xB284 resto_B280  lo apuntan con el banco puesto p12:B273 (0xB280); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B273 (4 bytes)
+F 0xB280 16
+D 0xB318 0xB31E resto_B318  lo apuntan con el banco puesto p12:B312 (0xB318); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B312 (6 bytes)
+F 0xB318 16
+D 0xB470 0xB47C resto_B470  lo apuntan con el banco puesto p12:B465 (0xB470), p12:B46A (0xB476); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B465, p12:B46A (12 bytes)
+F 0xB470 16
+D 0xB6E5 0xB720 resto_B6E5  lo apuntan con el banco puesto p12:B6BD (0xB6E5), p12:B6DD (0xB70D); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B6BD, p12:B6DD (59 bytes)
+F 0xB6E5 16
+D 0xB739 0xB73D resto_B739  lo apuntan con el banco puesto p12:B72F (0xB739); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B72F (4 bytes)
+F 0xB739 16
+D 0xB9FA 0xBA05 resto_B9FA  lo apuntan con el banco puesto p12:B8B5 (0xB9FA); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:B8B5 (11 bytes)
+F 0xB9FA 16
+D 0xBA7E 0xBAA0 resto_BA7E  lo apuntan con el banco puesto p12:BA4E (0xBA7E); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BA4E (34 bytes)
+F 0xBA7E 16
+D 0xBB36 0xBB8C resto_BB36  lo apuntan con el banco puesto p12:BAF9 (0xBB36); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BAF9 (86 bytes)
+F 0xBB36 16
+D 0xBBB2 0xBBB6 resto_BBB2  lo apuntan con el banco puesto p12:BBB6 (0xBBB2); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BBB6 (4 bytes)
+F 0xBBB2 16
+D 0xBCA1 0xBCB5 resto_BCA1  lo apuntan con el banco puesto p12:BC53 (0xBCA1); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BC53 (20 bytes)
+F 0xBCA1 16
+D 0xBCFC 0xBD00 resto_BCFC  lo apuntan con el banco puesto p12:BCF6 (0xBCFC); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BCF6 (4 bytes)
+F 0xBCFC 16
+D 0xBDDC 0xBDFC resto_BDDC  lo apuntan con el banco puesto p12:BD77 (0xBDDC); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BD77 (32 bytes)
+F 0xBDDC 16
+D 0xBEA5 0xBEB5 resto_BEA5  lo apuntan con el banco puesto p12:BE42 (0xBEA5); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p12:BE42 (16 bytes)
+F 0xBEA5 16
 # --- fin de los bloques de bloques.py ---

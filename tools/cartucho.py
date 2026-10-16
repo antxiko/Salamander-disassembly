@@ -52,6 +52,13 @@ PONE_BANCOS = {
 }
 
 
+# Los bancos que llevan codigo y el reparto con el que corre (para
+# tools/huerfanas.py): el 0 y los 1-2-3 con el trio de arranque, el sonido
+# con 4-5-6, la presentacion con 1-10-15 y los jefes con 1-2-11 / 1-2-12.
+CODIGO = {0: (1, 2, 3), 1: (1, 2, 3), 2: (1, 2, 3), 3: (1, 2, 3), 4: (4, 5, 6),
+          10: (1, 10, 15), 11: (1, 2, 11), 12: (1, 2, 12)}
+
+
 def semillas_iniciales(rom):
     """Los dos unicos puntos de entrada que el hardware garantiza.
 

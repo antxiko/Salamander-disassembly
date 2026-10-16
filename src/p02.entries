@@ -44,11 +44,12 @@
 0x8BB4   # p00:434F call
 0x8BC8   # p00:42AC call
 0x8C9C   # p12:B047 jp cc
-0x8D05   # p01:6B9A call
+0x8D05   # p01:6FEE call
 0x8D66   # p00:42AF call
 0x8EF1   # p00:42F8 call
 0x8FA0   # p00:429D call
 0x90BA   # p00:52C6 jp cc
+0x90C4   # p00:5805 jp
 0x90F8   # p01:66BE entrada 48 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
 0x90FC   # p01:66BE entrada 49 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
 0x9129   # p01:68EE entrada 48 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)

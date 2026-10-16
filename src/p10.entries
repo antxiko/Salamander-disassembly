@@ -11,6 +11,7 @@
 # encuentra tools/z80trace.py solo, siguiendo el flujo.
 #
 # Este fichero lo regenera `make semillas` (tools/bancos.py escribe).
+0x802D   # xor a: la otra entrada de 0x8029 (ld a,1 / jr 0x802E); nadie la llama ni la carga
 0x813E   # p00:52D5 call
 0x81A3   # p00:52B9 call
 0x81E6   # p00:52F0 call

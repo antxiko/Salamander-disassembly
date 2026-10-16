@@ -12,25 +12,48 @@
 #
 # Este fichero lo regenera `make semillas` (tools/bancos.py escribe).
 0x4030   # p10:8D46 call
+0x4033   # tabla de saltos de 0x4030 (la entrada 0 la llama p10:8D46): jp 0x4042
+0x4036   # tabla de saltos de 0x4030: jp 0x404B
+0x4042   # codigo huerfano: 9 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4042
+0x404B   # codigo huerfano: 9 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x404B
+0x4054   # la apunta la segunda cabecera (palabra de 0x4023, la que lee el Game Master)
 0x4069   # gancho de interrupcion H.KEYI: INIT escribe 0xC3 en 0xFD9A y esta direccion en 0xFD9B (p00:40DD-p00:40E7)
-0x40C4   # p10:9507 call
+0x40C4   # p01:75EA call
+0x40C9   # p01:6656 call
+0x40CE   # p01:66BE call
 0x40CF   # p02:8961 call
 0x40DA   # cabecera AB: INIT
+0x416B   # codigo huerfano: 3 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x416B
+0x4173   # codigo huerfano: 5 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4173
+0x4199   # p10:801B jp
 0x41AC   # p03:BFEC call
+0x41B0   # ld a,10 de las rutinas de banco: cae en p00:41B2; nadie la llama ni la carga
 0x41BB   # p01:6743 call
+0x41BF   # p10:8031 call
 0x41C3   # p01:7BA7 call
+0x41CB   # p01:6770 call
+0x41D0   # p01:712B jp cc
+0x41D4   # codigo huerfano: 4 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x41D4
+0x41D8   # p01:711F call
 0x41EA   # p11:ACEA call
 0x4708   # p11:ACE7 call
+0x4882   # p02:8260 jp
+0x4BD8   # codigo huerfano: 14 bytes que acaban en ret; el trazado no entra y ninguna instruccion salta, llama o carga 0x4BD8
+0x4C9C   # codigo huerfano: 8 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4C9C
+0x4CBD   # p11:A446 jp
 0x4CBE   # p01:7B6D call
 0x4CC1   # p01:7BBC call
 0x4CD4   # p01:7BE0 jp
+0x4CFD   # p02:90EB jp
 0x4D0C   # p12:B8F1 jp
+0x4D6E   # p11:A374 jp
 0x4DA1   # p10:8C0B call
-0x4DA6   # p02:83D8 call
+0x4DA6   # p03:A628 call cc
 0x4E21   # p10:98FC call
+0x4E28   # p12:A7C2 call
 0x4E31   # p10:9470 call
 0x4E3A   # p11:B523 call
-0x4E58   # p12:BEBD call
+0x4E58   # p12:A7B9 call
 0x4E66   # p01:7C0F call
 0x4E6E   # p01:6E5D call
 0x4EAA   # p03:BBBA call
@@ -43,12 +66,21 @@
 0x4F9B   # p12:BA3B call
 0x4FA0   # p03:BF46 call
 0x4FA9   # p02:9126 jp
+0x4FB3   # codigo huerfano: 10 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4FB3
+0x4FBD   # codigo huerfano: 5 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x4FBD
 0x4FC2   # p01:639F jp cc
+0x4FC7   # call 0x509F / jr: tres entradas seguidas (0x4FC7, 0x4FCC, 0x4FD1) que caen en p00:4FD4; nadie las llama ni las carga
+0x4FCC   # call 0x506E / jr (ver 0x4FC7)
+0x4FD1   # call 0x5078 y cae en p00:4FD4 (ver 0x4FC7)
 0x4FEA   # p11:B6E6 jp
 0x5027   # p11:B7B3 jp
 0x502D   # p01:6366 jp cc
+0x5034   # codigo huerfano: 7 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x5034
+0x503B   # codigo huerfano: 7 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x503B
 0x5042   # p02:8F99 jp
+0x506E   # codigo huerfano: 10 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x506E
 0x5138   # p10:80BB call
+0x51FF   # codigo huerfano: 9 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0x51FF
 0x527A   # p00:525D entrada 0 de la tabla de 0x5260 (call 0x40CE en 0x525D)
 0x52B4   # p00:525D entrada 1 de la tabla de 0x5260 (call 0x40CE en 0x525D)
 0x52EB   # p00:525D entrada 2 de la tabla de 0x5260 (call 0x40CE en 0x525D)
@@ -63,11 +95,10 @@
 0x5601   # p00:525D entrada 11 de la tabla de 0x5260 (call 0x40CE en 0x525D)
 0x5670   # p00:525D entrada 12 de la tabla de 0x5260 (call 0x40CE en 0x525D)
 0x56E7   # p00:525D entrada 10 de la tabla de 0x5260 (call 0x40CE en 0x525D)
+0x57DC   # direccion de vuelta: p00:5250 la carga en HL y la empuja (p00:525C) antes de saltar
 0x5919   # p02:8F85 call
 0x5936   # p02:8C99 call cc
-0x5A99   # p11:A16D call
-0x5AAD   # p01:6375 call
-0x5AD8   # p02:8CBC call
+0x5AD8   # p02:9D3D call
 0x5ADF   # p01:757A call cc
 0x5AE7   # p02:84AF call
 0x5B63   # p00:5B50 entrada 6 de la tabla de 0x5B53 (call 0x40CE en 0x5B50)

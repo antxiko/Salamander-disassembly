@@ -1,11 +1,53 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x4000 0x4010 cabecera  cabecera del cartucho: "AB", INIT = 0x40DA y STATEMENT, DEVICE y TEXT a cero; la lee la BIOS al arrancar; lo leen BIOS (16 bytes)
+F 0x4000 16
+D 0x4010 0x4027 cabecera_game_master  la segunda cabecera de Konami: "CD", 0x07 0x58 (RC-758) y los 21 bytes que lee el Game Master (direcciones de la RAM del juego y, en 0x4023, la rutina 0x4054); este cartucho busca la de Nemesis 2 en el vecino (p03:B5E3); lo leen Game Master (23 bytes)
+F 0x4010 16
+D 0x4027 0x4030 detras_de_la_cabecera  9 bytes entre los 21 de la cabecera "CD" y la tabla de saltos de 0x4030: ni el Game Master (21 bytes) ni este cartucho los leen a la vista; lo leen nadie (9 bytes)
+F 0x4027 16
 D 0x4868 0x486B rachas3_4868  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:485C (3 bytes)
 D 0x486B 0x4876 rachas3_486B  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:4865 (11 bytes)
 D 0x4876 0x4879 rachas3_4876  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:484A (3 bytes)
 D 0x4879 0x4882 rachas3_4879  rachas a la VRAM en los tres tercios (p00:4CE5 -> p00:4D16); lo leen p00:4853 (9 bytes)
+D 0x4B87 0x4B8F pares_4B87  4 pares [C][B] que p00:4B2F elige con 0xE203 & 6; lo leen p00:4B36 (8 bytes)
+F 0x4B87 2
+D 0x4B8F 0x4B97 pares_4B8F  4 pares [C][B] que p00:4B51 elige con 0xE203 & 6; lo leen p00:4B55 (8 bytes)
+F 0x4B8F 2
+D 0x4F3D 0x4F5D velocidad_4F3D  16 palabras con signo, una por direccion (A de 0 a 15, p00:4F32 con p00:4E28), que p00:4F38 suma B veces; lo leen p00:4F32 (32 bytes)
+F 0x4F3D w8
+D 0x4F5D 0x4F7D velocidad_4F5D  16 palabras con signo, una por direccion (A de 0 a 15, p00:4F22 con p00:4E28), que p00:4F29 suma B veces; lo leen p00:4F22 (32 bytes)
+F 0x4F5D w8
+D 0x4F97 0x4F9B cuadros_4F97  4 caracteres (0x90 0x94 0x98 0x94) que p00:4F7D pasa por turno con IX+24; lo leen p00:4F7D (4 bytes)
+F 0x4F97 4
+D 0x5130 0x5138 registros_vdp  los 8 registros del VDP (0 a 7) que p00:511F escribe con WRTVDP: SCREEN 2; lo leen p00:5127 (8 bytes)
+F 0x5130 8
 D 0x5260 0x527A tabla_5260  13 destinos del despachador p00:40CE (call en p00:525D, el indice en A): 527A, 52B4, 52EB, 5340, 539F, 53FD, 543C, 54A9, 555F, 55CC, 56E7, 5601, 5670; lo leen p00:525D (26 bytes)
 F 0x5260 w8
+D 0x58BE 0x58C5 estado_inicial  7 bytes que p00:584C copia a 0xE300 (ldir); lo leen p00:5855 (7 bytes)
+F 0x58BE 7
+D 0x58C5 0x58E9 fichas_58C5  4 fichas de 9 bytes que p00:587A elige con (B & 3) x 9 y copia (ldir); lo leen p00:5883 (36 bytes)
+F 0x58C5 9
 D 0x5B53 0x5B63 tabla_5B53  8 destinos del despachador p00:40CE (call en p00:5B50, el indice en A): AA1D, A80A, AE25, AC34, B35E, B06F, 5B63, B4E9; lo leen p00:5B50 (16 bytes)
 F 0x5B53 w8
+D 0x5BFE 0x5C3A copia_del_vecino  20 fichas [cuantos][origen lo hi] que la rutina copiada a 0xC03C (p00:5BE1) lee en 0xC059: los trozos que la fase 7 copia del cartucho de Nemesis 2 (bancos 7, 8 y 9 de ESE cartucho) a 0xC100, 1.137 bytes en total; lo leen p00:5BE4 (60 bytes)
+F 0x5BFE 3
+D 0x5CFA 0x5D18 cambios_de_fase  5 fichas de 6 bytes: [caracteres][copias en espejo][copias cabeza abajo] que p00:5CCB lee con HL = 0x5CFA, 0x5D00, 0x5D06, 0x5D0C o 0x5D12 (p00:5C64-5CC8: segun la fase y la posicion del scroll); lo leen p00:5CCE (30 bytes)
+F 0x5CFA 6
+D 0x5E54 0x5E62 listas_5E52  7 punteros (B de 1 a 7: p00:5DE2 lee 0x5E52 + 2 x B con p00:4E28); lo leen p00:5DE6 (14 bytes)
+F 0x5E54 w8
+D 0x5E62 0x5E69 listas_5E52_5E62  lista de bytes de las entradas 0 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (7 bytes)
+F 0x5E62 8
+D 0x5E69 0x5E6C listas_5E52_5E69  lista de bytes de las entradas 1 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
+F 0x5E69 8
+D 0x5E6C 0x5E6F listas_5E52_5E6C  lista de bytes de las entradas 2 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
+F 0x5E6C 8
+D 0x5E6F 0x5E71 listas_5E52_5E6F  lista de bytes de las entradas 3 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (2 bytes)
+F 0x5E6F 8
+D 0x5E71 0x5E74 listas_5E52_5E71  lista de bytes de las entradas 4 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3 bytes)
+F 0x5E71 8
+D 0x5E74 0x5E78 listas_5E52_5E74  lista de bytes de las entradas 5 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (4 bytes)
+F 0x5E74 8
+D 0x5E78 0x5E79 listas_5E52_5E78  lista de bytes de las entradas 6 de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (1 bytes)
+F 0x5E78 8
 # --- fin de los bloques de bloques.py ---

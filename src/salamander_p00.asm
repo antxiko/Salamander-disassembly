@@ -18,47 +18,66 @@
 l5e52h:	equ 0x05e52
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4000..0x4030  (48 bytes)
-DATA_4000:
+; DATOS cabecera: cabecera del cartucho: "AB", INIT = 0x40DA y STATEMENT,
+;   DEVICE y TEXT a cero; la lee la BIOS al arrancar; lo leen BIOS (16 bytes)
+;   0x4000..0x4010  (16 bytes)
+DATA_cabecera:
 	defb 041h,042h,0dah,040h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 4000  AB.@............
+
+; ----------------------------------------------------------------------
+; DATOS cabecera_game_master: la segunda cabecera de Konami: "CD", 0x07 0x58
+;   (RC-758) y los 21 bytes que lee el Game Master (direcciones de la RAM del
+;   juego y, en 0x4023, la rutina 0x4054); este cartucho busca la de Nemesis 2
+;   en el vecino (p03:B5E3); lo leen Game Master (23 bytes)
+;   0x4010..0x4027  (23 bytes)
+DATA_cabecera_game_master:
 	defb 043h,044h,007h,058h,008h,000h,0e2h,004h,001h,0e3h,006h,000h,0e3h,07ah,0e2h,075h	; 4010  CD.X.........z.u
-	defb 0e2h,002h,0e2h,054h,040h,000h,000h,000h,080h,000h,000h,001h,0ffh,0ffh,000h,000h	; 4020  ...T@...........
+	defb 0e2h,002h,0e2h,054h,040h,000h,000h	; 4020
+
+; ----------------------------------------------------------------------
+; DATOS detras_de_la_cabecera: 9 bytes entre los 21 de la cabecera "CD" y la
+;   tabla de saltos de 0x4030: ni el Game Master (21 bytes) ni este cartucho
+;   los leen a la vista; lo leen nadie (9 bytes)
+;   0x4027..0x4030  (9 bytes)
+DATA_detras_de_la_cabecera:
+	defb 000h,080h,000h,000h,001h,0ffh,0ffh,000h,000h	; 4027  .........
 
 ; ======================================================================
-; CODIGO 0x4030..0x4033  (3 bytes)
+; CODIGO 0x4030..0x4868  (2104 bytes)
 ; ======================================================================
 
 
 L_4030:
 	jp L_4039		;4030
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4033..0x4039  (6 bytes)
-DATA_4033:
-	defb 0c3h,042h,040h,0c3h,04bh,040h	; 4033
-
-; ======================================================================
-; CODIGO 0x4039..0x4042  (9 bytes)
-; ======================================================================
-
-
+L_4033:
+	jp L_4042		;4033
+L_4036:
+	jp L_404B		;4036
 L_4039:
 	call L_416E		;4039
 	call 08263h		;403c
 	jp L_4199		;403f
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4042..0x4069  (39 bytes)
-DATA_4042:
-	defb 0cdh,06eh,041h,0cdh,0eeh,0a5h,0c3h,099h,041h,0cdh,06eh,041h,0cdh,008h,0a8h,0c3h	; 4042  .nA.....A.nA....
-	defb 099h,041h,021h,001h,0e3h,07eh,0b7h,020h,002h,036h,001h,03ah,027h,0e2h,0b7h,0c8h	; 4052  .A!..~. .6.:'...
-	defb 02ah,000h,0e3h,022h,080h,0e3h,0c9h	; 4062
-
-; ======================================================================
-; CODIGO 0x4069..0x416b  (258 bytes)
-; ======================================================================
-
-
+L_4042:
+	call L_416E		;4042
+	call 0a5eeh		;4045
+	jp L_4199		;4048
+L_404B:
+	call L_416E		;404b
+	call 0a808h		;404e
+	jp L_4199		;4051
+L_4054:
+	ld hl,0e301h		;4054
+	ld a,(hl)			;4057
+	or a			;4058
+	jr nz,L_405D		;4059
+	ld (hl),001h		;405b
+L_405D:
+	ld a,(0e227h)		;405d
+	or a			;4060
+	ret z			;4061
+	ld hl,(0e300h)		;4062
+	ld (0e380h),hl		;4065
+	ret			;4068
 L_4069:
 	call 0013eh		;4069   ; BIOS RDVDP - Reads VDP status register
 	di			;406c
@@ -214,32 +233,16 @@ L_414F:
 	or c			;4166
 	ld (0f0f6h),a		;4167
 	ret			;416a
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x416b..0x416e  (3 bytes)
-DATA_416B:
-	defb 0c3h,06eh,04dh	; 416b
-
-; ======================================================================
-; CODIGO 0x416e..0x4173  (5 bytes)
-; ======================================================================
-
-
+L_416B:
+	jp L_4D6E		;416b
 L_416E:
 	push af			;416e
 	ld a,001h		;416f
-	jr $+15		;4171
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4173..0x4178  (5 bytes)
-DATA_4173:
-	defb 0f5h,03eh,004h,018h,008h	; 4173
-
-; ======================================================================
-; CODIGO 0x4178..0x41b0  (56 bytes)
-; ======================================================================
-
-
+	jr L_4180		;4171
+L_4173:
+	push af			;4173
+	ld a,004h		;4174
+	jr L_4180		;4176
 L_4178:
 	push af			;4178
 	ld a,007h		;4179
@@ -277,18 +280,9 @@ L_4199:
 	ret			;41ab
 L_41AC:
 	ld a,00eh		;41ac
-	jr $+4		;41ae
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x41b0..0x41b2  (2 bytes)
-DATA_41B0:
-	defb 03eh,00ah	; 41b0
-
-; ======================================================================
-; CODIGO 0x41b2..0x41d4  (34 bytes)
-; ======================================================================
-
-
+	jr L_41B2		;41ae
+L_41B0:
+	ld a,00ah		;41b0
 L_41B2:
 	di			;41b2
 	ld (09000h),a		;41b3
@@ -311,21 +305,13 @@ L_41CB:
 	ld a,00ch		;41cb
 L_41CD:
 	di			;41cd
-	jr $+20		;41ce
+	jr L_41E2		;41ce
 L_41D0:
 	ld a,002h		;41d0
-	jr $+8		;41d2
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x41d4..0x41d8  (4 bytes)
-DATA_41D4:
-	defb 03eh,008h,018h,002h	; 41d4
-
-; ======================================================================
-; CODIGO 0x41d8..0x4868  (1680 bytes)
-; ======================================================================
-
-
+	jr L_41DA		;41d2
+L_41D4:
+	ld a,008h		;41d4
+	jr L_41DA		;41d6
 L_41D8:
 	ld a,00eh		;41d8
 L_41DA:
@@ -1623,12 +1609,27 @@ L_4B79:
 	jp 0004dh		;4b84   ; BIOS WRTVRM - Writes data in VRAM
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4b87..0x4b97  (16 bytes)
-DATA_4B87:
-	defb 0ffh,000h,0ffh,0ffh,000h,0ffh,0ffh,0ffh,030h,000h,050h,090h,000h,0b0h,070h,0f0h	; 4b87  ........0.P...p.
+; DATOS pares_4B87: 4 pares [C][B] que p00:4B2F elige con 0xE203 & 6; lo leen
+;   p00:4B36 (8 bytes)
+;   0x4b87..0x4b8f  (8 bytes)
+DATA_pares_4B87:
+	defb 0ffh,000h	; 4b87
+	defb 0ffh,0ffh	; 4b89
+	defb 000h,0ffh	; 4b8b
+	defb 0ffh,0ffh	; 4b8d
+
+; ----------------------------------------------------------------------
+; DATOS pares_4B8F: 4 pares [C][B] que p00:4B51 elige con 0xE203 & 6; lo leen
+;   p00:4B55 (8 bytes)
+;   0x4b8f..0x4b97  (8 bytes)
+DATA_pares_4B8F:
+	defb 030h,000h	; 4b8f
+	defb 050h,090h	; 4b91
+	defb 000h,0b0h	; 4b93
+	defb 070h,0f0h	; 4b95
 
 ; ======================================================================
-; CODIGO 0x4b97..0x4bd8  (65 bytes)
+; CODIGO 0x4b97..0x4f3d  (934 bytes)
 ; ======================================================================
 
 
@@ -1671,17 +1672,14 @@ L_4BCF:
 	inc ix		;4bd1
 	djnz L_4BB4		;4bd3
 	jp L_416E		;4bd5
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4bd8..0x4be6  (14 bytes)
-DATA_4BD8:
-	defb 0d9h,021h,00eh,060h,011h,040h,0ech,001h,010h,000h,0edh,0b0h,0d9h,0c9h	; 4bd8  .!.`.@........
-
-; ======================================================================
-; CODIGO 0x4be6..0x4c9c  (182 bytes)
-; ======================================================================
-
-
+L_4BD8:
+	exx			;4bd8
+	ld hl,0600eh		;4bd9
+	ld de,0ec40h		;4bdc
+	ld bc,00010h		;4bdf
+	ldir		;4be2
+	exx			;4be4
+	ret			;4be5
 L_4BE6:
 	ld hl,(0e612h)		;4be6
 	ld de,(0e614h)		;4be9
@@ -1775,20 +1773,14 @@ L_4C8D:
 	ld de,0815ch		;4c96
 L_4C99:
 	jp L_4A8C		;4c99
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4c9c..0x4ca4  (8 bytes)
-DATA_4C9C:
-	defb 0cdh,009h,059h,001h,0a0h,002h,018h,006h	; 4c9c  ..Y.....
-
-; ======================================================================
-; CODIGO 0x4ca4..0x4f3d  (665 bytes)
-; ======================================================================
-
-
+L_4C9C:
+	call L_5909		;4c9c
+	ld bc,002a0h		;4c9f
+	jr L_4CAA		;4ca2
 L_4CA4:
 	call L_5909		;4ca4
 	ld bc,00300h		;4ca7
+L_4CAA:
 	ld hl,03800h		;4caa
 	xor a			;4cad
 	jp 00056h		;4cae   ; BIOS FILVRM - Fills VRAM with value
@@ -2236,12 +2228,22 @@ L_4F38:
 	ret			;4f3c
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4f3d..0x4f7d  (64 bytes)
-DATA_4F3D:
-	defb 000h,000h,080h,0ffh,04bh,0ffh,023h,0ffh,000h,0ffh,023h,0ffh,04bh,0ffh,080h,0ffh	; 4f3d  ....K.#...#.K...
-	defb 000h,000h,080h,000h,0b5h,000h,0ddh,000h,000h,001h,0ddh,000h,0b5h,000h,080h,000h	; 4f4d  ................
-	defb 000h,001h,0ddh,000h,0b5h,000h,080h,000h,000h,000h,080h,0ffh,04bh,0ffh,023h,0ffh	; 4f5d  ............K.#.
-	defb 000h,0ffh,023h,0ffh,04bh,0ffh,080h,0ffh,000h,000h,080h,000h,0b5h,000h,0ddh,000h	; 4f6d  ..#.K...........
+; DATOS velocidad_4F3D: 16 palabras con signo, una por direccion (A de 0 a 15,
+;   p00:4F32 con p00:4E28), que p00:4F38 suma B veces; lo leen p00:4F32 (32
+;   bytes)
+;   0x4f3d..0x4f5d  (32 bytes)
+DATA_velocidad_4F3D:
+	defw 00000h,0ff80h,0ff4bh,0ff23h,0ff00h,0ff23h,0ff4bh,0ff80h	; 4f3d
+	defw 00000h,00080h,000b5h,000ddh,00100h,000ddh,000b5h,00080h	; 4f4d
+
+; ----------------------------------------------------------------------
+; DATOS velocidad_4F5D: 16 palabras con signo, una por direccion (A de 0 a 15,
+;   p00:4F22 con p00:4E28), que p00:4F29 suma B veces; lo leen p00:4F22 (32
+;   bytes)
+;   0x4f5d..0x4f7d  (32 bytes)
+DATA_velocidad_4F5D:
+	defw 00100h,000ddh,000b5h,00080h,00000h,0ff80h,0ff4bh,0ff23h	; 4f5d
+	defw 0ff00h,0ff23h,0ff4bh,0ff80h,00000h,00080h,000b5h,000ddh	; 4f6d
 
 ; ======================================================================
 ; CODIGO 0x4f7d..0x4f97  (26 bytes)
@@ -2266,12 +2268,14 @@ L_4F8E:
 	ret			;4f96
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4f97..0x4f9b  (4 bytes)
-DATA_4F97:
+; DATOS cuadros_4F97: 4 caracteres (0x90 0x94 0x98 0x94) que p00:4F7D pasa por
+;   turno con IX+24; lo leen p00:4F7D (4 bytes)
+;   0x4f97..0x4f9b  (4 bytes)
+DATA_cuadros_4F97:
 	defb 090h,094h,098h,094h	; 4f97
 
 ; ======================================================================
-; CODIGO 0x4f9b..0x4fb3  (24 bytes)
+; CODIGO 0x4f9b..0x5130  (405 bytes)
 ; ======================================================================
 
 
@@ -2291,31 +2295,26 @@ L_4FA9:
 	add a,a			;4fae
 	ld (ix+00fh),a		;4faf
 	ret			;4fb2
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4fb3..0x4fc2  (15 bytes)
-DATA_4FB3:
-	defb 0cdh,087h,050h,03ah,047h,0e6h,03ch,047h,018h,017h,0cdh,087h,050h,018h,012h	; 4fb3  ..P:G.<G....P..
-
-; ======================================================================
-; CODIGO 0x4fc2..0x4fc7  (5 bytes)
-; ======================================================================
-
-
+L_4FB3:
+	call L_5087		;4fb3
+	ld a,(0e647h)		;4fb6
+	inc a			;4fb9
+	ld b,a			;4fba
+	jr L_4FD4		;4fbb
+L_4FBD:
+	call L_5087		;4fbd
+	jr L_4FD4		;4fc0
 L_4FC2:
 	call L_5092		;4fc2
-	jr $+15		;4fc5
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x4fc7..0x4fd4  (13 bytes)
-DATA_4FC7:
-	defb 0cdh,09fh,050h,018h,008h,0cdh,06eh,050h,018h,003h,0cdh,078h,050h	; 4fc7  ..P...nP...xP
-
-; ======================================================================
-; CODIGO 0x4fd4..0x5034  (96 bytes)
-; ======================================================================
-
-
+	jr L_4FD4		;4fc5
+L_4FC7:
+	call L_509F		;4fc7
+	jr L_4FD4		;4fca
+L_4FCC:
+	call L_506E		;4fcc
+	jr L_4FD4		;4fcf
+L_4FD1:
+	call L_5078		;4fd1
 L_4FD4:
 	ld e,b			;4fd4
 L_4FD5:
@@ -2387,18 +2386,17 @@ L_502D:
 	call L_5092		;502e
 L_5031:
 	pop af			;5031
-	jr $+21		;5032
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5034..0x5042  (14 bytes)
-DATA_5034:
-	defb 0c5h,0cdh,09fh,050h,0f1h,018h,00ch,0c5h,0cdh,06eh,050h,0f1h,018h,005h	; 5034  ...P.....nP...
-
-; ======================================================================
-; CODIGO 0x5042..0x506e  (44 bytes)
-; ======================================================================
-
-
+	jr L_5047		;5032
+L_5034:
+	push bc			;5034
+	call L_509F		;5035
+	pop af			;5038
+	jr L_5047		;5039
+L_503B:
+	push bc			;503b
+	call L_506E		;503c
+	pop af			;503f
+	jr L_5047		;5040
 L_5042:
 	push bc			;5042
 	call L_5078		;5043
@@ -2435,19 +2433,15 @@ L_5055:
 	call L_40C9		;5068
 	djnz L_5055		;506b
 	ret			;506d
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x506e..0x5078  (10 bytes)
-DATA_506E:
-	defb 0d5h,0cdh,0f8h,064h,0cdh,0adh,05ah,0d1h,018h,003h	; 506e  ...d..Z...
-
-; ======================================================================
-; CODIGO 0x5078..0x509f  (39 bytes)
-; ======================================================================
-
-
+L_506E:
+	push de			;506e
+	call 064f8h		;506f
+	call L_5AAD		;5072
+	pop de			;5075
+	jr L_507B		;5076
 L_5078:
 	call L_5A99		;5078
+L_507B:
 	ld a,l			;507b
 	and 01fh		;507c
 	add a,b			;507e
@@ -2477,18 +2471,12 @@ L_5096:
 	call L_5AAD		;5098
 	pop af			;509b
 	pop de			;509c
-	jr $+8		;509d
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x509f..0x50a5  (6 bytes)
-DATA_509F:
-	defb 07dh,0f5h,0cdh,099h,05ah,0f1h	; 509f
-
-; ======================================================================
-; CODIGO 0x50a5..0x5130  (139 bytes)
-; ======================================================================
-
-
+	jr L_50A5		;509d
+L_509F:
+	ld a,l			;509f
+	push af			;50a0
+	call L_5A99		;50a1
+	pop af			;50a4
 L_50A5:
 	rra			;50a5
 	rra			;50a6
@@ -2560,12 +2548,14 @@ L_5126:
 	ret			;512f
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5130..0x5138  (8 bytes)
-DATA_5130:
+; DATOS registros_vdp: los 8 registros del VDP (0 a 7) que p00:511F escribe
+;   con WRTVDP: SCREEN 2; lo leen p00:5127 (8 bytes)
+;   0x5130..0x5138  (8 bytes)
+DATA_registros_vdp:
 	defb 002h,0e2h,00eh,07fh,007h,076h,003h,0e4h	; 5130  .....v..
 
 ; ======================================================================
-; CODIGO 0x5138..0x51ff  (199 bytes)
+; CODIGO 0x5138..0x5260  (296 bytes)
 ; ======================================================================
 
 
@@ -2660,6 +2650,7 @@ L_51BF:
 	ld e,08fh		;51bf
 	call L_51F1		;51c1
 	and 03fh		;51c4
+L_51C6:
 	push af			;51c6
 	ld a,004h		;51c7
 	call 00141h		;51c9   ; BIOS SNSMAT - Returns the value of the specified line from the keyboard matrix
@@ -2701,17 +2692,11 @@ L_51F1:
 	ei			;51fc
 	cpl			;51fd
 	ret			;51fe
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x51ff..0x5208  (9 bytes)
-DATA_51FF:
-	defb 01eh,08fh,0cdh,0f1h,051h,0e6h,03fh,018h,0beh	; 51ff  ....Q.?..
-
-; ======================================================================
-; CODIGO 0x5208..0x5260  (88 bytes)
-; ======================================================================
-
-
+L_51FF:
+	ld e,08fh		;51ff
+	call L_51F1		;5201
+	and 03fh		;5204
+	jr L_51C6		;5206
 L_5208:
 	ld a,(0e202h)		;5208
 	and 040h		;520b
@@ -2780,7 +2765,7 @@ DATA_tabla_5260:
 	defw 0555fh,055cch,056e7h,05601h,05670h	; 5270
 
 ; ======================================================================
-; CODIGO 0x527a..0x57dc  (1378 bytes)
+; CODIGO 0x527a..0x58be  (1604 bytes)
 ; ======================================================================
 
 
@@ -3461,21 +3446,45 @@ L_57D4:
 	call 00141h		;57d6   ; BIOS SNSMAT - Returns the value of the specified line from the keyboard matrix
 	bit 3,a		;57d9
 	ret			;57db
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x57dc..0x581e  (66 bytes)
-DATA_57DC:
-	defb 0cdh,0ffh,051h,021h,011h,0e2h,0cdh,0b8h,051h,0b7h,0c8h,021h,004h,0e2h,036h,000h	; 57dc  ..Q!....Q..!..6.
-	defb 021h,000h,0e2h,011h,027h,0e2h,046h,010h,013h,0e6h,030h,028h,01ch,03eh,040h,032h	; 57ec  !...'.F...0(.>@2
-	defb 002h,0e2h,036h,003h,023h,00eh,000h,071h,00dh,0c3h,0c4h,090h,036h,001h,023h,0afh	; 57fc  ..6.#..q....6.#.
-	defb 077h,032h,017h,0e2h,03eh,001h,0c3h,06eh,04dh,01ah,03ch,0feh,003h,038h,001h,0afh	; 580c  w2..>..nM.<..8..
-	defb 012h,0c9h	; 581c
-
-; ======================================================================
-; CODIGO 0x581e..0x58be  (160 bytes)
-; ======================================================================
-
-
+L_57DC:
+	call L_51FF		;57dc
+	ld hl,0e211h		;57df
+	call L_51B8		;57e2
+	or a			;57e5
+	ret z			;57e6
+	ld hl,0e204h		;57e7
+	ld (hl),000h		;57ea
+	ld hl,0e200h		;57ec
+	ld de,0e227h		;57ef
+	ld b,(hl)			;57f2
+	djnz L_5808		;57f3
+	and 030h		;57f5
+	jr z,L_5815		;57f7
+	ld a,040h		;57f9
+	ld (0e202h),a		;57fb
+	ld (hl),003h		;57fe
+	inc hl			;5800
+	ld c,000h		;5801
+	ld (hl),c			;5803
+	dec c			;5804
+	jp 090c4h		;5805
+L_5808:
+	ld (hl),001h		;5808
+	inc hl			;580a
+	xor a			;580b
+	ld (hl),a			;580c
+	ld (0e217h),a		;580d
+	ld a,001h		;5810
+	jp L_4D6E		;5812
+L_5815:
+	ld a,(de)			;5815
+	inc a			;5816
+	cp 003h		;5817
+	jr c,L_581C		;5819
+	xor a			;581b
+L_581C:
+	ld (de),a			;581c
+	ret			;581d
 L_581E:
 	ld a,(0e22ch)		;581e
 	or a			;5821
@@ -3572,11 +3581,21 @@ L_58BB:
 	ret			;58bd
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x58be..0x58e9  (43 bytes)
-DATA_58BE:
-	defb 003h,001h,020h,000h,000h,000h,010h,001h,000h,002h,000h,004h,000h,003h,000h,000h	; 58be  .. .............
-	defb 002h,000h,000h,000h,004h,003h,000h,000h,001h,000h,000h,000h,002h,004h,001h,000h	; 58ce  ................
-	defb 000h,003h,000h,002h,000h,001h,004h,000h,000h,003h,000h	; 58de  ...........
+; DATOS estado_inicial: 7 bytes que p00:584C copia a 0xE300 (ldir); lo leen
+;   p00:5855 (7 bytes)
+;   0x58be..0x58c5  (7 bytes)
+DATA_estado_inicial:
+	defb 003h,001h,020h,000h,000h,000h,010h	; 58be
+
+; ----------------------------------------------------------------------
+; DATOS fichas_58C5: 4 fichas de 9 bytes que p00:587A elige con (B & 3) x 9 y
+;   copia (ldir); lo leen p00:5883 (36 bytes)
+;   0x58c5..0x58e9  (36 bytes)
+DATA_fichas_58C5:
+	defb 001h,000h,002h,000h,004h,000h,003h,000h,000h	; 58c5  .........
+	defb 002h,000h,000h,000h,004h,003h,000h,000h,001h	; 58ce  .........
+	defb 000h,000h,000h,002h,004h,001h,000h,000h,003h	; 58d7  .........
+	defb 000h,002h,000h,001h,004h,000h,000h,003h,000h	; 58e0  .........
 
 ; ======================================================================
 ; CODIGO 0x58e9..0x5b53  (618 bytes)
@@ -4078,12 +4097,32 @@ L_5BE9:
 	ret			;5bfd
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5bfe..0x5c3a  (60 bytes)
-DATA_5BFE:
-	defb 028h,0a7h,069h,0a7h,0b0h,06ah,020h,054h,071h,010h,057h,06bh,02eh,0cfh,069h,05dh	; 5bfe  (.i..j Tq.Wk..i]
-	defb 0fdh,069h,011h,05ah,06ah,02bh,06bh,06ah,028h,0c6h,07fh,092h,098h,080h,01eh,00eh	; 5c0e  .i.Zj+kj(.......
-	defb 087h,01eh,080h,087h,012h,0d4h,081h,02ch,0eeh,07fh,04ah,01ah,080h,012h,064h,080h	; 5c1e  .......,..J...d.
-	defb 022h,076h,080h,076h,06dh,0bfh,022h,0c2h,099h,061h,001h,096h	; 5c2e  "v.vm."..a..
+; DATOS copia_del_vecino: 20 fichas [cuantos][origen lo hi] que la rutina
+;   copiada a 0xC03C (p00:5BE1) lee en 0xC059: los trozos que la fase 7 copia
+;   del cartucho de Nemesis 2 (bancos 7, 8 y 9 de ESE cartucho) a 0xC100,
+;   1.137 bytes en total; lo leen p00:5BE4 (60 bytes)
+;   0x5bfe..0x5c3a  (60 bytes)
+DATA_copia_del_vecino:
+	defb 028h,0a7h,069h	; 5bfe
+	defb 0a7h,0b0h,06ah	; 5c01
+	defb 020h,054h,071h	; 5c04
+	defb 010h,057h,06bh	; 5c07
+	defb 02eh,0cfh,069h	; 5c0a
+	defb 05dh,0fdh,069h	; 5c0d
+	defb 011h,05ah,06ah	; 5c10
+	defb 02bh,06bh,06ah	; 5c13
+	defb 028h,0c6h,07fh	; 5c16
+	defb 092h,098h,080h	; 5c19
+	defb 01eh,00eh,087h	; 5c1c
+	defb 01eh,080h,087h	; 5c1f
+	defb 012h,0d4h,081h	; 5c22
+	defb 02ch,0eeh,07fh	; 5c25
+	defb 04ah,01ah,080h	; 5c28
+	defb 012h,064h,080h	; 5c2b
+	defb 022h,076h,080h	; 5c2e
+	defb 076h,06dh,0bfh	; 5c31
+	defb 022h,0c2h,099h	; 5c34
+	defb 061h,001h,096h	; 5c37
 
 ; ======================================================================
 ; CODIGO 0x5c3a..0x5cfa  (192 bytes)
@@ -4214,10 +4253,17 @@ L_5CCB:
 	jp L_416E		;5cf7
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5cfa..0x5d18  (30 bytes)
-DATA_5CFA:
-	defb 095h,094h,0ech,094h,007h,095h,09ch,094h,0f6h,094h,00bh,095h,0a9h,094h,0dch,094h	; 5cfa  ................
-	defb 00ch,095h,0b6h,094h,0edh,094h,014h,095h,0c3h,094h,006h,095h,015h,095h	; 5d0a  ..............
+; DATOS cambios_de_fase: 5 fichas de 6 bytes: [caracteres][copias en
+;   espejo][copias cabeza abajo] que p00:5CCB lee con HL = 0x5CFA, 0x5D00,
+;   0x5D06, 0x5D0C o 0x5D12 (p00:5C64-5CC8: segun la fase y la posicion del
+;   scroll); lo leen p00:5CCE (30 bytes)
+;   0x5cfa..0x5d18  (30 bytes)
+DATA_cambios_de_fase:
+	defb 095h,094h,0ech,094h,007h,095h	; 5cfa
+	defb 09ch,094h,0f6h,094h,00bh,095h	; 5d00
+	defb 0a9h,094h,0dch,094h,00ch,095h	; 5d06
+	defb 0b6h,094h,0edh,094h,014h,095h	; 5d0c
+	defb 0c3h,094h,006h,095h,015h,095h	; 5d12
 
 ; ======================================================================
 ; CODIGO 0x5d18..0x5e54  (316 bytes)
@@ -4419,11 +4465,67 @@ L_5E52:
 	ret			;5e53
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x5e54..0x5e79  (37 bytes)
-DATA_5E54:
-	defb 062h,05eh,069h,05eh,06ch,05eh,06fh,05eh,071h,05eh,074h,05eh,078h,05eh,001h,001h	; 5e54  b^i^l^o^q^t^x^..
-	defb 001h,001h,001h,001h,001h,002h,00ch,00dh,003h,004h,005h,006h,00eh,007h,009h,008h	; 5e64  ................
-	defb 00ah,00ah,00ah,00ah,00bh	; 5e74
+; DATOS listas_5E52: 7 punteros (B de 1 a 7: p00:5DE2 lee 0x5E52 + 2 x B con
+;   p00:4E28); lo leen p00:5DE6 (14 bytes)
+;   0x5e54..0x5e62  (14 bytes)
+DATA_listas_5E52:
+	defw 05e62h,05e69h,05e6ch,05e6fh,05e71h,05e74h,05e78h	; 5e54
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E62: lista de bytes de las entradas 0 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (7
+;   bytes)
+;   0x5e62..0x5e69  (7 bytes)
+DATA_listas_5E52_5E62:
+	defb 001h,001h,001h,001h,001h,001h,001h	; 5e62
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E69: lista de bytes de las entradas 1 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3
+;   bytes)
+;   0x5e69..0x5e6c  (3 bytes)
+DATA_listas_5E52_5E69:
+	defb 002h,00ch,00dh	; 5e69
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E6C: lista de bytes de las entradas 2 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3
+;   bytes)
+;   0x5e6c..0x5e6f  (3 bytes)
+DATA_listas_5E52_5E6C:
+	defb 003h,004h,005h	; 5e6c
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E6F: lista de bytes de las entradas 3 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (2
+;   bytes)
+;   0x5e6f..0x5e71  (2 bytes)
+DATA_listas_5E52_5E6F:
+	defb 006h,00eh	; 5e6f
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E71: lista de bytes de las entradas 4 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (3
+;   bytes)
+;   0x5e71..0x5e74  (3 bytes)
+DATA_listas_5E52_5E71:
+	defb 007h,009h,008h	; 5e71
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E74: lista de bytes de las entradas 5 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (4
+;   bytes)
+;   0x5e74..0x5e78  (4 bytes)
+DATA_listas_5E52_5E74:
+	defb 00ah,00ah,00ah,00ah	; 5e74
+
+; ----------------------------------------------------------------------
+; DATOS listas_5E52_5E78: lista de bytes de las entradas 6 de 0x5E54 que
+;   p00:5DEC lee con C (acaba donde empieza la siguiente); lo leen p00:5DEC (1
+;   bytes)
+;   0x5e78..0x5e79  (1 bytes)
+DATA_listas_5E52_5E78:
+	defb 00bh	; 5e78
 
 ; ======================================================================
 ; CODIGO 0x5e79..0x6000  (391 bytes)

@@ -66,126 +66,675 @@ DATA_sprites_6066:
 	defb 000h	; 6078
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x6079..0x67d8  (1887 bytes)
-DATA_6079:
-	defb 0c5h,060h,0c9h,060h,0cdh,060h,0d1h,060h,0d5h,060h,0d9h,060h,0e7h,060h,0ebh,060h	; 6079  .`.`.`.`.`.`.`.`
-	defb 0f1h,060h,0f7h,060h,0fdh,060h,003h,061h,009h,061h,089h,061h,0e3h,061h,087h,065h	; 6089  .`.`.`.a.a.a.a.e
-	defb 065h,062h,0f9h,066h,0a7h,062h,022h,063h,07ch,063h,082h,063h,088h,063h,08eh,063h	; 6099  eb.f.b"c|c.c.c.c
-	defb 094h,063h,09ah,063h,09ah,063h,0c9h,063h,0ceh,063h,0ceh,063h,0d8h,063h,0e2h,063h	; 60a9  .c.c.c.c.c.c.c.c
-	defb 0eah,063h,0f2h,063h,0fah,063h,00ah,064h,002h,064h,00ah,064h,053h,073h,053h,073h	; 60b9  .c.c.c.d.d.dSsSs
-	defb 054h,074h,053h,073h,055h,075h,053h,073h,055h,075h,054h,074h,002h,001h,07ch,0ach	; 60c9  TtSsUuSsUuTt..|.
-	defb 002h,006h,05bh,05fh,06ch,06ch,06dh,062h,08bh,08fh,09ch,09ch,09dh,092h,002h,001h	; 60d9  ..[_llmb........
-	defb 092h,062h,002h,002h,06eh,06fh,09eh,09fh,002h,002h,080h,081h,0b0h,0b1h,002h,002h	; 60e9  .b..no..........
-	defb 07eh,07fh,0aeh,0afh,002h,002h,0b4h,0b5h,0b9h,0bah,002h,002h,0b2h,0b3h,0b7h,0b8h	; 60f9  ~...............
-	defb 015h,006h,0a4h,08fh,090h,08bh,092h,06dh,000h,000h,085h,086h,087h,09dh,000h,000h	; 6109  .......m........
-	defb 000h,000h,082h,060h,000h,000h,000h,000h,000h,070h,000h,000h,000h,000h,000h,065h	; 6119  ...`.....p.....e
-	defb 000h,000h,000h,000h,000h,06ch,000h,000h,000h,000h,000h,09ch,000h,000h,054h,058h	; 6129  .....l........TX
-	defb 059h,074h,000h,054h,090h,063h,064h,072h,000h,078h,063h,064h,065h,070h,000h,06eh	; 6139  Yt.T.cdr.xcdep.n
-	defb 07dh,06fh,09ah,071h,000h,09eh,0adh,09fh,06ah,0a1h,000h,0a8h,093h,094h,095h,0a0h	; 6149  }o.q....j.......
-	defb 000h,084h,060h,093h,094h,0a2h,000h,000h,084h,088h,089h,0a4h,000h,000h,000h,000h	; 6159  ..`.............
-	defb 000h,06ch,000h,000h,000h,000h,000h,09ch,000h,000h,000h,000h,000h,095h,000h,000h	; 6169  .l..............
-	defb 000h,000h,052h,090h,000h,000h,055h,056h,057h,06dh,074h,05fh,060h,05bh,062h,09dh	; 6179  ..R...UVWmt_`[b.
-	defb 008h,00bh,000h,084h,089h,08bh,090h,08bh,09dh,090h,072h,05dh,000h,000h,000h,054h	; 6189  ..........r]...T
-	defb 062h,064h,064h,065h,06ch,06dh,071h,05dh,054h,084h,064h,065h,065h,065h,062h,09ch	; 6199  bddelmq]T.deeeb.
-	defb 09dh,0a1h,08dh,000h,000h,000h,000h,000h,000h,000h,000h,06ah,084h,000h,000h,000h	; 61a9  ...........j....
-	defb 000h,000h,000h,000h,000h,000h,09ah,054h,000h,084h,054h,094h,095h,095h,095h,092h	; 61b9  .......T..T.....
-	defb 06ch,06dh,071h,05dh,000h,000h,084h,092h,094h,094h,095h,09ch,09dh,0a1h,08dh,000h	; 61c9  lmq]............
-	defb 054h,059h,05bh,060h,05bh,06dh,060h,0a2h,08dh,000h,010h,008h,000h,000h,000h,000h	; 61d9  TY[`[m`.........
-	defb 000h,054h,096h,097h,000h,000h,000h,000h,098h,0b8h,0b6h,0b8h,000h,000h,056h,095h	; 61e9  .T............V.
-	defb 0b8h,0b6h,0b8h,0b8h,000h,055h,09dh,0b8h,0b8h,0b7h,0b8h,0b8h,000h,099h,09eh,0b7h	; 61f9  .....U..........
-	defb 0b0h,0b3h,0b8h,0b8h,057h,0b7h,09eh,0b4h,0b8h,0b0h,0b1h,0b8h,09ah,0b5h,0b2h,0b3h	; 6209  ....W...........
-	defb 0b8h,0b6h,0b8h,09fh,09bh,0b8h,0b8h,0b0h,0b8h,0b0h,0a3h,0a0h,09bh,0b0h,0b1h,0b6h	; 6219  ................
-	defb 0b0h,0adh,0a0h,0a1h,0a9h,0b7h,0b8h,0b8h,0a3h,0aeh,0abh,0a6h,05bh,0b5h,0b2h,0b8h	; 6229  ............[...
-	defb 0a4h,0abh,0a7h,0a2h,05ah,0b8h,0b6h,0b0h,0a5h,0aah,0afh,090h,000h,053h,0b8h,0b8h	; 6239  ....Z........S..
-	defb 0b4h,0ach,0a8h,091h,000h,000h,052h,0b8h,0b3h,0b1h,0ach,092h,000h,000h,000h,059h	; 6249  ......R........Y
-	defb 0b8h,0b6h,0b8h,093h,000h,000h,000h,000h,058h,05ch,09ch,094h,008h,008h,056h,057h	; 6259  ........X\....VW
-	defb 058h,059h,079h,078h,077h,076h,05ah,05bh,05ch,05dh,07dh,07ch,07bh,07ah,05eh,05fh	; 6269  XYyxwvZ[\]}|{z^_
-	defb 060h,061h,081h,080h,07fh,07eh,062h,063h,064h,065h,085h,084h,083h,082h,05ah,05bh	; 6279  `a...~bcde....Z[
-	defb 066h,067h,087h,086h,07bh,07ah,068h,069h,06ah,000h,000h,08ah,089h,088h,06bh,066h	; 6289  fg..{zhij.....kf
-	defb 06ch,000h,000h,08ch,086h,08bh,000h,06dh,06eh,052h,072h,08eh,08dh,000h,00bh,00bh	; 6299  l......mnRr.....
-	defb 000h,000h,000h,000h,052h,053h,054h,055h,000h,000h,000h,000h,000h,056h,057h,058h	; 62a9  ....RSTU.....VWX
-	defb 059h,05ah,05bh,05ch,000h,000h,05dh,05eh,05fh,060h,061h,062h,063h,064h,065h,066h	; 62b9  YZ[\..]^_`abcdef
-	defb 067h,068h,069h,06ah,06bh,06ch,06dh,06eh,06fh,070h,071h,072h,073h,05eh,074h,075h	; 62c9  ghijklmnopqrs^tu
-	defb 076h,077h,060h,065h,074h,078h,079h,07ah,07bh,07ch,07dh,07eh,07fh,080h,081h,082h	; 62d9  vw`etxyz{|}~....
-	defb 083h,084h,000h,085h,086h,086h,088h,089h,08ah,08bh,08ch,08dh,08eh,000h,000h,000h	; 62e9  ................
-	defb 000h,000h,08fh,090h,091h,092h,093h,094h,000h,000h,000h,000h,000h,095h,096h,08fh	; 62f9  ................
-	defb 090h,097h,098h,000h,000h,000h,000h,000h,000h,000h,099h,09ah,000h,000h,000h,000h	; 6309  ................
-	defb 000h,000h,000h,000h,000h,000h,09bh,09ch,000h,008h,00bh,000h,000h,000h,052h,000h	; 6319  ..............R.
-	defb 000h,053h,054h,000h,000h,000h,000h,055h,056h,057h,058h,059h,05ah,05ah,05bh,05ch	; 6329  .ST....UVWXYZZ[\
-	defb 05dh,079h,060h,061h,062h,063h,064h,065h,066h,067h,068h,069h,07ah,06ch,06dh,06eh	; 6339  ]y`abcdefghizlmn
-	defb 06fh,070h,071h,072h,073h,074h,000h,0aah,09ch,09dh,09eh,09fh,0a0h,0a1h,0a2h,0a3h	; 6349  opqrst..........
-	defb 0a4h,000h,0a9h,090h,091h,092h,093h,094h,095h,096h,097h,098h,099h,000h,085h,086h	; 6359  ................
-	defb 087h,088h,089h,08ah,08ah,08bh,08ch,08dh,000h,000h,000h,082h,000h,000h,083h,084h	; 6369  ................
-	defb 000h,000h,000h,002h,002h,073h,05eh,07ah,07bh,002h,002h,073h,0bdh,07ah,0beh,002h	; 6379  .....s^z{..s.z..
-	defb 002h,0bfh,0c0h,0c1h,0c2h,002h,002h,0c3h,0c4h,0c5h,0c2h,002h,002h,000h,000h,000h	; 6389  ................
-	defb 000h,009h,005h,0f9h,09eh,0dfh,0dch,0e2h,0d8h,0f5h,0ffh,0deh,0efh,0edh,0fdh,0feh	; 6399  ................
-	defb 0e6h,0d6h,0ebh,000h,000h,000h,0d4h,0eah,000h,000h,000h,0d3h,0eah,000h,000h,000h	; 63a9  ................
-	defb 0d3h,0eah,000h,000h,000h,0d3h,0ebh,000h,000h,000h,0d4h,0d2h,000h,000h,000h,0e9h	; 63b9  ................
-	defb 001h,003h,0b6h,0b7h,0cdh,004h,002h,05eh,05fh,06ah,06bh,09ah,09bh,08eh,08fh,004h	; 63c9  .......^_jk.....
-	defb 002h,075h,076h,077h,078h,0a7h,0a8h,0a5h,0a6h,002h,003h,066h,067h,068h,069h,06ah	; 63d9  .uvwx......fghij
-	defb 06bh,002h,003h,06ch,06dh,06eh,06fh,070h,071h,002h,003h,072h,073h,074h,075h,076h	; 63e9  k..lmnopq..rstuv
-	defb 077h,002h,003h,078h,079h,07ah,07bh,07ch,07dh,002h,003h,000h,000h,000h,000h,000h	; 63f9  w..xyz{|}.......
-	defb 000h,005h,003h,0b8h,000h,0cfh,0bfh,0a7h,0a8h,0aeh,0a5h,0c5h,0c2h,0a6h,0abh,064h	; 6409  ...............d
-	defb 0adh,060h,043h,064h,047h,064h,047h,064h,04bh,064h,04bh,064h,04bh,064h,04fh,064h	; 6419  .`CdGdGdKdKdKdOd
-	defb 04fh,064h,04fh,064h,053h,064h,053h,064h,057h,064h,057h,064h,057h,064h,043h,064h	; 6429  OdOdSdSdWdWdWdCd
-	defb 043h,064h,04bh,064h,04bh,064h,057h,064h,057h,064h,0b3h,0b4h,0b1h,0b2h,0a5h,0a6h	; 6439  CdKdKdWdWd......
-	defb 0a7h,0a8h,0a9h,0aah,0abh,0ach,0aeh,0adh,0b0h,0afh,0bch,0bbh,0bah,0b9h,0b7h,0b8h	; 6449  ................
-	defb 0b5h,0b6h,0a1h,0a2h,0a3h,0a4h,000h,0f0h,0f8h,0f0h,0f0h,0f0h,0f0h,0f8h,0f0h,000h	; 6459  ................
-	defb 0f0h,008h,0f0h,010h,0f8h,010h,000h,010h,008h,010h,010h,010h,010h,008h,010h,000h	; 6469  ................
-	defb 010h,0f8h,010h,0f0h,008h,0f0h,000h,000h,0f0h,0f8h,000h,000h,010h,008h,0a7h,064h	; 6479  ...............d
-	defb 0b3h,064h,0bbh,064h,0c3h,064h,0cfh,064h,0dbh,064h,0e3h,064h,0ebh,064h,0f7h,064h	; 6489  .d.d.d.d.d.d.d.d
-	defb 003h,065h,00bh,065h,013h,065h,01fh,065h,02bh,065h,033h,065h,03bh,065h,06fh,000h	; 6499  .e.e.e.e+e3e.eo.
-	defb 000h,000h,06fh,000h,000h,000h,06fh,000h,000h,06fh,06fh,000h,000h,06fh,000h,06fh	; 64a9  ..o...o..oo..o.o
-	defb 000h,06fh,000h,06fh,000h,06fh,000h,06fh,06fh,000h,000h,000h,06fh,000h,000h,06fh	; 64b9  .o.o.o.oo...o..o
-	defb 000h,06fh,000h,06fh,000h,000h,000h,000h,000h,06fh,000h,000h,06fh,000h,06fh,06fh	; 64c9  .o.o.....o..o.oo
-	defb 000h,000h,000h,000h,000h,06fh,06fh,06fh,06fh,000h,06fh,000h,000h,000h,000h,06fh	; 64d9  .....oooo.o....o
-	defb 06fh,06fh,06fh,000h,000h,000h,000h,06fh,000h,000h,000h,000h,06fh,06fh,06fh,000h	; 64e9  ooo....o....ooo.
-	defb 000h,06fh,000h,000h,000h,06fh,000h,000h,000h,06fh,06fh,000h,06fh,000h,06fh,000h	; 64f9  .o...o...oo.o.o.
-	defb 000h,06fh,000h,06fh,06fh,000h,06fh,000h,06fh,000h,000h,000h,06fh,000h,06fh,000h	; 6509  .o.oo.o.o...o.o.
-	defb 06fh,000h,000h,06fh,000h,000h,000h,000h,06fh,06fh,000h,06fh,000h,000h,06fh,000h	; 6519  o..o....oo.o..o.
-	defb 000h,000h,000h,06fh,06fh,06fh,06fh,000h,000h,000h,06fh,06fh,06fh,000h,000h,000h	; 6529  ...oooo...ooo...
-	defb 000h,06fh,06fh,06fh,000h,000h,000h,000h,06fh,000h,000h,000h,000h,06fh,004h,003h	; 6539  .ooo....o....o..
-	defb 010h,0e0h,004h,002h,028h,0e0h,004h,002h,040h,0e8h,004h,003h,040h,0f8h,003h,004h	; 6549  ....(...@...@...
-	defb 040h,010h,002h,004h,040h,028h,002h,004h,038h,040h,003h,004h,028h,040h,004h,003h	; 6559  @...@(..8@..(@..
-	defb 018h,040h,004h,002h,008h,040h,004h,002h,0f0h,038h,004h,003h,0e8h,028h,003h,004h	; 6569  .@...@...8...(..
-	defb 0e0h,018h,002h,004h,0e0h,008h,002h,004h,0e8h,0f0h,003h,004h,0f8h,0e8h,017h,010h	; 6579  ................
-	defb 000h,000h,000h,000h,000h,05fh,05eh,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 6589  ....._^.........
-	defb 000h,000h,000h,000h,000h,000h,0a9h,061h,000h,062h,061h,000h,000h,000h,000h,000h	; 6599  .......a.ba.....
-	defb 000h,000h,000h,000h,000h,062h,0b4h,0aeh,0c8h,0c5h,0cbh,05eh,000h,000h,000h,000h	; 65a9  .....b.....^....
-	defb 000h,05eh,000h,000h,065h,065h,0c0h,000h,000h,000h,0a9h,0bfh,05eh,000h,000h,000h	; 65b9  .^..ee......^...
-	defb 000h,0cbh,05eh,000h,0a9h,0a9h,0abh,000h,000h,000h,0c2h,060h,000h,000h,000h,000h	; 65c9  ..^........`....
-	defb 062h,0b4h,0aeh,0b1h,0c5h,0cbh,0b4h,060h,000h,064h,0cbh,063h,000h,000h,000h,000h	; 65d9  b......`.d.c....
-	defb 0cbh,0c0h,000h,000h,000h,0a9h,0a5h,0b6h,0b7h,0cdh,0bch,061h,000h,062h,05eh,000h	; 65e9  ...........a.b^.
-	defb 0b3h,0abh,000h,000h,000h,0c2h,0b3h,0b6h,0b7h,0cdh,0bch,0cah,0c0h,062h,0c0h,000h	; 65f9  .............b..
-	defb 064h,0b4h,060h,000h,064h,0cbh,0a5h,0b6h,0b7h,0cdh,0bch,0b4h,0cbh,0cah,060h,000h	; 6609  d.`.d.........`.
-	defb 000h,0a5h,0b6h,0b7h,0cdh,0bch,0a6h,0b6h,0b7h,0cdh,0bdh,0c0h,0a9h,0c0h,061h,000h	; 6619  ..............a.
-	defb 000h,0a5h,0b6h,0b7h,0cdh,0bch,060h,0b6h,0b7h,0cdh,064h,0c3h,0bfh,0cah,0b0h,0bah	; 6629  ......`...d.....
-	defb 062h,0a5h,0b6h,0b7h,0cdh,0bch,05eh,000h,000h,000h,062h,0aeh,0b4h,065h,0b8h,0b9h	; 6639  b.....^...b..e..
-	defb 05fh,0a5h,0b6h,0b7h,0cdh,0bch,000h,000h,000h,05fh,0b6h,0cch,0c2h,0b4h,060h,000h	; 6649  _........_....`.
-	defb 062h,0a6h,0b6h,0b7h,0cdh,0bdh,000h,000h,000h,000h,062h,064h,0cbh,0b4h,0b6h,0b7h	; 6659  b.........bd....
-	defb 064h,0aeh,000h,000h,05fh,0a4h,000h,000h,000h,062h,0cbh,061h,064h,0c0h,0b6h,0b7h	; 6669  d..._....b.ad...
-	defb 05fh,0b4h,000h,000h,000h,000h,000h,000h,000h,064h,0b3h,0a8h,05eh,0a6h,0b6h,0b7h	; 6679  _........d..^...
-	defb 000h,0a7h,000h,000h,000h,000h,000h,000h,000h,000h,064h,0cbh,0b4h,0c1h,0b6h,0b7h	; 6689  ..........d.....
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,062h,0c2h,0c0h,0b3h,0b6h,0b7h	; 6699  ..........b.....
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0a7h,0c5h,0cbh,0a5h,000h,000h	; 66a9  ................
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0b3h,0a5h,000h,000h	; 66b9  ................
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,064h,0a5h,000h,000h	; 66c9  ............d...
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,05fh,0a6h,000h,000h	; 66d9  ............_...
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0a7h,000h,000h	; 66e9  ................
-	defb 011h,00dh,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,05eh,000h,000h,000h	; 66f9  ............^...
-	defb 000h,000h,062h,061h,000h,000h,000h,000h,065h,0cbh,05eh,000h,000h,000h,000h,000h	; 6709  ..ba....e.^.....
-	defb 064h,0c0h,061h,000h,000h,062h,0b4h,0aeh,0b1h,000h,000h,000h,000h,065h,0cbh,0cch	; 6719  d.a..b.......e..
-	defb 0c0h,000h,0cbh,0c0h,0b0h,0bah,000h,000h,000h,000h,062h,0b4h,0aeh,0b1h,0c5h,0cbh	; 6729  ..........b.....
-	defb 0cah,0b8h,0b9h,000h,000h,000h,000h,0cbh,0c0h,000h,000h,000h,0a9h,0c0h,060h,000h	; 6739  ..............`.
-	defb 000h,000h,000h,062h,0cah,0abh,000h,000h,000h,0c0h,0b3h,0b6h,0b7h,062h,061h,000h	; 6749  ...b.........ba.
-	defb 000h,064h,0b4h,060h,000h,064h,0bch,0a5h,0b6h,0b7h,000h,064h,0c0h,061h,05eh,0a5h	; 6759  .d.`.d.....d.a^.
-	defb 0b6h,0b7h,0cdh,0bch,0a5h,0b6h,0b7h,000h,000h,064h,0c0h,0cbh,0a5h,0b6h,0b7h,0cdh	; 6769  .........d......
-	defb 0bch,0a5h,0b6h,0b7h,000h,000h,065h,0cbh,0c0h,0a5h,0b6h,0b7h,0cdh,0bch,0a5h,0b6h	; 6779  ......e.........
-	defb 0b7h,000h,000h,062h,0cah,0aeh,0a5h,0b6h,0b7h,0cdh,0bch,0a5h,000h,000h,000h,000h	; 6789  ...b............
-	defb 000h,064h,0b3h,0a6h,0b6h,0b7h,0cdh,0bdh,0a5h,000h,000h,000h,000h,000h,000h,064h	; 6799  .d.............d
-	defb 0b4h,000h,000h,000h,064h,0a5h,000h,000h,000h,000h,000h,000h,000h,0bbh,000h,000h	; 67a9  ....d...........
-	defb 000h,062h,0a5h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,05fh,0a6h	; 67b9  .b............_.
-	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0bbh,063h,000h	; 67c9  .............c.
+; DATOS formas_jefe: 38 punteros (p11:B717, B793, B7D2: 0x6079 + 2 x A) a las
+;   piezas de los jefes; lo leen p11:B71A (76 bytes)
+;   0x6079..0x60c5  (76 bytes)
+DATA_formas_jefe:
+	defw 060c5h,060c9h,060cdh,060d1h,060d5h,060d9h,060e7h,060ebh	; 6079
+	defw 060f1h,060f7h,060fdh,06103h,06109h,06189h,061e3h,06587h	; 6089
+	defw 06265h,066f9h,062a7h,06322h,0637ch,06382h,06388h,0638eh	; 6099
+	defw 06394h,0639ah,0639ah,063c9h,063ceh,063ceh,063d8h,063e2h	; 60a9
+	defw 063eah,063f2h,063fah,0640ah,06402h,0640ah	; 60b9
+
+; ----------------------------------------------------------------------
+; DATOS pieza2x2_60C5: bloque de 2 x 2 caracteres (entrada 0 de 0x6079) que
+;   p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+;   0x60c5..0x60c9  (4 bytes)
+DATA_pieza2x2_60C5:
+	defb 053h,073h,053h,073h	; 60c5
+
+; ----------------------------------------------------------------------
+; DATOS pieza2x2_60C9: bloque de 2 x 2 caracteres (entrada 1 de 0x6079) que
+;   p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+;   0x60c9..0x60cd  (4 bytes)
+DATA_pieza2x2_60C9:
+	defb 054h,074h,053h,073h	; 60c9
+
+; ----------------------------------------------------------------------
+; DATOS pieza2x2_60CD: bloque de 2 x 2 caracteres (entrada 2 de 0x6079) que
+;   p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+;   0x60cd..0x60d1  (4 bytes)
+DATA_pieza2x2_60CD:
+	defb 055h,075h,053h,073h	; 60cd
+
+; ----------------------------------------------------------------------
+; DATOS pieza2x2_60D1: bloque de 2 x 2 caracteres (entrada 3 de 0x6079) que
+;   p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+;   0x60d1..0x60d5  (4 bytes)
+DATA_pieza2x2_60D1:
+	defb 055h,075h,054h,074h	; 60d1
+
+; ----------------------------------------------------------------------
+; DATOS forma_60D5: forma de 2 columnas x 1 filas (entrada 4 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (4 bytes)
+;   0x60d5..0x60d9  (4 bytes)
+DATA_forma_60D5:
+	defb 002h,001h	; 60d5
+	defb 07ch,0ach	; 60d7
+
+; ----------------------------------------------------------------------
+; DATOS forma_60D9: forma de 2 columnas x 6 filas (entrada 5 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (14 bytes)
+;   0x60d9..0x60e7  (14 bytes)
+DATA_forma_60D9:
+	defb 002h,006h	; 60d9
+	defb 05bh,05fh	; 60db
+	defb 06ch,06ch	; 60dd
+	defb 06dh,062h	; 60df
+	defb 08bh,08fh	; 60e1
+	defb 09ch,09ch	; 60e3
+	defb 09dh,092h	; 60e5
+
+; ----------------------------------------------------------------------
+; DATOS forma_60E7: forma de 2 columnas x 1 filas (entrada 6 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (4 bytes)
+;   0x60e7..0x60eb  (4 bytes)
+DATA_forma_60E7:
+	defb 002h,001h	; 60e7
+	defb 092h,062h	; 60e9
+
+; ----------------------------------------------------------------------
+; DATOS forma_60EB: forma de 2 columnas x 2 filas (entrada 7 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x60eb..0x60f1  (6 bytes)
+DATA_forma_60EB:
+	defb 002h,002h	; 60eb
+	defb 06eh,06fh	; 60ed
+	defb 09eh,09fh	; 60ef
+
+; ----------------------------------------------------------------------
+; DATOS forma_60F1: forma de 2 columnas x 2 filas (entrada 8 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x60f1..0x60f7  (6 bytes)
+DATA_forma_60F1:
+	defb 002h,002h	; 60f1
+	defb 080h,081h	; 60f3
+	defb 0b0h,0b1h	; 60f5
+
+; ----------------------------------------------------------------------
+; DATOS forma_60F7: forma de 2 columnas x 2 filas (entrada 9 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x60f7..0x60fd  (6 bytes)
+DATA_forma_60F7:
+	defb 002h,002h	; 60f7
+	defb 07eh,07fh	; 60f9
+	defb 0aeh,0afh	; 60fb
+
+; ----------------------------------------------------------------------
+; DATOS forma_60FD: forma de 2 columnas x 2 filas (entrada 10 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x60fd..0x6103  (6 bytes)
+DATA_forma_60FD:
+	defb 002h,002h	; 60fd
+	defb 0b4h,0b5h	; 60ff
+	defb 0b9h,0bah	; 6101
+
+; ----------------------------------------------------------------------
+; DATOS forma_6103: forma de 2 columnas x 2 filas (entrada 11 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x6103..0x6109  (6 bytes)
+DATA_forma_6103:
+	defb 002h,002h	; 6103
+	defb 0b2h,0b3h	; 6105
+	defb 0b7h,0b8h	; 6107
+
+; ----------------------------------------------------------------------
+; DATOS forma_6109: forma de 21 columnas x 6 filas (entrada 12 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (128
+;   bytes)
+;   0x6109..0x6189  (128 bytes)
+DATA_forma_6109:
+	defb 015h,006h,0a4h,08fh,090h,08bh,092h,06dh,000h,000h,085h,086h,087h,09dh,000h,000h,000h,000h,082h,060h,000h	; 6109  .......m...........`.
+	defb 000h,000h,000h,000h,070h,000h,000h,000h,000h,000h,065h,000h,000h,000h,000h,000h,06ch,000h,000h,000h,000h	; 611e  ....p.....e.....l....
+	defb 000h,09ch,000h,000h,054h,058h,059h,074h,000h,054h,090h,063h,064h,072h,000h,078h,063h,064h,065h,070h,000h	; 6133  ....TXYt.T.cdr.xcdep.
+	defb 06eh,07dh,06fh,09ah,071h,000h,09eh,0adh,09fh,06ah,0a1h,000h,0a8h,093h,094h,095h,0a0h,000h,084h,060h,093h	; 6148  n}o.q....j.........`.
+	defb 094h,0a2h,000h,000h,084h,088h,089h,0a4h,000h,000h,000h,000h,000h,06ch,000h,000h,000h,000h,000h,09ch,000h	; 615d  .............l.......
+	defb 000h,000h,000h,000h,095h,000h,000h,000h,000h,052h,090h,000h,000h,055h,056h,057h,06dh,074h,05fh,060h,05bh	; 6172  .........R...UVWmt_`[
+	defb 062h,09dh	; 6187
+
+; ----------------------------------------------------------------------
+; DATOS forma_6189: forma de 8 columnas x 11 filas (entrada 13 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (90 bytes)
+;   0x6189..0x61e3  (90 bytes)
+DATA_forma_6189:
+	defb 008h,00bh,000h,084h,089h,08bh,090h,08bh	; 6189  ........
+	defb 09dh,090h,072h,05dh,000h,000h,000h,054h	; 6191  ..r]...T
+	defb 062h,064h,064h,065h,06ch,06dh,071h,05dh	; 6199  bddelmq]
+	defb 054h,084h,064h,065h,065h,065h,062h,09ch	; 61a1  T.deeeb.
+	defb 09dh,0a1h,08dh,000h,000h,000h,000h,000h	; 61a9  ........
+	defb 000h,000h,000h,06ah,084h,000h,000h,000h	; 61b1  ...j....
+	defb 000h,000h,000h,000h,000h,000h,09ah,054h	; 61b9  .......T
+	defb 000h,084h,054h,094h,095h,095h,095h,092h	; 61c1  ..T.....
+	defb 06ch,06dh,071h,05dh,000h,000h,084h,092h	; 61c9  lmq]....
+	defb 094h,094h,095h,09ch,09dh,0a1h,08dh,000h	; 61d1  ........
+	defb 054h,059h,05bh,060h,05bh,06dh,060h,0a2h	; 61d9  TY[`[m`.
+	defb 08dh,000h	; 61e1
+
+; ----------------------------------------------------------------------
+; DATOS forma_61E3: forma de 16 columnas x 8 filas (entrada 14 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (130
+;   bytes)
+;   0x61e3..0x6265  (130 bytes)
+DATA_forma_61E3:
+	defb 010h,008h,000h,000h,000h,000h,000h,054h,096h,097h,000h,000h,000h,000h,098h,0b8h	; 61e3  .......T........
+	defb 0b6h,0b8h,000h,000h,056h,095h,0b8h,0b6h,0b8h,0b8h,000h,055h,09dh,0b8h,0b8h,0b7h	; 61f3  ....V......U....
+	defb 0b8h,0b8h,000h,099h,09eh,0b7h,0b0h,0b3h,0b8h,0b8h,057h,0b7h,09eh,0b4h,0b8h,0b0h	; 6203  ..........W.....
+	defb 0b1h,0b8h,09ah,0b5h,0b2h,0b3h,0b8h,0b6h,0b8h,09fh,09bh,0b8h,0b8h,0b0h,0b8h,0b0h	; 6213  ................
+	defb 0a3h,0a0h,09bh,0b0h,0b1h,0b6h,0b0h,0adh,0a0h,0a1h,0a9h,0b7h,0b8h,0b8h,0a3h,0aeh	; 6223  ................
+	defb 0abh,0a6h,05bh,0b5h,0b2h,0b8h,0a4h,0abh,0a7h,0a2h,05ah,0b8h,0b6h,0b0h,0a5h,0aah	; 6233  ..[.......Z.....
+	defb 0afh,090h,000h,053h,0b8h,0b8h,0b4h,0ach,0a8h,091h,000h,000h,052h,0b8h,0b3h,0b1h	; 6243  ...S........R...
+	defb 0ach,092h,000h,000h,000h,059h,0b8h,0b6h,0b8h,093h,000h,000h,000h,000h,058h,05ch	; 6253  .....Y........X\
+	defb 09ch,094h	; 6263
+
+; ----------------------------------------------------------------------
+; DATOS forma_6265: forma de 8 columnas x 8 filas (entrada 16 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (66 bytes)
+;   0x6265..0x62a7  (66 bytes)
+DATA_forma_6265:
+	defb 008h,008h,056h,057h,058h,059h,079h,078h	; 6265  ..VWXYyx
+	defb 077h,076h,05ah,05bh,05ch,05dh,07dh,07ch	; 626d  wvZ[\]}|
+	defb 07bh,07ah,05eh,05fh,060h,061h,081h,080h	; 6275  {z^_`a..
+	defb 07fh,07eh,062h,063h,064h,065h,085h,084h	; 627d  .~bcde..
+	defb 083h,082h,05ah,05bh,066h,067h,087h,086h	; 6285  ..Z[fg..
+	defb 07bh,07ah,068h,069h,06ah,000h,000h,08ah	; 628d  {zhij...
+	defb 089h,088h,06bh,066h,06ch,000h,000h,08ch	; 6295  ..kfl...
+	defb 086h,08bh,000h,06dh,06eh,052h,072h,08eh	; 629d  ...mnRr.
+	defb 08dh,000h	; 62a5
+
+; ----------------------------------------------------------------------
+; DATOS forma_62A7: forma de 11 columnas x 11 filas (entrada 18 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (123
+;   bytes)
+;   0x62a7..0x6322  (123 bytes)
+DATA_forma_62A7:
+	defb 00bh,00bh,000h,000h,000h,000h,052h,053h,054h,055h,000h	; 62a7  ......RSTU.
+	defb 000h,000h,000h,000h,056h,057h,058h,059h,05ah,05bh,05ch	; 62b2  ....VWXYZ[\
+	defb 000h,000h,05dh,05eh,05fh,060h,061h,062h,063h,064h,065h	; 62bd  ..]^_`abcde
+	defb 066h,067h,068h,069h,06ah,06bh,06ch,06dh,06eh,06fh,070h	; 62c8  fghijklmnop
+	defb 071h,072h,073h,05eh,074h,075h,076h,077h,060h,065h,074h	; 62d3  qrs^tuvw`et
+	defb 078h,079h,07ah,07bh,07ch,07dh,07eh,07fh,080h,081h,082h	; 62de  xyz{|}~....
+	defb 083h,084h,000h,085h,086h,086h,088h,089h,08ah,08bh,08ch	; 62e9  ...........
+	defb 08dh,08eh,000h,000h,000h,000h,000h,08fh,090h,091h,092h	; 62f4  ...........
+	defb 093h,094h,000h,000h,000h,000h,000h,095h,096h,08fh,090h	; 62ff  ...........
+	defb 097h,098h,000h,000h,000h,000h,000h,000h,000h,099h,09ah	; 630a  ...........
+	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,09bh	; 6315  ...........
+	defb 09ch,000h	; 6320
+
+; ----------------------------------------------------------------------
+; DATOS forma_6322: forma de 8 columnas x 11 filas (entrada 19 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (90 bytes)
+;   0x6322..0x637c  (90 bytes)
+DATA_forma_6322:
+	defb 008h,00bh,000h,000h,000h,052h,000h,000h	; 6322  .....R..
+	defb 053h,054h,000h,000h,000h,000h,055h,056h	; 632a  ST....UV
+	defb 057h,058h,059h,05ah,05ah,05bh,05ch,05dh	; 6332  WXYZZ[\]
+	defb 079h,060h,061h,062h,063h,064h,065h,066h	; 633a  y`abcdef
+	defb 067h,068h,069h,07ah,06ch,06dh,06eh,06fh	; 6342  ghizlmno
+	defb 070h,071h,072h,073h,074h,000h,0aah,09ch	; 634a  pqrst...
+	defb 09dh,09eh,09fh,0a0h,0a1h,0a2h,0a3h,0a4h	; 6352  ........
+	defb 000h,0a9h,090h,091h,092h,093h,094h,095h	; 635a  ........
+	defb 096h,097h,098h,099h,000h,085h,086h,087h	; 6362  ........
+	defb 088h,089h,08ah,08ah,08bh,08ch,08dh,000h	; 636a  ........
+	defb 000h,000h,082h,000h,000h,083h,084h,000h	; 6372  ........
+	defb 000h,000h	; 637a
+
+; ----------------------------------------------------------------------
+; DATOS forma_637C: forma de 2 columnas x 2 filas (entrada 20 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x637c..0x6382  (6 bytes)
+DATA_forma_637C:
+	defb 002h,002h	; 637c
+	defb 073h,05eh	; 637e
+	defb 07ah,07bh	; 6380
+
+; ----------------------------------------------------------------------
+; DATOS forma_6382: forma de 2 columnas x 2 filas (entrada 21 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x6382..0x6388  (6 bytes)
+DATA_forma_6382:
+	defb 002h,002h	; 6382
+	defb 073h,0bdh	; 6384
+	defb 07ah,0beh	; 6386
+
+; ----------------------------------------------------------------------
+; DATOS forma_6388: forma de 2 columnas x 2 filas (entrada 22 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x6388..0x638e  (6 bytes)
+DATA_forma_6388:
+	defb 002h,002h	; 6388
+	defb 0bfh,0c0h	; 638a
+	defb 0c1h,0c2h	; 638c
+
+; ----------------------------------------------------------------------
+; DATOS forma_638E: forma de 2 columnas x 2 filas (entrada 23 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x638e..0x6394  (6 bytes)
+DATA_forma_638E:
+	defb 002h,002h	; 638e
+	defb 0c3h,0c4h	; 6390
+	defb 0c5h,0c2h	; 6392
+
+; ----------------------------------------------------------------------
+; DATOS forma_6394: forma de 2 columnas x 2 filas (entrada 24 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+;   0x6394..0x639a  (6 bytes)
+DATA_forma_6394:
+	defb 002h,002h	; 6394
+	defb 000h,000h	; 6396
+	defb 000h,000h	; 6398
+
+; ----------------------------------------------------------------------
+; DATOS forma_639A: forma de 9 columnas x 5 filas (entrada 25, 26 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (47 bytes)
+;   0x639a..0x63c9  (47 bytes)
+DATA_forma_639A:
+	defb 009h,005h,0f9h,09eh,0dfh,0dch,0e2h,0d8h,0f5h	; 639a  .........
+	defb 0ffh,0deh,0efh,0edh,0fdh,0feh,0e6h,0d6h,0ebh	; 63a3  .........
+	defb 000h,000h,000h,0d4h,0eah,000h,000h,000h,0d3h	; 63ac  .........
+	defb 0eah,000h,000h,000h,0d3h,0eah,000h,000h,000h	; 63b5  .........
+	defb 0d3h,0ebh,000h,000h,000h,0d4h,0d2h,000h,000h	; 63be  .........
+	defb 000h,0e9h	; 63c7
+
+; ----------------------------------------------------------------------
+; DATOS forma_63C9: forma de 1 columnas x 3 filas (entrada 27 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (5 bytes)
+;   0x63c9..0x63ce  (5 bytes)
+DATA_forma_63C9:
+	defb 001h,003h	; 63c9
+	defb 0b6h,0b7h	; 63cb
+	defb 0cdh	; 63cd
+
+; ----------------------------------------------------------------------
+; DATOS forma_63CE: forma de 4 columnas x 2 filas (entrada 28, 29 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (10 bytes)
+;   0x63ce..0x63d8  (10 bytes)
+DATA_forma_63CE:
+	defb 004h,002h,05eh,05fh	; 63ce
+	defb 06ah,06bh,09ah,09bh	; 63d2
+	defb 08eh,08fh	; 63d6
+
+; ----------------------------------------------------------------------
+; DATOS forma_63D8: forma de 4 columnas x 2 filas (entrada 30 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (10 bytes)
+;   0x63d8..0x63e2  (10 bytes)
+DATA_forma_63D8:
+	defb 004h,002h,075h,076h	; 63d8
+	defb 077h,078h,0a7h,0a8h	; 63dc
+	defb 0a5h,0a6h	; 63e0
+
+; ----------------------------------------------------------------------
+; DATOS forma_63E2: forma de 2 columnas x 3 filas (entrada 31 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+;   0x63e2..0x63ea  (8 bytes)
+DATA_forma_63E2:
+	defb 002h,003h	; 63e2
+	defb 066h,067h	; 63e4
+	defb 068h,069h	; 63e6
+	defb 06ah,06bh	; 63e8
+
+; ----------------------------------------------------------------------
+; DATOS forma_63EA: forma de 2 columnas x 3 filas (entrada 32 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+;   0x63ea..0x63f2  (8 bytes)
+DATA_forma_63EA:
+	defb 002h,003h	; 63ea
+	defb 06ch,06dh	; 63ec
+	defb 06eh,06fh	; 63ee
+	defb 070h,071h	; 63f0
+
+; ----------------------------------------------------------------------
+; DATOS forma_63F2: forma de 2 columnas x 3 filas (entrada 33 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+;   0x63f2..0x63fa  (8 bytes)
+DATA_forma_63F2:
+	defb 002h,003h	; 63f2
+	defb 072h,073h	; 63f4
+	defb 074h,075h	; 63f6
+	defb 076h,077h	; 63f8
+
+; ----------------------------------------------------------------------
+; DATOS forma_63FA: forma de 2 columnas x 3 filas (entrada 34 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+;   0x63fa..0x6402  (8 bytes)
+DATA_forma_63FA:
+	defb 002h,003h	; 63fa
+	defb 078h,079h	; 63fc
+	defb 07ah,07bh	; 63fe
+	defb 07ch,07dh	; 6400
+
+; ----------------------------------------------------------------------
+; DATOS forma_6402: forma de 2 columnas x 3 filas (entrada 36 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+;   0x6402..0x640a  (8 bytes)
+DATA_forma_6402:
+	defb 002h,003h	; 6402
+	defb 000h,000h	; 6404
+	defb 000h,000h	; 6406
+	defb 000h,000h	; 6408
+
+; ----------------------------------------------------------------------
+; DATOS forma_640A: forma de 5 columnas x 3 filas (entrada 35, 37 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (17 bytes)
+;   0x640a..0x641b  (17 bytes)
+DATA_forma_640A:
+	defb 005h,003h,0b8h,000h,0cfh	; 640a
+	defb 0bfh,0a7h,0a8h,0aeh,0a5h	; 640f
+	defb 0c5h,0c2h,0a6h,0abh,064h	; 6414
+	defb 0adh,060h	; 6419
+
+; ----------------------------------------------------------------------
+; DATOS bloques_giro: 20 punteros a bloques de 2 x 2: p11:AABA los elige con A
+;   = C / 2, y C = ((angulo + 8) >> 3) & 0x1E llega a 15; las palabras 16 a 19
+;   no las alcanza ese calculo; lo leen p11:AABD (40 bytes)
+;   0x641b..0x6443  (40 bytes)
+DATA_bloques_giro:
+	defw 06443h,06447h,06447h,0644bh,0644bh,0644bh,0644fh,0644fh	; 641b
+	defw 0644fh,06453h,06453h,06457h,06457h,06457h,06443h,06443h	; 642b
+	defw 0644bh,0644bh,06457h,06457h	; 643b  -> DATA_bloque_644B DATA_bloque_644B DATA_bloque_6457 DATA_bloque_6457
+
+; ----------------------------------------------------------------------
+; DATOS bloque_6443: bloque de 2 x 2 caracteres de 0x641B (B = C = 2,
+;   p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x6443..0x6447  (4 bytes)
+DATA_bloque_6443:
+	defb 0b3h,0b4h,0b1h,0b2h	; 6443
+
+; ----------------------------------------------------------------------
+; DATOS bloque_6447: bloque de 2 x 2 caracteres de 0x641B (B = C = 2,
+;   p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x6447..0x644b  (4 bytes)
+DATA_bloque_6447:
+	defb 0a5h,0a6h,0a7h,0a8h	; 6447
+
+; ----------------------------------------------------------------------
+; DATOS bloque_644B: bloque de 2 x 2 caracteres de 0x641B (B = C = 2,
+;   p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x644b..0x644f  (4 bytes)
+DATA_bloque_644B:
+	defb 0a9h,0aah,0abh,0ach	; 644b
+
+; ----------------------------------------------------------------------
+; DATOS bloque_644F: bloque de 2 x 2 caracteres de 0x641B (B = C = 2,
+;   p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x644f..0x6453  (4 bytes)
+DATA_bloque_644F:
+	defb 0aeh,0adh,0b0h,0afh	; 644f
+
+; ----------------------------------------------------------------------
+; DATOS bloque_6453: bloque de 2 x 2 caracteres de 0x641B (B = C = 2,
+;   p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x6453..0x6457  (4 bytes)
+DATA_bloque_6453:
+	defb 0bch,0bbh,0bah,0b9h	; 6453
+
+; ----------------------------------------------------------------------
+; DATOS bloque_6457: bloque de 2 x 2 caracteres de 0x641B (B = C = 2,
+;   p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x6457..0x645b  (4 bytes)
+DATA_bloque_6457:
+	defb 0b7h,0b8h,0b5h,0b6h	; 6457
+
+; ----------------------------------------------------------------------
+; DATOS bloque_645B: bloque de 2 x 2 caracteres que p11:AAB3 pone en DE (B = C
+;   = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+;   0x645b..0x645f  (4 bytes)
+DATA_bloque_645B:
+	defb 0a1h,0a2h,0a3h,0a4h	; 645b
+
+; ----------------------------------------------------------------------
+; DATOS giro_16: 16 pares (x, y) de desplazamiento, uno por direccion de las
+;   16 de un circulo: p11:AA89 lee 0x6460 + C (y) y, con `dec hl`, 0x645F + C
+;   (x); lo leen p11:AA93 (32 bytes)
+;   0x645f..0x647f  (32 bytes)
+DATA_giro_16:
+	defb 000h,0f0h	; 645f
+	defb 0f8h,0f0h	; 6461
+	defb 0f0h,0f0h	; 6463
+	defb 0f0h,0f8h	; 6465
+	defb 0f0h,000h	; 6467
+	defb 0f0h,008h	; 6469
+	defb 0f0h,010h	; 646b
+	defb 0f8h,010h	; 646d
+	defb 000h,010h	; 646f
+	defb 008h,010h	; 6471
+	defb 010h,010h	; 6473
+	defb 010h,008h	; 6475
+	defb 010h,000h	; 6477
+	defb 010h,0f8h	; 6479
+	defb 010h,0f0h	; 647b
+	defb 008h,0f0h	; 647d
+
+; ----------------------------------------------------------------------
+; DATOS detras_de_giro_16: 8 bytes entre los 16 pares de 0x645F y la tabla de
+;   0x6487: p11:AA89 solo llega a 0x647E (C <= 0x1E) y nadie mas los apunta:
+;   SIN LECTOR a la vista; lo leen nadie (8 bytes)
+;   0x647f..0x6487  (8 bytes)
+DATA_detras_de_giro_16:
+	defb 000h,000h,0f0h,0f8h,000h,000h,010h,008h	; 647f  ........
+
+; ----------------------------------------------------------------------
+; DATOS piezas_6487: 16 punteros (p11:A829: A & 0x0F, p00:4E28) a piezas sin
+;   cabecera; sus columnas y filas las da la ficha de 0x6547 con el mismo
+;   indice; lo leen p11:A82C (32 bytes)
+;   0x6487..0x64a7  (32 bytes)
+DATA_piezas_6487:
+	defw 064a7h,064b3h,064bbh,064c3h,064cfh,064dbh,064e3h,064ebh	; 6487
+	defw 064f7h,06503h,0650bh,06513h,0651fh,0652bh,06533h,0653bh	; 6497
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64A7: pieza 0 de 0x6487: 4 columnas x 3 filas (de la ficha 0 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x64a7..0x64b3  (12 bytes)
+DATA_pieza_64A7:
+	defb 06fh,000h,000h,000h	; 64a7
+	defb 06fh,000h,000h,000h	; 64ab
+	defb 06fh,000h,000h,06fh	; 64af
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64B3: pieza 1 de 0x6487: 4 columnas x 2 filas (de la ficha 1 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x64b3..0x64bb  (8 bytes)
+DATA_pieza_64B3:
+	defb 06fh,000h,000h,06fh	; 64b3
+	defb 000h,06fh,000h,06fh	; 64b7
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64BB: pieza 2 de 0x6487: 4 columnas x 2 filas (de la ficha 2 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x64bb..0x64c3  (8 bytes)
+DATA_pieza_64BB:
+	defb 000h,06fh,000h,06fh	; 64bb
+	defb 000h,06fh,06fh,000h	; 64bf
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64C3: pieza 3 de 0x6487: 4 columnas x 3 filas (de la ficha 3 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x64c3..0x64cf  (12 bytes)
+DATA_pieza_64C3:
+	defb 000h,000h,06fh,000h	; 64c3
+	defb 000h,06fh,000h,06fh	; 64c7
+	defb 000h,06fh,000h,000h	; 64cb
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64CF: pieza 4 de 0x6487: 3 columnas x 4 filas (de la ficha 4 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x64cf..0x64db  (12 bytes)
+DATA_pieza_64CF:
+	defb 000h,000h,000h	; 64cf
+	defb 06fh,000h,000h	; 64d2
+	defb 06fh,000h,06fh	; 64d5
+	defb 06fh,000h,000h	; 64d8
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64DB: pieza 5 de 0x6487: 2 columnas x 4 filas (de la ficha 5 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x64db..0x64e3  (8 bytes)
+DATA_pieza_64DB:
+	defb 000h,000h	; 64db
+	defb 000h,06fh	; 64dd
+	defb 06fh,06fh	; 64df
+	defb 06fh,000h	; 64e1
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64E3: pieza 6 de 0x6487: 2 columnas x 4 filas (de la ficha 6 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x64e3..0x64eb  (8 bytes)
+DATA_pieza_64E3:
+	defb 06fh,000h	; 64e3
+	defb 000h,000h	; 64e5
+	defb 000h,06fh	; 64e7
+	defb 06fh,06fh	; 64e9
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64EB: pieza 7 de 0x6487: 3 columnas x 4 filas (de la ficha 7 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x64eb..0x64f7  (12 bytes)
+DATA_pieza_64EB:
+	defb 06fh,000h,000h	; 64eb
+	defb 000h,000h,06fh	; 64ee
+	defb 000h,000h,000h	; 64f1
+	defb 000h,06fh,06fh	; 64f4
+
+; ----------------------------------------------------------------------
+; DATOS pieza_64F7: pieza 8 de 0x6487: 4 columnas x 3 filas (de la ficha 8 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x64f7..0x6503  (12 bytes)
+DATA_pieza_64F7:
+	defb 06fh,000h,000h,06fh	; 64f7
+	defb 000h,000h,000h,06fh	; 64fb
+	defb 000h,000h,000h,06fh	; 64ff
+
+; ----------------------------------------------------------------------
+; DATOS pieza_6503: pieza 9 de 0x6487: 4 columnas x 2 filas (de la ficha 9 de
+;   0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x6503..0x650b  (8 bytes)
+DATA_pieza_6503:
+	defb 06fh,000h,06fh,000h	; 6503
+	defb 06fh,000h,000h,06fh	; 6507
+
+; ----------------------------------------------------------------------
+; DATOS pieza_650B: pieza 10 de 0x6487: 4 columnas x 2 filas (de la ficha 10
+;   de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x650b..0x6513  (8 bytes)
+DATA_pieza_650B:
+	defb 000h,06fh,06fh,000h	; 650b
+	defb 06fh,000h,06fh,000h	; 650f
+
+; ----------------------------------------------------------------------
+; DATOS pieza_6513: pieza 11 de 0x6487: 4 columnas x 3 filas (de la ficha 11
+;   de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x6513..0x651f  (12 bytes)
+DATA_pieza_6513:
+	defb 000h,000h,06fh,000h	; 6513
+	defb 06fh,000h,06fh,000h	; 6517
+	defb 000h,06fh,000h,000h	; 651b
+
+; ----------------------------------------------------------------------
+; DATOS pieza_651F: pieza 12 de 0x6487: 3 columnas x 4 filas (de la ficha 12
+;   de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x651f..0x652b  (12 bytes)
+DATA_pieza_651F:
+	defb 000h,000h,06fh	; 651f
+	defb 06fh,000h,06fh	; 6522
+	defb 000h,000h,06fh	; 6525
+	defb 000h,000h,000h	; 6528
+
+; ----------------------------------------------------------------------
+; DATOS pieza_652B: pieza 13 de 0x6487: 2 columnas x 4 filas (de la ficha 13
+;   de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x652b..0x6533  (8 bytes)
+DATA_pieza_652B:
+	defb 000h,06fh	; 652b
+	defb 06fh,06fh	; 652d
+	defb 06fh,000h	; 652f
+	defb 000h,000h	; 6531
+
+; ----------------------------------------------------------------------
+; DATOS pieza_6533: pieza 14 de 0x6487: 2 columnas x 4 filas (de la ficha 14
+;   de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+;   0x6533..0x653b  (8 bytes)
+DATA_pieza_6533:
+	defb 06fh,06fh	; 6533
+	defb 06fh,000h	; 6535
+	defb 000h,000h	; 6537
+	defb 000h,06fh	; 6539
+
+; ----------------------------------------------------------------------
+; DATOS pieza_653B: pieza 15 de 0x6487: 3 columnas x 4 filas (de la ficha 15
+;   de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+;   0x653b..0x6547  (12 bytes)
+DATA_pieza_653B:
+	defb 06fh,06fh,000h	; 653b
+	defb 000h,000h,000h	; 653e
+	defb 06fh,000h,000h	; 6541
+	defb 000h,000h,06fh	; 6544
+
+; ----------------------------------------------------------------------
+; DATOS piezas_6547: 16 fichas de 4 bytes [columnas][filas][dx][dy] que
+;   p11:A84A elige con A x 4; lo leen p11:A84F (64 bytes)
+;   0x6547..0x6587  (64 bytes)
+DATA_piezas_6547:
+	defb 004h,003h,010h,0e0h	; 6547
+	defb 004h,002h,028h,0e0h	; 654b
+	defb 004h,002h,040h,0e8h	; 654f
+	defb 004h,003h,040h,0f8h	; 6553
+	defb 003h,004h,040h,010h	; 6557
+	defb 002h,004h,040h,028h	; 655b
+	defb 002h,004h,038h,040h	; 655f
+	defb 003h,004h,028h,040h	; 6563
+	defb 004h,003h,018h,040h	; 6567
+	defb 004h,002h,008h,040h	; 656b
+	defb 004h,002h,0f0h,038h	; 656f
+	defb 004h,003h,0e8h,028h	; 6573
+	defb 003h,004h,0e0h,018h	; 6577
+	defb 002h,004h,0e0h,008h	; 657b
+	defb 002h,004h,0e8h,0f0h	; 657f
+	defb 003h,004h,0f8h,0e8h	; 6583
+
+; ----------------------------------------------------------------------
+; DATOS forma_6587: forma de 23 columnas x 16 filas (entrada 15 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (370
+;   bytes)
+;   0x6587..0x66f9  (370 bytes)
+DATA_forma_6587:
+	defb 017h,010h,000h,000h,000h,000h,000h,05fh,05eh,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 6587  ......._^..............
+	defb 000h,0a9h,061h,000h,062h,061h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,062h,0b4h,0aeh,0c8h,0c5h,0cbh,05eh	; 659e  ..a.ba..........b.....^
+	defb 000h,000h,000h,000h,000h,05eh,000h,000h,065h,065h,0c0h,000h,000h,000h,0a9h,0bfh,05eh,000h,000h,000h,000h,0cbh,05eh	; 65b5  .....^..ee......^.....^
+	defb 000h,0a9h,0a9h,0abh,000h,000h,000h,0c2h,060h,000h,000h,000h,000h,062h,0b4h,0aeh,0b1h,0c5h,0cbh,0b4h,060h,000h,064h	; 65cc  ........`....b......`.d
+	defb 0cbh,063h,000h,000h,000h,000h,0cbh,0c0h,000h,000h,000h,0a9h,0a5h,0b6h,0b7h,0cdh,0bch,061h,000h,062h,05eh,000h,0b3h	; 65e3  .c...............a.b^..
+	defb 0abh,000h,000h,000h,0c2h,0b3h,0b6h,0b7h,0cdh,0bch,0cah,0c0h,062h,0c0h,000h,064h,0b4h,060h,000h,064h,0cbh,0a5h,0b6h	; 65fa  ............b..d.`.d...
+	defb 0b7h,0cdh,0bch,0b4h,0cbh,0cah,060h,000h,000h,0a5h,0b6h,0b7h,0cdh,0bch,0a6h,0b6h,0b7h,0cdh,0bdh,0c0h,0a9h,0c0h,061h	; 6611  ......`...............a
+	defb 000h,000h,0a5h,0b6h,0b7h,0cdh,0bch,060h,0b6h,0b7h,0cdh,064h,0c3h,0bfh,0cah,0b0h,0bah,062h,0a5h,0b6h,0b7h,0cdh,0bch	; 6628  .......`...d.....b.....
+	defb 05eh,000h,000h,000h,062h,0aeh,0b4h,065h,0b8h,0b9h,05fh,0a5h,0b6h,0b7h,0cdh,0bch,000h,000h,000h,05fh,0b6h,0cch,0c2h	; 663f  ^...b..e.._........_...
+	defb 0b4h,060h,000h,062h,0a6h,0b6h,0b7h,0cdh,0bdh,000h,000h,000h,000h,062h,064h,0cbh,0b4h,0b6h,0b7h,064h,0aeh,000h,000h	; 6656  .`.b.........bd....d...
+	defb 05fh,0a4h,000h,000h,000h,062h,0cbh,061h,064h,0c0h,0b6h,0b7h,05fh,0b4h,000h,000h,000h,000h,000h,000h,000h,064h,0b3h	; 666d  _....b.ad..._........d.
+	defb 0a8h,05eh,0a6h,0b6h,0b7h,000h,0a7h,000h,000h,000h,000h,000h,000h,000h,000h,064h,0cbh,0b4h,0c1h,0b6h,0b7h,000h,000h	; 6684  .^.............d.......
+	defb 000h,000h,000h,000h,000h,000h,000h,000h,062h,0c2h,0c0h,0b3h,0b6h,0b7h,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 669b  ........b..............
+	defb 000h,0a7h,0c5h,0cbh,0a5h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0b3h,0a5h,000h,000h	; 66b2  .......................
+	defb 000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,064h,0a5h,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 66c9  ............d..........
+	defb 000h,000h,000h,000h,000h,05fh,0a6h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0a7h	; 66e0  ....._.................
+	defb 000h,000h	; 66f7
+
+; ----------------------------------------------------------------------
+; DATOS forma_66F9: forma de 17 columnas x 13 filas (entrada 17 de 0x6079):
+;   [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (223
+;   bytes)
+;   0x66f9..0x67d8  (223 bytes)
+DATA_forma_66F9:
+	defb 011h,00dh,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,05eh,000h,000h,000h,000h	; 66f9  ............^....
+	defb 000h,062h,061h,000h,000h,000h,000h,065h,0cbh,05eh,000h,000h,000h,000h,000h,064h,0c0h	; 670a  .ba....e.^.....d.
+	defb 061h,000h,000h,062h,0b4h,0aeh,0b1h,000h,000h,000h,000h,065h,0cbh,0cch,0c0h,000h,0cbh	; 671b  a..b.......e.....
+	defb 0c0h,0b0h,0bah,000h,000h,000h,000h,062h,0b4h,0aeh,0b1h,0c5h,0cbh,0cah,0b8h,0b9h,000h	; 672c  .......b.........
+	defb 000h,000h,000h,0cbh,0c0h,000h,000h,000h,0a9h,0c0h,060h,000h,000h,000h,000h,062h,0cah	; 673d  ..........`....b.
+	defb 0abh,000h,000h,000h,0c0h,0b3h,0b6h,0b7h,062h,061h,000h,000h,064h,0b4h,060h,000h,064h	; 674e  ........ba..d.`.d
+	defb 0bch,0a5h,0b6h,0b7h,000h,064h,0c0h,061h,05eh,0a5h,0b6h,0b7h,0cdh,0bch,0a5h,0b6h,0b7h	; 675f  .....d.a^........
+	defb 000h,000h,064h,0c0h,0cbh,0a5h,0b6h,0b7h,0cdh,0bch,0a5h,0b6h,0b7h,000h,000h,065h,0cbh	; 6770  ..d............e.
+	defb 0c0h,0a5h,0b6h,0b7h,0cdh,0bch,0a5h,0b6h,0b7h,000h,000h,062h,0cah,0aeh,0a5h,0b6h,0b7h	; 6781  ...........b.....
+	defb 0cdh,0bch,0a5h,000h,000h,000h,000h,000h,064h,0b3h,0a6h,0b6h,0b7h,0cdh,0bdh,0a5h,000h	; 6792  ........d........
+	defb 000h,000h,000h,000h,000h,064h,0b4h,000h,000h,000h,064h,0a5h,000h,000h,000h,000h,000h	; 67a3  .....d....d......
+	defb 000h,000h,0bbh,000h,000h,000h,062h,0a5h,000h,000h,000h,000h,000h,000h,000h,000h,000h	; 67b4  ......b..........
+	defb 000h,000h,05fh,0a6h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,000h,0bbh	; 67c5  .._..............
+	defb 063h,000h	; 67d6
 
 ; ----------------------------------------------------------------------
 ; DATOS caracteres_jefe: 7 punteros (0xE640 = 1 a 7; tabla en 0x67D6 + 2 x A):
@@ -338,7 +887,7 @@ DATA_copias_68B4:
 ; ----------------------------------------------------------------------
 ; DATOS dibujos_68C1: rachas (p00:4D16) con los dibujos de los caracteres
 ;   desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1,
-;   p00:4E0E (8 bytes)
+;   p00:4E0E, p00:5CD5 (8 bytes)
 ;   0x68c1..0x68c9  (8 bytes)
 DATA_dibujos_68C1:
 	defb 084h,03ch,0ffh,0ffh,03ch,004h,000h,000h	; 68c1  .<..<...
@@ -346,7 +895,7 @@ DATA_dibujos_68C1:
 ; ----------------------------------------------------------------------
 ; DATOS colores_68C9: rachas (p00:4D16) con los colores de los caracteres
 ;   desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1,
-;   p00:4E0E (8 bytes)
+;   p00:4E0E, p00:5CD5 (8 bytes)
 ;   0x68c9..0x68d1  (8 bytes)
 DATA_colores_68C9:
 	defb 084h,0f4h,0f0h,0f0h,0feh,004h,0f0h,000h	; 68c9  ........
@@ -354,7 +903,7 @@ DATA_colores_68C9:
 ; ----------------------------------------------------------------------
 ; DATOS dibujos_68D1: rachas (p00:4D16) con los dibujos de los caracteres
 ;   desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC,
-;   p00:4DE1, p00:4E0E (34 bytes)
+;   p00:4DE1, p00:4E0E, p00:5CD5 (34 bytes)
 ;   0x68d1..0x68f3  (34 bytes)
 DATA_dibujos_68D1:
 	defb 002h,000h,085h,022h,099h,057h,0fah,024h,003h,000h,096h,088h,066h,0d5h,0beh,009h	; 68d1  ...".W.$....f...
@@ -364,7 +913,7 @@ DATA_dibujos_68D1:
 ; ----------------------------------------------------------------------
 ; DATOS colores_68F3: rachas (p00:4D16) con los colores de los caracteres
 ;   desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC,
-;   p00:4DE1, p00:4E0E (32 bytes)
+;   p00:4DE1, p00:4E0E, p00:5CD5 (32 bytes)
 ;   0x68f3..0x6913  (32 bytes)
 DATA_colores_68F3:
 	defb 003h,050h,084h,040h,070h,040h,050h,004h,080h,095h,060h,090h,060h,080h,080h,050h	; 68f3  .P.@p@P...`.`..P
@@ -414,7 +963,7 @@ DATA_dibujos_698D:
 ; ----------------------------------------------------------------------
 ; DATOS dibujos_69C5: rachas (p00:4D16) con los dibujos de los caracteres
 ;   desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1,
-;   p00:4E0E (173 bytes)
+;   p00:4E0E, p00:5CD5 (173 bytes)
 ;   0x69c5..0x6a72  (173 bytes)
 DATA_dibujos_69C5:
 	defb 089h,03eh,073h,065h,04ah,0d4h,048h,090h,020h,0aah,004h,0bah,087h,0b9h,082h,0bah	; 69c5  .>seJ.H. .......
@@ -502,7 +1051,7 @@ DATA_colores_6B64:
 ; ----------------------------------------------------------------------
 ; DATOS colores_6B9E: rachas (p00:4D16) con los colores de los caracteres
 ;   desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1,
-;   p00:4E0E (155 bytes)
+;   p00:4E0E, p00:5CD5 (155 bytes)
 ;   0x6b9e..0x6c39  (155 bytes)
 DATA_colores_6B9E:
 	defb 081h,0f0h,003h,0e0h,004h,050h,004h,0f0h,09ah,0e0h,050h,0f0h,0f0h,070h,050h,070h	; 6b9e  .....P....P..pPp
@@ -879,8 +1428,11 @@ DATA_colores_6F6D:
 	defb 087h,080h,090h,0d0h,090h,080h,060h,060h,000h	; 6fad  ......``.
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x6fb6..0x7161  (427 bytes)
-DATA_6FB6:
+; DATOS resto_6FB6: lo apuntan con el banco puesto p00:4185 (0x7000), p00:41F1
+;   (0x7000), p00:5BBD (0x7000); el tamano es lo que hay hasta lo siguiente,
+;   no sale de recorrerlo; lo leen p00:4185, p00:41F1, p00:5BBD (427 bytes)
+;   0x6fb6..0x7161  (427 bytes)
+DATA_resto_6FB6:
 	defb 09ah,080h,040h,000h,000h,013h,00bh,0c3h,0c1h,040h,030h,030h,000h,00ch,08eh,0cfh	; 6fb6  ..@......@00....
 	defb 0e3h,060h,0f0h,0f0h,060h,000h,000h,0e3h,0f7h,003h,003h,003h,070h,002h,000h,003h	; 6fc6  .`..`.......p...
 	defb 007h,002h,00fh,098h,007h,003h,007h,00fh,08bh,0d3h,0d3h,056h,063h,0c1h,03ch,09dh	; 6fd6  ...........Vc.<.
@@ -1291,8 +1843,11 @@ DATA_colores_7A22:
 	defb 08ch,080h,090h,080h,090h,0a0h,090h,090h,080h,060h,090h,060h,080h,004h,060h,000h	; 7a22  .........`.`..`.
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x7a32..0x7a56  (36 bytes)
-DATA_7A32:
+; DATOS sin_lector_7A32: 36 bytes entre listas de caracteres que no apunta
+;   ninguna instruccion con el banco 7 puesto: SIN LECTOR a la vista; lo leen
+;   nadie (36 bytes)
+;   0x7a32..0x7a56  (36 bytes)
+DATA_sin_lector_7A32:
 	defb 090h,002h,00eh,02dh,019h,026h,036h,073h,02dh,031h,086h,068h,005h,099h,0b4h,001h	; 7a32  ...-.&6s-1.h....
 	defb 050h,000h,090h,040h,040h,040h,050h,050h,050h,070h,080h,050h,070h,070h,0e0h,0f0h	; 7a42  P..@@@PPPp.Ppp..
 	defb 070h,050h,050h,000h	; 7a52

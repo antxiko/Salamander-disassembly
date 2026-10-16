@@ -8,6 +8,134 @@ D 0x6046 0x6066 copias_6046  lista de copias de caracteres VRAM -> VRAM cabeza a
 F 0x6046 4
 D 0x6066 0x6079 sprites_6066  lista [caracter][rachas] de la fase 7 (p00:449E): los dibujos de sprite que se cargan; 0 acaba; lo leen p00:449A (19 bytes)
 F 0x6066 3
+D 0x6079 0x60C5 formas_jefe  38 punteros (p11:B717, B793, B7D2: 0x6079 + 2 x A) a las piezas de los jefes; lo leen p11:B71A (76 bytes)
+F 0x6079 w8
+D 0x60C5 0x60C9 pieza2x2_60C5  bloque de 2 x 2 caracteres (entrada 0 de 0x6079) que p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+F 0x60C5 4
+D 0x60C9 0x60CD pieza2x2_60C9  bloque de 2 x 2 caracteres (entrada 1 de 0x6079) que p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+F 0x60C9 4
+D 0x60CD 0x60D1 pieza2x2_60CD  bloque de 2 x 2 caracteres (entrada 2 de 0x6079) que p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+F 0x60CD 4
+D 0x60D1 0x60D5 pieza2x2_60D1  bloque de 2 x 2 caracteres (entrada 3 de 0x6079) que p11:B799 copia con B = C = 2; lo leen p11:B7A7 (4 bytes)
+F 0x60D1 4
+D 0x60D5 0x60D9 forma_60D5  forma de 2 columnas x 1 filas (entrada 4 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (4 bytes)
+F 0x60D5 2
+D 0x60D9 0x60E7 forma_60D9  forma de 2 columnas x 6 filas (entrada 5 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (14 bytes)
+F 0x60D9 2
+D 0x60E7 0x60EB forma_60E7  forma de 2 columnas x 1 filas (entrada 6 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (4 bytes)
+F 0x60E7 2
+D 0x60EB 0x60F1 forma_60EB  forma de 2 columnas x 2 filas (entrada 7 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x60EB 2
+D 0x60F1 0x60F7 forma_60F1  forma de 2 columnas x 2 filas (entrada 8 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x60F1 2
+D 0x60F7 0x60FD forma_60F7  forma de 2 columnas x 2 filas (entrada 9 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x60F7 2
+D 0x60FD 0x6103 forma_60FD  forma de 2 columnas x 2 filas (entrada 10 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x60FD 2
+D 0x6103 0x6109 forma_6103  forma de 2 columnas x 2 filas (entrada 11 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x6103 2
+D 0x6109 0x6189 forma_6109  forma de 21 columnas x 6 filas (entrada 12 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (128 bytes)
+F 0x6109 21
+D 0x6189 0x61E3 forma_6189  forma de 8 columnas x 11 filas (entrada 13 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (90 bytes)
+F 0x6189 8
+D 0x61E3 0x6265 forma_61E3  forma de 16 columnas x 8 filas (entrada 14 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (130 bytes)
+F 0x61E3 16
+D 0x6265 0x62A7 forma_6265  forma de 8 columnas x 8 filas (entrada 16 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (66 bytes)
+F 0x6265 8
+D 0x62A7 0x6322 forma_62A7  forma de 11 columnas x 11 filas (entrada 18 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (123 bytes)
+F 0x62A7 11
+D 0x6322 0x637C forma_6322  forma de 8 columnas x 11 filas (entrada 19 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (90 bytes)
+F 0x6322 8
+D 0x637C 0x6382 forma_637C  forma de 2 columnas x 2 filas (entrada 20 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x637C 2
+D 0x6382 0x6388 forma_6382  forma de 2 columnas x 2 filas (entrada 21 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x6382 2
+D 0x6388 0x638E forma_6388  forma de 2 columnas x 2 filas (entrada 22 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x6388 2
+D 0x638E 0x6394 forma_638E  forma de 2 columnas x 2 filas (entrada 23 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x638E 2
+D 0x6394 0x639A forma_6394  forma de 2 columnas x 2 filas (entrada 24 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (6 bytes)
+F 0x6394 2
+D 0x639A 0x63C9 forma_639A  forma de 9 columnas x 5 filas (entrada 25, 26 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (47 bytes)
+F 0x639A 9
+D 0x63C9 0x63CE forma_63C9  forma de 1 columnas x 3 filas (entrada 27 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (5 bytes)
+F 0x63C9 2
+D 0x63CE 0x63D8 forma_63CE  forma de 4 columnas x 2 filas (entrada 28, 29 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (10 bytes)
+F 0x63CE 4
+D 0x63D8 0x63E2 forma_63D8  forma de 4 columnas x 2 filas (entrada 30 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (10 bytes)
+F 0x63D8 4
+D 0x63E2 0x63EA forma_63E2  forma de 2 columnas x 3 filas (entrada 31 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+F 0x63E2 2
+D 0x63EA 0x63F2 forma_63EA  forma de 2 columnas x 3 filas (entrada 32 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+F 0x63EA 2
+D 0x63F2 0x63FA forma_63F2  forma de 2 columnas x 3 filas (entrada 33 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+F 0x63F2 2
+D 0x63FA 0x6402 forma_63FA  forma de 2 columnas x 3 filas (entrada 34 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+F 0x63FA 2
+D 0x6402 0x640A forma_6402  forma de 2 columnas x 3 filas (entrada 36 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (8 bytes)
+F 0x6402 2
+D 0x640A 0x641B forma_640A  forma de 5 columnas x 3 filas (entrada 35, 37 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (17 bytes)
+F 0x640A 5
+D 0x641B 0x6443 bloques_giro  20 punteros a bloques de 2 x 2: p11:AABA los elige con A = C / 2, y C = ((angulo + 8) >> 3) & 0x1E llega a 15; las palabras 16 a 19 no las alcanza ese calculo; lo leen p11:AABD (40 bytes)
+F 0x641B w8
+D 0x6443 0x6447 bloque_6443  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x6443 4
+D 0x6447 0x644B bloque_6447  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x6447 4
+D 0x644B 0x644F bloque_644B  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x644B 4
+D 0x644F 0x6453 bloque_644F  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x644F 4
+D 0x6453 0x6457 bloque_6453  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x6453 4
+D 0x6457 0x645B bloque_6457  bloque de 2 x 2 caracteres de 0x641B (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x6457 4
+D 0x645B 0x645F bloque_645B  bloque de 2 x 2 caracteres que p11:AAB3 pone en DE (B = C = 2, p11:AAC1); lo leen p11:AAC1 (4 bytes)
+F 0x645B 4
+D 0x645F 0x647F giro_16  16 pares (x, y) de desplazamiento, uno por direccion de las 16 de un circulo: p11:AA89 lee 0x6460 + C (y) y, con `dec hl`, 0x645F + C (x); lo leen p11:AA93 (32 bytes)
+F 0x645F 2
+D 0x647F 0x6487 detras_de_giro_16  8 bytes entre los 16 pares de 0x645F y la tabla de 0x6487: p11:AA89 solo llega a 0x647E (C <= 0x1E) y nadie mas los apunta: SIN LECTOR a la vista; lo leen nadie (8 bytes)
+F 0x647F 8
+D 0x6487 0x64A7 piezas_6487  16 punteros (p11:A829: A & 0x0F, p00:4E28) a piezas sin cabecera; sus columnas y filas las da la ficha de 0x6547 con el mismo indice; lo leen p11:A82C (32 bytes)
+F 0x6487 w8
+D 0x64A7 0x64B3 pieza_64A7  pieza 0 de 0x6487: 4 columnas x 3 filas (de la ficha 0 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x64A7 4
+D 0x64B3 0x64BB pieza_64B3  pieza 1 de 0x6487: 4 columnas x 2 filas (de la ficha 1 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x64B3 4
+D 0x64BB 0x64C3 pieza_64BB  pieza 2 de 0x6487: 4 columnas x 2 filas (de la ficha 2 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x64BB 4
+D 0x64C3 0x64CF pieza_64C3  pieza 3 de 0x6487: 4 columnas x 3 filas (de la ficha 3 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x64C3 4
+D 0x64CF 0x64DB pieza_64CF  pieza 4 de 0x6487: 3 columnas x 4 filas (de la ficha 4 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x64CF 3
+D 0x64DB 0x64E3 pieza_64DB  pieza 5 de 0x6487: 2 columnas x 4 filas (de la ficha 5 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x64DB 2
+D 0x64E3 0x64EB pieza_64E3  pieza 6 de 0x6487: 2 columnas x 4 filas (de la ficha 6 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x64E3 2
+D 0x64EB 0x64F7 pieza_64EB  pieza 7 de 0x6487: 3 columnas x 4 filas (de la ficha 7 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x64EB 3
+D 0x64F7 0x6503 pieza_64F7  pieza 8 de 0x6487: 4 columnas x 3 filas (de la ficha 8 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x64F7 4
+D 0x6503 0x650B pieza_6503  pieza 9 de 0x6487: 4 columnas x 2 filas (de la ficha 9 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x6503 4
+D 0x650B 0x6513 pieza_650B  pieza 10 de 0x6487: 4 columnas x 2 filas (de la ficha 10 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x650B 4
+D 0x6513 0x651F pieza_6513  pieza 11 de 0x6487: 4 columnas x 3 filas (de la ficha 11 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x6513 4
+D 0x651F 0x652B pieza_651F  pieza 12 de 0x6487: 3 columnas x 4 filas (de la ficha 12 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x651F 3
+D 0x652B 0x6533 pieza_652B  pieza 13 de 0x6487: 2 columnas x 4 filas (de la ficha 13 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x652B 2
+D 0x6533 0x653B pieza_6533  pieza 14 de 0x6487: 2 columnas x 4 filas (de la ficha 14 de 0x6547) que p11:B73A copia; lo leen p11:A830 (8 bytes)
+F 0x6533 2
+D 0x653B 0x6547 pieza_653B  pieza 15 de 0x6487: 3 columnas x 4 filas (de la ficha 15 de 0x6547) que p11:B73A copia; lo leen p11:A830 (12 bytes)
+F 0x653B 3
+D 0x6547 0x6587 piezas_6547  16 fichas de 4 bytes [columnas][filas][dx][dy] que p11:A84A elige con A x 4; lo leen p11:A84F (64 bytes)
+F 0x6547 4
+D 0x6587 0x66F9 forma_6587  forma de 23 columnas x 16 filas (entrada 15 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (370 bytes)
+F 0x6587 23
+D 0x66F9 0x67D8 forma_66F9  forma de 17 columnas x 13 filas (entrada 17 de 0x6079): [columnas][filas] y los caracteres (p11:B71E); lo leen p11:B71E (223 bytes)
+F 0x66F9 17
 D 0x67D8 0x67E6 caracteres_jefe  7 punteros (0xE640 = 1 a 7; tabla en 0x67D6 + 2 x A): listas de caracteres al llegar el jefe; p00:4DC8 las pide con 0xE640 = 1, 2 o 7; con 3 y 6 p00:4E08 pone 0x6822 en 0xE220 (la misma lista que las entradas 3 y 6), con 8 no carga nada, y 4 y 5 no los pone nadie (p02:8591-86AF); lo leen p00:4DE1 (14 bytes)
 F 0x67D8 w7
 D 0x67E6 0x67F4 copias_jefe_a  7 punteros (0xE640 = 1 a 7; tabla en 0x67E4 + 2 x A): copias en espejo al llegar el jefe; lo leen p00:4DEE (14 bytes)
@@ -36,15 +164,15 @@ D 0x68AF 0x68B4 copias_68AF  lista de copias de caracteres VRAM -> VRAM cabeza a
 F 0x68AF 4
 D 0x68B4 0x68C1 copias_68B4  lista de copias de caracteres VRAM -> VRAM cabeza abajo (p00:44F3) de 0xE640 = 5: 4 bytes, 3 si el tercero lleva los bits altos; 0 acaba; se solapan 4 bloques: (copias_68BC 68BC-68C1) (copias_68C0 68C0-68C1) (copias_68C0 68C0-68C1); lo leen p00:4DFB, p00:4E1A (13 bytes)
 F 0x68B4 4
-D 0x68C1 0x68C9 dibujos_68C1  rachas (p00:4D16) con los dibujos de los caracteres desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (8 bytes)
-D 0x68C9 0x68D1 colores_68C9  rachas (p00:4D16) con los colores de los caracteres desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (8 bytes)
-D 0x68D1 0x68F3 dibujos_68D1  rachas (p00:4D16) con los dibujos de los caracteres desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC, p00:4DE1, p00:4E0E (34 bytes)
-D 0x68F3 0x6913 colores_68F3  rachas (p00:4D16) con los colores de los caracteres desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC, p00:4DE1, p00:4E0E (32 bytes)
+D 0x68C1 0x68C9 dibujos_68C1  rachas (p00:4D16) con los dibujos de los caracteres desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E, p00:5CD5 (8 bytes)
+D 0x68C9 0x68D1 colores_68C9  rachas (p00:4D16) con los colores de los caracteres desde el 157, ficha 3 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E, p00:5CD5 (8 bytes)
+D 0x68D1 0x68F3 dibujos_68D1  rachas (p00:4D16) con los dibujos de los caracteres desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC, p00:4DE1, p00:4E0E, p00:5CD5 (34 bytes)
+D 0x68F3 0x6913 colores_68F3  rachas (p00:4D16) con los colores de los caracteres desde el 200, ficha 3 de la lista 0x6CD9 (p00:4540); lo leen p00:44DC, p00:4DE1, p00:4E0E, p00:5CD5 (32 bytes)
 D 0x6913 0x693C dibujos_6913  rachas (p00:4D16) con los dibujos de los caracteres desde el 178, ficha 1 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (41 bytes)
 D 0x693C 0x696E dibujos_693C  rachas (p00:4D16) con los dibujos de los caracteres desde el 102, ficha 4 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (50 bytes)
 D 0x696E 0x698D dibujos_696E  rachas (p00:4D16) con los dibujos de los caracteres desde el 94, ficha 0 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (31 bytes)
 D 0x698D 0x69C5 dibujos_698D  rachas (p00:4D16) con los dibujos de los caracteres desde el 123, ficha 0 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (56 bytes)
-D 0x69C5 0x6A72 dibujos_69C5  rachas (p00:4D16) con los dibujos de los caracteres desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (173 bytes)
+D 0x69C5 0x6A72 dibujos_69C5  rachas (p00:4D16) con los dibujos de los caracteres desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E, p00:5CD5 (173 bytes)
 D 0x6A72 0x6A99 colores_6A72  rachas (p00:4D16) con los colores de los caracteres desde el 178, ficha 1 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (39 bytes)
 D 0x6A99 0x6AC6 colores_6A99  rachas (p00:4D16) con los colores de los caracteres desde el 102, ficha 4 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (45 bytes)
 D 0x6AC6 0x6AF3 colores_6AC6  rachas (p00:4D16) con los colores de los caracteres desde el 108, ficha 5 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (45 bytes)
@@ -52,7 +180,7 @@ D 0x6AF3 0x6B20 colores_6AF3  rachas (p00:4D16) con los colores de los caractere
 D 0x6B20 0x6B4C colores_6B20  rachas (p00:4D16) con los colores de los caracteres desde el 120, ficha 7 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (44 bytes)
 D 0x6B4C 0x6B64 colores_6B4C  rachas (p00:4D16) con los colores de los caracteres desde el 94, ficha 0 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (24 bytes)
 D 0x6B64 0x6B9E colores_6B64  rachas (p00:4D16) con los colores de los caracteres desde el 123, ficha 0 de la lista 0x6853 (p00:4540); lo leen p00:4DE1 (58 bytes)
-D 0x6B9E 0x6C39 colores_6B9E  rachas (p00:4D16) con los colores de los caracteres desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E (155 bytes)
+D 0x6B9E 0x6C39 colores_6B9E  rachas (p00:4D16) con los colores de los caracteres desde el 164, ficha 1 de la lista 0x6822 (p00:4540); lo leen p00:4DE1, p00:4E0E, p00:5CD5 (155 bytes)
 D 0x6C39 0x6C47 caracteres_por_fase  7 punteros (fase 1 a 7; tabla en 0x6C37 + 2 x A): las listas de caracteres de cada fase (p00:4540); lo leen p00:44DC (14 bytes)
 F 0x6C39 w7
 D 0x6C47 0x6C55 copias_por_fase_a  7 punteros (fase 1 a 7; tabla en 0x6C45 + 2 x A): copias en espejo de cada fase (p00:44F3); lo leen p00:44E6 (14 bytes)
@@ -137,6 +265,8 @@ D 0x7957 0x79A7 colores_7957  rachas (p00:4D16) con los colores de los caractere
 D 0x79A7 0x79C9 colores_79A7  rachas (p00:4D16) con los colores de los caracteres desde el 136, ficha 2 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (34 bytes)
 D 0x79C9 0x7A22 colores_79C9  rachas (p00:4D16) con los colores de los caracteres desde el 161, ficha 3 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (89 bytes)
 D 0x7A22 0x7A32 colores_7A22  rachas (p00:4D16) con los colores de los caracteres desde el 198, ficha 6 de la lista 0x6D04 (p00:4540); lo leen p00:44DC (16 bytes)
+D 0x7A32 0x7A56 sin_lector_7A32  36 bytes entre listas de caracteres que no apunta ninguna instruccion con el banco 7 puesto: SIN LECTOR a la vista; lo leen nadie (36 bytes)
+F 0x7A32 16
 D 0x7A56 0x7B0A dibujos_7A56  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 0 de la lista 0x6D3B (p00:4540); lo leen p00:44DC (180 bytes)
 D 0x7B0A 0x7B9C colores_7B0A  rachas (p00:4D16) con los colores de los caracteres desde el 82, ficha 0 de la lista 0x6D3B (p00:4540); lo leen p00:44DC (146 bytes)
 D 0x7B9C 0x7BCC dibujos_7B9C  rachas (p00:4D16) con los dibujos de los caracteres desde el 82, ficha 0 de la lista 0x6D7E (p00:4540); lo leen p00:44DC (48 bytes)
@@ -159,4 +289,6 @@ D 0x7F29 0x7F60 colores_7F29  rachas (p00:4D16) con los colores de los caractere
 D 0x7F60 0x7FDE colores_7F60  rachas (p00:4D16) con los colores de los caracteres desde el 93, ficha 1 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (126 bytes)
 D 0x7FDE 0x7FEF colores_7FDE  rachas (p00:4D16) con los colores de los caracteres desde el 157, ficha 2 de la lista 0x6DB5 (p00:4540); lo leen p00:44DC (17 bytes)
 D 0x7FEF 0x8000 colores_7FEF  rachas (p00:4D16) con los colores de los caracteres desde el 161, ficha 3 de la lista 0x6DB5 (p00:4540) (sigue en el banco 8, en 0x8000); lo leen p00:44DC (17 bytes)
+D 0x6FB6 0x7161 resto_6FB6  lo apuntan con el banco puesto p00:4185 (0x7000), p00:41F1 (0x7000), p00:5BBD (0x7000); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p00:4185, p00:41F1, p00:5BBD (427 bytes)
+F 0x6FB6 16
 # --- fin de los bloques de bloques.py ---

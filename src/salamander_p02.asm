@@ -263,10 +263,24 @@ L_818A:
 	ret			;818d
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x818e..0x81ce  (64 bytes)
-DATA_818E:
+; DATOS tabla_818E: 16 bytes que p02:8138 elige con 0xE64F en horizontal; lo
+;   leen p02:8135 (16 bytes)
+;   0x818e..0x819e  (16 bytes)
+DATA_tabla_818E:
 	defb 050h,040h,030h,028h,024h,022h,020h,01eh,01ch,01ah,018h,016h,014h,012h,010h,00ch	; 818e  P@0($" .........
+
+; ----------------------------------------------------------------------
+; DATOS tabla_819E: 16 bytes que p02:8138 elige con 0xE64F en vertical
+;   (0xE620); lo leen p02:8130 (16 bytes)
+;   0x819e..0x81ae  (16 bytes)
+DATA_tabla_819E:
 	defb 038h,02ah,021h,01ch,018h,017h,016h,015h,014h,013h,012h,011h,010h,00eh,00ch,00ah	; 819e  8*!.............
+
+; ----------------------------------------------------------------------
+; DATOS tabla_81AE: 32 bytes que p02:80D0 elige con IX+26; lo leen p02:80D0
+;   (32 bytes)
+;   0x81ae..0x81ce  (32 bytes)
+DATA_tabla_81AE:
 	defb 000h,00ch,018h,000h,000h,000h,000h,02bh,000h,00fh,01bh,000h,000h,000h,000h,02eh	; 81ae  .......+........
 	defb 000h,012h,025h,000h,000h,000h,000h,031h,000h,015h,028h,000h,000h,000h,000h,034h	; 81be  ..%....1..(....4
 
@@ -294,9 +308,14 @@ L_81DE:
 	ret			;81ed
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x81ee..0x81f6  (8 bytes)
-DATA_81EE:
-	defb 030h,00fh,034h,009h,038h,006h,03ch,00dh	; 81ee  0.4.8.<.
+; DATOS pares_81EE: 4 pares que p02:8219 elige con A & 6 y copia a IX+30 e
+;   IX+31; lo leen p02:821C (8 bytes)
+;   0x81ee..0x81f6  (8 bytes)
+DATA_pares_81EE:
+	defb 030h,00fh	; 81ee
+	defb 034h,009h	; 81f0
+	defb 038h,006h	; 81f2
+	defb 03ch,00dh	; 81f4
 
 ; ======================================================================
 ; CODIGO 0x81f6..0x8517  (801 bytes)
@@ -1077,12 +1096,60 @@ L_8767:
 	jp 04d6eh		;8769
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x876c..0x87a4  (56 bytes)
-DATA_876C:
-	defb 07ah,087h,080h,087h,086h,087h,08ch,087h,092h,087h,098h,087h,09eh,087h,0f0h,001h	; 876c  z...............
-	defb 01bh,0ffh,0ffh,021h,0f0h,001h,01ch,0ffh,0ffh,021h,0fah,001h,01eh,0ffh,0ffh,021h	; 877c  ...!.....!.....!
-	defb 040h,002h,01dh,0ffh,0ffh,021h,0b0h,001h,01fh,0ffh,0ffh,021h,008h,002h,020h,0ffh	; 878c  @....!.....!.. .
-	defb 0ffh,021h,0dah,002h,019h,0ffh,0ffh,021h	; 879c  .!.....!
+; DATOS listas_876A: 7 punteros, uno por fase (p02:873D: 0x876A + 2 x fase,
+;   p00:4E28); lo leen p02:8740 (14 bytes)
+;   0x876c..0x877a  (14 bytes)
+DATA_listas_876A:
+	defw 0877ah,08780h,08786h,0878ch,08792h,08798h,0879eh	; 876c
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_877A: lista de la fase 0 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x877a..0x8780  (6 bytes)
+DATA_listas_876A_877A:
+	defb 0f0h,001h,01bh,0ffh,0ffh,021h	; 877a
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_8780: lista de la fase 1 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x8780..0x8786  (6 bytes)
+DATA_listas_876A_8780:
+	defb 0f0h,001h,01ch,0ffh,0ffh,021h	; 8780
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_8786: lista de la fase 2 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x8786..0x878c  (6 bytes)
+DATA_listas_876A_8786:
+	defb 0fah,001h,01eh,0ffh,0ffh,021h	; 8786
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_878C: lista de la fase 3 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x878c..0x8792  (6 bytes)
+DATA_listas_876A_878C:
+	defb 040h,002h,01dh,0ffh,0ffh,021h	; 878c
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_8792: lista de la fase 4 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x8792..0x8798  (6 bytes)
+DATA_listas_876A_8792:
+	defb 0b0h,001h,01fh,0ffh,0ffh,021h	; 8792
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_8798: lista de la fase 5 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x8798..0x879e  (6 bytes)
+DATA_listas_876A_8798:
+	defb 008h,002h,020h,0ffh,0ffh,021h	; 8798
+
+; ----------------------------------------------------------------------
+; DATOS listas_876A_879E: lista de la fase 6 que p02:8748 lee de dos en dos
+;   (acaba donde empieza la siguiente); lo leen p02:8748 (6 bytes)
+;   0x879e..0x87a4  (6 bytes)
+DATA_listas_876A_879E:
+	defb 0dah,002h,019h,0ffh,0ffh,021h	; 879e
 
 ; ======================================================================
 ; CODIGO 0x87a4..0x8853  (175 bytes)
@@ -1192,9 +1259,14 @@ L_8838:
 	ret			;8852
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8853..0x885b  (8 bytes)
-DATA_8853:
-	defb 03ah,050h,06ah,050h,06ah,050h,06ah,090h	; 8853  :PjPjPj.
+; DATOS pares_8853: 4 palabras que p02:8843 elige con 0xE620 y B y copia a
+;   IY+24 (e IY+26); lo leen p02:8846 (8 bytes)
+;   0x8853..0x885b  (8 bytes)
+DATA_pares_8853:
+	defb 03ah,050h	; 8853
+	defb 06ah,050h	; 8855
+	defb 06ah,050h	; 8857
+	defb 06ah,090h	; 8859
 
 ; ======================================================================
 ; CODIGO 0x885b..0x88e3  (136 bytes)
@@ -1265,13 +1337,40 @@ L_88E2:
 	ret			;88e2
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x88e3..0x8929  (70 bytes)
-DATA_88E3:
-	defb 060h,055h,079h,053h,090h,05ch,052h,010h,001h,020h,001h,028h,001h,0f8h,000h,0f4h	; 88e3  `UyS.\R.. .(....
-	defb 000h,0e8h,000h,010h,001h,080h,000h,000h,002h,01fh,001h,048h,000h,0f8h,001h,00fh	; 88f3  ...........H....
-	defb 002h,060h,000h,010h,002h,00fh,002h,080h,000h,060h,002h,0bfh,001h,080h,000h,0c0h	; 8903  .`.......`......
-	defb 001h,0dfh,001h,048h,000h,028h,002h,04fh,001h,000h,000h,0e0h,001h,0bfh,001h,000h	; 8913  ...H.(.O........
-	defb 001h,001h,000h,000h,001h,000h	; 8923
+; DATOS e605_por_fase: 7 bytes, uno por fase, que p02:888E copia a 0xE605
+;   (0x88E2 + fase); lo leen p02:8891 (7 bytes)
+;   0x88e3..0x88ea  (7 bytes)
+DATA_e605_por_fase:
+	defb 060h,055h,079h,053h,090h,05ch,052h	; 88e3
+
+; ----------------------------------------------------------------------
+; DATOS posicion_por_fase: 7 palabras, una por fase (p02:88BF: 0x88E8 + 2 x
+;   fase, p00:4E28), que se comparan con el scroll; lo leen p02:88C2 (14
+;   bytes)
+;   0x88ea..0x88f8  (14 bytes)
+DATA_posicion_por_fase:
+	defw 00110h,00120h,00128h,000f8h,000f4h,000e8h,00110h	; 88ea
+
+; ----------------------------------------------------------------------
+; DATOS recorrido_por_fase: 7 fichas de 6 bytes, una por fase (p02:88A2:
+;   0x88F2 + 6 x fase): principio y final del recorrido del mapa (0xE621,
+;   0xE623) y 0xE625; lo leen p02:88AE (42 bytes)
+;   0x88f8..0x8922  (42 bytes)
+DATA_recorrido_por_fase:
+	defb 080h,000h,000h,002h,01fh,001h	; 88f8
+	defb 048h,000h,0f8h,001h,00fh,002h	; 88fe
+	defb 060h,000h,010h,002h,00fh,002h	; 8904
+	defb 080h,000h,060h,002h,0bfh,001h	; 890a
+	defb 080h,000h,0c0h,001h,0dfh,001h	; 8910
+	defb 048h,000h,028h,002h,04fh,001h	; 8916
+	defb 000h,000h,0e0h,001h,0bfh,001h	; 891c
+
+; ----------------------------------------------------------------------
+; DATOS vertical_por_fase: 7 bytes, uno por fase (p02:88B3: 0x8921 + fase):
+;   0xE620, 1 si la fase va en vertical; lo leen p02:88B6 (7 bytes)
+;   0x8922..0x8929  (7 bytes)
+DATA_vertical_por_fase:
+	defb 000h,001h,001h,000h,000h,001h,000h	; 8922
 
 ; ======================================================================
 ; CODIGO 0x8929..0x8969  (64 bytes)
@@ -1312,8 +1411,11 @@ L_8934:
 	jp 04d6eh		;8966
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8969..0x8b1f  (438 bytes)
-DATA_8969:
+; DATOS resto_8969: lo apuntan con el banco puesto p02:8B2F (0x8AF8), p02:8B43
+;   (0x8B08), p02:8B22 (0x8B17); el tamano es lo que hay hasta lo siguiente,
+;   no sale de recorrerlo; lo leen p02:8B2F, p02:8B43, p02:8B22 (438 bytes)
+;   0x8969..0x8b1f  (438 bytes)
+DATA_resto_8969:
 	defb 077h,089h,089h,089h,0d4h,089h,0e9h,089h,029h,08ah,04eh,08ah,087h,08ah,0fdh,034h	; 8969  w.......).N....4
 	defb 012h,0fdh,07eh,012h,0feh,007h,038h,004h,0fdh,036h,012h,0ffh,0fdh,077h,037h,0c9h	; 8979  ..~...8..6...w7.
 	defb 0fdh,034h,013h,0fdh,07eh,013h,03dh,028h,021h,03dh,028h,00fh,0fdh,07eh,020h,0feh	; 8989  .4..~.=(!=(..~ .
@@ -1608,8 +1710,10 @@ L_8CC2:
 	jp 065b5h		;8ce1
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8ce4..0x8ce9  (5 bytes)
-DATA_8CE4:
+; DATOS sonidos_8CE4: 5 numeros de sonido que p02:8CB9 pide (p00:4D6E) con la
+;   cifra alta de la ficha del tipo (< 5); lo leen p02:8CBC (5 bytes)
+;   0x8ce4..0x8ce9  (5 bytes)
+DATA_sonidos_8CE4:
 	defb 00dh,00eh,00fh,03eh,050h	; 8ce4
 
 ; ======================================================================
@@ -2012,8 +2116,10 @@ L_8F79:
 	jp 05042h		;8f99
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8f9c..0x8fa0  (4 bytes)
-DATA_8F9C:
+; DATOS bloque_8F9C: bloque de 2 x 2 caracteres (p02:8F96: DE = 0x8F9C, BC =
+;   0x0202, p00:5042); lo leen p02:8F99 (4 bytes)
+;   0x8f9c..0x8fa0  (4 bytes)
+DATA_bloque_8F9C:
 	defb 0d2h,0d3h,0d4h,0d5h	; 8f9c
 
 ; ======================================================================
@@ -2200,9 +2306,15 @@ L_90E8:
 	jp 04cfdh		;90eb
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x90ee..0x90f8  (10 bytes)
-DATA_90EE:
-	defb 02ah,03ah,06ah,03ah,0aah,03ah,02ah,03ah,06ah,03ah	; 90ee  *:j:.:*:j:
+; DATOS tabla_90EE: 10 bytes que p02:90C8 lee de dos en dos con 0xE227 x 2; lo
+;   leen p02:90CB (10 bytes)
+;   0x90ee..0x90f8  (10 bytes)
+DATA_tabla_90EE:
+	defb 02ah,03ah	; 90ee
+	defb 06ah,03ah	; 90f0
+	defb 0aah,03ah	; 90f2
+	defb 02ah,03ah	; 90f4
+	defb 06ah,03ah	; 90f6
 
 ; ======================================================================
 ; CODIGO 0x90f8..0x9295  (413 bytes)
@@ -2433,8 +2545,10 @@ L_9287:
 	ret			;9294
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9295..0x92c5  (48 bytes)
-DATA_9295:
+; DATOS fichas_9295: 3 fichas de 16 bytes que p02:9272 elige con IX+06 x 16;
+;   lo leen p02:927C (48 bytes)
+;   0x9295..0x92c5  (48 bytes)
+DATA_fichas_9295:
 	defb 000h,000h,000h,000h,000h,04eh,04fh,000h,000h,047h,045h,000h,000h,000h,000h,000h	; 9295  .....NO..GE.....
 	defb 000h,049h,04ah,000h,04bh,040h,03dh,000h,046h,044h,04ch,000h,04dh,048h,000h,000h	; 92a5  .IJ.K@=.FDL.MH..
 	defb 03ah,03bh,03ch,03dh,03eh,03fh,040h,041h,042h,043h,044h,045h,046h,047h,048h,000h	; 92b5  :.<=>?@ABCDEFGH.
@@ -2462,9 +2576,15 @@ L_92DE:
 	jp 06c2dh		;92e6
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x92e9..0x92f9  (16 bytes)
-DATA_92E9:
-	defb 000h,0feh,000h,001h,000h,0ffh,000h,002h,000h,001h,000h,002h,000h,002h,000h,001h	; 92e9  ................
+; DATOS fichas_92E9: 4 fichas de 4 bytes (p02:92DE: 0x92E5 + 4 x A, A de 1 a
+;   4: los cuatro bytes de 0x92E5 son el propio `call`/`jp`) que sigue
+;   p01:6C2D; lo leen p02:92E3 (16 bytes)
+;   0x92e9..0x92f9  (16 bytes)
+DATA_fichas_92E9:
+	defb 000h,0feh,000h,001h	; 92e9
+	defb 000h,0ffh,000h,002h	; 92ed
+	defb 000h,001h,000h,002h	; 92f1
+	defb 000h,002h,000h,001h	; 92f5
 
 ; ======================================================================
 ; CODIGO 0x92f9..0x9322  (41 bytes)
@@ -2493,8 +2613,10 @@ L_931B:
 	jp 06c0fh		;931f
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9322..0x9326  (4 bytes)
-DATA_9322:
+; DATOS cuadros_9322: 4 bytes que p02:9300 pasa a p03:A01D (HL); lo leen
+;   p02:9303 (4 bytes)
+;   0x9322..0x9326  (4 bytes)
+DATA_cuadros_9322:
 	defb 00ah,00bh,00fh,003h	; 9322
 
 ; ======================================================================
@@ -2671,8 +2793,10 @@ L_9465:
 	jr L_945F		;9469
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x946b..0x9473  (8 bytes)
-DATA_946B:
+; DATOS tabla_946B: 8 bytes que p02:943D elige con IX+26 (de 0 a 7); lo leen
+;   p02:9440 (8 bytes)
+;   0x946b..0x9473  (8 bytes)
+DATA_tabla_946B:
 	defb 010h,00ch,008h,006h,004h,002h,001h,000h	; 946b  ........
 
 ; ======================================================================
@@ -3780,8 +3904,9 @@ L_9C61:
 	jp L_9A8A		;9c70
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9c73..0x9c7b  (8 bytes)
-DATA_9C73:
+; DATOS tabla_9C73: 8 bytes (p02:9A51: 0x9C72 + A); lo leen p02:9A54 (8 bytes)
+;   0x9c73..0x9c7b  (8 bytes)
+DATA_tabla_9C73:
 	defb 001h,001h,003h,005h,002h,007h,005h,001h	; 9c73  ........
 
 ; ======================================================================
@@ -3896,8 +4021,10 @@ L_9D0B:
 	ret			;9d20
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9d21..0x9d29  (8 bytes)
-DATA_9D21:
+; DATOS tabla_9D21: 8 bytes que p02:9CCE elige con (HL) & 7; lo leen p02:9CD1
+;   (8 bytes)
+;   0x9d21..0x9d29  (8 bytes)
+DATA_tabla_9D21:
 	defb 010h,030h,020h,013h,012h,023h,020h,030h	; 9d21  .0 ..# 0
 
 ; ======================================================================
@@ -3917,8 +4044,10 @@ L_9D29:
 	jp 06856h		;9d41
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9d44..0x9d47  (3 bytes)
-DATA_9D44:
+; DATOS tabla_9D44: 3 bytes (p02:9D3A: 0x9D44 + IX+19); lo leen p02:9D3D (3
+;   bytes)
+;   0x9d44..0x9d47  (3 bytes)
+DATA_tabla_9D44:
 	defb 0fch,000h,004h	; 9d44
 
 ; ======================================================================
@@ -3977,9 +4106,18 @@ L_9DA7:
 	ret			;9db3
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9db4..0x9dbc  (8 bytes)
-DATA_9DB4:
-	defb 058h,05ch,060h,05ch,00ch,002h,003h,002h	; 9db4  X\`\....
+; DATOS cuadros_9DB4: 4 bytes que p02:9D4D pasa a p02:9DA7 (HL); lo leen
+;   p02:9D50 (4 bytes)
+;   0x9db4..0x9db8  (4 bytes)
+DATA_cuadros_9DB4:
+	defb 058h,05ch,060h,05ch	; 9db4
+
+; ----------------------------------------------------------------------
+; DATOS cuadros_9DB8: 4 bytes que p02:9D47 pasa a p03:A01D (HL); lo leen
+;   p02:9D4A (4 bytes)
+;   0x9db8..0x9dbc  (4 bytes)
+DATA_cuadros_9DB8:
+	defb 00ch,002h,003h,002h	; 9db8
 
 ; ======================================================================
 ; CODIGO 0x9dbc..0x9feb  (559 bytes)
@@ -4240,8 +4378,10 @@ L_9FE5:
 	jp 06bd5h		;9fe8
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9feb..0x9ff1  (6 bytes)
-DATA_9FEB:
+; DATOS cuadros_9FEB: 6 caracteres de una animacion que p02:9FE5 pasa a
+;   p01:6BD5; lo leen p02:9FE8 (6 bytes)
+;   0x9feb..0x9ff1  (6 bytes)
+DATA_cuadros_9FEB:
 	defb 0a0h,0a4h,0a8h,0ach,0a8h,0a4h	; 9feb
 
 ; ======================================================================
@@ -4259,6 +4399,9 @@ L_9FF7:
 	jr nz,$+11		;9ffd
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9fff..0xa000  (1 bytes)
-DATA_9FFF:
+; DATOS partida_9FFF: los 1 primeros bytes de una instruccion de 3 (DD 7E 19)
+;   que sigue en el banco 3: el trazador de un solo banco no puede verla
+;   entera (tools/bancos.py); lo leen p02:9FFF (1 bytes)
+;   0x9fff..0xa000  (1 bytes)
+DATA_partida_9FFF:
 	defb 0ddh	; 9fff

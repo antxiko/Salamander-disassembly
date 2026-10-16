@@ -11,4 +11,4 @@
 0xB085 0xB08D   tabla de 4 palabras del despachador (call 0x40CE en 0xB082)
 0xB269 0xB271   tabla de 4 palabras del despachador (call 0x40CE en 0xB266)
 0xBAF9 0xBB03   tabla de 5 palabras del despachador (call 0x40CE en 0xBAF6)
-0xBC06 0xBC10   tabla de 5 palabras del despachador (call 0x40CE en 0xBC03)
+0xBC06 0xBC0E   tabla de 4 palabras del despachador (call 0x40CE en 0xBC03)

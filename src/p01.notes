@@ -1,13 +1,45 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0x60CD 0x60D4 tabla_60CD  7 bytes (p01:60C1: 0x60CC + IY+68, de 1 a 7); lo leen p01:60C4 (7 bytes)
+F 0x60CD 7
 D 0x66C1 0x6743 tabla_66C1  65 destinos del despachador p00:40CE (call en p01:66BE, el indice en A): 8077, 67A6, A103, 9F78, 679D, 678B, A02D, A18A, A23A, 6767, 6743, 674C, 6755, 9343, A784, B954, 6794, A4E5, 67E0, BB83, BABB, 675E, 67B8, 67AF, A2BE, 67E0, A295, 6779, 6782, A2E6, A385, A3FB, BDBF, 67E0, 9326, 9E3C, BD00, 81F6, BD30, 6770, 824E, 825B, 67E0, 67E0, 67E0, 67E0, 67E0, A460, 90F8, 90FC, 9343, 92C5, BBBA, BF36, 67E0, 67C1, 9EDE, 9EE7, 9EEF, 9EF7, 9F00, B8C2, BA37, 9DBC, 9D29; lo leen p01:66BE (130 bytes)
 F 0x66C1 w8
+D 0x67E1 0x67F1 tabla_67E1  16 bytes que p01:67D4 elige con 0xE64F (y le suma R & 7); lo leen p01:67CB (16 bytes)
+F 0x67E1 16
+D 0x67F1 0x6801 tabla_67F1  16 bytes que p01:67D4 elige con 0xE64F (y le suma R & 7); lo leen p01:67D1 (16 bytes)
+F 0x67F1 16
 D 0x68F1 0x6973 tabla_68F1  65 destinos del despachador p00:40CE (call en p01:68EE, el indice en A): 80E9, 69CD, A121, 9FB2, 69C4, 69B2, A086, A1AA, A257, 698E, 6973, 697C, A2DC, 9387, A2DC, B985, 69BB, A50F, 68E2, BB9B, BAD5, 6985, 69DF, 69D6, A2DC, 68E2, A2A6, 69A0, 69A9, A305, A3A3, A426, BDF2, 68E2, 937D, 9E65, 69F1, 820D, BD35, 6997, 68E2, 68E2, 68E2, 68E2, 68E2, 68E2, 68E2, A46D, 9129, 9129, 9387, 92F9, BBEC, BEBC, 68E2, 69FA, 9F22, 9F22, 9F22, 9F22, 9F22, BEBC, 69E8, 9DE3, 9D47; lo leen p01:68EE (130 bytes)
 F 0x68F1 w8
+D 0x6C64 0x6C69 ficha_tipo_0  los 5 ultimos bytes de la ficha 0 de 0x6C62 (no hay enemigo de tipo 0); los dos primeros son la cola del codigo de delante; lo leen nadie (5 bytes)
+F 0x6C64 5
+D 0x6C69 0x6E2B fichas_por_tipo  una ficha de 7 bytes por tipo de enemigo, de 1 a 64, que p02:8C9C elige con IX+00 x 7 (+ 0x6C62); la del tipo 65 empezaria en 0x6E29 y seguiria en el codigo de 0x6E2B; lo leen p02:8CAA (450 bytes)
+F 0x6C69 7
 D 0x6E89 0x6E99 tabla_6E89  8 destinos del despachador p00:40CE (call en p01:6E86, el indice en A): A870, A68D, ACC8, AB03, B154, AEB4, AE9C, B405; lo leen p01:6E86 (16 bytes)
 F 0x6E89 w8
 D 0x6F1D 0x6F33 tabla_6F1D  11 destinos del despachador p00:40CE (call en p01:6F1A, el indice en A): 7169, 71AF, 735B, 72EE, 71C6, 7307, 72BB, 73C7, 724B, 71BF, 7245; lo leen p01:6F1A (22 bytes)
 F 0x6F1D w8
+D 0x7007 0x700E tabla_por_fase_7007  7 bytes, uno por fase (p01:6FAD: 0x7006 + 0xE301); lo leen p01:6FB3 (7 bytes)
+F 0x7007 7
+D 0x704E 0x7055 tabla_por_fase_704E  7 bytes, uno por fase (p01:6FD4: 0x704D + 0xE301); lo leen p01:6FD7 (7 bytes)
+F 0x704E 7
+D 0x7135 0x7139 tabla_7135  4 bytes (p01:7110: 0x7134 + 0xE610, de 1 a 4); lo leen p01:7113 (4 bytes)
+F 0x7135 4
+D 0x71A7 0x71AF tabla_71A7  8 bytes que p01:7190 elige con R & 7; lo leen p01:7193 (8 bytes)
+F 0x71A7 8
+D 0x7235 0x723D tabla_7235  8 bytes que p01:71ED elige con (HL) & 7 en horizontal; lo leen p01:71F1 (8 bytes)
+F 0x7235 8
+D 0x723D 0x7245 tabla_723D  8 bytes que p01:71E4 elige con (HL) & 7 en vertical (0xE620); lo leen p01:71F1 (8 bytes)
+F 0x723D 8
+D 0x72B3 0x72BB tabla_72B3  8 bytes que p01:725E elige con (HL) & 7; lo leen p01:7261 (8 bytes)
+F 0x72B3 8
+D 0x73BB 0x73C7 tabla_73BB  12 bytes que p01:73A6 elige con C & 0x0F; lo leen p01:73A9 (12 bytes)
+F 0x73BB 12
+D 0x7426 0x7436 tabla_7426  8 palabras (p01:73E3: 0x7424 + 2 x B, B de 8 a 1); lo leen p01:73E6 (16 bytes)
+F 0x7426 w8
+D 0x763A 0x773A tabla_763A  256 bytes que p01:75E7 elige con A (0x763A + A); lo leen p01:75EA (256 bytes)
+F 0x763A 16
+D 0x773A 0x777A tabla_773A  64 bytes que p01:7565 elige con DE (0x773A + DE); lo leen p01:7569 (64 bytes)
+F 0x773A 16
 D 0x786D 0x789B tabla_786D  23 destinos del despachador p00:40CE (call en p01:786A, el indice en A): B796, 78DA, 7868, 78E3, 78B6, 78BF, B7F0, 78C8, 7868, B7D4, 789B, 78D1, BA66, B7C6, 78AD, 78A4, B9FC, B796, B7E6, A49F, BC91, BCAF, AC44; lo leen p01:786A (46 bytes)
 F 0x786D w8
 D 0x7A17 0x7A45 tabla_7A17  23 destinos del despachador p00:40CE (call en p01:7A14, el indice en A): B6E9, 7A84, 7A12, 7A8D, 7A60, 7A69, B8CC, 7A72, 7A12, B814, 7A45, 7A7B, BA71, B87F, 7A57, 7A4E, BA26, B6E9, B8D1, A4AA, BC2C, BCC1, 7A96; lo leen p01:7A14 (46 bytes)

@@ -26,6 +26,7 @@
 0xA639   # p00:50CA call
 0xA715   # p01:674F call
 0xA784   # p01:66BE entrada 14 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
+0xA7A7   # codigo huerfano: 10 bytes que acaban en un salto; el trazado no entra y ninguna instruccion salta, llama o carga 0xA7A7
 0xA804   # p01:6761 call
 0xA81A   # p01:697F call
 0xA832   # p01:6988 call

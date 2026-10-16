@@ -10,7 +10,7 @@
 
 
 ; ======================================================================
-; CODIGO 0x8000..0x802d  (45 bytes)
+; CODIGO 0x8000..0x81a9  (425 bytes)
 ; ======================================================================
 
 
@@ -33,28 +33,19 @@ L_801E:
 	jr L_801B		;8027
 L_8029:
 	ld a,001h		;8029
-	jr $+3		;802b
-
-; ----------------------------------------------------------------------
-; DATOS sin identificar  0x802d..0x802e  (1 bytes)
-DATA_802D:
-	defb 0afh	; 802d
-
-; ======================================================================
-; CODIGO 0x802e..0x81a9  (379 bytes)
-; ======================================================================
-
-
+	jr L_802E		;802b
+L_802D:
+	xor a			;802d
 L_802E:
 	ld (0e639h),a		;802e
 	call 041bfh		;8031
 	call 0a32ah		;8034
-	jr $-28		;8037
+	jr L_801B		;8037
 L_8039:
 	call 041bfh		;8039
 	call 0b957h		;803c
 	call 0b8d7h		;803f
-	jr $-39		;8042
+	jr L_801B		;8042
 L_8044:
 	ld a,b			;8044
 	push bc			;8045
@@ -529,8 +520,11 @@ L_83EC:
 	jp L_825A		;83f4
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x83f7..0x83fa  (3 bytes)
-DATA_83F7:
+; DATOS resto_83F7: lo apuntan con el banco puesto p10:83E9 (0x83F7); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:83E9 (3 bytes)
+;   0x83f7..0x83fa  (3 bytes)
+DATA_resto_83F7:
 	defb 044h,039h,001h	; 83f7
 
 ; ======================================================================
@@ -558,8 +552,11 @@ L_8412:
 	jr $-53		;8421
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8423..0x8426  (3 bytes)
-DATA_8423:
+; DATOS resto_8423: lo apuntan con el banco puesto p10:841E (0x8423); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:841E (3 bytes)
+;   0x8423..0x8426  (3 bytes)
+DATA_resto_8423:
 	defb 044h,039h,002h	; 8423
 
 ; ======================================================================
@@ -578,8 +575,11 @@ L_8426:
 	jr $-76		;8438
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x843a..0x843d  (3 bytes)
-DATA_843A:
+; DATOS resto_843A: lo apuntan con el banco puesto p10:8435 (0x843A); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8435 (3 bytes)
+;   0x843a..0x843d  (3 bytes)
+DATA_resto_843A:
 	defb 044h,039h,003h	; 843a
 
 ; ======================================================================
@@ -683,8 +683,11 @@ L_850D:
 	jp L_83EC		;8519
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x851c..0x851f  (3 bytes)
-DATA_851C:
+; DATOS resto_851C: lo apuntan con el banco puesto p10:8516 (0x851C); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8516 (3 bytes)
+;   0x851c..0x851f  (3 bytes)
+DATA_resto_851C:
 	defb 028h,03ah,006h	; 851c
 
 ; ======================================================================
@@ -701,8 +704,11 @@ L_851F:
 	jp L_83EC		;852a
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x852d..0x8530  (3 bytes)
-DATA_852D:
+; DATOS resto_852D: lo apuntan con el banco puesto p10:8527 (0x852D); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8527 (3 bytes)
+;   0x852d..0x8530  (3 bytes)
+DATA_resto_852D:
 	defb 068h,03ah,007h	; 852d
 
 ; ======================================================================
@@ -749,8 +755,11 @@ L_857A:
 	jp L_83EC		;8586
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8589..0x858c  (3 bytes)
-DATA_8589:
+; DATOS resto_8589: lo apuntan con el banco puesto p10:8583 (0x8589); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8583 (3 bytes)
+;   0x8589..0x858c  (3 bytes)
+DATA_resto_8589:
 	defb 022h,03ah,006h	; 8589
 
 ; ======================================================================
@@ -767,8 +776,11 @@ L_858C:
 	jp L_83EC		;8597
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x859a..0x859d  (3 bytes)
-DATA_859A:
+; DATOS resto_859A: lo apuntan con el banco puesto p10:8594 (0x859A); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8594 (3 bytes)
+;   0x859a..0x859d  (3 bytes)
+DATA_resto_859A:
 	defb 062h,03ah,008h	; 859a
 
 ; ======================================================================
@@ -916,8 +928,12 @@ L_86B9:
 	jp L_874E		;86bc
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x86bf..0x86cb  (12 bytes)
-DATA_86BF:
+; DATOS resto_86BF: lo apuntan con el banco puesto p10:868B (0x86BF), p10:8686
+;   (0x86C1), p10:86B1 (0x86C3), p10:86B6 (0x86C7); el tamano es lo que hay
+;   hasta lo siguiente, no sale de recorrerlo; lo leen p10:868B, p10:8686,
+;   p10:86B1, p10:86B6 (12 bytes)
+;   0x86bf..0x86cb  (12 bytes)
+DATA_resto_86BF:
 	defb 029h,031h,041h,040h,032h,033h,03bh,03ch,067h,068h,069h,06ah	; 86bf  )1A@23.<ghij
 
 ; ======================================================================
@@ -1119,8 +1135,12 @@ L_8803:
 	jr L_87FB		;8809
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x880b..0x8848  (61 bytes)
-DATA_880B:
+; DATOS resto_880B: lo apuntan con el banco puesto p10:831E (0x880B), p10:82FA
+;   (0x8810), p10:8F0F (0x8830), p10:8172 (0x8846); el tamano es lo que hay
+;   hasta lo siguiente, no sale de recorrerlo; lo leen p10:831E, p10:82FA,
+;   p10:8F0F, p10:8172 (61 bytes)
+;   0x880b..0x8848  (61 bytes)
+DATA_resto_880B:
 	defb 006h,008h,009h,00ah,00bh,06fh,030h,05fh,040h,02fh,070h,02fh,080h,02fh,090h,02fh	; 880b  .....o0_@/p/././
 	defb 0a0h,03fh,0a0h,04fh,0a0h,04fh,090h,05fh,090h,05fh,080h,06fh,078h,06fh,068h,05fh	; 881b  .?.O.O._._.oxoh_
 	defb 060h,04fh,060h,04fh,070h,03fh,070h,03fh,080h,02fh,080h,02fh,090h,01fh,098h,02fh	; 882b  `O`Op?p?././.../
@@ -1426,11 +1446,47 @@ L_8A34:
 	jp 04cf5h		;8a69
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8a6c..0x8a8f  (35 bytes)
-DATA_8A6C:
-	defb 07ah,08ah,07eh,08ah,082h,08ah,082h,08ah,082h,08ah,088h,08ah,08dh,08ah,02fh,02eh	; 8a6c  z.~.........../.
-	defb 025h,0ffh,034h,037h,02fh,0ffh,034h,028h,032h,025h,025h,0ffh,026h,02fh,035h,032h	; 8a7c  %.47/.4(2%%.&/52
-	defb 0ffh,038h,0ffh	; 8a8c
+; DATOS rotulos2_8A6A: 7 punteros (fase 1 a 7; tabla en 0x8A6A + 2 x A): la
+;   segunda linea del rotulo de cada fase (p10:8A44 con A = 1, 0xE21B o 7); lo
+;   leen p10:8A47 (14 bytes)
+;   0x8a6c..0x8a7a  (14 bytes)
+DATA_rotulos2_8A6A:
+	defw 08a7ah,08a7eh,08a82h,08a82h,08a82h,08a88h,08a8dh	; 8a6c
+
+; ----------------------------------------------------------------------
+; DATOS rotulo2_8A7A: lista a la VRAM sin destino delante (p00:4CFD, HL =
+;   0x3933) de la fase 1; lo leen p10:8A4F (4 bytes)
+;   0x8a7a..0x8a7e  (4 bytes)
+DATA_rotulo2_8A7A:
+	defb 02fh,02eh,025h,0ffh	; 8a7a
+
+; ----------------------------------------------------------------------
+; DATOS rotulo2_8A7E: lista a la VRAM sin destino delante (p00:4CFD, HL =
+;   0x3933) de la fase 2; lo leen p10:8A4F (4 bytes)
+;   0x8a7e..0x8a82  (4 bytes)
+DATA_rotulo2_8A7E:
+	defb 034h,037h,02fh,0ffh	; 8a7e
+
+; ----------------------------------------------------------------------
+; DATOS rotulo2_8A82: lista a la VRAM sin destino delante (p00:4CFD, HL =
+;   0x3933) de la fase 3, 4, 5; lo leen p10:8A4F (6 bytes)
+;   0x8a82..0x8a88  (6 bytes)
+DATA_rotulo2_8A82:
+	defb 034h,028h,032h,025h,025h,0ffh	; 8a82
+
+; ----------------------------------------------------------------------
+; DATOS rotulo2_8A88: lista a la VRAM sin destino delante (p00:4CFD, HL =
+;   0x3933) de la fase 6; lo leen p10:8A4F (5 bytes)
+;   0x8a88..0x8a8d  (5 bytes)
+DATA_rotulo2_8A88:
+	defb 026h,02fh,035h,032h,0ffh	; 8a88
+
+; ----------------------------------------------------------------------
+; DATOS rotulo2_8A8D: lista a la VRAM sin destino delante (p00:4CFD, HL =
+;   0x3933) de la fase 7; lo leen p10:8A4F (2 bytes)
+;   0x8a8d..0x8a8f  (2 bytes)
+DATA_rotulo2_8A8D:
+	defb 038h,0ffh	; 8a8d
 
 ; ----------------------------------------------------------------------
 ; DATOS lista_8A8F: lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro
@@ -1447,8 +1503,11 @@ DATA_lista_8A9B:
 	defb 0c9h,039h,030h,02ch,021h,02eh,025h,034h,0ffh	; 8a9b  .90,!.%4.
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8aa4..0x8ae9  (69 bytes)
-DATA_8AA4:
+; DATOS resto_8AA4: lo apuntan con el banco puesto p10:8A58 (0x8AA4), p10:89CC
+;   (0x8AC1); el tamano es lo que hay hasta lo siguiente, no sale de
+;   recorrerlo; lo leen p10:8A58, p10:89CC (69 bytes)
+;   0x8aa4..0x8ae9  (69 bytes)
+DATA_resto_8AA4:
 	defb 0aah,08ah,0b2h,08ah,0bah,08ah,025h,029h,02fh,02eh,025h,035h,033h,0ffh,02ch,021h	; 8aa4  ......%)/.%53.,!
 	defb 036h,029h,02eh,029h,021h,0ffh,02bh,029h,025h,032h,02bh,025h,0ffh,0c9h,08ah,0d1h	; 8ab4  6).)!.+)%2+%....
 	defb 08ah,0d9h,08ah,0e1h,08ah,000h,000h,000h,071h,000h,000h,000h,07bh,000h,000h,072h	; 8ac4  ........q...{..r
@@ -1499,8 +1558,11 @@ L_8B0C:
 	ret			;8b1f
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8b20..0x8b7b  (91 bytes)
-DATA_8B20:
+; DATOS resto_8B20: lo apuntan con el banco puesto p10:8AEC (0x8B20); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8AEC (91 bytes)
+;   0x8b20..0x8b7b  (91 bytes)
+DATA_resto_8B20:
 	defb 091h,093h,0a5h,093h,0a6h,092h,0a5h,093h,091h,093h,093h,0a6h,092h,091h,093h,092h	; 8b20  ................
 	defb 093h,098h,091h,092h,093h,093h,094h,095h,096h,0feh,09ch,099h,09ah,09bh,097h,09ch	; 8b30  ................
 	defb 09ah,09bh,09ah,09bh,097h,0a4h,0a6h,097h,09ch,099h,09ah,09bh,097h,09ah,09ch,099h	; 8b40  ................
@@ -2023,8 +2085,11 @@ L_8EF6:
 	jp 00056h		;8efd   ; BIOS FILVRM - Fills VRAM with value
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8f00..0x8f0f  (15 bytes)
-DATA_8F00:
+; DATOS resto_8F00: lo apuntan con el banco puesto p10:8E36 (0x8F00); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:8E36 (15 bytes)
+;   0x8f00..0x8f0f  (15 bytes)
+DATA_resto_8F00:
 	defb 04fh,04eh,04dh,03ch,03bh,03ah,029h,028h,027h,016h,015h,014h,003h,002h,001h	; 8f00  ONM<.:)('......
 
 ; ======================================================================
@@ -2065,8 +2130,11 @@ L_8F37:
 	jp 04cc1h		;8f4c
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x8f4f..0x8f7f  (48 bytes)
-DATA_8F4F:
+; DATOS resto_8F4F: lo apuntan con el banco puesto p10:8F3A (0x8F4F), p10:8F46
+;   (0x8F67); el tamano es lo que hay hasta lo siguiente, no sale de
+;   recorrerlo; lo leen p10:8F3A, p10:8F46 (48 bytes)
+;   0x8f4f..0x8f7f  (48 bytes)
+DATA_resto_8F4F:
 	defb 07eh,07eh,042h,05ah,05ah,042h,07eh,000h,000h,055h,055h,055h,055h,055h,055h,000h	; 8f4f  ~~BZZB~..UUUUUU.
 	defb 066h,07eh,066h,07eh,066h,07eh,066h,07eh,050h,0e0h,0e4h,0e4h,0e4h,0e4h,0e0h,0e0h	; 8f5f  f~f~f~f~P.......
 	defb 0c0h,0cch,050h,0f0h,050h,040h,0cch,0e0h,0e0h,040h,0e0h,040h,0e0h,040h,0e0h,040h	; 8f6f  ..P.P@...@.@.@.@
@@ -2550,8 +2618,11 @@ L_9342:
 	ret			;9352
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9353..0x9397  (68 bytes)
-DATA_9353:
+; DATOS resto_9353: lo apuntan con el banco puesto p10:931E (0x9353), p10:933D
+;   (0x9357); el tamano es lo que hay hasta lo siguiente, no sale de
+;   recorrerlo; lo leen p10:931E, p10:933D (68 bytes)
+;   0x9353..0x9397  (68 bytes)
+DATA_resto_9353:
 	defb 004h,005h,007h,00fh,005h,000h,002h,040h,007h,060h,00ah,0c0h,013h,034h,012h,056h	; 9353  .......@.`...4.V
 	defb 015h,0feh,01fh,0deh,024h,023h,024h,023h,02fh,06fh,02bh,0e3h,035h,045h,035h,03eh	; 9363  ....$#$#/o+.5E5>
 	defb 035h,06eh,03bh,0a4h,04fh,0deh,046h,04dh,046h,06ch,04eh,0b7h,05ah,0efh,057h,045h	; 9373  5n..O.FMFlN.Z.WE
@@ -2566,8 +2637,11 @@ DATA_lista_9397:
 	defb 04ch,039h,02bh,01fh,01ch,000h,01ch,025h,01bh,0ffh	; 9397  L9+....%..
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x93a1..0x9443  (162 bytes)
-DATA_93A1:
+; DATOS resto_93A1: lo apuntan con el banco puesto p10:901F (0x93A1), p10:918D
+;   (0x9411), p10:9160 (0x9441); el tamano es lo que hay hasta lo siguiente,
+;   no sale de recorrerlo; lo leen p10:901F, p10:918D, p10:9160 (162 bytes)
+;   0x93a1..0x9443  (162 bytes)
+DATA_resto_93A1:
 	defb 000h,000h,000h,000h,000h,000h,000h,010h,040h,000h,000h,000h,000h,000h,000h,000h	; 93a1  ........@.......
 	defb 000h,000h,000h,000h,000h,011h,012h,013h,043h,042h,041h,000h,000h,000h,000h,000h	; 93b1  ........CBA.....
 	defb 000h,000h,000h,000h,000h,014h,015h,016h,046h,045h,044h,000h,000h,000h,000h,000h	; 93c1  ........FED.....
@@ -2767,8 +2841,12 @@ L_958D:
 	jp L_94CD		;9597
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x959a..0x95bd  (35 bytes)
-DATA_959A:
+; DATOS resto_959A: lo apuntan con el banco puesto p10:9565 (0x959A), p10:955F
+;   (0x95AB), p10:9570 (0x95AB), p10:9575 (0x95B5); el tamano es lo que hay
+;   hasta lo siguiente, no sale de recorrerlo; lo leen p10:9565, p10:955F,
+;   p10:9570, p10:9575 (35 bytes)
+;   0x959a..0x95bd  (35 bytes)
+DATA_resto_959A:
 	defb 000h,078h,039h,06dh,08bh,07ch,070h,099h,039h,04eh,07ah,08ah,094h,079h,095h,039h	; 959a  .x9m.|p.9Nz..y.9
 	defb 0fch,003h,078h,039h,06dh,08bh,07ch,070h,099h,039h,0fch,004h,07ah,08ah,094h,079h	; 95aa  ..x9m.|p.9..z..y
 	defb 095h,039h,0fch	; 95ba
@@ -3001,8 +3079,11 @@ L_9730:
 	ret			;9735
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9736..0x9742  (12 bytes)
-DATA_9736:
+; DATOS resto_9736: lo apuntan con el banco puesto p10:9702 (0x9736), p10:974C
+;   (0x973C); el tamano es lo que hay hasta lo siguiente, no sale de
+;   recorrerlo; lo leen p10:9702, p10:974C (12 bytes)
+;   0x9736..0x9742  (12 bytes)
+DATA_resto_9736:
 	defb 000h,040h,050h,070h,0e0h,0f0h,0f0h,0e0h,070h,050h,040h,000h	; 9736  .@Pp....pP@.
 
 ; ======================================================================
@@ -3024,8 +3105,11 @@ L_974C:
 	jr $-74		;974f
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9751..0x9885  (308 bytes)
-DATA_9751:
+; DATOS resto_9751: lo apuntan con el banco puesto p10:96E6 (0x9751), p10:96EC
+;   (0x9755), p10:96F6 (0x9759); el tamano es lo que hay hasta lo siguiente,
+;   no sale de recorrerlo; lo leen p10:96E6, p10:96EC, p10:96F6 (308 bytes)
+;   0x9751..0x9885  (308 bytes)
+DATA_resto_9751:
 	defb 05dh,097h,072h,097h,084h,097h,0dah,097h,0f4h,097h,039h,098h,087h,039h,034h,028h	; 9751  ].r.......9..94(
 	defb 025h,000h,033h,021h,027h,021h,000h,023h,02fh,02eh,034h,029h,02eh,035h,025h,033h	; 9761  %.3!'!.#/.4).5%3
 	defb 0ffh,088h,039h,02bh,02fh,02eh,021h,02dh,029h,000h,030h,032h,025h,033h,025h,02eh	; 9771  ..9+/.!-).02%3%.
@@ -3249,8 +3333,11 @@ L_9A09:
 	jp L_9885		;9a11
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9a14..0x9a34  (32 bytes)
-DATA_9A14:
+; DATOS resto_9A14: lo apuntan con el banco puesto p10:99F6 (0x9A14); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:99F6 (32 bytes)
+;   0x9a14..0x9a34  (32 bytes)
+DATA_resto_9A14:
 	defb 000h,001h,002h,000h,001h,002h,000h,000h,002h,000h,001h,000h,000h,001h,002h,000h	; 9a14  ................
 	defb 001h,002h,000h,000h,002h,000h,001h,000h,000h,001h,002h,000h,001h,002h,000h,000h	; 9a24  ................
 
@@ -3318,8 +3405,12 @@ L_9A93:
 	jp 04cfdh		;9aa6
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9aa9..0x9adc  (51 bytes)
-DATA_9AA9:
+; DATOS resto_9AA9: lo apuntan con el banco puesto p10:98F3 (0x9AA9), p10:9A8B
+;   (0x9AA9), p10:98F8 (0x9ABF), p10:9A90 (0x9ABF); el tamano es lo que hay
+;   hasta lo siguiente, no sale de recorrerlo; lo leen p10:98F3, p10:9A8B,
+;   p10:98F8, p10:9A90 (51 bytes)
+;   0x9aa9..0x9adc  (51 bytes)
+DATA_resto_9AA9:
 	defb 0afh,09ah,0b5h,09ah,0bbh,09ah,06fh,070h,082h,06fh,07ah,0ffh,08ah,071h,091h,081h	; 9aa9  ......op.oz..q..
 	defb 06fh,0ffh,074h,08bh,076h,0ffh,0c5h,09ah,0cdh,09ah,0d5h,09ah,01ch,020h,026h,025h	; 9ab9  o.t.v........ &%
 	defb 01ch,02ch,02ah,0ffh,023h,018h,02dh,020h,025h,020h,018h,0ffh,022h,020h,01ch,029h	; 9ac9  .,*.#.- % .." .)
@@ -3373,8 +3464,11 @@ L_9B08:
 	jp 0004dh		;9b29   ; BIOS WRTVRM - Writes data in VRAM
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9b2c..0x9b32  (6 bytes)
-DATA_9B2C:
+; DATOS resto_9B2C: lo apuntan con el banco puesto p10:9B20 (0x9B2C); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:9B20 (6 bytes)
+;   0x9b2c..0x9b32  (6 bytes)
+DATA_resto_9B2C:
 	defb 056h,03ah,096h,03ah,0d6h,03ah	; 9b2c
 
 ; ======================================================================
@@ -3471,8 +3565,11 @@ L_9BC8:
 	ret			;9bcb
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9bcc..0x9bdb  (15 bytes)
-DATA_9BCC:
+; DATOS resto_9BCC: lo apuntan con el banco puesto p10:9B61 (0x9BCC); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:9B61 (15 bytes)
+;   0x9bcc..0x9bdb  (15 bytes)
+DATA_resto_9BCC:
 	defb 020h,014h,001h,024h,021h,028h,031h,029h,014h,01ah,019h,029h,00fh,02ah,01eh	; 9bcc   ..$!(1)...).*.
 
 ; ======================================================================
@@ -3492,8 +3589,11 @@ L_9BDB:
 	jp L_874E		;9bf1
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9bf4..0x9c1a  (38 bytes)
-DATA_9BF4:
+; DATOS resto_9BF4: lo apuntan con el banco puesto p10:9BE5 (0x9BF4), p10:98D8
+;   (0x9C15); el tamano es lo que hay hasta lo siguiente, no sale de
+;   recorrerlo; lo leen p10:9BE5, p10:98D8 (38 bytes)
+;   0x9bf4..0x9c1a  (38 bytes)
+DATA_resto_9BF4:
 	defb 0fah,09bh,003h,09ch,00ch,09ch,000h,041h,000h,040h,042h,043h,000h,044h,000h,000h	; 9bf4  .......A.@BC.D..
 	defb 04bh,000h,04ah,04ch,04dh,000h,04eh,000h,000h,046h,000h,045h,047h,048h,000h,049h	; 9c04  K.JLM.N..F.EGH.I
 	defb 000h,0e2h,039h,0bch,0bdh,0ffh	; 9c14
@@ -3506,8 +3606,11 @@ DATA_lista_9C1A:
 	defb 0e2h,039h,027h,023h,018h,025h,01ch,02bh,000h,0ffh	; 9c1a  .9'#.%.+..
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9c24..0x9c2e  (10 bytes)
-DATA_9C24:
+; DATOS resto_9C24: lo apuntan con el banco puesto p10:990A (0x9C24); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:990A (10 bytes)
+;   0x9c24..0x9c2e  (10 bytes)
+DATA_resto_9C24:
 	defb 022h,03ah,029h,018h,01bh,018h,029h,0eah,0ebh,0ffh	; 9c24  ":)...)...
 
 ; ----------------------------------------------------------------------
@@ -3814,8 +3917,11 @@ L_9DF2:
 	ret			;9e02
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9e03..0x9e13  (16 bytes)
-DATA_9E03:
+; DATOS resto_9E03: lo apuntan con el banco puesto p10:9D98 (0x9E03); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:9D98 (16 bytes)
+;   0x9e03..0x9e13  (16 bytes)
+DATA_resto_9E03:
 	defb 013h,039h,020h,02dh,035h,041h,057h,04ah,06eh,074h,07bh,068h,01ch,032h,016h,03fh	; 9e03  .9 -5AWJnt{h.2.?
 
 ; ======================================================================

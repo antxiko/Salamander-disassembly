@@ -1,25 +1,91 @@
 
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
+D 0xA000 0xA002 partida_A000  los 2 ultimos bytes de la instruccion de p02:9FFF (DD 7E 19), que empieza en el banco 2; lo leen p02:9FFF (2 bytes)
+F 0xA000 2
+D 0xA029 0xA02D cuadros_A029  4 bytes que p02:9FB8 pasa a p03:A01D (HL); lo leen p02:9FBB (4 bytes)
+F 0xA029 4
+D 0xA0C4 0xA0C8 tabla_A0C4  4 bytes que p03:A0B9 elige con A (p00:5AD8); lo leen p03:A0BC (4 bytes)
+F 0xA0C4 4
+D 0xA0C8 0xA0D8 tabla_A0C8  8 palabras que p03:A051 elige con un numero al azar & 7 (p01:65AB, p00:4E28); lo leen p03:A054 (16 bytes)
+F 0xA0C8 w8
+D 0xA0D8 0xA0E8 tabla_A0D8  8 palabras que p03:A05F elige con un numero al azar & 7; lo leen p03:A062 (16 bytes)
+F 0xA0D8 w8
+D 0xA0EE 0xA0F4 cuadros_A0EE  6 caracteres de una animacion que p03:A0E8 pasa a p01:6BD5; lo leen p03:A0EB (6 bytes)
+F 0xA0EE 6
+D 0xA154 0xA160 pares_A154  6 pares que p03:A12C elige con IX+26 x 2 y suma a IX+06; lo leen p03:A12F (12 bytes)
+F 0xA154 2
+D 0xA171 0xA177 cuadros_A171  6 cuadros (0 1 2 3 2 1) que p03:A166 pasa a p01:6591 con BC = 0x0306; lo leen p03:A169 (6 bytes)
+F 0xA171 6
+D 0xA1CC 0xA1D2 cuadros_A1CC  6 caracteres de una animacion que p03:A1C6 pasa a p01:6BD5; lo leen p03:A1C9 (6 bytes)
+F 0xA1CC 6
+D 0xA237 0xA23A tabla_A237  3 bytes (p03:A1F6: 0xA237 + B - 1); lo leen p03:A1F9 (3 bytes)
+F 0xA237 3
+D 0xA2E2 0xA2E6 cuadros_A2E2  4 caracteres que p03:A2DC pasa a p00:4F80; lo leen p03:A2DF (4 bytes)
+F 0xA2E2 4
+D 0xA499 0xA49F tabla_A499  6 bytes que p03:A483 elige con IX+27 (de 0 a 5); lo leen p03:A486 (6 bytes)
+F 0xA499 6
+D 0xA684 0xA68C palabras_A684  4 palabras que p03:A67A elige (p00:4E28) con IY+21 a 0 y copia a IX+07; lo leen p03:A672 (8 bytes)
+F 0xA684 w4
+D 0xA68C 0xA694 palabras_A68C  4 palabras que p03:A67A elige con IY+21 a 1; lo leen p03:A677 (8 bytes)
+F 0xA68C w4
+D 0xA701 0xA709 palabras_A701  4 palabras (p03:A6A3: 0xA6FF + 2 x IX+02) en horizontal; lo leen p03:A694 (8 bytes)
+F 0xA701 w4
+D 0xA709 0xA711 palabras_A709  4 palabras (p03:A6A3: 0xA707 + 2 x IX+02) en vertical; lo leen p03:A69D (8 bytes)
+F 0xA709 w4
 D 0xA878 0xA890 tabla_A878  12 destinos del despachador p00:40CE (call en p03:A875, el indice en A): A9F0, B07F, B25B, B349, AD68, AA69, ACBE, ABDD, AA69, AA69, B498, A9F0; lo leen p03:A875 (24 bytes)
 F 0xA878 w8
 D 0xA99C 0xA9AA tabla_A99C  7 destinos del despachador p00:40CE (call en p03:A999, el indice en A): A9AA, AD24, AA0E, AC50, ABB8, AE9E, AEE3; lo leen p03:A999 (14 bytes)
 F 0xA99C w7
+D 0xABAA 0xABB1 fichas_ABAA  7 bytes que p03:ABB8 apunta en 0xE64B (con A = 9) en horizontal; lo leen p03:ABB8 (7 bytes)
+F 0xABAA 7
+D 0xABB1 0xABB8 fichas_ABB1  7 bytes que p03:ABC1 apunta en 0xE64B (con A = 9) en vertical; lo leen p03:ABC1 (7 bytes)
+F 0xABB1 7
+D 0xAC42 0xAC49 fichas_AC42  7 bytes que p03:AC50 apunta en 0xE64B (con A = 8) en horizontal; lo leen p03:AC50 (7 bytes)
+F 0xAC42 7
+D 0xAC49 0xAC50 fichas_AC49  7 bytes que p03:AC59 apunta en 0xE64B (con A = 8) en vertical; lo leen p03:AC59 (7 bytes)
+F 0xAC49 7
 D 0xB085 0xB08D tabla_B085  4 destinos del despachador p00:40CE (call en p03:B082, el indice en A): B08D, B121, B19A, B201; lo leen p03:B082 (8 bytes)
 F 0xB085 w4
 D 0xB269 0xB271 tabla_B269  4 destinos del despachador p00:40CE (call en p03:B266, el indice en A): B271, B2A9, B2E3, B315; lo leen p03:B266 (8 bytes)
 F 0xB269 w4
-D 0xB63C 0xB64D lista_B63C  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5A29 (17 bytes)
-D 0xB662 0xB66D lista_B662  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:535C, p00:535F (11 bytes)
+D 0xB494 0xB498 tabla_B494  4 bytes que p03:B465 y p03:B473 eligen con A & 3; lo leen p03:B468 (4 bytes)
+F 0xB494 4
+D 0xB621 0xB625 firma_nemesis2  "CD" 0x07 0x51: la segunda cabecera de Nemesis 2 (RC-751), que p03:B5E3 compara con la de 0x4010 del cartucho vecino (RDSLT, p03:B60C); lo leen p03:B5EB (4 bytes)
+F 0xB621 4
+D 0xB625 0xB62B firma_nemesis2_7ffa  6 bytes que p03:B5F5 compara con los de 0x7FFA del vecino; si cuadran, 0xF0F5 bit 1 y 0xFFA7 = 0xC9; lo leen p03:B5FD (6 bytes)
+F 0xB625 6
+D 0xB62B 0xB63C lista_B62B  lista a la VRAM (p00:4CF5: [destino] y letras; 0xFE otro destino; 0xFF acaba) de p00:5A21, una de las ramas que el trazador no sigue; lo leen p00:5A21 (17 bytes)
+F 0xB62B 16
+D 0xB63C 0xB64D lista_B63C  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5A29, p00:5A26 (17 bytes)
+D 0xB64D 0xB657 lista_B64D  lista a la VRAM (p00:4CF5: [destino] y letras; 0xFE otro destino; 0xFF acaba) de p00:534C, una de las ramas que el trazador no sigue; lo leen p00:534C (10 bytes)
+F 0xB64D 16
+D 0xB657 0xB662 lista_B657  lista a la VRAM (p00:4CF5: [destino] y letras; 0xFE otro destino; 0xFF acaba) de p00:5351, una de las ramas que el trazador no sigue; lo leen p00:5351 (11 bytes)
+F 0xB657 16
+D 0xB662 0xB66D lista_B662  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:535C, p00:535F, p00:5357 (11 bytes)
 D 0xB66D 0xB670 lista_s_B66D  lista a la VRAM sin destino delante (p00:4CFD; 0xFE otro destino; 0xFF acaba); lo leen p02:90EB (3 bytes)
-D 0xB67B 0xB686 lista_B67B  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:582A (11 bytes)
+D 0xB670 0xB67B lista_B670  lista a la VRAM (p00:4CF5: [destino] y letras; 0xFE otro destino; 0xFF acaba) de p00:5822, una de las ramas que el trazador no sigue; lo leen p00:5822 (11 bytes)
+F 0xB670 16
+D 0xB67B 0xB686 lista_B67B  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:582A, p00:5827 (11 bytes)
 D 0xB686 0xB6A2 lista_B686  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); se solapan 2 bloques: (lista_B693 B693-B6A2); lo leen p00:552A, p00:55F6 (28 bytes)
 D 0xB6A2 0xB6AD lista_B6A2  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5A81 (11 bytes)
 D 0xB6AD 0xB6C0 lista_B6AD  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5711, p00:5733, p00:5743 (19 bytes)
 D 0xB6C0 0xB6D1 lista_B6C0  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5694 (17 bytes)
 D 0xB6D1 0xB6DC lista_B6D1  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5749 (11 bytes)
 D 0xB6DC 0xB6E9 lista_B6DC  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p00:5739 (13 bytes)
+D 0xB9F6 0xB9FC cuadros_B9F6  6 caracteres de una animacion que p03:B9F0 pasa a p01:6BD5; lo leen p03:B9F3 (6 bytes)
+F 0xB9F6 6
 D 0xBAF9 0xBB03 tabla_BAF9  5 destinos del despachador p00:40CE (call en p03:BAF6, el indice en A): BB03, BB1A, BB34, BB1A, BB7B; lo leen p03:BAF6 (10 bytes)
 F 0xBAF9 w5
-D 0xBC06 0xBC10 tabla_BC06  5 destinos del despachador p00:40CE (call en p03:BC03, el indice en A): 7EFF, 7EF4, BC1A, BC24, 62DA; lo leen p03:BC03 (10 bytes)
-F 0xBC06 w5
+D 0xBC06 0xBC0E tabla_BC06  4 destinos del despachador p00:40CE (call en p03:BC03, el indice en A): 7EFF, 7EF4, BC1A, BC24; lo leen p03:BC03 (8 bytes)
+F 0xBC06 w4
+D 0xBC89 0xBC91 palabras_BC89  4 palabras que p03:BC46 elige con B (p00:4E28); lo leen p03:BC49 (8 bytes)
+F 0xBC89 w4
+D 0xBDB9 0xBDBF palabras_BDB9  3 palabras que p03:BDA4 elige con C (p00:4E28); lo leen p03:BDA8 (6 bytes)
+F 0xBDB9 w3
+D 0xBEAE 0xBEB6 pares_BEAE  2 fichas de 4 bytes que p03:BE7A elige con (IX+19 & 2) x 2; lo leen p03:BE7D (8 bytes)
+F 0xBEAE 4
+D 0xBEB6 0xBEBC palabras_BEB6  3 palabras que p03:BE3A elige con IX+19 (p00:4E28); lo leen p03:BE41 (6 bytes)
+F 0xBEB6 w3
+D 0xBFFF 0xC000 relleno_bfff  el ultimo byte del banco, 0xFF: relleno; lo leen nadie (1 bytes)
+F 0xBFFF 1
 # --- fin de los bloques de bloques.py ---

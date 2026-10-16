@@ -807,6 +807,273 @@ def banco15():
               "(p01:7B5D: 0xA024 + 6 x 0xE309[B], LDIRVM de 6)", "p01:7B6D", F=6)
 
 
+# ------------------------------------------- las piezas de los jefes (p07)
+#
+# Con 7-8-11 puestos (los jefes del banco 11): p11:B717/B793/B7D2 leen
+# 0x6079 + 2 x A (p00:4E21). Las cuatro primeras son bloques de 2 x 2
+# caracteres sin cabecera (p11:B799: B = C = 2); las demas, formas
+# [columnas][filas] y filas x columnas caracteres (p11:B71E).
+
+def jefes():
+    v = B.Ventana((7, 8, 11))
+    n = 38
+    B.declara(v, 0x6079, 0x6079 + 2 * n, "formas_jefe", "%d punteros (p11:B717, B793, B7D2: "
+              "0x6079 + 2 x A) a las piezas de los jefes" % n, "p11:B71A", F="w8")
+    ps = sorted({v.w(0x6079 + 2 * k) for k in range(n)})
+    for a in ps:
+        ks = [k for k in range(n) if v.w(0x6079 + 2 * k) == a]
+        if max(ks) < 4:
+            B.declara(v, a, a + 4, "pieza2x2_%04X" % a, "bloque de 2 x 2 caracteres (entrada %s de "
+                      "0x6079) que p11:B799 copia con B = C = 2" % ", ".join(map(str, ks)), "p11:B7A7", F=4)
+        else:
+            c, r = v(a), v(a + 1)
+            B.declara(v, a, a + 2 + c * r, "forma_%04X" % a, "forma de %d columnas x %d filas (entrada "
+                      "%s de 0x6079): [columnas][filas] y los caracteres (p11:B71E)"
+                      % (c, r, ", ".join(map(str, ks))), "p11:B71E", F=max(2, c))
+    B.declara(v, 0x641B, 0x6443, "bloques_giro", "20 punteros a bloques de 2 x 2: p11:AABA los "
+              "elige con A = C / 2, y C = ((angulo + 8) >> 3) & 0x1E llega a 15; las palabras 16 a "
+              "19 no las alcanza ese calculo", "p11:AABD", F="w8")
+    for a in range(0x6443, 0x645F, 4):
+        B.declara(v, a, a + 4, "bloque_%04X" % a, "bloque de 2 x 2 caracteres%s (B = C = 2, p11:AAC1)"
+                  % (" de 0x641B" if a < 0x645B else " que p11:AAB3 pone en DE"), "p11:AAC1", F=4)
+    B.declara(v, 0x645F, 0x647F, "giro_16", "16 pares (x, y) de desplazamiento, uno por direccion "
+              "de las 16 de un circulo: p11:AA89 lee 0x6460 + C (y) y, con `dec hl`, 0x645F + C (x)",
+              "p11:AA93", F=2)
+    B.declara(v, 0x6487, 0x64A7, "piezas_6487", "16 punteros (p11:A829: A & 0x0F, p00:4E28) a "
+              "piezas sin cabecera; sus columnas y filas las da la ficha de 0x6547 con el mismo "
+              "indice", "p11:A82C", F="w8")
+    for k in range(16):
+        a = v.w(0x6487 + 2 * k)
+        c, r = v(0x6547 + 4 * k), v(0x6547 + 4 * k + 1)
+        B.declara(v, a, a + c * r, "pieza_%04X" % a, "pieza %d de 0x6487: %d columnas x %d filas "
+                  "(de la ficha %d de 0x6547) que p11:B73A copia" % (k, c, r, k), "p11:A830", F=max(1, c))
+    B.declara(v, 0x6547, 0x6587, "piezas_6547", "16 fichas de 4 bytes [columnas][filas][dx][dy] "
+              "que p11:A84A elige con A x 4", "p11:A84F", F=4)
+
+
+# p00:5C77 cambia graficos a mitad de fase: segun la fase y la posicion del
+# scroll pone HL en 0x5CFA, 0x5D00, 0x5D06, 0x5D0C o 0x5D12 y p00:5CCB lee
+# alli tres punteros (7-8-9 puestos): una lista de caracteres (p00:4546) y dos
+# de copias (p00:44F9, en espejo y cabeza abajo).
+
+def cambios_de_fase():
+    v = B.Ventana((7, 8, 9))
+    B.declara(v, 0x5CFA, 0x5D18, "cambios_de_fase", "5 fichas de 6 bytes: [caracteres][copias en "
+              "espejo][copias cabeza abajo] que p00:5CCB lee con HL = 0x5CFA, 0x5D00, 0x5D06, 0x5D0C "
+              "o 0x5D12 (p00:5C64-5CC8: segun la fase y la posicion del scroll)", "p00:5CCE", F=6)
+    for k in range(5):
+        a = 0x5CFA + 6 * k
+        car, c1, c2 = v.w(a), v.w(a + 2), v.w(a + 4)
+        B.declara(v, car, lista_caracteres(v, car, "p00:5CD5"), "caracteres_%04X" % car,
+                  "lista de caracteres (p00:4546) del cambio %d de mitad de fase (0x%04X): fichas de "
+                  "6 bytes, 0 acaba" % (k, a), "p00:5CD5", F=6)
+        for c, modo in ((c1, "en espejo"), (c2, "cabeza abajo")):
+            B.declara(v, c, lista_copias(v, c), "copias_%04X" % c, "lista de copias VRAM -> VRAM %s "
+                      "(p00:44F9) del cambio %d de mitad de fase (0x%04X)" % (modo, k, a), "p00:5CE5", F=4)
+
+
+# --------------------------------------- tablas cortas de los bancos de codigo
+# (banco, ini, fin, nombre, que es y quien lo lee, lector, F); todas con 1-2-3.
+
+TABLAS = [
+    (0, 0x4000, 0x4010, "cabecera", "cabecera del cartucho: \"AB\", INIT = 0x40DA y STATEMENT, "
+     "DEVICE y TEXT a cero; la lee la BIOS al arrancar", "BIOS", 16),
+    (0, 0x4010, 0x4027, "cabecera_game_master", "la segunda cabecera de Konami: \"CD\", 0x07 0x58 "
+     "(RC-758) y los 21 bytes que lee el Game Master (direcciones de la RAM del juego y, en "
+     "0x4023, la rutina 0x4054); este cartucho busca la de Nemesis 2 en el vecino (p03:B5E3)",
+     "Game Master", 16),
+    (0, 0x4027, 0x4030, "detras_de_la_cabecera", "9 bytes entre los 21 de la cabecera \"CD\" y la "
+     "tabla de saltos de 0x4030: ni el Game Master (21 bytes) ni este cartucho los leen a la "
+     "vista", "nadie", 16),
+    (0, 0x4B87, 0x4B8F, "pares_4B87", "4 pares [C][B] que p00:4B2F elige con 0xE203 & 6", "p00:4B36", 2),
+    (0, 0x4B8F, 0x4B97, "pares_4B8F", "4 pares [C][B] que p00:4B51 elige con 0xE203 & 6", "p00:4B55", 2),
+    (0, 0x4F3D, 0x4F5D, "velocidad_4F3D", "16 palabras con signo, una por direccion (A de 0 a 15, "
+     "p00:4F32 con p00:4E28), que p00:4F38 suma B veces", "p00:4F32", "w8"),
+    (0, 0x4F5D, 0x4F7D, "velocidad_4F5D", "16 palabras con signo, una por direccion (A de 0 a 15, "
+     "p00:4F22 con p00:4E28), que p00:4F29 suma B veces", "p00:4F22", "w8"),
+    (0, 0x4F97, 0x4F9B, "cuadros_4F97", "4 caracteres (0x90 0x94 0x98 0x94) que p00:4F7D pasa por "
+     "turno con IX+24", "p00:4F7D", 4),
+    (0, 0x5130, 0x5138, "registros_vdp", "los 8 registros del VDP (0 a 7) que p00:511F escribe con "
+     "WRTVDP: SCREEN 2", "p00:5127", 8),
+    (0, 0x58BE, 0x58C5, "estado_inicial", "7 bytes que p00:584C copia a 0xE300 (ldir)", "p00:5855", 7),
+    (0, 0x58C5, 0x58E9, "fichas_58C5", "4 fichas de 9 bytes que p00:587A elige con (B & 3) x 9 y "
+     "copia (ldir)", "p00:5883", 9),
+    (0, 0x5BFE, 0x5C3A, "copia_del_vecino", "20 fichas [cuantos][origen lo hi] que la rutina "
+     "copiada a 0xC03C (p00:5BE1) lee en 0xC059: los trozos que la fase 7 copia del cartucho "
+     "de Nemesis 2 (bancos 7, 8 y 9 de ESE cartucho) a 0xC100, 1.137 bytes en total",
+     "p00:5BE4", 3),
+    (1, 0x60CD, 0x60D4, "tabla_60CD", "7 bytes (p01:60C1: 0x60CC + IY+68, de 1 a 7)", "p01:60C4", 7),
+    (1, 0x67E1, 0x67F1, "tabla_67E1", "16 bytes que p01:67D4 elige con 0xE64F (y le suma R & 7)",
+     "p01:67CB", 16),
+    (1, 0x67F1, 0x6801, "tabla_67F1", "16 bytes que p01:67D4 elige con 0xE64F (y le suma R & 7)",
+     "p01:67D1", 16),
+    (1, 0x6C64, 0x6C69, "ficha_tipo_0", "los 5 ultimos bytes de la ficha 0 de 0x6C62 (no hay "
+     "enemigo de tipo 0); los dos primeros son la cola del codigo de delante", "nadie", 5),
+    (1, 0x6C69, 0x6E2B, "fichas_por_tipo", "una ficha de 7 bytes por tipo de enemigo, de 1 a 64, "
+     "que p02:8C9C elige con IX+00 x 7 (+ 0x6C62); la del tipo 65 empezaria en 0x6E29 y "
+     "seguiria en el codigo de 0x6E2B", "p02:8CAA", 7),
+    (1, 0x704E, 0x7055, "tabla_por_fase_704E", "7 bytes, uno por fase (p01:6FD4: 0x704D + 0xE301)",
+     "p01:6FD7", 7),
+    (1, 0x7135, 0x7139, "tabla_7135", "4 bytes (p01:7110: 0x7134 + 0xE610, de 1 a 4)", "p01:7113", 4),
+    (1, 0x71A7, 0x71AF, "tabla_71A7", "8 bytes que p01:7190 elige con R & 7", "p01:7193", 8),
+    (1, 0x7235, 0x723D, "tabla_7235", "8 bytes que p01:71ED elige con (HL) & 7 en horizontal",
+     "p01:71F1", 8),
+    (1, 0x723D, 0x7245, "tabla_723D", "8 bytes que p01:71E4 elige con (HL) & 7 en vertical (0xE620)",
+     "p01:71F1", 8),
+    (1, 0x72B3, 0x72BB, "tabla_72B3", "8 bytes que p01:725E elige con (HL) & 7", "p01:7261", 8),
+    (1, 0x73BB, 0x73C7, "tabla_73BB", "12 bytes que p01:73A6 elige con C & 0x0F", "p01:73A9", 12),
+    (1, 0x7426, 0x7436, "tabla_7426", "8 palabras (p01:73E3: 0x7424 + 2 x B, B de 8 a 1)",
+     "p01:73E6", "w8"),
+    (1, 0x763A, 0x773A, "tabla_763A", "256 bytes que p01:75E7 elige con A (0x763A + A)", "p01:75EA", 16),
+    (1, 0x773A, 0x777A, "tabla_773A", "64 bytes que p01:7565 elige con DE (0x773A + DE)", "p01:7569", 16),
+    (2, 0x818E, 0x819E, "tabla_818E", "16 bytes que p02:8138 elige con 0xE64F en horizontal",
+     "p02:8135", 16),
+    (2, 0x819E, 0x81AE, "tabla_819E", "16 bytes que p02:8138 elige con 0xE64F en vertical (0xE620)",
+     "p02:8130", 16),
+    (2, 0x81AE, 0x81CE, "tabla_81AE", "32 bytes que p02:80D0 elige con IX+26", "p02:80D0", 16),
+    (2, 0x81EE, 0x81F6, "pares_81EE", "4 pares que p02:8219 elige con A & 6 y copia a IX+30 e IX+31",
+     "p02:821C", 2),
+    (2, 0x8853, 0x885B, "pares_8853", "4 palabras que p02:8843 elige con 0xE620 y B y copia a IY+24 "
+     "(e IY+26)", "p02:8846", 2),
+    (2, 0x88E3, 0x88EA, "e605_por_fase", "7 bytes, uno por fase, que p02:888E copia a 0xE605 "
+     "(0x88E2 + fase)", "p02:8891", 7),
+    (2, 0x88EA, 0x88F8, "posicion_por_fase", "7 palabras, una por fase (p02:88BF: 0x88E8 + 2 x "
+     "fase, p00:4E28), que se comparan con el scroll", "p02:88C2", "w7"),
+    (2, 0x88F8, 0x8922, "recorrido_por_fase", "7 fichas de 6 bytes, una por fase (p02:88A2: 0x88F2 "
+     "+ 6 x fase): principio y final del recorrido del mapa (0xE621, 0xE623) y 0xE625", "p02:88AE", 6),
+    (2, 0x8922, 0x8929, "vertical_por_fase", "7 bytes, uno por fase (p02:88B3: 0x8921 + fase): "
+     "0xE620, 1 si la fase va en vertical", "p02:88B6", 7),
+    (2, 0x8CE4, 0x8CE9, "sonidos_8CE4", "5 numeros de sonido que p02:8CB9 pide (p00:4D6E) con la "
+     "cifra alta de la ficha del tipo (< 5)", "p02:8CBC", 5),
+    (2, 0x8F9C, 0x8FA0, "bloque_8F9C", "bloque de 2 x 2 caracteres (p02:8F96: DE = 0x8F9C, BC = "
+     "0x0202, p00:5042)", "p02:8F99", 4),
+    (2, 0x90EE, 0x90F8, "tabla_90EE", "10 bytes que p02:90C8 lee de dos en dos con 0xE227 x 2",
+     "p02:90CB", 2),
+    (2, 0x9295, 0x92C5, "fichas_9295", "3 fichas de 16 bytes que p02:9272 elige con IX+06 x 16",
+     "p02:927C", 16),
+    (2, 0x9322, 0x9326, "cuadros_9322", "4 bytes que p02:9300 pasa a p03:A01D (HL)", "p02:9303", 4),
+    (2, 0x946B, 0x9473, "tabla_946B", "8 bytes que p02:943D elige con IX+26 (de 0 a 7)", "p02:9440", 8),
+    (2, 0x9C73, 0x9C7B, "tabla_9C73", "8 bytes (p02:9A51: 0x9C72 + A)", "p02:9A54", 8),
+    (2, 0x9D21, 0x9D29, "tabla_9D21", "8 bytes que p02:9CCE elige con (HL) & 7", "p02:9CD1", 8),
+    (2, 0x9D44, 0x9D47, "tabla_9D44", "3 bytes (p02:9D3A: 0x9D44 + IX+19)", "p02:9D3D", 3),
+    (2, 0x9DB4, 0x9DB8, "cuadros_9DB4", "4 bytes que p02:9D4D pasa a p02:9DA7 (HL)", "p02:9D50", 4),
+    (2, 0x9DB8, 0x9DBC, "cuadros_9DB8", "4 bytes que p02:9D47 pasa a p03:A01D (HL)", "p02:9D4A", 4),
+    (2, 0x9FEB, 0x9FF1, "cuadros_9FEB", "6 caracteres de una animacion que p02:9FE5 pasa a p01:6BD5",
+     "p02:9FE8", 6),
+    (3, 0xA029, 0xA02D, "cuadros_A029", "4 bytes que p02:9FB8 pasa a p03:A01D (HL)", "p02:9FBB", 4),
+    (3, 0xA0C4, 0xA0C8, "tabla_A0C4", "4 bytes que p03:A0B9 elige con A (p00:5AD8)", "p03:A0BC", 4),
+    (3, 0xA0C8, 0xA0D8, "tabla_A0C8", "8 palabras que p03:A051 elige con un numero al azar & 7 "
+     "(p01:65AB, p00:4E28)", "p03:A054", "w8"),
+    (3, 0xA0D8, 0xA0E8, "tabla_A0D8", "8 palabras que p03:A05F elige con un numero al azar & 7",
+     "p03:A062", "w8"),
+    (3, 0xA0EE, 0xA0F4, "cuadros_A0EE", "6 caracteres de una animacion que p03:A0E8 pasa a p01:6BD5",
+     "p03:A0EB", 6),
+    (3, 0xA154, 0xA160, "pares_A154", "6 pares que p03:A12C elige con IX+26 x 2 y suma a IX+06",
+     "p03:A12F", 2),
+    (3, 0xA171, 0xA177, "cuadros_A171", "6 cuadros (0 1 2 3 2 1) que p03:A166 pasa a p01:6591 con "
+     "BC = 0x0306", "p03:A169", 6),
+    (3, 0xA1CC, 0xA1D2, "cuadros_A1CC", "6 caracteres de una animacion que p03:A1C6 pasa a p01:6BD5",
+     "p03:A1C9", 6),
+    (3, 0xA237, 0xA23A, "tabla_A237", "3 bytes (p03:A1F6: 0xA237 + B - 1)", "p03:A1F9", 3),
+    (3, 0xA2E2, 0xA2E6, "cuadros_A2E2", "4 caracteres que p03:A2DC pasa a p00:4F80", "p03:A2DF", 4),
+    (3, 0xA499, 0xA49F, "tabla_A499", "6 bytes que p03:A483 elige con IX+27 (de 0 a 5)", "p03:A486", 6),
+    (3, 0xA684, 0xA68C, "palabras_A684", "4 palabras que p03:A67A elige (p00:4E28) con IY+21 a 0 "
+     "y copia a IX+07", "p03:A672", "w4"),
+    (3, 0xA68C, 0xA694, "palabras_A68C", "4 palabras que p03:A67A elige con IY+21 a 1", "p03:A677", "w4"),
+    (3, 0xA701, 0xA709, "palabras_A701", "4 palabras (p03:A6A3: 0xA6FF + 2 x IX+02) en horizontal",
+     "p03:A694", "w4"),
+    (3, 0xA709, 0xA711, "palabras_A709", "4 palabras (p03:A6A3: 0xA707 + 2 x IX+02) en vertical",
+     "p03:A69D", "w4"),
+    (3, 0xABAA, 0xABB1, "fichas_ABAA", "7 bytes que p03:ABB8 apunta en 0xE64B (con A = 9) en "
+     "horizontal", "p03:ABB8", 7),
+    (3, 0xABB1, 0xABB8, "fichas_ABB1", "7 bytes que p03:ABC1 apunta en 0xE64B (con A = 9) en "
+     "vertical", "p03:ABC1", 7),
+    (3, 0xAC42, 0xAC49, "fichas_AC42", "7 bytes que p03:AC50 apunta en 0xE64B (con A = 8) en "
+     "horizontal", "p03:AC50", 7),
+    (3, 0xAC49, 0xAC50, "fichas_AC49", "7 bytes que p03:AC59 apunta en 0xE64B (con A = 8) en "
+     "vertical", "p03:AC59", 7),
+    (3, 0xB494, 0xB498, "tabla_B494", "4 bytes que p03:B465 y p03:B473 eligen con A & 3", "p03:B468", 4),
+    (3, 0xB621, 0xB625, "firma_nemesis2", "\"CD\" 0x07 0x51: la segunda cabecera de Nemesis 2 "
+     "(RC-751), que p03:B5E3 compara con la de 0x4010 del cartucho vecino (RDSLT, p03:B60C)",
+     "p03:B5EB", 4),
+    (3, 0xB625, 0xB62B, "firma_nemesis2_7ffa", "6 bytes que p03:B5F5 compara con los de 0x7FFA del "
+     "vecino; si cuadran, 0xF0F5 bit 1 y 0xFFA7 = 0xC9", "p03:B5FD", 6),
+    (3, 0xB9F6, 0xB9FC, "cuadros_B9F6", "6 caracteres de una animacion que p03:B9F0 pasa a p01:6BD5",
+     "p03:B9F3", 6),
+    (3, 0xBC89, 0xBC91, "palabras_BC89", "4 palabras que p03:BC46 elige con B (p00:4E28)", "p03:BC49", "w4"),
+    (3, 0xBDB9, 0xBDBF, "palabras_BDB9", "3 palabras que p03:BDA4 elige con C (p00:4E28)", "p03:BDA8", "w3"),
+    (3, 0xBEAE, 0xBEB6, "pares_BEAE", "2 fichas de 4 bytes que p03:BE7A elige con (IX+19 & 2) x 2",
+     "p03:BE7D", 4),
+    (3, 0xBEB6, 0xBEBC, "palabras_BEB6", "3 palabras que p03:BE3A elige con IX+19 (p00:4E28)",
+     "p03:BE41", "w3"),
+]
+
+
+TABLAS_OTROS = [
+    # (reparto, ini, fin, nombre, texto, lector, F)
+    ((1, 2, 3), 0x7007, 0x700E, "tabla_por_fase_7007", "7 bytes, uno por fase (p01:6FAD: 0x7006 + "
+     "0xE301)", "p01:6FB3", 7),
+    ((1, 2, 3), 0x92E9, 0x92F9, "fichas_92E9", "4 fichas de 4 bytes (p02:92DE: 0x92E5 + 4 x A, A "
+     "de 1 a 4: los cuatro bytes de 0x92E5 son el propio `call`/`jp`) que sigue p01:6C2D", "p02:92E3", 4),
+    ((1, 2, 3), 0xBFFF, 0xC000, "relleno_bfff", "el ultimo byte del banco, 0xFF: relleno", "nadie", 1),
+    ((7, 8, 11), 0x647F, 0x6487, "detras_de_giro_16", "8 bytes entre los 16 pares de 0x645F y la "
+     "tabla de 0x6487: p11:AA89 solo llega a 0x647E (C <= 0x1E) y nadie mas los apunta: SIN LECTOR "
+     "a la vista", "nadie", 8),
+    ((7, 8, 9), 0x7A32, 0x7A56, "sin_lector_7A32", "36 bytes entre listas de caracteres que no "
+     "apunta ninguna instruccion con el banco 7 puesto: SIN LECTOR a la vista", "nadie", 16),
+    ((7, 8, 9), 0x89D0, 0x8A0D, "sin_lector_89D0", "61 bytes entre bloques de rachas que no apunta "
+     "ninguna instruccion con el banco 8 puesto: SIN LECTOR a la vista", "nadie", 16),
+    ((1, 2, 11), 0xA605, 0xA608, "tabla_A605", "3 bytes (p11:A5E7 y p11:A622: 0xA604 + IX+25, de 1 "
+     "a 3)", "p11:A5EA", 3),
+    ((1, 2, 11), 0xA802, 0xA80A, "e605_por_jefe", "8 bytes, uno por jefe (p11:A7F6: 0xA801 + "
+     "0xE640, de 1 a 8), que van a 0xE605", "p11:A7F9", 8),
+    ((1, 2, 12), 0xA86B, 0xA871, "pares_A86B", "3 pares (p12:A851: 0xA869 + 2 x B, B de 1 a 3) que "
+     "se suman a E y D", "p12:A855", 2),
+    ((1, 2, 12), 0xB789, 0xB7C9, "fichas_B789", "4 fichas de 16 bytes (p12:B763: 0xB779 + 16 x A, A "
+     "de 1 a 4: los 16 de 0xB779 son codigo) que p12:B776 copia de 4 en 4", "p12:B766", 16),
+    ((1, 14, 15), 0x85B1, 0x85B3, "entre_tramos_85B1", "2 bytes entre la lista de tramos de la fase "
+     "5 (acaba en 0x85B1) y la de la fase 6: no los lee nadie", "nadie", 2),
+    ((1, 14, 15), 0x85D2, 0x85D3, "entre_tramos_85D2", "1 byte entre la lista de tramos de la fase 7 "
+     "y la tabla de 0x85D1 (su palabra 0, que no se lee)", "nadie", 1),
+]
+
+
+def tablas_de_codigo():
+    v = B.Ventana((1, 2, 3))
+    for b, ini, fin, nom, texto, lector, F in TABLAS:
+        B.declara(v, ini, fin, nom, texto, lector, F=F)
+    for rep, ini, fin, nom, texto, lector, F in TABLAS_OTROS:
+        B.declara(B.Ventana(rep), ini, fin, nom, texto, lector, F=F)
+    w = B.Ventana((1, 10, 15))
+    tabla_indice(w, 0x8A6A, list(FASES), "rotulos2_8A6A", "fase", None, "p10:8A47",
+                 lambda v, p, ks: B.declara(v, p, lista_vram(v, p, False), "rotulo2_%04X" % p,
+                                            "lista a la VRAM sin destino delante (p00:4CFD, HL = "
+                                            "0x3933) de la fase %s" % ", ".join(map(str, ks)),
+                                            "p10:8A4F", F=16),
+                 "la segunda linea del rotulo de cada fase (p10:8A44 con A = 1, 0xE21B o 7)")
+    u = B.Ventana((1, 2, 12))
+    de_puntero_en_puntero(u, 0xA531, 7, 0xA5CE, "listas_A52F", "7 punteros, uno por fase (p12:A4CF: "
+                          "0xA52F + 2 x fase, p00:4E21); 0 = la fase no tiene lista", "lista de "
+                          "la fase %s que p12:A4D9 recorre (acaba donde empieza la siguiente)",
+                          "p12:A4D2", "p12:A4D9", F_bloque=8)
+    # p00:5DE2: 0x5E52 + 2 x B (de 1 a 7) apunta a listas de bytes que p00:5DEC
+    # lee con C
+    de_puntero_en_puntero(v, 0x5E54, 7, 0x5E79, "listas_5E52", "7 punteros (B de 1 a 7: "
+                          "p00:5DE2 lee 0x5E52 + 2 x B con p00:4E28)", "lista de bytes de las "
+                          "entradas %s de 0x5E54 que p00:5DEC lee con C (acaba donde empieza la "
+                          "siguiente)", "p00:5DE6", "p00:5DEC", F_bloque=8)
+    de_puntero_en_puntero(v, 0x876C, 7, 0x87A4, "listas_876A", "7 punteros, uno por fase "
+                          "(p02:873D: 0x876A + 2 x fase, p00:4E28)", "lista de la fase %s que "
+                          "p02:8748 lee de dos en dos (acaba donde empieza la siguiente)",
+                          "p02:8740", "p02:8748", F_bloque=6)
+    for a, sitio in ((0xB62B, "p00:5A21"), (0xB63C, "p00:5A26"), (0xB64D, "p00:534C"),
+                     (0xB657, "p00:5351"), (0xB662, "p00:5357"), (0xB670, "p00:5822"),
+                     (0xB67B, "p00:5827")):
+        B.declara(v, a, lista_vram(v, a), "lista_%04X" % a, "lista a la VRAM (p00:4CF5: [destino] y "
+                  "letras; 0xFE otro destino; 0xFF acaba) de %s, una de las ramas que el trazador "
+                  "no sigue" % sitio, sitio, F=16)
+
+
 def de_puntero_en_puntero(v, tabla, n, hasta, nom, texto_tabla, texto_bloque, lector,
                           lector_bloque, F_tabla="w8", F_bloque=16):
     """Tabla de n punteros a bloques que van seguidos: cada uno acaba donde
@@ -827,3 +1094,6 @@ def todo():
     banco14()
     banco9()
     banco15()
+    jefes()
+    cambios_de_fase()
+    tablas_de_codigo()

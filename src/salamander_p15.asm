@@ -206,8 +206,11 @@ DATA_rachas_A745:
 	defb 005h,0ffh,010h,000h,000h	; a8f5
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0xa8fa..0xa912  (24 bytes)
-DATA_A8FA:
+; DATOS resto_A8FA: lo apuntan con el banco puesto p10:807C (0xA90A); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p10:807C (24 bytes)
+;   0xa8fa..0xa912  (24 bytes)
+DATA_resto_A8FA:
 	defb 0feh,0a8h,005h,0a9h,002h,001h,041h,0ach,003h,00dh,0ech,002h,002h,022h,0ach,003h	; a8fa  ......A......"..
 	defb 00dh,0ech,08ah,0ach,08ah,0aeh,09ah,0afh	; a90a  ........
 

@@ -42,8 +42,8 @@
 0xA50F   # p01:68EE entrada 17 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
 0xA54A   # p02:87AA jp
 0xA58F   # p02:87A7 call
-0xA5EE   # p00:424C call
-0xA808   # p00:424F call
+0xA5EE   # p00:4045 call
+0xA808   # p00:404E call
 0xA851   # p00:4255 call
 0xA8B7   # p00:4252 call
 0xA9AA   # p03:A999 entrada 0 de la tabla de 0xA99C (call 0x40CE en 0xA999)
@@ -55,6 +55,7 @@
 0xABDD   # p03:A875 entrada 7 de la tabla de 0xA878 (call 0x40CE en 0xA875)
 0xAC50   # p03:A999 entrada 3 de la tabla de 0xA99C (call 0x40CE en 0xA999)
 0xACBE   # p03:A875 entrada 6 de la tabla de 0xA878 (call 0x40CE en 0xA875)
+0xAD23   # un `ret` suelto que el trazado no alcanza; nadie salta ni lo carga
 0xAD24   # p03:A999 entrada 1 de la tabla de 0xA99C (call 0x40CE en 0xA999)
 0xAD68   # p03:A875 entrada 4 de la tabla de 0xA878 (call 0x40CE en 0xA875)
 0xAE9E   # p03:A999 entrada 5 de la tabla de 0xA99C (call 0x40CE en 0xA999)
@@ -98,6 +99,7 @@
 0xBB9B   # p01:68EE entrada 19 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
 0xBBBA   # p01:66BE entrada 52 de la tabla de 0x66C1 (call 0x40CE en 0x66BE)
 0xBBEC   # p01:68EE entrada 52 de la tabla de 0x68F1 (call 0x40CE en 0x68EE)
+0xBC0E   # direccion de vuelta: p03:BBFC la empuja (push hl) antes del despachador p00:40CE
 0xBC1A   # p03:BC03 entrada 2 de la tabla de 0xBC06 (call 0x40CE en 0xBC03)
 0xBC24   # p03:BC03 entrada 3 de la tabla de 0xBC06 (call 0x40CE en 0xBC03)
 0xBC2C   # p01:7A14 entrada 20 de la tabla de 0x7A17 (call 0x40CE en 0x7A14)

@@ -315,8 +315,11 @@ DATA_tramos_fase5:
 	defb 000h,040h,040h,000h,000h,000h,070h,070h,070h,000h,040h,040h,040h,000h	; 85a3  .@@...ppp.@@@.
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x85b1..0x85b3  (2 bytes)
-DATA_85B1:
+; DATOS entre_tramos_85B1: 2 bytes entre la lista de tramos de la fase 5
+;   (acaba en 0x85B1) y la de la fase 6: no los lee nadie; lo leen nadie (2
+;   bytes)
+;   0x85b1..0x85b3  (2 bytes)
+DATA_entre_tramos_85B1:
 	defb 000h,000h	; 85b1
 
 ; ----------------------------------------------------------------------
@@ -330,8 +333,10 @@ DATA_tramos_fase6:
 	defb 000h,000h,000h,008h,020h,020h,060h,060h,000h,000h,020h,020h,080h,000h,020h	; 85c3  ....  ``..  ..
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x85d2..0x85d3  (1 bytes)
-DATA_85D2:
+; DATOS entre_tramos_85D2: 1 byte entre la lista de tramos de la fase 7 y la
+;   tabla de 0x85D1 (su palabra 0, que no se lee); lo leen nadie (1 bytes)
+;   0x85d2..0x85d3  (1 bytes)
+DATA_entre_tramos_85D2:
 	defb 000h	; 85d2
 
 ; ----------------------------------------------------------------------
@@ -1813,8 +1818,11 @@ DATA_formas_90A1_9203:
 	defb 028h,029h	; 9203
 
 ; ----------------------------------------------------------------------
-; DATOS sin identificar  0x9205..0x9207  (2 bytes)
-DATA_9205:
+; DATOS resto_9205: lo apuntan con el banco puesto p01:78F2 (0x9205); el
+;   tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen
+;   p01:78F2 (2 bytes)
+;   0x9205..0x9207  (2 bytes)
+DATA_resto_9205:
 	defb 02ah,02bh	; 9205
 
 ; ----------------------------------------------------------------------

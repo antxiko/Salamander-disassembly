@@ -18,8 +18,12 @@ D 0x8580 0x85A3 tramos_fase3  un byte por tramo de 32 del scroll de la fase 3 (d
 F 0x8580 16
 D 0x85A3 0x85B1 tramos_fase5  un byte por tramo de 32 del scroll de la fase 5 (de 0 a 0x0D: el recorrido acaba en 0x01C0, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; lo leen p01:6EF5 (14 bytes)
 F 0x85A3 16
+D 0x85B1 0x85B3 entre_tramos_85B1  2 bytes entre la lista de tramos de la fase 5 (acaba en 0x85B1) y la de la fase 6: no los lee nadie; lo leen nadie (2 bytes)
+F 0x85B1 2
 D 0x85B3 0x85D2 tramos_fase6  un byte por tramo de 32 del scroll de la fase 6 (de 0 a 0x11: el recorrido acaba en 0x0228, p02:88F2); las dos cifras son oleadas que p01:6F18 lanza por la tabla de p01:6F1D; se solapan 2 bloques: (tramos_fase7 85C3-85D2); lo leen p01:6EF5 (31 bytes)
 F 0x85B3 16
+D 0x85D2 0x85D3 entre_tramos_85D2  1 byte entre la lista de tramos de la fase 7 y la tabla de 0x85D1 (su palabra 0, que no se lee); lo leen nadie (1 bytes)
+F 0x85D2 1
 D 0x85D3 0x85E1 apariciones_85D1  7 punteros (fase 1 a 7; tabla en 0x85D1 + 2 x A): las listas de p01:7139 (HL = 0x85D1, A = 0xE67C); lo leen p01:70BA (14 bytes)
 F 0x85D3 w7
 D 0x85E1 0x85EF apariciones_85DF  7 punteros (fase 1 a 7; tabla en 0x85DF + 2 x A): las listas de p01:7139 (HL = 0x85DF, A = 0xE677); lo leen p01:7128 (14 bytes)
@@ -470,4 +474,6 @@ D 0x9E3F 0x9E5F estrellas_9E3F  32 bytes, uno por (0xE302 & 0x1F), que leen p00:
 F 0x9E3F 16
 D 0x9E5F 0xA000 relleno_ff  417 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (417 bytes)
 F 0x9E5F 16
+D 0x9205 0x9207 resto_9205  lo apuntan con el banco puesto p01:78F2 (0x9205); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p01:78F2 (2 bytes)
+F 0x9205 16
 # --- fin de los bloques de bloques.py ---

@@ -6,6 +6,18 @@ F 0x81ED w8
 D 0x8288 0x828D rachas_8288  rachas a la VRAM (p00:4D16: <0x80 repite, 0x80 destino, >0x80 copia, 0 acaba); lo leen p10:8285 (5 bytes)
 D 0x884F 0x8861 tabla_884F  9 destinos del despachador p00:40CE (call en p10:884C, el indice en A): 8861, 8883, 8898, 88AA, 88D1, 88DB, 88ED, 88FB, 890C; lo leen p10:884C (18 bytes)
 F 0x884F w8
+D 0x8A6C 0x8A7A rotulos2_8A6A  7 punteros (fase 1 a 7; tabla en 0x8A6A + 2 x A): la segunda linea del rotulo de cada fase (p10:8A44 con A = 1, 0xE21B o 7); lo leen p10:8A47 (14 bytes)
+F 0x8A6C w7
+D 0x8A7A 0x8A7E rotulo2_8A7A  lista a la VRAM sin destino delante (p00:4CFD, HL = 0x3933) de la fase 1; lo leen p10:8A4F (4 bytes)
+F 0x8A7A 16
+D 0x8A7E 0x8A82 rotulo2_8A7E  lista a la VRAM sin destino delante (p00:4CFD, HL = 0x3933) de la fase 2; lo leen p10:8A4F (4 bytes)
+F 0x8A7E 16
+D 0x8A82 0x8A88 rotulo2_8A82  lista a la VRAM sin destino delante (p00:4CFD, HL = 0x3933) de la fase 3, 4, 5; lo leen p10:8A4F (6 bytes)
+F 0x8A82 16
+D 0x8A88 0x8A8D rotulo2_8A88  lista a la VRAM sin destino delante (p00:4CFD, HL = 0x3933) de la fase 6; lo leen p10:8A4F (5 bytes)
+F 0x8A88 16
+D 0x8A8D 0x8A8F rotulo2_8A8D  lista a la VRAM sin destino delante (p00:4CFD, HL = 0x3933) de la fase 7; lo leen p10:8A4F (2 bytes)
+F 0x8A8D 16
 D 0x8A8F 0x8A9B lista_8A8F  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:8A3F (12 bytes)
 D 0x8A9B 0x8AA4 lista_8A9B  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:8A69 (9 bytes)
 D 0x8C1C 0x8C2A tabla_8C1C  7 destinos del despachador p00:40CE (call en p10:8C19, el indice en A): 8C2A, 8C47, 8C62, 8C82, 8C97, 8CB8, 8C08; lo leen p10:8C19 (14 bytes)
@@ -25,4 +37,54 @@ D 0x9C46 0x9C4D lista_9C46  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE o
 D 0x9ED8 0x9F04 lista_9ED8  lista a la VRAM (p00:4CF5: [destino] y bytes; 0xFE otro destino; 0xFF acaba); lo leen p10:833D (44 bytes)
 D 0x9F04 0xA000 relleno_ff  252 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (252 bytes)
 F 0x9F04 16
+D 0x83F7 0x83FA resto_83F7  lo apuntan con el banco puesto p10:83E9 (0x83F7); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:83E9 (3 bytes)
+F 0x83F7 16
+D 0x8423 0x8426 resto_8423  lo apuntan con el banco puesto p10:841E (0x8423); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:841E (3 bytes)
+F 0x8423 16
+D 0x843A 0x843D resto_843A  lo apuntan con el banco puesto p10:8435 (0x843A); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8435 (3 bytes)
+F 0x843A 16
+D 0x851C 0x851F resto_851C  lo apuntan con el banco puesto p10:8516 (0x851C); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8516 (3 bytes)
+F 0x851C 16
+D 0x852D 0x8530 resto_852D  lo apuntan con el banco puesto p10:8527 (0x852D); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8527 (3 bytes)
+F 0x852D 16
+D 0x8589 0x858C resto_8589  lo apuntan con el banco puesto p10:8583 (0x8589); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8583 (3 bytes)
+F 0x8589 16
+D 0x859A 0x859D resto_859A  lo apuntan con el banco puesto p10:8594 (0x859A); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8594 (3 bytes)
+F 0x859A 16
+D 0x86BF 0x86CB resto_86BF  lo apuntan con el banco puesto p10:868B (0x86BF), p10:8686 (0x86C1), p10:86B1 (0x86C3), p10:86B6 (0x86C7); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:868B, p10:8686, p10:86B1, p10:86B6 (12 bytes)
+F 0x86BF 16
+D 0x880B 0x8848 resto_880B  lo apuntan con el banco puesto p10:831E (0x880B), p10:82FA (0x8810), p10:8F0F (0x8830), p10:8172 (0x8846); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:831E, p10:82FA, p10:8F0F, p10:8172 (61 bytes)
+F 0x880B 16
+D 0x8AA4 0x8AE9 resto_8AA4  lo apuntan con el banco puesto p10:8A58 (0x8AA4), p10:89CC (0x8AC1); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8A58, p10:89CC (69 bytes)
+F 0x8AA4 16
+D 0x8B20 0x8B7B resto_8B20  lo apuntan con el banco puesto p10:8AEC (0x8B20); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8AEC (91 bytes)
+F 0x8B20 16
+D 0x8F00 0x8F0F resto_8F00  lo apuntan con el banco puesto p10:8E36 (0x8F00); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8E36 (15 bytes)
+F 0x8F00 16
+D 0x8F4F 0x8F7F resto_8F4F  lo apuntan con el banco puesto p10:8F3A (0x8F4F), p10:8F46 (0x8F67); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:8F3A, p10:8F46 (48 bytes)
+F 0x8F4F 16
+D 0x9353 0x9397 resto_9353  lo apuntan con el banco puesto p10:931E (0x9353), p10:933D (0x9357); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:931E, p10:933D (68 bytes)
+F 0x9353 16
+D 0x93A1 0x9443 resto_93A1  lo apuntan con el banco puesto p10:901F (0x93A1), p10:918D (0x9411), p10:9160 (0x9441); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:901F, p10:918D, p10:9160 (162 bytes)
+F 0x93A1 16
+D 0x959A 0x95BD resto_959A  lo apuntan con el banco puesto p10:9565 (0x959A), p10:955F (0x95AB), p10:9570 (0x95AB), p10:9575 (0x95B5); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9565, p10:955F, p10:9570, p10:9575 (35 bytes)
+F 0x959A 16
+D 0x9736 0x9742 resto_9736  lo apuntan con el banco puesto p10:9702 (0x9736), p10:974C (0x973C); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9702, p10:974C (12 bytes)
+F 0x9736 16
+D 0x9751 0x9885 resto_9751  lo apuntan con el banco puesto p10:96E6 (0x9751), p10:96EC (0x9755), p10:96F6 (0x9759); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:96E6, p10:96EC, p10:96F6 (308 bytes)
+F 0x9751 16
+D 0x9A14 0x9A34 resto_9A14  lo apuntan con el banco puesto p10:99F6 (0x9A14); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:99F6 (32 bytes)
+F 0x9A14 16
+D 0x9AA9 0x9ADC resto_9AA9  lo apuntan con el banco puesto p10:98F3 (0x9AA9), p10:9A8B (0x9AA9), p10:98F8 (0x9ABF), p10:9A90 (0x9ABF); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:98F3, p10:9A8B, p10:98F8, p10:9A90 (51 bytes)
+F 0x9AA9 16
+D 0x9B2C 0x9B32 resto_9B2C  lo apuntan con el banco puesto p10:9B20 (0x9B2C); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9B20 (6 bytes)
+F 0x9B2C 16
+D 0x9BCC 0x9BDB resto_9BCC  lo apuntan con el banco puesto p10:9B61 (0x9BCC); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9B61 (15 bytes)
+F 0x9BCC 16
+D 0x9BF4 0x9C1A resto_9BF4  lo apuntan con el banco puesto p10:9BE5 (0x9BF4), p10:98D8 (0x9C15); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9BE5, p10:98D8 (38 bytes)
+F 0x9BF4 16
+D 0x9C24 0x9C2E resto_9C24  lo apuntan con el banco puesto p10:990A (0x9C24); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:990A (10 bytes)
+F 0x9C24 16
+D 0x9E03 0x9E13 resto_9E03  lo apuntan con el banco puesto p10:9D98 (0x9E03); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p10:9D98 (16 bytes)
+F 0x9E03 16
 # --- fin de los bloques de bloques.py ---

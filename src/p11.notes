@@ -8,10 +8,14 @@ D 0xA245 0xA251 tabla_A245  6 destinos del despachador p00:40CE (call en p11:A24
 F 0xA245 w6
 D 0xA4CC 0xA4D4 tabla_A4CC  4 destinos del despachador p00:40CE (call en p11:A4C9, el indice en A): A4D4, A50C, A51B, A532; lo leen p11:A4C9 (8 bytes)
 F 0xA4CC w4
+D 0xA605 0xA608 tabla_A605  3 bytes (p11:A5E7 y p11:A622: 0xA604 + IX+25, de 1 a 3); lo leen p11:A5EA (3 bytes)
+F 0xA605 3
 D 0xA697 0xA6A3 tabla_A697  6 destinos del despachador p00:40CE (call en p11:A694, el indice en A): A6A3, A6C2, A6D1, A6D8, B543, B588; lo leen p11:A694 (12 bytes)
 F 0xA697 w6
 D 0xA713 0xA723 tabla_A713  8 destinos del despachador p00:40CE (call en p11:A710, el indice en A): A750, A723, A72A, A731, A736, A73D, A744, A74B; lo leen p11:A710 (16 bytes)
 F 0xA713 w8
+D 0xA802 0xA80A e605_por_jefe  8 bytes, uno por jefe (p11:A7F6: 0xA801 + 0xE640, de 1 a 8), que van a 0xE605; lo leen p11:A7F9 (8 bytes)
+F 0xA802 8
 D 0xA87A 0xA886 tabla_A87A  6 destinos del despachador p00:40CE (call en p11:A877, el indice en A): A886, A8CB, A8DB, A8ED, B543, B588; lo leen p11:A877 (12 bytes)
 F 0xA87A w6
 D 0xA95B 0xA965 tabla_A95B  5 destinos del despachador p00:40CE (call en p11:A958, el indice en A): A965, A997, A96C, A9A3, A9B7; lo leen p11:A958 (10 bytes)
@@ -38,4 +42,78 @@ D 0xBF0B 0xBF15 tabla_BF0B  5 destinos del despachador p00:40CE (call en p11:BF0
 F 0xBF0B w5
 D 0xBFEF 0xC000 relleno_ff  17 bytes a 0xFF hasta el final del banco: relleno; lo leen nadie (17 bytes)
 F 0xBFEF 16
+D 0xA4AD 0xA4B5 resto_A4AD  lo apuntan con el banco puesto p11:A49A (0xA4AD); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A49A (8 bytes)
+F 0xA4AD 16
+D 0xA5B8 0xA5C2 resto_A5B8  lo apuntan con el banco puesto p11:A58C (0xA5B8); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A58C (10 bytes)
+F 0xA5B8 16
+D 0xA5DA 0xA5E4 resto_A5DA  lo apuntan con el banco puesto p11:A5CA (0xA5DA), p11:A5D4 (0xA5DF); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A5CA, p11:A5D4 (10 bytes)
+F 0xA5DA 16
+D 0xA63B 0xA68D resto_A63B  lo apuntan con el banco puesto p11:A5A5 (0xA63B); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A5A5 (82 bytes)
+F 0xA63B 16
+D 0xA6B6 0xA6C2 resto_A6B6  lo apuntan con el banco puesto p11:A6A7 (0xA6B6); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A6A7 (12 bytes)
+F 0xA6B6 16
+D 0xA6EA 0xA6EC resto_A6EA  lo apuntan con el banco puesto p11:A6DE (0xA6EA); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A6DE (2 bytes)
+F 0xA6EA 16
+D 0xA6FF 0xA703 resto_A6FF  lo apuntan con el banco puesto p11:A6ED (0xA6FF); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A6ED (4 bytes)
+F 0xA6FF 16
+D 0xA8BE 0xA8CB resto_A8BE  lo apuntan con el banco puesto p11:A8AE (0xA8BE), p11:A88A (0xA8BF); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A8AE, p11:A88A (13 bytes)
+F 0xA8BE 16
+D 0xA938 0xA93A resto_A938  lo apuntan con el banco puesto p11:A921 (0xA938); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A921 (2 bytes)
+F 0xA938 16
+D 0xA941 0xA945 resto_A941  lo apuntan con el banco puesto p11:A93B (0xA941); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A93B (4 bytes)
+F 0xA941 16
+D 0xAAF3 0xAB03 resto_AAF3  lo apuntan con el banco puesto p11:A9DD (0xAAF3); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:A9DD (16 bytes)
+F 0xAAF3 16
+D 0xAB40 0xAB4F resto_AB40  lo apuntan con el banco puesto p11:AB2C (0xAB40); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AB2C (15 bytes)
+F 0xAB40 16
+D 0xAB93 0xAB9B resto_AB93  lo apuntan con el banco puesto p11:AB8D (0xAB93), p11:AB75 (0xAB97); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AB8D, p11:AB75 (8 bytes)
+F 0xAB93 16
+D 0xAD24 0xAD39 resto_AD24  lo apuntan con el banco puesto p11:AD09 (0xAD24), p11:ACF9 (0xAD27); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AD09, p11:ACF9 (21 bytes)
+F 0xAD24 16
+D 0xAD4E 0xAD54 resto_AD4E  lo apuntan con el banco puesto p11:AD42 (0xAD4E); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AD42 (6 bytes)
+F 0xAD4E 16
+D 0xAD6F 0xAD7D resto_AD6F  lo apuntan con el banco puesto p11:AD55 (0xAD6F); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AD55 (14 bytes)
+F 0xAD6F 16
+D 0xAE91 0xAE9C resto_AE91  lo apuntan con el banco puesto p11:AE89 (0xAE91); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AE89 (11 bytes)
+F 0xAE91 16
+D 0xAF05 0xAF11 resto_AF05  lo apuntan con el banco puesto p11:AEE6 (0xAF05); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AEE6 (12 bytes)
+F 0xAF05 16
+D 0xAF43 0xAF45 resto_AF43  lo apuntan con el banco puesto p11:AF29 (0xAF43); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AF29 (2 bytes)
+F 0xAF43 16
+D 0xAF86 0xAFA3 resto_AF86  lo apuntan con el banco puesto p11:AF72 (0xAF86), p11:AF62 (0xAF8B); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AF72, p11:AF62 (29 bytes)
+F 0xAF86 16
+D 0xAFD9 0xAFE3 resto_AFD9  lo apuntan con el banco puesto p11:AFBE (0xAFD9); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AFBE (10 bytes)
+F 0xAFD9 16
+D 0xAFFB 0xB011 resto_AFFB  lo apuntan con el banco puesto p11:AFEF (0xAFFB), p00:4191 (0xB000), p00:41A4 (0xB000), p00:41E2 (0xB000), p00:4D7F (0xB000); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:AFEF, p00:4191, p00:41A4, p00:41E2, p00:4D7F (22 bytes)
+F 0xAFFB 16
+D 0xB0DE 0xB0EA resto_B0DE  lo apuntan con el banco puesto p11:B0A4 (0xB0DE); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B0A4 (12 bytes)
+F 0xB0DE 16
+D 0xB121 0xB12D resto_B121  lo apuntan con el banco puesto p11:B0F2 (0xB121); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B0F2 (12 bytes)
+F 0xB121 16
+D 0xB19E 0xB1CC resto_B19E  lo apuntan con el banco puesto p11:B16C (0xB19E), p11:B18C (0xB1BC); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B16C, p11:B18C (46 bytes)
+F 0xB19E 16
+D 0xB26F 0xB27D resto_B26F  lo apuntan con el banco puesto p11:B1F0 (0xB26F); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B1F0 (14 bytes)
+F 0xB26F 16
+D 0xB2AA 0xB2C2 resto_B2AA  lo apuntan con el banco puesto p11:B27E (0xB2AA); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B27E (24 bytes)
+F 0xB2AA 16
+D 0xB400 0xB405 resto_B400  lo apuntan con el banco puesto p11:B3D5 (0xB400); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B3D5 (5 bytes)
+F 0xB400 16
+D 0xB450 0xB464 resto_B450  lo apuntan con el banco puesto p11:B41D (0xB450), p11:B431 (0xB462); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B41D, p11:B431 (20 bytes)
+F 0xB450 16
+D 0xB50C 0xB51A resto_B50C  lo apuntan con el banco puesto p11:B506 (0xB50C), p11:B499 (0xB514); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B506, p11:B499 (14 bytes)
+F 0xB50C 16
+D 0xB564 0xB568 resto_B564  lo apuntan con el banco puesto p11:B55A (0xB564); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B55A (4 bytes)
+F 0xB564 16
+D 0xB8BA 0xB8C2 resto_B8BA  lo apuntan con el banco puesto p11:B7EE (0xB8BA); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B7EE (8 bytes)
+F 0xB8BA 16
+D 0xB9B4 0xB9BF resto_B9B4  lo apuntan con el banco puesto p11:B984 (0xB9B4), p11:B98D (0xB9B4); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B984, p11:B98D (11 bytes)
+F 0xB9B4 16
+D 0xB9F9 0xBB39 resto_B9F9  lo apuntan con el banco puesto p11:B8D7 (0xB9F9), p11:B911 (0xB9F9), p11:B934 (0xB9F9), p11:B978 (0xB9F9), p11:B9A4 (0xB9F9), p11:B9BF (0xB9F9); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:B8D7, p11:B911, p11:B934, p11:B978, p11:B9A4, p11:B9BF (320 bytes)
+F 0xB9F9 16
+D 0xBBD6 0xBBE2 resto_BBD6  lo apuntan con el banco puesto p11:BB5B (0xBBD6); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:BB5B (12 bytes)
+F 0xBBD6 16
+D 0xBD29 0xBDC9 resto_BD29  lo apuntan con el banco puesto p11:BC87 (0xBD29), p11:BCE6 (0xBD7E); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:BC87, p11:BCE6 (160 bytes)
+F 0xBD29 16
+D 0xBFD6 0xBFDE resto_BFD6  lo apuntan con el banco puesto p11:BFC7 (0xBFD9); el tamano es lo que hay hasta lo siguiente, no sale de recorrerlo; lo leen p11:BFC7 (8 bytes)
+F 0xBFD6 16
 # --- fin de los bloques de bloques.py ---
