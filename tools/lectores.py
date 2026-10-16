@@ -907,11 +907,10 @@ TABLAS = [
      "p01:67CB", 16),
     (1, 0x67F1, 0x6801, "tabla_67F1", "16 bytes que p01:67D4 elige con 0xE64F (y le suma R & 7)",
      "p01:67D1", 16),
-    (1, 0x6C64, 0x6C69, "ficha_tipo_0", "los 5 ultimos bytes de la ficha 0 de 0x6C62 (no hay "
-     "enemigo de tipo 0); los dos primeros son la cola del codigo de delante", "nadie", 5),
-    (1, 0x6C69, 0x6E2B, "fichas_por_tipo", "una ficha de 7 bytes por tipo de enemigo, de 1 a 64, "
-     "que p02:8C9C elige con IX+00 x 7 (+ 0x6C62); la del tipo 65 empezaria en 0x6E29 y "
-     "seguiria en el codigo de 0x6E2B", "p02:8CAA", 7),
+    (1, 0x6C64, 0x6E2B, "fichas_por_tipo", "65 fichas de 7 bytes, una por tipo de enemigo de 1 "
+     "a 65 (p01:65F2: 0x6C5D + 7 x tipo): crea_enemigo copia de ella lo que va en la ficha "
+     "nueva; p02:8C9C lee su sexto byte (0x6C62 + 7 x tipo: la cifra alta es un sonido de "
+     "0x8CE4)", "p01:6604", 7),
     (1, 0x704E, 0x7055, "tabla_por_fase_704E", "7 bytes, uno por fase (p01:6FD4: 0x704D + 0xE301)",
      "p01:6FD7", 7),
     (1, 0x7135, 0x7139, "tabla_7135", "4 bytes (p01:7110: 0x7134 + 0xE610, de 1 a 4)", "p01:7113", 4),

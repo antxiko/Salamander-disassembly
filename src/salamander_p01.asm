@@ -23,123 +23,123 @@ l7424h:	equ 0x07424
 
 
 L_6000:
-	call m,05adfh		;6000   ; menos_de: DE = -DE
-	add hl,de			;6003
+	call m,05adfh		;6000   ; negativo: le cambia el signo
+	add hl,de			;6003   ; + DE
 L_6004:
-	ld a,015h		;6004
-	ld de,00020h		;6006
+	ld a,015h		;6004   ; 21 filas
+	ld de,00020h		;6006   ; 32 bytes de mas por fila (la RAM tiene 64)
 L_6009:
-	ld b,020h		;6009
+	ld b,020h		;6009   ; 32 caracteres
 L_600B:
-	outi		;600b
+	outi		;600b   ; al VDP
 	jp nz,L_600B		;600d
-	add hl,de			;6010
-	dec a			;6011
+	add hl,de			;6010   ; la fila siguiente
+	dec a			;6011   ; las 21
 	jp nz,L_6009		;6012
 	ret			;6015
 L_6016:
-	ld hl,03800h		;6016
-	call 04cb1h		;6019   ; puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+	ld hl,03800h		;6016   ; el mapa de la RAM a la tabla de nombres (0x3800)
+	call 04cb1h		;6019   ; la direccion y el puerto
 	exx			;601c
-	ld hl,0ca00h		;601d
-	ld de,00020h		;6020
+	ld hl,0ca00h		;601d   ; desde 0xCA00
+	ld de,00020h		;6020   ; 32 de mas por fila
 	exx			;6023
-	ld b,015h		;6024
+	ld b,015h		;6024   ; 21 filas
 L_6026:
 	exx			;6026
-	ld b,020h		;6027
+	ld b,020h		;6027   ; 32 caracteres
 L_6029:
-	ld a,(hl)			;6029
+	ld a,(hl)			;6029   ; el caracter
 	inc hl			;602a
-	cp 052h		;602b
+	cp 052h		;602b   ; del 0x52...
 	jr c,L_6034		;602d
-	cp 0a2h		;602f
+	cp 0a2h		;602f   ; ...al 0xA1 (los de los enemigos)...
 	jr nc,L_6034		;6031
-	xor a			;6033
+	xor a			;6033   ; ...se pintan como hueco
 L_6034:
-	out (c),a		;6034
-	djnz L_6029		;6036
-	add hl,de			;6038
+	out (c),a		;6034   ; al VDP
+	djnz L_6029		;6036   ; los 32
+	add hl,de			;6038   ; la fila siguiente
 	dec a			;6039
 	exx			;603a
-	djnz L_6026		;603b
+	djnz L_6026		;603b   ; las 21
 	ret			;603d
 L_603E:
-	xor a			;603e
+	xor a			;603e   ; el reloj de 0xE630 a 0
 	ld (0e630h),a		;603f
-	ld a,(0e228h)		;6042
-	ld iy,0e300h		;6045   ; apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+	ld a,(0e228h)		;6042   ; el jugador de 0xE228...
+	ld iy,0e300h		;6045   ; ...el 1...
 	xor (iy+021h)		;6049
 	jr z,L_6052		;604c
-	ld iy,0e380h		;604e   ; apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+	ld iy,0e380h		;604e   ; ...o el 2
 L_6052:
-	jp 05d62h		;6052
+	jp 05d62h		;6052   ; su marcador de armas (p00:5D62)
 L_6055:
-	ld iy,0e300h		;6055   ; apunta a la ficha del jugador 1 (IY, 0x80 bytes)
+	ld iy,0e300h		;6055   ; los sprites de la nave: el jugador 1
 	call L_6060		;6059
-	ld iy,0e380h		;605c   ; apunta a la ficha del jugador 2 (IY, 0x80 bytes)
+	ld iy,0e380h		;605c   ; y el 2
 L_6060:
-	ld a,(iy+020h)		;6060
+	ld a,(iy+020h)		;6060   ; IY+20: el estado del jugador
 	or a			;6063
-	ret z			;6064
-	cp 004h		;6065
+	ret z			;6064   ; 0: no esta
+	cp 004h		;6065   ; 4: nada
 	ret z			;6067
-	cp 003h		;6068
+	cp 003h		;6068   ; 3: p01:60B9
 	jr z,L_60B9		;606a
-	cp 0ffh		;606c
+	cp 0ffh		;606c   ; 0xFF: p01:60A0 (explota)
 	jr z,L_60A0		;606e
-	ld a,(iy+027h)		;6070
-	add a,a			;6073
+	ld a,(iy+027h)		;6070   ; el dibujo de la nave (IY+27)...
+	add a,a			;6073   ; ...x 4
 	add a,a			;6074
-	ld hl,095f7h		;6075
+	ld hl,095f7h		;6075   ; en la tabla de p14:95F7: dos punteros
 	call 040c4h		;6078   ; hl_mas_a: HL = HL + A
-	push hl			;607b
-	bit 0,(iy+021h)		;607c
+	push hl			;607b   ; se guarda
+	bit 0,(iy+021h)		;607c   ; el jugador 1 en 0x1800...
 	ld hl,01800h		;6080
 	jr z,L_6088		;6083
-	ld hl,01840h		;6085
+	ld hl,01840h		;6085   ; ...el 2 en 0x1840
 L_6088:
-	call 04cb1h		;6088   ; puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+	call 04cb1h		;6088   ; la direccion de la VRAM y el puerto
 	exx			;608b
 	pop hl			;608c
-	ld a,002h		;608d
+	ld a,002h		;608d   ; dos sprites de 16 x 16
 L_608F:
-	ld e,(hl)			;608f
+	ld e,(hl)			;608f   ; el puntero al dibujo
 	inc hl			;6090
 	ld d,(hl)			;6091
 	inc hl			;6092
-	ex de,hl			;6093
-	ld b,020h		;6094
+	ex de,hl			;6093   ; HL = el dibujo
+	ld b,020h		;6094   ; 32 bytes
 L_6096:
-	outi		;6096
+	outi		;6096   ; al VDP
 	jp nz,L_6096		;6098
-	ex de,hl			;609b
-	dec a			;609c
+	ex de,hl			;609b   ; el siguiente puntero
+	dec a			;609c   ; los dos
 	jr nz,L_608F		;609d
 	ret			;609f
 L_60A0:
-	ld hl,01a00h		;60a0
+	ld hl,01a00h		;60a0   ; explotando: a 0x1A00
 L_60A3:
-	call 04cb1h		;60a3   ; puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
+	call 04cb1h		;60a3   ; la direccion y el puerto
 	exx			;60a6
-	ld a,(iy+027h)		;60a7
+	ld a,(iy+027h)		;60a7   ; el dibujo (IY+27 & 0x7F)...
 	and 07fh		;60aa
-	add a,a			;60ac
+	add a,a			;60ac   ; ...x 8
 	add a,a			;60ad
 	add a,a			;60ae
-	ld hl,0962fh		;60af
+	ld hl,0962fh		;60af   ; en la tabla de p14:962F: cuatro punteros
 	call 040c4h		;60b2   ; hl_mas_a: HL = HL + A
-	ld a,004h		;60b5
+	ld a,004h		;60b5   ; cuatro sprites
 	jr L_608F		;60b7
 L_60B9:
-	ld hl,01800h		;60b9
+	ld hl,01800h		;60b9   ; el estado 3: a 0x1800
 	jr L_60A3		;60bc
 L_60BE:
-	ld a,(iy+068h)		;60be
-	ld hl,060cch		;60c1
+	ld a,(iy+068h)		;60be   ; IY+68...
+	ld hl,060cch		;60c1   ; ...en la tabla de p01:60CC
 	call 05ad8h		;60c4   ; byte_de_tabla: A = el byte HL + A
-	ld hl,028d8h		;60c7
-	jp 05dfdh		;60ca
+	ld hl,028d8h		;60c7   ; la ventana de 0x28D8
+	jp 05dfdh		;60ca   ; con esa pieza (p00:5DFD)
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_60CD: 7 bytes (p01:60C1: 0x60CC + IY+68, de 1 a 7); lo leen
@@ -154,62 +154,62 @@ DATA_tabla_60CD:
 
 
 L_60D4:
-	ld de,00010h		;60d4
+	ld de,00010h		;60d4   ; los atributos de sprite de los disparos: 16 bytes por ficha
 	exx			;60d7
-	ld ix,0ea00h		;60d8   ; apunta a los disparos (8 fichas de 0x10 bytes)
-	ld de,0efe0h		;60dc
-	ld b,008h		;60df
+	ld ix,0ea00h		;60d8   ; los disparos (0xEA00)
+	ld de,0efe0h		;60dc   ; a 0xEFE0
+	ld b,008h		;60df   ; 8
 L_60E1:
-	ld a,(ix+000h)		;60e1
+	ld a,(ix+000h)		;60e1   ; el disparo vivo?
 	and a			;60e4
-	jr z,L_6102		;60e5
-	ld a,(ix+004h)		;60e7
+	jr z,L_6102		;60e5   ; no: fuera de la pantalla
+	ld a,(ix+004h)		;60e7   ; la y
 	ld (de),a			;60ea
 	inc e			;60eb
-	ld a,(ix+006h)		;60ec
+	ld a,(ix+006h)		;60ec   ; la x
 	ld (de),a			;60ef
 	inc e			;60f0
-	ld a,(ix+00bh)		;60f1
+	ld a,(ix+00bh)		;60f1   ; el dibujo
 	ld (de),a			;60f4
 	inc e			;60f5
-	ld a,(ix+00ch)		;60f6
+	ld a,(ix+00ch)		;60f6   ; el color
 	ld (de),a			;60f9
 	inc e			;60fa
 L_60FB:
-	exx			;60fb
+	exx			;60fb   ; el siguiente
 	add ix,de		;60fc
 	exx			;60fe
-	djnz L_60E1		;60ff
+	djnz L_60E1		;60ff   ; los 8
 	ret			;6101
 L_6102:
-	ld a,0e0h		;6102
+	ld a,0e0h		;6102   ; 0xE0: fuera de la pantalla
 	ld (de),a			;6104
-	inc e			;6105
+	inc e			;6105   ; y los otros tres bytes sin tocar
 	inc e			;6106
 	inc e			;6107
 	inc e			;6108
 	jp L_60FB		;6109
 L_610C:
-	ld a,(0e6aah)		;610c
+	ld a,(0e6aah)		;610c   ; 0xE6AA distinto de 0: nada
 	or a			;610f
 	ret nz			;6110
-	call 041d8h		;6111   ; bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-	call L_611A		;6114
+	call 041d8h		;6111   ; con el 14-15 en 0x8000-0xA000
+	call L_611A		;6114   ; p01:611A
 	jp 041d0h		;6117   ; bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 L_611A:
-	ld ix,0e700h		;611a   ; apunta a los enemigos (12 fichas de 0x40 bytes)
-	ld de,0efb0h		;611e
-	ld b,00ch		;6121
+	ld ix,0e700h		;611a   ; los atributos de sprite de los enemigos: 0xE700...
+	ld de,0efb0h		;611e   ; ...a 0xEFB0
+	ld b,00ch		;6121   ; 12
 L_6123:
 	push bc			;6123
-	ld a,(ix+000h)		;6124
-	or a			;6127
-	jr z,L_615D		;6128
-	bit 7,(ix+00bh)		;612a
-	jr z,L_615D		;612e
-	cp 03fh		;6130
+	ld a,(ix+000h)		;6124   ; el tipo
+	or a			;6127   ; vivo?
+	jr z,L_615D		;6128   ; no: el siguiente
+	bit 7,(ix+00bh)		;612a   ; IX+0B bit 7: se ve?
+	jr z,L_615D		;612e   ; no: el siguiente
+	cp 03fh		;6130   ; tipo 0x3F: p01:6217
 	jp z,L_6217		;6132
-	cp 03eh		;6135
+	cp 03eh		;6135   ; 0x3E, 0x31, 0x32, 0x36: p01:620F
 	jp z,L_620F		;6137
 	cp 031h		;613a
 	jp z,L_620F		;613c
@@ -217,203 +217,203 @@ L_6123:
 	jp z,L_620F		;6141
 	cp 036h		;6144
 	jp z,L_620F		;6146
-	cp 040h		;6149
+	cp 040h		;6149   ; 0x40: p01:6170
 	jp z,L_6170		;614b
-	sub 039h		;614e
+	sub 039h		;614e   ; del 0x39 al 0x3D: p01:6168
 	cp 005h		;6150
 	jr c,L_6168		;6152
-	bit 6,(ix+00bh)		;6154
-	jr z,L_6178		;6158
-	call nz,L_61B6		;615a
+	bit 6,(ix+00bh)		;6154   ; IX+0B bit 6: con caracteres?
+	jr z,L_6178		;6158   ; no: con sprites (p01:6178)
+	call nz,L_61B6		;615a   ; si: p01:61B6
 L_615D:
 	exx			;615d
-	ld de,00040h		;615e
-	add ix,de		;6161
+	ld de,00040h		;615e   ; 0x40 bytes por ficha
+	add ix,de		;6161   ; la siguiente
 	exx			;6163
 	pop bc			;6164
-	djnz L_6123		;6165
+	djnz L_6123		;6165   ; las 12
 	ret			;6167
 L_6168:
 	push de			;6168
-	call 04ebdh		;6169
+	call 04ebdh		;6169   ; p00:4EBD: en el mapa de la RAM
 	pop de			;616c
 	jp L_615D		;616d
 L_6170:
 	push de			;6170
-	call 04f07h		;6171
+	call 04f07h		;6171   ; p00:4F07
 	pop de			;6174
 	jp L_615D		;6175
 L_6178:
-	ld a,(ix+00bh)		;6178
+	ld a,(ix+00bh)		;6178   ; cuantos sprites (IX+0B & 0x3F)
 	and 03fh		;617b
 	ld b,a			;617d
-	jp z,L_615D		;617e
-	ld a,(ix+004h)		;6181
+	jp z,L_615D		;617e   ; ninguno: el siguiente
+	ld a,(ix+004h)		;6181   ; la y
 	ld (de),a			;6184
 	inc e			;6185
-	ld a,(ix+006h)		;6186
+	ld a,(ix+006h)		;6186   ; la x
 	ld (de),a			;6189
 	inc e			;618a
-	ld a,(ix+030h)		;618b
+	ld a,(ix+030h)		;618b   ; el dibujo (IX+30)
 	ld (de),a			;618e
 	inc e			;618f
-	ld a,(ix+031h)		;6190
+	ld a,(ix+031h)		;6190   ; el color (IX+31)
 	ld (de),a			;6193
 	inc e			;6194
-	dec b			;6195
-	jp z,L_615D		;6196
-	push ix		;6199
+	dec b			;6195   ; uno menos
+	jp z,L_615D		;6196   ; era el unico: el siguiente
+	push ix		;6199   ; los demas, de IX+34 en adelante
 	pop hl			;619b
-	ld a,034h		;619c
+	ld a,034h		;619c   ; + 0x34
 	add a,l			;619e
 	ld l,a			;619f
 	jr nc,L_61A3		;61a0
 	inc h			;61a2
 L_61A3:
 	push bc			;61a3
-	ld a,(hl)			;61a4
+	ld a,(hl)			;61a4   ; la y
 	ld (de),a			;61a5
 	inc l			;61a6
 	inc e			;61a7
-	ld a,(hl)			;61a8
+	ld a,(hl)			;61a8   ; la x
 	ld (de),a			;61a9
 	inc l			;61aa
 	inc e			;61ab
-	ldi		;61ac
+	ldi		;61ac   ; el dibujo y el color
 	ldi		;61ae
 	pop bc			;61b0
-	djnz L_61A3		;61b1
+	djnz L_61A3		;61b1   ; todos
 	jp L_615D		;61b3
 L_61B6:
-	ld a,(ix+004h)		;61b6
+	ld a,(ix+004h)		;61b6   ; la y: de 0xB8 en adelante no se ve
 	cp 0b8h		;61b9
-	ret nc			;61bb
+	ret nc			;61bb   ; no se ve: fuera
 	push de			;61bc
-	ld de,090a1h		;61bd
+	ld de,090a1h		;61bd   ; la forma de IX+32 en la tabla de p14:90A1
 	ld a,(ix+032h)		;61c0
 	call 04e21h		;61c3   ; palabra_de_de: DE = la palabra DE + 2 x A
-	ex de,hl			;61c6
-	ld e,(ix+011h)		;61c7
+	ex de,hl			;61c6   ; HL = la forma
+	ld e,(ix+011h)		;61c7   ; IX+11/12: su sitio en el mapa de la RAM
 	ld d,(ix+012h)		;61ca
-	ld b,(ix+013h)		;61cd
-	ld c,(ix+006h)		;61d0
-	xor a			;61d3
+	ld b,(ix+013h)		;61cd   ; B = las filas (IX+13)
+	ld c,(ix+006h)		;61d0   ; la x...
+	xor a			;61d3   ; ...cuanto queda hasta el borde derecho
 	sub c			;61d4
 	jr nz,L_61D9		;61d5
-	ld a,0f8h		;61d7
+	ld a,0f8h		;61d7   ; en 0: 0xF8
 L_61D9:
-	rra			;61d9
+	rra			;61d9   ; / 8: las columnas que caben
 	rra			;61da
 	rra			;61db
 	and 01fh		;61dc
-	ld c,(ix+014h)		;61de
-	cp c			;61e1
-	jr nc,L_61E5		;61e2
-	ld c,a			;61e4
+	ld c,(ix+014h)		;61de   ; el ancho (IX+14)
+	cp c			;61e1   ; caben todas?
+	jr nc,L_61E5		;61e2   ; si: el ancho
+	ld c,a			;61e4   ; si no, las que caben
 L_61E5:
 	push bc			;61e5
-	ld a,c			;61e6
+	ld a,c			;61e6   ; una fila...
 	ld b,000h		;61e7
-	ldir		;61e9
-	sub (ix+014h)		;61eb
+	ldir		;61e9   ; ...a la RAM
+	sub (ix+014h)		;61eb   ; lo que no ha cabido...
 	jr z,L_61F7		;61ee
 	neg		;61f0
-	add a,l			;61f2
+	add a,l			;61f2   ; ...se salta de la forma
 	ld l,a			;61f3
 	jr nc,L_61F7		;61f4
 	inc h			;61f6
 L_61F7:
 	pop bc			;61f7
-	ld a,040h		;61f8
+	ld a,040h		;61f8   ; la fila siguiente de la RAM: 64 - lo copiado
 	sub c			;61fa
 	add a,e			;61fb
 	ld e,a			;61fc
 	jr nc,L_6200		;61fd
 	inc d			;61ff
 L_6200:
-	djnz L_61E5		;6200
+	djnz L_61E5		;6200   ; las filas
 	pop de			;6202
 	ret			;6203
 L_6204:
-	ld b,(ix+013h)		;6204
+	ld b,(ix+013h)		;6204   ; IX+13 filas...
 L_6207:
-	ld (hl),a			;6207
-	ld de,00040h		;6208
+	ld (hl),a			;6207   ; ...de A
+	ld de,00040h		;6208   ; una por fila de la RAM
 	add hl,de			;620b
 	djnz L_6207		;620c
 	ret			;620e
 L_620F:
 	push de			;620f
-	call L_622B		;6210
+	call L_622B		;6210   ; p01:622B
 	pop de			;6213
 	jp L_615D		;6214
 L_6217:
 	push de			;6217
-	call L_621F		;6218
+	call L_621F		;6218   ; p01:621F
 	pop de			;621b
 	jp L_615D		;621c
 L_621F:
-	ld a,(ix+020h)		;621f
+	ld a,(ix+020h)		;621f   ; IX+20 distinto de 0: se pinta
 	and a			;6222
 	jr nz,L_622B		;6223
-	ld a,(ix+004h)		;6225
+	ld a,(ix+004h)		;6225   ; la y: de 0xB8 en adelante no
 	cp 0b8h		;6228
 	ret nc			;622a
 L_622B:
-	ld a,(ix+019h)		;622b
+	ld a,(ix+019h)		;622b   ; IX+19 bit 1: en horizontal o en vertical
 	bit 1,a		;622e
-	ld l,(ix+011h)		;6230
+	ld l,(ix+011h)		;6230   ; el sitio en el mapa de la RAM
 	ld h,(ix+012h)		;6233
-	jp z,L_6251		;6236
-	ld a,(0e640h)		;6239   ; lee el jefe (1 a 8)
+	jp z,L_6251		;6236   ; vertical: p01:6251
+	ld a,(0e640h)		;6239   ; con jefe...
 	and a			;623c
-	ld b,0c8h		;623d
+	ld b,0c8h		;623d   ; ...el caracter 0xC8...
 	jr z,L_6243		;623f
-	ld b,0a0h		;6241
+	ld b,0a0h		;6241   ; ...o 0xA0
 L_6243:
-	ld a,(ix+032h)		;6243
+	ld a,(ix+032h)		;6243   ; y IX+32 bit 0
 	and 001h		;6246
 	add a,b			;6248
-	ld b,(ix+014h)		;6249
+	ld b,(ix+014h)		;6249   ; el ancho
 L_624C:
-	ld (hl),a			;624c
+	ld (hl),a			;624c   ; a la RAM
 	inc hl			;624d
-	djnz L_624C		;624e
+	djnz L_624C		;624e   ; el ancho
 	ret			;6250
 L_6251:
-	ld a,(0e640h)		;6251   ; lee el jefe (1 a 8)
+	ld a,(0e640h)		;6251   ; en vertical: 0xCA...
 	ld b,0cah		;6254
 	and a			;6256
 	jr z,L_625B		;6257
-	ld b,0a2h		;6259
+	ld b,0a2h		;6259   ; ...o 0xA2 con jefe
 L_625B:
-	ld a,(ix+032h)		;625b
+	ld a,(ix+032h)		;625b   ; y IX+32 bit 0
 	and 001h		;625e
 	add a,b			;6260
-	jr L_6204		;6261
+	jr L_6204		;6261   ; IX+13 filas
 L_6263:
-	call 041d8h		;6263   ; bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-	call L_626C		;6266
+	call 041d8h		;6263   ; con el 14-15 puestos
+	call L_626C		;6266   ; p01:626C
 	jp 0416eh		;6269   ; bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 L_626C:
-	ld a,(0e6b2h)		;626c
+	ld a,(0e6b2h)		;626c   ; cuantas piezas del decorado (0xE6B2)
 	and a			;626f
-	ret z			;6270
-	ld b,a			;6271
-	ld ix,0eb00h		;6272
+	ret z			;6270   ; ninguna: fuera
+	ld b,a			;6271   ; B = cuantas
+	ld ix,0eb00h		;6272   ; las fichas de 0xEB00 (16 bytes)
 L_6276:
-	xor a			;6276
+	xor a			;6276   ; 0xF000 = 0: se pintan
 	ld (0f000h),a		;6277
-	ld a,(ix+000h)		;627a
+	ld a,(ix+000h)		;627a   ; el tipo
 	and a			;627d
-	jr z,L_62A5		;627e
-	cp 008h		;6280
+	jr z,L_62A5		;627e   ; 0: la siguiente
+	cp 008h		;6280   ; los tipos 8, 0x0C, 0x13, 0x12 y 0x0E: p01:62B5
 	jr z,L_62B5		;6282
 	cp 00ch		;6284
 	jr z,L_62B5		;6286
-	cp 00bh		;6288
+	cp 00bh		;6288   ; el 0x0B: la siguiente
 	jr z,L_62A5		;628a
-	cp 009h		;628c
+	cp 009h		;628c   ; el 9 y el 0x16: p01:62AD
 	jr z,L_62AD		;628e
 	cp 013h		;6290
 	jr z,L_62B5		;6292
@@ -425,81 +425,81 @@ L_6276:
 	jr z,L_62B5		;629e
 L_62A0:
 	push bc			;62a0
-	call L_62C0		;62a1
+	call L_62C0		;62a1   ; p01:62C0: la pinta
 	pop bc			;62a4
 L_62A5:
-	ld de,00010h		;62a5
-	add ix,de		;62a8
-	djnz L_6276		;62aa
+	ld de,00010h		;62a5   ; 16 bytes por ficha
+	add ix,de		;62a8   ; la siguiente
+	djnz L_6276		;62aa   ; todas
 	ret			;62ac
 L_62AD:
-	ld a,(ix+001h)		;62ad
+	ld a,(ix+001h)		;62ad   ; IX+01 = 0xFF?
 	inc a			;62b0
-	jr nz,L_62A5		;62b1
+	jr nz,L_62A5		;62b1   ; no: la siguiente
 	jr L_62BB		;62b3
 L_62B5:
-	ld a,(ix+001h)		;62b5
+	ld a,(ix+001h)		;62b5   ; IX+01 = 0xFF?
 	inc a			;62b8
-	jr nz,L_62A0		;62b9
+	jr nz,L_62A0		;62b9   ; no: la pinta
 L_62BB:
-	call L_79FE		;62bb
+	call L_79FE		;62bb   ; p01:79FE
 	jr L_62A5		;62be
 L_62C0:
 	jr L_62F4		;62c0
 L_62C2:
-	call 041d8h		;62c2   ; bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-	call L_62CB		;62c5
+	call 041d8h		;62c2   ; con el 14-15
+	call L_62CB		;62c5   ; p01:62CB: las borra
 	jp 0416eh		;62c8   ; bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 L_62CB:
-	ld a,(0e6b2h)		;62cb
+	ld a,(0e6b2h)		;62cb   ; cuantas piezas
 	and a			;62ce
 	ret z			;62cf
 	ld b,a			;62d0
-	ld ix,0eb00h		;62d1
-	ld a,0ffh		;62d5
+	ld ix,0eb00h		;62d1   ; 0xEB00
+	ld a,0ffh		;62d5   ; 0xF000 = 0xFF: se borran
 	ld (0f000h),a		;62d7
 L_62DA:
 	push bc			;62da
-	ld a,(ix+000h)		;62db
+	ld a,(ix+000h)		;62db   ; el tipo 0x16...
 	cp 016h		;62de
 	jr nz,L_62E8		;62e0
-	ld a,(ix+001h)		;62e2
+	ld a,(ix+001h)		;62e2   ; ...con IX+01 = 0xFF no se borra
 	inc a			;62e5
 	jr nz,L_62EB		;62e6
 L_62E8:
-	call L_62F4		;62e8
+	call L_62F4		;62e8   ; p01:62F4
 L_62EB:
 	pop bc			;62eb
-	ld de,00010h		;62ec
+	ld de,00010h		;62ec   ; la siguiente
 	add ix,de		;62ef
 	djnz L_62DA		;62f1
 	ret			;62f3
 L_62F4:
-	ld a,(ix+000h)		;62f4
+	ld a,(ix+000h)		;62f4   ; el tipo
 	and a			;62f7
-	ret z			;62f8
-	cp 00bh		;62f9
+	ret z			;62f8   ; 0: fuera
+	cp 00bh		;62f9   ; 0x0B, 0x15, 0x14: fuera
 	ret z			;62fb
 	cp 015h		;62fc
 	ret z			;62fe
 	cp 014h		;62ff
 	ret z			;6301
-	ld a,(ix+007h)		;6302
+	ld a,(ix+007h)		;6302   ; la forma de IX+07 en la tabla de p14:8B8D
 	ld de,08b8dh		;6305
 	call 04e21h		;6308   ; palabra_de_de: DE = la palabra DE + 2 x A
-	ld a,(ix+000h)		;630b
+	ld a,(ix+000h)		;630b   ; el tipo 2?
 	cp 002h		;630e
 	jr z,L_6330		;6310
-	cp 004h		;6312
+	cp 004h		;6312   ; el 4?
 	jr nz,L_6348		;6314
-	ld a,(ix+001h)		;6316
+	ld a,(ix+001h)		;6316   ; IX+01 = 2?
 	cp 002h		;6319
 	jr nz,L_6330		;631b
-	ld b,(ix+00ch)		;631d
-	ld a,(ix+00bh)		;6320
+	ld b,(ix+00ch)		;631d   ; IX+0C
+	ld a,(ix+00bh)		;6320   ; IX+0B = 0?
 	and a			;6323
 	jr nz,L_632D		;6324
-	ld a,014h		;6326
+	ld a,014h		;6326   ; si: 20 - IX+0A - IX+0C
 	sub (ix+00ah)		;6328
 	sub b			;632b
 	ld b,a			;632c
@@ -507,66 +507,66 @@ L_632D:
 	ld a,b			;632d
 	jr L_6341		;632e
 L_6330:
-	ld a,(ix+00ah)		;6330
+	ld a,(ix+00ah)		;6330   ; IX+0A: las filas
 	ld b,a			;6333
-	and a			;6334
+	and a			;6334   ; 0: fuera
 	ret z			;6335
-	ld a,(ix+00bh)		;6336
+	ld a,(ix+00bh)		;6336   ; IX+0B = 0?
 	and a			;6339
 	jr z,L_6348		;633a
-	ld a,b			;633c
+	ld a,b			;633c   ; si no: 20 - las filas
 	sub 014h		;633d
 	neg		;633f
 L_6341:
-	add a,a			;6341
+	add a,a			;6341   ; x 6...
 	ld b,a			;6342
 	add a,a			;6343
 	add a,b			;6344
-	call 040c9h		;6345   ; de_mas_a: DE = DE + A
+	call 040c9h		;6345   ; ...se salta de la forma
 L_6348:
-	ld b,(ix+009h)		;6348
+	ld b,(ix+009h)		;6348   ; B = el ancho (IX+09), C = las filas (IX+0A)
 	ld c,(ix+00ah)		;634b
-	ld a,(0f000h)		;634e
+	ld a,(0f000h)		;634e   ; pintar o borrar (0xF000)
 	and a			;6351
-	jp z,L_638E		;6352
-	ld a,(0e620h)		;6355   ; lee 1 si la fase va en vertical
+	jp z,L_638E		;6352   ; borrar: p01:638E
+	ld a,(0e620h)		;6355   ; en vertical?
 	or a			;6358
 	jr z,L_636B		;6359
-	ld a,(ix+003h)		;635b
+	ld a,(ix+003h)		;635b   ; IX+03 = 0 y la y de 0x7F en adelante...
 	and a			;635e
 	jr nz,L_6370		;635f
 	ld a,(ix+004h)		;6361
 	cp 07fh		;6364
-	jp nc,0502dh		;6366
+	jp nc,0502dh		;6366   ; ...p00:502D
 	jr L_6370		;6369
 L_636B:
-	ld a,(ix+005h)		;636b
+	ld a,(ix+005h)		;636b   ; en horizontal: IX+05 = 1?
 	dec a			;636e
-	ret z			;636f
+	ret z			;636f   ; si: fuera
 L_6370:
 	push bc			;6370
 	push de			;6371
-	call L_64F8		;6372
-	call 05aadh		;6375
+	call L_64F8		;6372   ; la y y la x (p01:64F8)
+	call 05aadh		;6375   ; a la direccion de la RAM
 	pop de			;6378
 	pop bc			;6379
-	ex de,hl			;637a
-	ld a,c			;637b
+	ex de,hl			;637a   ; HL = la forma, DE = la RAM
+	ld a,c			;637b   ; las filas
 L_637C:
 	push de			;637c
-	ld c,(ix+009h)		;637d
+	ld c,(ix+009h)		;637d   ; el ancho
 	ld b,000h		;6380
-	ldir		;6382
+	ldir		;6382   ; una fila
 	pop de			;6384
-	ld c,040h		;6385
+	ld c,040h		;6385   ; la siguiente de la RAM (64)
 	ex de,hl			;6387
 	add hl,bc			;6388
 	ex de,hl			;6389
-	dec a			;638a
+	dec a			;638a   ; las filas
 	jr nz,L_637C		;638b
 	ret			;638d
 L_638E:
-	ld a,(0e620h)		;638e   ; lee 1 si la fase va en vertical
+	ld a,(0e620h)		;638e   ; borrar: en vertical?
 	or a			;6391
 	jr z,L_63A4		;6392
 	ld a,(ix+003h)		;6394
@@ -574,34 +574,34 @@ L_638E:
 	jr nz,L_63A9		;6398
 	ld a,(ix+004h)		;639a
 	cp 07fh		;639d
-	jp nc,04fc2h		;639f
+	jp nc,04fc2h		;639f   ; ...p00:4FC2
 	jr L_63A9		;63a2
 L_63A4:
-	ld a,(ix+005h)		;63a4
+	ld a,(ix+005h)		;63a4   ; en horizontal: IX+05 = 1?
 	dec a			;63a7
 	ret z			;63a8
 L_63A9:
 	push bc			;63a9
-	call L_64F8		;63aa
-	call 05aadh		;63ad
+	call L_64F8		;63aa   ; la y y la x
+	call 05aadh		;63ad   ; a la direccion de la RAM
 	pop bc			;63b0
 L_63B1:
-	ld b,(ix+009h)		;63b1
+	ld b,(ix+009h)		;63b1   ; el ancho
 	push hl			;63b4
-	xor a			;63b5
+	xor a			;63b5   ; a cero
 L_63B6:
-	ld (hl),a			;63b6
+	ld (hl),a			;63b6   ; borra
 	inc hl			;63b7
 	djnz L_63B6		;63b8
 	pop hl			;63ba
-	ld a,040h		;63bb
+	ld a,040h		;63bb   ; la siguiente fila
 	call 040c4h		;63bd   ; hl_mas_a: HL = HL + A
-	dec c			;63c0
+	dec c			;63c0   ; las filas
 	jr nz,L_63B1		;63c1
 	ret			;63c3
 L_63C4:
-	ld c,00bh		;63c4
-	ld a,(ix+008h)		;63c6
+	ld c,00bh		;63c4   ; el sonido 0x0B...
+	ld a,(ix+008h)		;63c6   ; ...si IX+08 no es 1
 	dec a			;63c9
 	ld a,c			;63ca
 	call nz,04d6eh		;63cb   ; pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
@@ -612,79 +612,79 @@ L_63CF:
 	pop ix		;63d4
 	ret			;63d6
 L_63D7:
-	ld a,(ix+000h)		;63d7
-	cp 00ch		;63da
+	ld a,(ix+000h)		;63d7   ; el tipo de la pieza
+	cp 00ch		;63da   ; el 0x0C o el 8: p01:6450
 	jr z,L_6450		;63dc
 	cp 008h		;63de
 	jr z,L_6450		;63e0
-	cp 011h		;63e2
+	cp 011h		;63e2   ; el 0x11: p01:647E
 	call z,L_647E		;63e4
-	cp 013h		;63e7
+	cp 013h		;63e7   ; el 0x13: p01:64DD
 	jp z,L_64DD		;63e9
-	cp 012h		;63ec
+	cp 012h		;63ec   ; el 0x12: p01:64D1
 	jp z,L_64D1		;63ee
-	cp 00eh		;63f1
+	cp 00eh		;63f1   ; el 0x0E: p01:64C9
 	jp z,L_64C9		;63f3
-	cp 016h		;63f6
+	cp 016h		;63f6   ; el 0x16: p01:64C5
 	jp z,L_64C5		;63f8
-	cp 007h		;63fb
+	cp 007h		;63fb   ; el 7: p01:64B8
 	jp z,L_64B8		;63fd
 L_6400:
-	ld a,(ix+000h)		;6400
+	ld a,(ix+000h)		;6400   ; p01:79FE
 	call L_79FE		;6403
-	and a			;6406
+	and a			;6406   ; 0: fuera
 	ret z			;6407
-	cp 001h		;6408
+	cp 001h		;6408   ; 1, 3 o 0x0A: p01:6415
 	jr z,L_6415		;640a
 	cp 003h		;640c
 	jr z,L_6415		;640e
 	cp 00ah		;6410
 	jr z,L_6415		;6412
-	ret nz			;6414
+	ret nz			;6414   ; si no, fuera
 L_6415:
-	ld d,(ix+006h)		;6415
-	ld e,(ix+004h)		;6418
-	ld l,(ix+005h)		;641b
-	ld h,(ix+003h)		;641e
-	ld b,001h		;6421
-	call L_7AD2		;6423
-	call z,L_6434		;6426
-	ld a,(ix+00bh)		;6429
+	ld d,(ix+006h)		;6415   ; la x
+	ld e,(ix+004h)		;6418   ; la y
+	ld l,(ix+005h)		;641b   ; el byte alto de la y...
+	ld h,(ix+003h)		;641e   ; ...y el de la x
+	ld b,001h		;6421   ; B = 1
+	call L_7AD2		;6423   ; p01:7AD2: en la pantalla?
+	call z,L_6434		;6426   ; si: p01:6434
+	ld a,(ix+00bh)		;6429   ; IX+0B bit 0...
 	rra			;642c
-	rl b		;642d
-	ld a,015h		;642f
-	jp L_7811		;6431
+	rl b		;642d   ; ...a B
+	ld a,015h		;642f   ; 0x15
+	jp L_7811		;6431   ; p01:7811
 L_6434:
-	ld a,(0e620h)		;6434   ; lee 1 si la fase va en vertical
+	ld a,(0e620h)		;6434   ; en vertical?
 	and a			;6437
-	jr z,L_6446		;6438
-	ld a,e			;643a
+	jr z,L_6446		;6438   ; en horizontal: p01:6446
+	ld a,e			;643a   ; por la y: menos de 0x28...
 	cp 028h		;643b
-	ld b,003h		;643d
+	ld b,003h		;643d   ; ...B = 3...
 	ret c			;643f
-	dec b			;6440
+	dec b			;6440   ; ...de 0x60...
 	cp 060h		;6441
 	ret c			;6443
-	dec b			;6444
+	dec b			;6444   ; ...1
 	ret			;6445
 L_6446:
-	ld a,d			;6446
+	ld a,d			;6446   ; por la x: menos de 0x50, 1...
 	cp 050h		;6447
 	ret c			;6449
 	inc b			;644a
-	cp 0a8h		;644b
+	cp 0a8h		;644b   ; ...de 0xA8, 2...
 	ret c			;644d
-	inc b			;644e
+	inc b			;644e   ; ...si no, 3
 	ret			;644f
 L_6450:
-	ld a,0ffh		;6450
+	ld a,0ffh		;6450   ; IX+01 y IX+0D = 0xFF
 	ld (ix+001h),a		;6452
 	ld (ix+00dh),a		;6455
-	ld a,(ix+00bh)		;6458
+	ld a,(ix+00bh)		;6458   ; IX+0B distinto de 0?
 	or a			;645b
-	ld b,011h		;645c
+	ld b,011h		;645c   ; 0x11
 	jr nz,L_6471		;645e
-	ld a,004h		;6460
+	ld a,004h		;6460   ; 0x10: la y sube (4 - IX+0A) x 8
 	sub (ix+00ah)		;6462
 	add a,a			;6465
 	add a,a			;6466
@@ -694,92 +694,92 @@ L_6450:
 	ld (ix+004h),a		;646d
 	dec b			;6470
 L_6471:
-	ld (ix+007h),b		;6471
-	ld (ix+009h),004h		;6474
+	ld (ix+007h),b		;6471   ; IX+07 = la forma
+	ld (ix+009h),004h		;6474   ; 4 x 4
 	ld (ix+00ah),004h		;6478
 	jr L_6415		;647c
 L_647E:
-	call L_79FE		;647e
-	call L_6486		;6481
+	call L_79FE		;647e   ; p01:79FE
+	call L_6486		;6481   ; p01:6486
 	jr L_6415		;6484
 L_6486:
-	bit 1,(ix+00bh)		;6486
-	ret z			;648a
-	ld a,(0e354h)		;648b
+	bit 1,(ix+00bh)		;6486   ; IX+0B bit 1?
+	ret z			;648a   ; no: fuera
+	ld a,(0e354h)		;648b   ; 0xE354?
 	and a			;648e
-	ret z			;648f
-	ld hl,0e6d2h		;6490
+	ret z			;648f   ; 0: fuera
+	ld hl,0e6d2h		;6490   ; a 0xE6D2
 	ld (hl),a			;6493
 	inc l			;6494
-	ld a,(ix+004h)		;6495
+	ld a,(ix+004h)		;6495   ; la y + 16
 	add a,010h		;6498
 	ld e,a			;649a
 	ld (hl),a			;649b
 	inc l			;649c
-	ld a,(ix+006h)		;649d
+	ld a,(ix+006h)		;649d   ; la x
 	ld d,a			;64a0
 	ld (hl),a			;64a1
-	ex de,hl			;64a2
+	ex de,hl			;64a2   ; a la direccion de la RAM
 	call 05a99h		;64a3   ; hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
-	ld bc,00403h		;64a6
+	ld bc,00403h		;64a6   ; 3 filas de 4
 L_64A9:
 	push bc			;64a9
 L_64AA:
-	ld (hl),000h		;64aa
+	ld (hl),000h		;64aa   ; borra
 	inc l			;64ac
 	djnz L_64AA		;64ad
-	ld a,l			;64af
+	ld a,l			;64af   ; la fila siguiente
 	add a,03ch		;64b0
 	ld l,a			;64b2
 	pop bc			;64b3
 	dec c			;64b4
-	jr nz,L_64A9		;64b5
+	jr nz,L_64A9		;64b5   ; las 3
 	ret			;64b7
 L_64B8:
-	ld a,(0e301h)		;64b8   ; lee la fase (de 1 a 7; 0 en la presentacion)
+	ld a,(0e301h)		;64b8   ; en la fase 3...
 	cp 003h		;64bb
-	ld b,049h		;64bd
+	ld b,049h		;64bd   ; ...la forma 0x49...
 	jr z,L_64DF		;64bf
-	ld b,01dh		;64c1
+	ld b,01dh		;64c1   ; ...si no, 0x1D
 	jr L_64DF		;64c3
 L_64C5:
-	ld b,04ah		;64c5
+	ld b,04ah		;64c5   ; la forma 0x4A
 	jr L_64DF		;64c7
 L_64C9:
-	ld a,(0e301h)		;64c9   ; lee la fase (de 1 a 7; 0 en la presentacion)
+	ld a,(0e301h)		;64c9   ; en la fase 5...
 	cp 005h		;64cc
-	jp nz,L_6400		;64ce
+	jp nz,L_6400		;64ce   ; ...si no, p01:6400
 L_64D1:
-	ld b,058h		;64d1
+	ld b,058h		;64d1   ; la forma 0x58...
 	bit 0,(ix+00bh)		;64d3
 	jr nz,L_64DF		;64d7
-	ld b,04bh		;64d9
+	ld b,04bh		;64d9   ; ...o 0x4B segun IX+0B bit 0
 	jr L_64DF		;64db
 L_64DD:
-	ld b,057h		;64dd
+	ld b,057h		;64dd   ; la forma 0x57
 L_64DF:
-	ld a,0ffh		;64df
+	ld a,0ffh		;64df   ; IX+01 y IX+0D = 0xFF
 	ld (ix+001h),a		;64e1
 	ld (ix+00dh),a		;64e4
-	ld (ix+007h),b		;64e7
-	ld a,(ix+000h)		;64ea
+	ld (ix+007h),b		;64e7   ; IX+07 = la forma
+	ld a,(ix+000h)		;64ea   ; el 0x12 y el 0x0E siguen en p01:6415
 	cp 012h		;64ed
 	jp z,L_6415		;64ef
 	cp 00eh		;64f2
 	jp z,L_6415		;64f4
 	ret			;64f7
 L_64F8:
-	ld l,(ix+004h)		;64f8
+	ld l,(ix+004h)		;64f8   ; HL = la y (IX+03 alto, IX+04 bajo)
 	ld h,(ix+003h)		;64fb
-	ld e,(ix+006h)		;64fe
+	ld e,(ix+006h)		;64fe   ; DE = la x (IX+05 alto, IX+06 bajo)
 	ld d,(ix+005h)		;6501
 	ret			;6504
 L_6505:
-	ld e,(ix+020h)		;6505
+	ld e,(ix+020h)		;6505   ; IX+20/21...
 	ld d,(ix+021h)		;6508
-	call 05adfh		;650b   ; menos_de: DE = -DE
+	call 05adfh		;650b   ; ...cambiado de signo
 L_650E:
-	ld (ix+020h),e		;650e
+	ld (ix+020h),e		;650e   ; IX+20/21 = DE
 	ld (ix+021h),d		;6511
 	ret			;6514
 L_6515:
@@ -787,14 +787,14 @@ L_6515:
 	ld (ix+021h),d		;6518
 	ret			;651b
 L_651C:
-	ld a,d			;651c
+	ld a,d			;651c   ; DE sin signo...
 	or a			;651d
 	call m,05adfh		;651e   ; menos_de: DE = -DE
-	ld (ix+022h),e		;6521
+	ld (ix+022h),e		;6521   ; ...a IX+22/23
 	ld (ix+023h),d		;6524
 	ret			;6527
 L_6528:
-	ld a,(ix+007h)		;6528
+	ld a,(ix+007h)		;6528   ; IX+07/08 + IX+20/21
 	add a,(ix+020h)		;652b
 	ld (ix+007h),a		;652e
 	ld a,(ix+008h)		;6531
@@ -802,7 +802,7 @@ L_6528:
 	ld (ix+008h),a		;6537
 	ret			;653a
 L_653B:
-	ld a,(ix+009h)		;653b
+	ld a,(ix+009h)		;653b   ; IX+09/0A + IX+20/21
 	add a,(ix+020h)		;653e
 	ld (ix+009h),a		;6541
 	ld a,(ix+00ah)		;6544
@@ -810,62 +810,62 @@ L_653B:
 	ld (ix+00ah),a		;654a
 	ret			;654d
 L_654E:
-	ld e,(ix+007h)		;654e
+	ld e,(ix+007h)		;654e   ; IX+07/08 sin signo...
 	ld d,(ix+008h)		;6551
 	ld a,d			;6554
 	or a			;6555
 	call m,05adfh		;6556   ; menos_de: DE = -DE
-	ld l,(ix+022h)		;6559
+	ld l,(ix+022h)		;6559   ; ...comparado con IX+22/23
 	ld h,(ix+023h)		;655c
 	rst 20h			;655f
 	ret			;6560
 L_6561:
-	ld e,(ix+009h)		;6561
+	ld e,(ix+009h)		;6561   ; IX+09/0A cambiado de signo
 	ld d,(ix+00ah)		;6564
 	call 05adfh		;6567   ; menos_de: DE = -DE
 	ld (ix+009h),e		;656a
 	ld (ix+00ah),d		;656d
 	ret			;6570
 L_6571:
-	ld e,(ix+007h)		;6571
+	ld e,(ix+007h)		;6571   ; IX+07/08 cambiado de signo
 	ld d,(ix+008h)		;6574
 	call 05adfh		;6577   ; menos_de: DE = -DE
 	ld (ix+007h),e		;657a
 	ld (ix+008h),d		;657d
 	ret			;6580
 L_6581:
-	ld a,(0e203h)		;6581   ; lee la cuenta de cuadros del juego
+	ld a,(0e203h)		;6581   ; la cuenta de cuadros & 0x1F: Z una vez cada 32
 	and 01fh		;6584
 	ret			;6586
 L_6587:
-	call L_6581		;6587
+	call L_6581		;6587   ; una vez cada 32 cuadros...
 	ret nz			;658a
-	dec (ix+025h)		;658b
+	dec (ix+025h)		;658b   ; ...IX+25 - 1
 	ret nz			;658e
-	xor a			;658f
+	xor a			;658f   ; llego: Z
 	ret			;6590
 anima_c:		; cada (B+1) cuadros avanza IX+26 de 0 a C-1
-	ld a,(0e203h)		;6591   ; lee la cuenta de cuadros del juego
-	and b			;6594
+	ld a,(0e203h)		;6591   ; la cuenta de cuadros...
+	and b			;6594   ; ...& B: cada B + 1 cuadros
 	ret nz			;6595
-	ld a,(ix+026h)		;6596
-	inc a			;6599
-	cp c			;659a
+	ld a,(ix+026h)		;6596   ; el cuadro de la animacion
+	inc a			;6599   ; + 1
+	cp c			;659a   ; hasta C...
 	jr c,L_659E		;659b
-	xor a			;659d
+	xor a			;659d   ; ...y vuelve a 0
 L_659E:
-	ld (ix+026h),a		;659e
-	call 05ad8h		;65a1   ; byte_de_tabla: A = el byte HL + A
-	ld (ix+030h),a		;65a4
-	ld (ix+032h),a		;65a7
+	ld (ix+026h),a		;659e   ; se guarda
+	call 05ad8h		;65a1   ; el dibujo de la tabla HL
+	ld (ix+030h),a		;65a4   ; a IX+30 (el sprite)...
+	ld (ix+032h),a		;65a7   ; ...y a IX+32 (el caracter)
 	ret			;65aa
 azar_r:		; un numero al azar: R girado y mezclado con la cuenta de cuadros (0xE203)
-	ld a,r		;65ab
-	rrca			;65ad
+	ld a,r		;65ab   ; R...
+	rrca			;65ad   ; ...girado tres veces
 	rrca			;65ae
 	rrca			;65af
 	ld hl,0e203h		;65b0   ; apunta a la cuenta de cuadros del juego
-	xor (hl)			;65b3
+	xor (hl)			;65b3   ; XOR la cuenta de cuadros
 	ret			;65b4
 crea_enemigo_ix:		; crea un enemigo de tipo A guardando IX
 	push ix		;65b5
@@ -873,38 +873,38 @@ crea_enemigo_ix:		; crea un enemigo de tipo A guardando IX
 	pop ix		;65ba
 	ret			;65bc
 crea_enemigo:		; crea un enemigo de tipo A (0xE650) en el primer hueco de 0xE700
-	ld (0e650h),a		;65bd   ; guarda el tipo del enemigo que se crea
-	cp 023h		;65c0
+	ld (0e650h),a		;65bd   ; el tipo
+	cp 023h		;65c0   ; el 0x23...
 	jr nz,L_65C9		;65c2
-	ld a,(0e689h)		;65c4
+	ld a,(0e689h)		;65c4   ; ...solo si 0xE689 es 0
 	or a			;65c7
 	ret nz			;65c8
 L_65C9:
-	ld (0f019h),de		;65c9
-	ld a,l			;65cd
+	ld (0f019h),de		;65c9   ; la posicion (DE) en 0xF019
+	ld a,l			;65cd   ; L y H en 0xE65D y 0xE65C
 	ld (0e65dh),a		;65ce
 	ld a,h			;65d1
 	ld (0e65ch),a		;65d2
-	ld a,b			;65d5
+	ld a,b			;65d5   ; B en 0xE65F
 	ld (0e65fh),a		;65d6
-	xor a			;65d9
+	xor a			;65d9   ; 0xE653 = 0
 	ld (0e653h),a		;65da
-	ld a,c			;65dd
+	ld a,c			;65dd   ; C en 0xE651
 	ld (0e651h),a		;65de
-	ld hl,0e700h		;65e1   ; apunta a los enemigos (12 fichas de 0x40 bytes)
+	ld hl,0e700h		;65e1   ; un hueco en los 12 enemigos
 	ld b,00ch		;65e4
 	ld de,00040h		;65e6
-	xor a			;65e9
+	xor a			;65e9   ; tipo 0
 L_65EA:
-	cp (hl)			;65ea
-	jr z,L_65F2		;65eb
-	add hl,de			;65ed
+	cp (hl)			;65ea   ; libre?
+	jr z,L_65F2		;65eb   ; si: p01:65F2
+	add hl,de			;65ed   ; el siguiente
 	djnz L_65EA		;65ee
-	xor a			;65f0
+	xor a			;65f0   ; no hay: A = 0
 	ret			;65f1
 L_65F2:
-	push hl			;65f2
-	ld a,(0e650h)		;65f3   ; lee el tipo del enemigo que se crea
+	push hl			;65f2   ; se guarda el hueco
+	ld a,(0e650h)		;65f3   ; la ficha del tipo: 0x6C5D + 7 x tipo
 	ld l,a			;65f6
 	ld h,000h		;65f7
 	ld e,l			;65f9
@@ -918,68 +918,68 @@ L_65F2:
 	add hl,de			;6604
 	ex de,hl			;6605
 	pop hl			;6606
-	ld a,(de)			;6607
+	ld a,(de)			;6607   ; el primer byte: bit 6...
 	bit 6,a		;6608
-	jr nz,L_661C		;660a
-	and 03fh		;660c
+	jr nz,L_661C		;660a   ; ...con el no cuenta
+	and 03fh		;660c   ; sus bits 0-5: lo que pesa
 	ld b,a			;660e
-	ld a,(0e655h)		;660f
-	add a,b			;6612
-	cp 00dh		;6613
-	jr c,L_6619		;6615
-	xor a			;6617
+	ld a,(0e655h)		;660f   ; 0xE655: lo que pesan los que hay
+	add a,b			;6612   ; + este
+	cp 00dh		;6613   ; cabe (menos de 13)?
+	jr c,L_6619		;6615   ; si
+	xor a			;6617   ; no: no se crea
 	ret			;6618
 L_6619:
-	ld (0e655h),a		;6619
+	ld (0e655h),a		;6619   ; lo que pesan ahora
 L_661C:
 	push de			;661c
-	ld de,(0f019h)		;661d
+	ld de,(0f019h)		;661d   ; la posicion
 	exx			;6621
-	ld hl,0e652h		;6622
-	inc (hl)			;6625
+	ld hl,0e652h		;6622   ; 0xE652: cuantos enemigos
+	inc (hl)			;6625   ; uno mas
 	exx			;6626
-	push hl			;6627
+	push hl			;6627   ; IX = el hueco
 	pop ix		;6628
-	ld a,(0e650h)		;662a   ; lee el tipo del enemigo que se crea
-	ld (0e653h),a		;662d
-	ld (hl),a			;6630
+	ld a,(0e650h)		;662a   ; el tipo...
+	ld (0e653h),a		;662d   ; ...en 0xE653...
+	ld (hl),a			;6630   ; ...y en IX+00
 	inc l			;6631
 	xor a			;6632
-	ld (hl),a			;6633
+	ld (hl),a			;6633   ; IX+01-03 a 0
 	inc l			;6634
 	ld (hl),a			;6635
 	inc l			;6636
 	ld (hl),a			;6637
 	inc l			;6638
-	ld (hl),e			;6639
+	ld (hl),e			;6639   ; IX+04 = E (la y)
 	inc l			;663a
-	ld (hl),a			;663b
+	ld (hl),a			;663b   ; IX+05 = 0
 	inc l			;663c
-	ld (hl),d			;663d
+	ld (hl),d			;663d   ; IX+06 = D (la x)
 	ld de,00005h		;663e
 	add hl,de			;6641
 	pop de			;6642
 	ex de,hl			;6643
-	ldi		;6644
-	ld a,(0e651h)		;6646
+	ldi		;6644   ; IX+0B, el 2.o byte de la ficha del tipo
+	ld a,(0e651h)		;6646   ; IX+0C = C
 	ld (de),a			;6649
 	inc e			;664a
-	ldi		;664b
+	ldi		;664b   ; IX+0D-0F, el 3.o al 5.o
 	ldi		;664d
 	ldi		;664f
-	ld a,007h		;6651
+	ld a,007h		;6651   ; IX+10 = 7
 	ld (de),a			;6653
 	ld a,005h		;6654
-	call 040c9h		;6656   ; de_mas_a: DE = DE + A
-	call L_67CA		;6659
-	ld (de),a			;665c
+	call 040c9h		;6656   ; IX+15...
+	call L_67CA		;6659   ; ...p01:67CA
+	ld (de),a			;665c   ; IX+16
 	inc e			;665d
-	ld a,(0e650h)		;665e   ; lee el tipo del enemigo que se crea
+	ld a,(0e650h)		;665e   ; el tipo 0x26: p01:667F
 	cp 026h		;6661
 	jr z,L_667F		;6663
-	xor a			;6665
+	xor a			;6665   ; IX+17 = 0
 	ld (de),a			;6666
-	ld a,(0e650h)		;6667   ; lee el tipo del enemigo que se crea
+	ld a,(0e650h)		;6667   ; los tipos 0x0A, 0x0B y 0x31...
 	cp 00ah		;666a
 	jr z,L_6676		;666c
 	cp 00bh		;666e
@@ -987,52 +987,52 @@ L_661C:
 	cp 031h		;6672
 	jr nz,L_667F		;6674
 L_6676:
-	ld a,001h		;6676
+	ld a,001h		;6676   ; ...IX+17 = 1 e IX+18 = 0xE696
 	ld (de),a			;6678
 	inc e			;6679
 	ld a,(0e696h)		;667a
 	ld (de),a			;667d
 	dec e			;667e
 L_667F:
-	inc e			;667f
+	inc e			;667f   ; IX+19 = 0
 	inc e			;6680
 	xor a			;6681
 	ld (de),a			;6682
 	inc e			;6683
-	ld a,(0e65fh)		;6684
+	ld a,(0e65fh)		;6684   ; IX+1A = B
 	ld (de),a			;6687
 	inc e			;6688
-	xor a			;6689
+	xor a			;6689   ; IX+1B = 0
 	ld (de),a			;668a
-	ld a,006h		;668b
+	ld a,006h		;668b   ; 6 mas: IX+21
 	call 040c9h		;668d   ; de_mas_a: DE = DE + A
-	ld a,(0e650h)		;6690   ; lee el tipo del enemigo que se crea
+	ld a,(0e650h)		;6690   ; el tipo 0x3F...
 	cp 03fh		;6693
 	jr nz,L_66A1		;6695
-	ld a,(0e65dh)		;6697
+	ld a,(0e65dh)		;6697   ; ...IX+21/22 = L y H
 	ld (de),a			;669a
 	inc e			;669b
 	ld a,(0e65ch)		;669c
 	ld (de),a			;669f
 	dec e			;66a0
 L_66A1:
-	ld a,010h		;66a1
+	ld a,010h		;66a1   ; 16 mas: IX+31
 	call 040c9h		;66a3   ; de_mas_a: DE = DE + A
-	ldi		;66a6
-	ld a,(hl)			;66a8
+	ldi		;66a6   ; IX+31, el 6.o byte de la ficha del tipo
+	ld a,(hl)			;66a8   ; IX+32: el 7.o & 0x0F
 	and 00fh		;66a9
 	ld (de),a			;66ab
 	inc hl			;66ac
 	inc de			;66ad
-	ldi		;66ae
-	ld a,(0e651h)		;66b0
+	ldi		;66ae   ; IX+33...
+	ld a,(0e651h)		;66b0   ; 0xE651 distinto de 0...
 	and a			;66b3
 	jr z,L_66BA		;66b4
-	ld (ix+031h),008h		;66b6
+	ld (ix+031h),008h		;66b6   ; ...IX+31 = 8
 L_66BA:
-	ld a,(0e650h)		;66ba   ; lee el tipo del enemigo que se crea
+	ld a,(0e650h)		;66ba   ; el tipo - 1...
 	dec a			;66bd
-	call 040ceh		;66be   ; despacha: salta a la entrada A de la tabla que va detras del call
+	call 040ceh		;66be   ; ...por la tabla de detras: su rutina de arranque
 
 ; ----------------------------------------------------------------------
 ; DATOS tabla_66C1: 65 destinos del despachador p00:40CE (call en p01:66BE, el
@@ -1716,84 +1716,77 @@ L_6C60:
 	ret			;6c63
 
 ; ----------------------------------------------------------------------
-; DATOS ficha_tipo_0: los 5 ultimos bytes de la ficha 0 de 0x6C62 (no hay
-;   enemigo de tipo 0); los dos primeros son la cola del codigo de delante; lo
-;   leen nadie (5 bytes)
-;   0x6c64..0x6c69  (5 bytes)
-DATA_ficha_tipo_0:
-	defb 0c0h,001h,010h,010h,0b0h	; 6c64
-
-; ----------------------------------------------------------------------
-; DATOS fichas_por_tipo: una ficha de 7 bytes por tipo de enemigo, de 1 a 64,
-;   que p02:8C9C elige con IX+00 x 7 (+ 0x6C62); la del tipo 65 empezaria en
-;   0x6E29 y seguiria en el codigo de 0x6E2B; lo leen p02:8CAA (450 bytes)
-;   0x6c69..0x6e2b  (450 bytes)
+; DATOS fichas_por_tipo: 65 fichas de 7 bytes, una por tipo de enemigo de 1 a
+;   65 (p01:65F2: 0x6C5D + 7 x tipo): crea_enemigo copia de ella lo que va en
+;   la ficha nueva; p02:8C9C lee su sexto byte (0x6C62 + 7 x tipo: la cifra
+;   alta es un sonido de 0x8CE4); lo leen p01:6604 (455 bytes)
+;   0x6c64..0x6e2b  (455 bytes)
 DATA_fichas_por_tipo:
-	defb 015h,000h,081h,001h,010h,010h,060h	; 6c69
-	defb 00ah,000h,0c0h,008h,010h,010h,000h	; 6c70
-	defb 040h,000h,081h,001h,010h,010h,0a0h	; 6c77
-	defb 006h,000h,081h,001h,010h,010h,0d0h	; 6c7e
-	defb 01ah,000h,081h,001h,010h,010h,050h	; 6c85
-	defb 005h,000h,081h,001h,010h,010h,0c0h	; 6c8c
-	defb 007h,000h,081h,001h,010h,010h,0b0h	; 6c93
-	defb 008h,000h,081h,001h,010h,010h,0c0h	; 6c9a
-	defb 007h,000h,0c0h,001h,010h,010h,000h	; 6ca1
-	defb 000h,004h,0c0h,001h,010h,010h,000h	; 6ca8
-	defb 000h,005h,0c0h,0ffh,020h,020h,000h	; 6caf
-	defb 020h,006h,081h,0ffh,010h,010h,080h	; 6cb6
-	defb 01eh,000h,081h,001h,010h,010h,050h	; 6cbd
-	defb 003h,000h,081h,0ffh,010h,010h,080h	; 6cc4
-	defb 017h,000h,081h,001h,010h,010h,0b0h	; 6ccb
-	defb 002h,000h,081h,001h,010h,010h,084h	; 6cd2
-	defb 007h,000h,081h,001h,010h,010h,084h	; 6cd9
-	defb 009h,000h,081h,0ffh,000h,000h,000h	; 6ce0
-	defb 007h,000h,0c0h,0ffh,008h,010h,000h	; 6ce7
-	defb 000h,008h,0c0h,010h,020h,018h,000h	; 6cee
-	defb 020h,007h,083h,0ffh,020h,010h,0c8h	; 6cf5
-	defb 00eh,000h,081h,001h,010h,010h,094h	; 6cfc
-	defb 007h,000h,081h,001h,010h,010h,0a0h	; 6d03
-	defb 007h,000h,081h,0ffh,010h,010h,080h	; 6d0a
-	defb 00eh,000h,081h,001h,010h,010h,090h	; 6d11
-	defb 00eh,000h,0c0h,00eh,020h,020h,000h	; 6d18
-	defb 020h,021h,081h,001h,010h,010h,0a8h	; 6d1f
-	defb 013h,000h,081h,001h,010h,010h,0a8h	; 6d26
-	defb 013h,000h,081h,001h,010h,010h,070h	; 6d2d
-	defb 004h,000h,081h,001h,010h,010h,06ch	; 6d34
-	defb 008h,000h,0c0h,0ffh,010h,020h,000h	; 6d3b
-	defb 000h,022h,0c0h,008h,010h,010h,000h	; 6d42
-	defb 000h,01eh,081h,001h,010h,010h,050h	; 6d49
-	defb 00ah,000h,081h,001h,010h,010h,09ch	; 6d50
-	defb 00fh,000h,082h,0ffh,00eh,00eh,0c8h	; 6d57
-	defb 00fh,000h,081h,001h,010h,010h,064h	; 6d5e
-	defb 00ah,000h,081h,000h,010h,010h,030h	; 6d65
-	defb 00fh,000h,081h,0ffh,004h,004h,02ch	; 6d6c
-	defb 009h,000h,081h,001h,010h,010h,0d0h	; 6d73
-	defb 01ah,000h,0c0h,001h,010h,010h,000h	; 6d7a
-	defb 000h,00ah,0c0h,001h,010h,010h,000h	; 6d81
-	defb 000h,023h,081h,001h,010h,010h,000h	; 6d88
-	defb 002h,037h,081h,001h,010h,010h,000h	; 6d8f
-	defb 008h,038h,081h,001h,010h,010h,000h	; 6d96
-	defb 008h,038h,081h,001h,010h,010h,000h	; 6d9d
-	defb 000h,000h,081h,001h,010h,010h,000h	; 6da4
-	defb 000h,006h,081h,001h,010h,010h,0b4h	; 6dab
-	defb 004h,000h,0c0h,0ffh,005h,010h,000h	; 6db2
-	defb 000h,005h,0c0h,0ffh,005h,010h,000h	; 6db9
-	defb 000h,005h,081h,001h,010h,010h,050h	; 6dc0
-	defb 00ah,000h,081h,001h,010h,010h,090h	; 6dc7
-	defb 03fh,000h,0c0h,001h,010h,010h,000h	; 6dce
-	defb 000h,037h,0c0h,0ffh,008h,008h,000h	; 6dd5
-	defb 000h,000h,081h,0ffh,010h,010h,068h	; 6ddc
-	defb 00bh,000h,084h,0ffh,008h,010h,0a0h	; 6de3
-	defb 002h,000h,0c0h,0ffh,002h,008h,000h	; 6dea
-	defb 000h,000h,0c0h,0ffh,010h,008h,000h	; 6df1
-	defb 000h,000h,0c0h,0ffh,008h,008h,000h	; 6df8
-	defb 000h,000h,0c0h,0ffh,00ah,008h,000h	; 6dff
-	defb 000h,000h,0c0h,0ffh,012h,008h,000h	; 6e06
-	defb 000h,000h,0c0h,0ffh,008h,008h,000h	; 6e0d
-	defb 000h,000h,0c0h,0ffh,008h,008h,000h	; 6e14
-	defb 000h,024h,0c0h,0ffh,010h,008h,000h	; 6e1b
-	defb 000h,042h,081h,008h,010h,010h,058h	; 6e22
-	defb 00ch,000h	; 6e29
+	defb 0c0h,001h,010h,010h,0b0h,015h,000h	; 6c64
+	defb 081h,001h,010h,010h,060h,00ah,000h	; 6c6b
+	defb 0c0h,008h,010h,010h,000h,040h,000h	; 6c72
+	defb 081h,001h,010h,010h,0a0h,006h,000h	; 6c79
+	defb 081h,001h,010h,010h,0d0h,01ah,000h	; 6c80
+	defb 081h,001h,010h,010h,050h,005h,000h	; 6c87
+	defb 081h,001h,010h,010h,0c0h,007h,000h	; 6c8e
+	defb 081h,001h,010h,010h,0b0h,008h,000h	; 6c95
+	defb 081h,001h,010h,010h,0c0h,007h,000h	; 6c9c
+	defb 0c0h,001h,010h,010h,000h,000h,004h	; 6ca3
+	defb 0c0h,001h,010h,010h,000h,000h,005h	; 6caa
+	defb 0c0h,0ffh,020h,020h,000h,020h,006h	; 6cb1
+	defb 081h,0ffh,010h,010h,080h,01eh,000h	; 6cb8
+	defb 081h,001h,010h,010h,050h,003h,000h	; 6cbf
+	defb 081h,0ffh,010h,010h,080h,017h,000h	; 6cc6
+	defb 081h,001h,010h,010h,0b0h,002h,000h	; 6ccd
+	defb 081h,001h,010h,010h,084h,007h,000h	; 6cd4
+	defb 081h,001h,010h,010h,084h,009h,000h	; 6cdb
+	defb 081h,0ffh,000h,000h,000h,007h,000h	; 6ce2
+	defb 0c0h,0ffh,008h,010h,000h,000h,008h	; 6ce9
+	defb 0c0h,010h,020h,018h,000h,020h,007h	; 6cf0
+	defb 083h,0ffh,020h,010h,0c8h,00eh,000h	; 6cf7
+	defb 081h,001h,010h,010h,094h,007h,000h	; 6cfe
+	defb 081h,001h,010h,010h,0a0h,007h,000h	; 6d05
+	defb 081h,0ffh,010h,010h,080h,00eh,000h	; 6d0c
+	defb 081h,001h,010h,010h,090h,00eh,000h	; 6d13
+	defb 0c0h,00eh,020h,020h,000h,020h,021h	; 6d1a
+	defb 081h,001h,010h,010h,0a8h,013h,000h	; 6d21
+	defb 081h,001h,010h,010h,0a8h,013h,000h	; 6d28
+	defb 081h,001h,010h,010h,070h,004h,000h	; 6d2f
+	defb 081h,001h,010h,010h,06ch,008h,000h	; 6d36
+	defb 0c0h,0ffh,010h,020h,000h,000h,022h	; 6d3d
+	defb 0c0h,008h,010h,010h,000h,000h,01eh	; 6d44
+	defb 081h,001h,010h,010h,050h,00ah,000h	; 6d4b
+	defb 081h,001h,010h,010h,09ch,00fh,000h	; 6d52
+	defb 082h,0ffh,00eh,00eh,0c8h,00fh,000h	; 6d59
+	defb 081h,001h,010h,010h,064h,00ah,000h	; 6d60
+	defb 081h,000h,010h,010h,030h,00fh,000h	; 6d67
+	defb 081h,0ffh,004h,004h,02ch,009h,000h	; 6d6e
+	defb 081h,001h,010h,010h,0d0h,01ah,000h	; 6d75
+	defb 0c0h,001h,010h,010h,000h,000h,00ah	; 6d7c
+	defb 0c0h,001h,010h,010h,000h,000h,023h	; 6d83
+	defb 081h,001h,010h,010h,000h,002h,037h	; 6d8a
+	defb 081h,001h,010h,010h,000h,008h,038h	; 6d91
+	defb 081h,001h,010h,010h,000h,008h,038h	; 6d98
+	defb 081h,001h,010h,010h,000h,000h,000h	; 6d9f
+	defb 081h,001h,010h,010h,000h,000h,006h	; 6da6
+	defb 081h,001h,010h,010h,0b4h,004h,000h	; 6dad
+	defb 0c0h,0ffh,005h,010h,000h,000h,005h	; 6db4
+	defb 0c0h,0ffh,005h,010h,000h,000h,005h	; 6dbb
+	defb 081h,001h,010h,010h,050h,00ah,000h	; 6dc2
+	defb 081h,001h,010h,010h,090h,03fh,000h	; 6dc9
+	defb 0c0h,001h,010h,010h,000h,000h,037h	; 6dd0
+	defb 0c0h,0ffh,008h,008h,000h,000h,000h	; 6dd7
+	defb 081h,0ffh,010h,010h,068h,00bh,000h	; 6dde
+	defb 084h,0ffh,008h,010h,0a0h,002h,000h	; 6de5
+	defb 0c0h,0ffh,002h,008h,000h,000h,000h	; 6dec
+	defb 0c0h,0ffh,010h,008h,000h,000h,000h	; 6df3
+	defb 0c0h,0ffh,008h,008h,000h,000h,000h	; 6dfa
+	defb 0c0h,0ffh,00ah,008h,000h,000h,000h	; 6e01
+	defb 0c0h,0ffh,012h,008h,000h,000h,000h	; 6e08
+	defb 0c0h,0ffh,008h,008h,000h,000h,000h	; 6e0f
+	defb 0c0h,0ffh,008h,008h,000h,000h,024h	; 6e16
+	defb 0c0h,0ffh,010h,008h,000h,000h,042h	; 6e1d
+	defb 081h,008h,010h,010h,058h,00ch,000h	; 6e24
 
 ; ======================================================================
 ; CODIGO 0x6e2b..0x6e89  (94 bytes)

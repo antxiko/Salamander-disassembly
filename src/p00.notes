@@ -1,4 +1,2047 @@
 
+
+# --- A MANO: comentarios escritos leyendo el codigo ---
+C 0x4030 tabla de saltos de 0x4030: la entrada 0 la usa p10:8D46
+C 0x4033 entrada 1 de la tabla de saltos
+C 0x4036 entrada 2 de la tabla de saltos
+C 0x403C el banco 2 en 0x8000: p02:8263 (los jugadores)
+C 0x403F y vuelve con el 10 y el 15 puestos
+C 0x4045 p03:A5EE con 1-2-3
+C 0x4048 y vuelve con el 10 y el 15 puestos
+C 0x404E p03:A808 con 1-2-3 (las dos fichas de jugador)
+C 0x4051 y vuelve con el 10 y el 15 puestos
+C 0x4057 la fase
+C 0x4058 es 0?
+C 0x4059 si no, la deja
+C 0x405B la fase 0 pasa a ser la 1
+C 0x4060 un jugador?
+C 0x4061 con uno, fuera
+C 0x4065 con dos, copia los dos primeros bytes de la ficha del 1 en la del 2
+C 0x406C sin interrupciones durante el cuadro
+C 0x4070 un cuadro mas
+C 0x4074 otra cuenta de cuadros en 0xE23A
+C 0x4077 sube
+C 0x4078 p00:4E7F: lo que se mira cada cuadro
+C 0x407B 0xE214: el sonido ya esta en marcha?
+C 0x407E lee la marca
+C 0x407F 0 = libre
+C 0x4080 la marca a 1 mientras suena
+C 0x4082 si ya estaba, no se vuelve a entrar
+C 0x4085 los bancos 4-5-6 sin tocar sus copias: el sonido
+C 0x408A el 5
+C 0x408E el 6
+C 0x4095 se acabo el sonido de este cuadro
+C 0x4096 la marca de sonido a 0
+C 0x4099 sin interrupciones para devolver los bancos
+C 0x40AC 0xE205: el cuadro del juego ya esta en marcha?
+C 0x40AF lee la marca
+C 0x40B0 0 = libre
+C 0x40B1 si no, solo el sonido
+C 0x40B3 la marca a 1
+C 0x40B4 con interrupciones: el cuadro puede durar mas de una
+C 0x40B5 p00:51A7, p00:5208 y p00:524C: el cuadro del juego
+C 0x40BE el cuadro ha acabado
+C 0x40BF la marca del cuadro a 0
+C 0x40C3 vuelve de la interrupcion
+C 0x40C4 L + A
+C 0x40C5 en L
+C 0x40C6 sin acarreo, ya esta
+C 0x40C7 con acarreo, H + 1
+C 0x40C9 E + A
+C 0x40CA en E
+C 0x40CB sin acarreo, ya esta
+C 0x40CC con acarreo, D + 1
+C 0x40CE HL = la tabla que va detras del call (su direccion de vuelta)
+C 0x40CF A x 2: la palabra A
+C 0x40D0 + la tabla
+C 0x40D2 sin acarreo, ya esta
+C 0x40D4 con acarreo, H + 1
+C 0x40D5 la palabra, byte bajo
+C 0x40D7 byte alto
+C 0x40D9 salta alli
+C 0x40DA el arranque: sin interrupciones
+C 0x40DB modo 1 de interrupcion
+C 0x40DD 0xC3 = jp
+C 0x40DF en el gancho H.KEYI (0xFD9A)
+C 0x40E2 jp interrupcion
+C 0x40E5 la direccion del gancho
+C 0x40E8 la pila debajo de las copias de los bancos
+C 0x40EB p00:412F: este cartucho tambien en 0x8000-0xBFFF
+C 0x40EE p00:414F: apunta el slot de este cartucho
+C 0x40F1 los bancos de encendido: 0, 1, 2 y 3
+C 0x40F8 con su copia en 0xF0F0-3
+C 0x40FA el 1
+C 0x4100 el 2
+C 0x4106 el 3
+C 0x410B toda la RAM del juego, de 0xE000 a 0xEFFF
+C 0x4111 4.095 bytes mas
+C 0x4114 a cero
+C 0x4116 la borra
+C 0x4118 A = 1
+C 0x4119 0xE205 = 1: que la interrupcion no empiece un cuadro todavia
+C 0x411C y 0xE206 = 1
+C 0x411F p00:50D0: prepara el VDP y la pantalla
+C 0x4122 p03:B599: mira que hay en el otro slot (Nemesis 2: p03:B5E3)
+C 0x4125 ya puede ir el cuadro
+C 0x4126 0xE205 = 0
+C 0x4129 lee el estado del VDP: da por atendida la interrupcion pendiente
+C 0x412C con interrupciones
+C 0x412D y se queda aqui: el juego entero corre desde la interrupcion
+C 0x412F el slot primario de las paginas
+C 0x4132 el de la pagina 1 (0x4000), donde estamos
+C 0x4134 dos bits
+C 0x4136 C = el slot primario
+C 0x4139 0xFCC1: la tabla de slots expandidos de la BIOS (EXPTBL)
+C 0x413C la del slot primario
+C 0x413D lee si esta expandido
+C 0x413E el bit 7
+C 0x4140 con el slot primario
+C 0x4142 cuatro mas: SLTTBL, el secundario de ese slot
+C 0x4146 lo lee
+C 0x4147 el secundario de la pagina 1 (bits 2-3)
+C 0x4149 con lo anterior: el slot de este cartucho
+C 0x414A la pagina 2 (0x8000)
+C 0x414C ENASLT: este cartucho tambien en 0x8000-0xBFFF
+C 0x414F lo mismo para guardar el slot
+C 0x4152 el de la pagina 1
+C 0x4156 C = el slot primario
+C 0x4159 EXPTBL
+C 0x415C la del slot primario
+C 0x415D con el bit de expandido
+C 0x4163 SLTTBL del slot
+C 0x4164 el secundario de la pagina 1
+C 0x4166 junto
+C 0x416B el sonido: salta a pide_sonido
+C 0x416E guarda A
+C 0x416F empieza por el 1
+C 0x4174 empieza por el 4
+C 0x4179 empieza por el 7
+C 0x417E empieza por el 13
+C 0x4180 sin interrupciones mientras se cambia de banco
+C 0x4182 las copias en RAM de los registros
+C 0x4188 y su copia
+C 0x4189 el siguiente banco
+C 0x418A la siguiente copia
+C 0x418E y su copia
+C 0x418F el siguiente
+C 0x4190 la siguiente copia
+C 0x4194 y su copia
+C 0x4196 devuelve A
+C 0x4197 con interrupciones
+C 0x4199 sin interrupciones
+C 0x419A el banco 10
+C 0x41A2 el banco 15
+C 0x41AA con interrupciones
+C 0x41AC el banco 14 y a la escritura de 0x9000
+C 0x41B0 el banco 10
+C 0x41B2 sin interrupciones
+C 0x41B9 con interrupciones
+C 0x41BB el banco 6
+C 0x41BF el banco 11
+C 0x41C3 el banco 15
+C 0x41C7 el banco 9
+C 0x41CB el banco 12
+C 0x41CD sin interrupciones
+C 0x41CE a la escritura de 0xB000
+C 0x41D0 el banco 2 (y el 3 detras)
+C 0x41D4 el banco 8 (y el 9 detras)
+C 0x41D8 el banco 14 (y el 15 detras)
+C 0x41DA sin interrupciones
+C 0x41E1 el siguiente para 0xA000
+C 0x41E8 con interrupciones
+C 0x41EA el banco 1 (y el 2 detras)
+C 0x41EE el banco 7 (y el 8 detras)
+C 0x41F0 sin interrupciones
+C 0x41F7 el siguiente para 0x8000
+C 0x41FE con interrupciones
+C 0x4200 el cuadro del juego en marcha: p00:5EA7
+C 0x4203 tres contadores de 0xE607-0xE609 a 0
+C 0x420D p00:5F69
+C 0x4213 con el 14-15 en 0x8000-0xA000: p01:6055
+C 0x4219 los sprites fuera de la pantalla antes de repintarlos
+C 0x421C p02:8510: el scroll y sus altos
+C 0x421F 0xE21A distinto de 0: no hay nada mas este cuadro
+C 0x4222 ...
+C 0x4223 fuera
+C 0x4224 p02:8720
+C 0x4227 con el 12 en 0xA000: p12:A5CE
+C 0x4230 0xE6D0 distinto de 0: fuera
+C 0x4234 fuera
+C 0x4235 con 13-14-15: p00:4959, el mapa
+C 0x423E p00:5C77: cambios de graficos a mitad de fase
+C 0x4241 p02:8263: los jugadores
+C 0x4244 0xE213 = 0: la partida no esta en marcha
+C 0x4248 fuera
+C 0x4249 lo de la partida: p02:8929, p03:A5EE, p03:A808...
+C 0x4258 0xE6AA distinto de 0: se salta p01:68A7, 7436 y 6E99
+C 0x425C si no es 0, se salta los tres
+C 0x4267 lo que va siempre
+C 0x426D con el 11 en 0xA000: p11:BBE2 y p11:BB4B
+C 0x4276 de vuelta el 2 y el 3
+C 0x4285 con el 12 en 0xA000: p12:A000
+C 0x4294 p00:5B35: el jefe
+C 0x4297 0xE6AA distinto de 0: se salta los enemigos del banco 2
+C 0x429B si no es 0, se los salta
+C 0x429D los enemigos del banco 2 (p02:8FA0 ... p02:996E)
+C 0x42C4 lo que va siempre
+C 0x42CA con el 12 en 0xA000: p12:B7E2
+C 0x42D3 con el 11 en 0xA000: p11:BC61
+C 0x42E5 0xE6AA = 0: p01:7A9F
+C 0x42EC con el 12: p12:BDFC y p12:BD67
+C 0x42FE con el 12: p12:A1C2
+C 0x4304 con el 11: p11:A0D0
+C 0x4316 con el 11: p11:A000, A06A, A09C y A224
+C 0x4328 con el 12: p12:A4A9
+C 0x4331 p00:4B1A
+C 0x4334 p00:5FC5
+C 0x4337 p00:5F0C
+C 0x433A con el 11: p11:A177
+C 0x4340 con el 12: p12:A26A
+C 0x434C p00:5B64: el jefe
+C 0x4355 con el 11: p11:BCEE
+C 0x435E p00:5F76
+C 0x4361 uno de cada 8 cuadros...
+C 0x4364 los tres bits bajos
+C 0x4366 iguales a 1?
+C 0x4367 entonces p00:5A3D
+C 0x436B al empezar la fase: con el 11 en 0xA000, p11:B957
+C 0x4371 con 7-8-9: los graficos de la fase
+C 0x4374 p00:438C: los caracteres y sprites de la fase
+C 0x4377 p00:5C3A
+C 0x437A 0xEC20: el jefe que hay que pintar (0 = ninguno)
+C 0x437D en C para p00:4882
+C 0x437E hay?
+C 0x437F p00:4882: sus dibujos (tabla p09:A331)
+C 0x4385 hay jefe?
+C 0x4386 p00:4DC8: sus graficos
+C 0x4389 y vuelve a 1-2-3
+C 0x438C p00:44B7: los caracteres de la fase
+C 0x438F p00:483F
+C 0x4392 con 7-8-9
+C 0x4395 p00:444F: las rachas de 0x1880-0x1960
+C 0x4398 p00:4494: los dibujos de sprite de la fase
+C 0x439B las fichas de sprites de la fase (p08:8BD3)
+C 0x43A4 IX = la lista de la fase
+C 0x43A7 el tipo de la ficha
+C 0x43AA 1 = copia de sprites
+C 0x43AB 0 acaba la lista
+C 0x43AD tipo 1: p00:43BB
+C 0x43B1 los demas: p00:442B
+C 0x43B4 4 bytes por ficha
+C 0x43B7 la siguiente
+C 0x43BB cuantos (de 32 bytes)
+C 0x43BE 0: nada
+C 0x43BF fuera
+C 0x43C0 la cuenta en 0xF010
+C 0x43C3 el dibujo de origen
+C 0x43C8 x 8
+C 0x43CB + 0x1800: los dibujos de sprite en la VRAM
+C 0x43CF el origen en 0xF012
+C 0x43D2 el dibujo de destino
+C 0x43D7 x 8
+C 0x43DA + 0x1800
+C 0x43DB el destino en 0xF014
+C 0x43DE de la VRAM del origen
+C 0x43E1 a 0xC600
+C 0x43E4 32 bytes: un sprite de 16 x 16
+C 0x43E7 LDIRMV: de la VRAM a la RAM
+C 0x43EA p00:4411: le da la vuelta en espejo
+C 0x43ED al destino
+C 0x43F0 lo ya girado de 0xC620
+C 0x43F3 32 bytes
+C 0x43F6 copia_a_vram
+C 0x43F9 el siguiente sprite: 32 mas
+C 0x43FC en el origen
+C 0x4400 el origen avanza
+C 0x4403 y el destino
+C 0x4406 32 mas
+C 0x4407 guarda el destino
+C 0x440A la cuenta de sprites
+C 0x440D uno menos
+C 0x440E quedan: el siguiente
+C 0x4411 la mitad izquierda del sprite (16 bytes de 0xC600)
+C 0x4414 al reves, de 0xC62F hacia atras: espejo
+C 0x4417 16 bytes
+C 0x4419 copia del derecho al reves
+C 0x441C la mitad derecha (0xC610)
+C 0x441F a 0xC63F hacia atras
+C 0x4422 16 bytes
+C 0x4424 un byte
+C 0x4425 al otro lado
+C 0x4426 el siguiente del origen
+C 0x4427 el anterior del destino
+C 0x4428 los 16
+C 0x442B cuantos caracteres
+C 0x442E 0: nada
+C 0x442F fuera
+C 0x4430 el destino
+C 0x4435 x 8
+C 0x4438 + 0x1810
+C 0x443C en DE
+C 0x443D el origen
+C 0x4442 x 8
+C 0x4445 + 0x1800: los dibujos de sprite
+C 0x4449 C = cuantos
+C 0x444C p00:4D3B: los copia girados
+C 0x444F las rachas de p09:A130
+C 0x4452 a los dibujos de sprite de 0x1880
+C 0x4458 las de p09:A06F
+C 0x445B a 0x1960
+C 0x4461 segun la fase (bit de 0x26)...
+C 0x4464 p09:A042 si no hay acarreo
+C 0x4467 sin acarreo, esa
+C 0x4469 con acarreo, p09:A009
+C 0x446C a 0x18C0
+C 0x4472 otra vez segun la fase
+C 0x4475 p09:A0D8 sin acarreo
+C 0x447A p09:A0F3 con acarreo
+C 0x447D a 0x1900
+C 0x4483 y otra
+C 0x4486 p09:A113 sin acarreo
+C 0x448B p09:A122 con acarreo
+C 0x448E a 0x18A0
+C 0x4494 la fase
+C 0x4497 la lista de dibujos de sprite de la fase (p08:8B26)
+C 0x449D HL = la lista
+C 0x449E el caracter de destino
+C 0x449F 0 acaba
+C 0x44A0 fuera
+C 0x44A2 las rachas, byte bajo
+C 0x44A4 byte alto
+C 0x44A5 la siguiente ficha
+C 0x44A6 se guarda
+C 0x44A7 el caracter
+C 0x44AA x 8
+C 0x44AD + 0x1800
+C 0x44B1 descomprime los dibujos alli
+C 0x44B4 la ficha siguiente
+C 0x44B7 la lista de caracteres de todas las fases (p07:6C63)
+C 0x44BE segun la fase...
+C 0x44C1 p07:6C8E (fases 1, 2 y 5)
+C 0x44C7 o p07:6C95
+C 0x44CE la fase
+C 0x44D1 la 7?
+C 0x44D3 la 7 trae los graficos del otro cartucho
+C 0x44D9 los caracteres de la fase (p07:6C37)
+C 0x44DF las copias, primero en espejo
+C 0x44E0 0xF000 = 0
+C 0x44E3 la tabla de p07:6C45
+C 0x44E6 copias de la fase
+C 0x44E9 0xF000 = 1: cabeza abajo
+C 0x44ED la tabla de p07:6C53
+C 0x44F0 la fase
+C 0x44F3 DE = la lista de la entrada A
+C 0x44F6 a IX
+C 0x44F9 el primer byte de la ficha
+C 0x44FC 0 acaba
+C 0x44FD fuera
+C 0x44FE los dos bits altos del tercer byte...
+C 0x4501 arriba
+C 0x4503 dos bits
+C 0x4505 no son cero: ficha de 3 bytes, ese es el cuantos
+C 0x4507 son cero: ficha de 4 bytes, el cuarto es el cuantos
+C 0x450B cuantos caracteres, en 0xF003
+C 0x450E p00:4526: copia esos caracteres
+C 0x4511 4 bytes por ficha
+C 0x4516 la siguiente
+C 0x4518 los bits altos son el cuantos
+C 0x4519 en 0xF003
+C 0x451C copia
+C 0x451F 3 bytes por ficha
+C 0x4524 la siguiente
+C 0x4526 los caracteres...
+C 0x452B x 8 = los bytes, en 0xF001
+C 0x452E p00:467B: los lee de la VRAM a la RAM
+C 0x4531 0xF000: en espejo o cabeza abajo
+C 0x4535 se guarda
+C 0x4536 0: p00:45E0, en espejo (cada byte al reves)
+C 0x453A 1: p00:459B, cabeza abajo (las filas al reves)
+C 0x453D y p00:45FF: de vuelta a la VRAM
+C 0x4540 DE = la lista de la entrada A
+C 0x4543 a IX
+C 0x4546 los tercios en los que va
+C 0x4549 0 acaba
+C 0x454A fuera
+C 0x454B bit 0: el tercio de abajo
+C 0x454C 0x1000
+C 0x454F p00:456D
+C 0x4552 bit 1: el del medio
+C 0x4556 0x0800
+C 0x455C bit 2: el de arriba
+C 0x4560 0x0000
+C 0x4566 6 bytes por ficha
+C 0x4569 la siguiente
+C 0x456D el caracter
+C 0x4572 x 8
+C 0x4575 + el tercio
+C 0x4576 se guarda
+C 0x4577 + 0x2000: los dibujos
+C 0x457B las rachas de los dibujos, bajo
+C 0x457E alto
+C 0x4583 las descomprime
+C 0x4588 el caracter otra vez
+C 0x4589 + 0x0000: los colores
+C 0x458D las rachas de los colores, bajo
+C 0x4590 alto
+C 0x4595 las descomprime
+C 0x459B cabeza abajo: los dibujos de 0xC600
+C 0x459E con 0xC607, la ultima fila del caracter
+C 0x45A1 en la presentacion...
+C 0x45A5 ...no
+C 0x45A7 ...el bufer es 0xE700
+C 0x45AD da la vuelta a los dibujos
+C 0x45B0 los colores de 0xC800
+C 0x45B3 y su ultima fila
+C 0x45B6 en la presentacion...
+C 0x45BC ...0xE900
+C 0x45C3 cuantos caracteres
+C 0x45C6 en B'
+C 0x45C8 4 cambios por caracter: filas 0-7, 1-6, 2-5, 3-4
+C 0x45CA la fila de arriba
+C 0x45CB la de abajo
+C 0x45CC arriba
+C 0x45CD la de arriba
+C 0x45CE abajo
+C 0x45CF baja
+C 0x45D0 sube
+C 0x45D1 las cuatro
+C 0x45D3 al caracter siguiente: 4 mas
+C 0x45D7 y la ultima fila del siguiente, 12 mas
+C 0x45DD el siguiente caracter
+C 0x45E0 en espejo: los dibujos de 0xC600
+C 0x45E3 en la presentacion...
+C 0x45E9 ...0xE700
+C 0x45EC cuantos bytes
+C 0x45F0 8 bits
+C 0x45F2 saca el bit de la derecha
+C 0x45F4 y lo mete por la derecha en A: al reves
+C 0x45F5 los 8
+C 0x45F7 el byte girado
+C 0x45F8 el siguiente
+C 0x45F9 uno menos
+C 0x45FA quedan?
+C 0x45FC el siguiente
+C 0x45FF de vuelta a la VRAM: en la presentacion los tercios van en A
+C 0x4603 en la presentacion, p00:4623
+C 0x4605 bit 3 del tercer byte: el tercio de abajo
+C 0x4609 0x1000
+C 0x460C p00:463D
+C 0x460F bit 4: el del medio
+C 0x4613 0x0800
+C 0x4619 bit 5: el de arriba
+C 0x461D 0x0000
+C 0x4620 si no va, fuera
+C 0x4621 si va, p00:463D
+C 0x4623 en la presentacion, por los bits de A
+C 0x4624 bit 4: arriba
+C 0x462E bit 5: el medio
+C 0x4637 bit 6: abajo
+C 0x463C si no, fuera
+C 0x463D el caracter de destino
+C 0x4644 x 8
+C 0x4647 + el tercio
+C 0x4648 se guarda
+C 0x4649 + 0x2000: los dibujos
+C 0x464D desde 0xC600
+C 0x4650 en la presentacion...
+C 0x4656 ...desde 0xE700
+C 0x4659 los bytes
+C 0x465D a la VRAM
+C 0x4660 el destino otra vez
+C 0x4661 + 0x0000: los colores
+C 0x4665 desde 0xC800
+C 0x4668 en la presentacion...
+C 0x466E ...desde 0xE900
+C 0x4671 los bytes
+C 0x4675 a la VRAM
+C 0x467B cuantos bytes
+C 0x467F el caracter de origen
+C 0x4684 x 8
+C 0x4687 en la presentacion, p00:46C2
+C 0x468D se guarda
+C 0x468E del tercio de arriba (0x2000)...
+C 0x4691 ...si lleva el bit 2
+C 0x4697 del medio (0x2800)
+C 0x4699 si lleva el bit 1
+C 0x469F si no, de abajo (0x3000)
+C 0x46A1 la direccion de los dibujos
+C 0x46A2 a 0xC600
+C 0x46A7 LDIRMV
+C 0x46AC el caracter otra vez
+C 0x46AD de los colores de arriba (0x0000)...
+C 0x46B0 ...con el bit 2
+C 0x46B6 del medio (0x0800)
+C 0x46BE de abajo (0x1000)
+C 0x46C2 en la presentacion: el tercio por los bits de A
+C 0x46C6 bit 4: arriba
+C 0x46CA del medio
+C 0x46CC bit 5
+C 0x46D0 de abajo
+C 0x46D4 a 0xE700
+C 0x46D9 LDIRMV
+C 0x46E0 los colores
+C 0x46EF la direccion de los colores
+C 0x46F0 a 0xC800
+C 0x46F3 en la presentacion...
+C 0x46F9 ...a 0xE900
+C 0x46FC los bytes
+C 0x4702 LDIRMV
+C 0x4708 la presentacion por pasos (0xE21D)
+C 0x470B paso 1?
+C 0x470C a p00:4731
+C 0x470E paso 2?
+C 0x470F a p00:474E
+C 0x4711 paso 0: los dibujos (0xE21E = 0)
+C 0x4715 sin color (mascara 0)
+C 0x4717 p00:4763: la lista de 0xE220
+C 0x471A los colores (0xE21E = 1)
+C 0x471F con la mascara 0xF0
+C 0x4724 y las copias
+C 0x4727 la mascara siguiente empieza en 1
+C 0x4729 0xE21F
+C 0x472C al paso siguiente
+C 0x4731 paso 1: dibujos
+C 0x4735 con la mascara de 0xE21F
+C 0x4738 en C
+C 0x473F la mascara
+C 0x4743 ya es 0xFF?
+C 0x4745 entonces al paso siguiente
+C 0x4747 si no, la gira tres veces y le pone un bit mas
+C 0x474C la nueva mascara
+C 0x474E paso 2: los colores enteros
+C 0x4753 mascara 0xFF
+C 0x475B p00:4DB1
+C 0x475E la presentacion pintada
+C 0x475F 0xE21C = 0
+C 0x4763 IX = la lista de caracteres de 0xE220
+C 0x4767 en la presentacion...
+C 0x476B ...las fichas son de 5 bytes: p00:4794
+C 0x476D los tercios
+C 0x4770 0 acaba
+C 0x4772 bit 0: abajo
+C 0x4779 bit 1: el medio
+C 0x4783 bit 2: arriba
+C 0x478D 6 bytes por ficha
+C 0x4794 el primer byte de la ficha (bajo del puntero)
+C 0x4797 0 acaba
+C 0x4799 IX un byte atras: la ficha de 5 bytes lee como si fuera de 6
+C 0x479B el medio
+C 0x47A1 y arriba
+C 0x47A7 la siguiente: 5 bytes desde el principio
+C 0x47AE el caracter
+C 0x47B3 x 8
+C 0x47B6 + el tercio
+C 0x47B7 dibujos o colores (0xE21E)
+C 0x47BB 1: los colores
+C 0x47BD 0: + 0x2000, los dibujos
+C 0x47C1 las rachas de los dibujos
+C 0x47C9 p00:47F7: las rachas con la mascara C
+C 0x47CF los colores
+C 0x47D3 sus rachas
+C 0x47DB con la mascara
+C 0x47E1 las copias de la presentacion: en espejo...
+C 0x47E2 0xF000 = 0
+C 0x47E5 la lista de 0xE222
+C 0x47EC ...y cabeza abajo
+C 0x47F0 la lista de 0xE224
+C 0x47F7 el puerto del VDP
+C 0x47FA n
+C 0x47FB 0 acaba
+C 0x47FD el siguiente
+C 0x47FE se guarda
+C 0x47FF n & 0x7F
+C 0x4801 igual: n < 0x80, repite
+C 0x4802 a p00:481C
+C 0x4804 n > 0x80: copia n & 0x7F bytes
+C 0x4805 el byte
+C 0x4806 con la mascara
+C 0x4807 el siguiente
+C 0x4809 al VDP
+C 0x480C con los dibujos (0xE21E = 0)...
+C 0x4810 ...los colores no giran la mascara
+C 0x4812 la mascara gira tres bits
+C 0x4818 los n
+C 0x481A las rachas siguientes
+C 0x481C el byte que se repite
+C 0x481E con la mascara
+C 0x4820 al VDP
+C 0x4824 con los dibujos...
+C 0x482A ...gira la mascara
+C 0x4831 los n
+C 0x4833 las rachas siguientes
+C 0x4835 la fase
+C 0x4838 en B
+C 0x4839 0x26 = 00100110: un bit por fase
+C 0x483B gira a la derecha...
+C 0x483C ...fase veces: el bit de la fase queda en el acarreo
+C 0x483F segun la fase...
+C 0x4842 sin acarreo, p00:4856
+C 0x4844 las rachas de p00:4876
+C 0x4847 a los dibujos de 0x2280
+C 0x484D y p00:4879
+C 0x4850 a los colores de 0x0280
+C 0x4856 las de p00:4868
+C 0x4859 a 0x2280
+C 0x485F y p00:486B
+C 0x4862 a 0x0280
+C 0x4882 el banco 9 en 0xA000
+C 0x4885 el jefe que se pinta (C)
+C 0x4888 x 4
+C 0x488A en la tabla de p09:A331
+C 0x488E las rachas de los dibujos
+C 0x4891 se guarda
+C 0x4892 a 0x2120
+C 0x4895 en los tres tercios
+C 0x4899 las rachas de los colores
+C 0x489D a 0x0120
+C 0x48A6 en vertical?
+C 0x48AA a p00:48F1
+C 0x48AD la pantalla entera de una vez, en horizontal
+C 0x48B1 el scroll...
+C 0x48B4 ...32 atras
+C 0x48B9 se guarda
+C 0x48BC el mapa de la pantalla en la RAM, columna 0 (0xCA00)
+C 0x48BF en 0xF000
+C 0x48C2 32 columnas
+C 0x48C5 con 13-14-15 (el mapa)
+C 0x48C8 p00:499E: una columna
+C 0x48CB de vuelta a 1-2-3
+C 0x48CE p00:50B2
+C 0x48D1 la columna siguiente
+C 0x48D8 0xF004 + 8
+C 0x48DF el scroll + 1
+C 0x48E7 las 32
+C 0x48E9 el scroll, uno atras
+C 0x48F1 en vertical: 0xF004 = 0xA0
+C 0x48F6 el scroll...
+C 0x48F9 ...21 atras
+C 0x48FD se guarda
+C 0x4900 la ultima fila del mapa de la RAM (0xCF00)
+C 0x4906 21 filas
+C 0x4909 con 13-14-15
+C 0x490C p00:4A6B: una fila
+C 0x4912 p00:50B2
+C 0x4915 la fila de arriba
+C 0x4918 64 menos
+C 0x491F 0xF004 - 8
+C 0x4926 el scroll + 1
+C 0x492E las 21
+C 0x4930 el scroll, uno atras
+C 0x4937 la fase 3?
+C 0x493C si no, fuera
+C 0x493D en la 3...
+C 0x4940 ...0xE65E = 5 si el scroll pasa de 0xFF
+C 0x4945 si no, fuera
+C 0x494A 0xE629 = 1: el scroll se ha parado
+C 0x4950 0xE616: un bit que gira cada cuadro
+C 0x4954 gira
+C 0x4956 Z o NZ segun el bit: el scroll va a medias
+C 0x4959 el scroll de un cuadro: 0xE627-0xE629 a 0
+C 0x4963 0xE630 = 1?
+C 0x4967 entonces no hay scroll
+C 0x4968 0xE610 distinto de 0...
+C 0x496C ...p00:4BE6
+C 0x496F el siguiente alto
+C 0x4973 el scroll
+C 0x4976 ya llego?
+C 0x4977 si, se para (0xE629 = 1)
+C 0x4979 0xE62A: la fase del scroll fino, de 0 a 7
+C 0x497D uno mas
+C 0x497E de 0 a 7
+C 0x4981 un cuadro si y otro no
+C 0x4984 en el que no, fuera
+C 0x4985 el scroll avanza
+C 0x4989 en vertical...
+C 0x498D ...p00:4A45
+C 0x4990 0xE627 = 1: hay columna nueva
+C 0x4995 p00:4A0C: corre el mapa de la RAM una columna
+C 0x4998 la columna nueva, la 31 de 0xCA00
+C 0x499E el scroll
+C 0x49A1 el final del recorrido
+C 0x49A5 HL >= final?
+C 0x49A7 entonces columna vacia: p00:4AD5
+C 0x49AA el principio
+C 0x49AF scroll - principio
+C 0x49B1 antes del principio: vacia
+C 0x49B4 se guarda
+C 0x49B5 el mapa de la fase (p13:6F4C)
+C 0x49BB DE = el mapa
+C 0x49BF (scroll - principio)...
+C 0x49C0 / 2
+C 0x49C3 par: 2 x (columna de bloques)
+C 0x49C8 x 2
+C 0x49C9 + 1: x 3, o sea 6 por columna de bloques
+C 0x49CA + el mapa
+C 0x49CB la columna de bloques, en 0xF002
+C 0x49CE la columna de la RAM
+C 0x49D1 6 bloques de alto
+C 0x49D5 el bloque siguiente de la columna
+C 0x49DD p00:4A25: DE = sus 16 bytes
+C 0x49E0 la columna del bloque: scroll & 3
+C 0x49E5 + el bloque
+C 0x49EA la RAM de la pantalla
+C 0x49EB 64 por fila en la RAM
+C 0x49EE fila 1 del bloque
+C 0x49F0 la de abajo
+C 0x49F1 4 mas en el bloque
+C 0x49F5 fila 2
+C 0x49FC fila 3
+C 0x4A03 fila 4 del bloque
+C 0x4A05 la de abajo
+C 0x4A07 el bloque de abajo
+C 0x4A08 los 6 de la columna
+C 0x4A0C corre el mapa de la RAM una columna a la izquierda: de 0xCA01...
+C 0x4A0F ...a 0xCA00
+C 0x4A12 24 filas
+C 0x4A15 31 columnas por fila
+C 0x4A18 una columna a la izquierda
+C 0x4A1A a la fila siguiente (64 por fila en la RAM)
+C 0x4A22 las 24
+C 0x4A25 el bloque: menos de 4?
+C 0x4A27 4 o mas: los de la fase
+C 0x4A29 0-3: los comunes de p13:600E
+C 0x4A30 el numero del bloque de la fase (- 4)
+C 0x4A31 la fase
+C 0x4A34 la tabla de los bloques de la fase (0x5FFE + 2 x fase = p13:6000)
+C 0x4A37 DE = los bloques de la fase
+C 0x4A3A el bloque
+C 0x4A3B x 16: cuatro filas de cuatro
+C 0x4A42 + los bloques
+C 0x4A43 DE = el bloque
+C 0x4A45 en vertical: 0xE628 = 1, hay fila nueva
+C 0x4A4A corre el mapa de la RAM una fila hacia abajo: de 0xCEC0...
+C 0x4A4D ...a 0xCF00
+C 0x4A50 20 filas
+C 0x4A53 32 columnas
+C 0x4A56 una fila abajo
+C 0x4A58 a la fila de arriba del origen
+C 0x4A5E y el origen una fila mas arriba
+C 0x4A63 las 20
+C 0x4A65 la fila nueva arriba (0xCA00)
+C 0x4A6B el scroll
+C 0x4A6E el final del recorrido
+C 0x4A72 HL >= final?
+C 0x4A74 entonces fila vacia: p00:4AF9
+C 0x4A77 el principio
+C 0x4A7C scroll - principio
+C 0x4A7E antes del principio: vacia
+C 0x4A82 el mapa de la fase (p13:6F4C)
+C 0x4A88 DE = el mapa
+C 0x4A8C (scroll - principio) & ~3...
+C 0x4A90 x 2: 8 por fila de bloques
+C 0x4A91 + el mapa
+C 0x4A92 la fila de bloques, en 0xF002
+C 0x4A95 la fila de la RAM
+C 0x4A99 8 bloques de ancho
+C 0x4A9D el bloque siguiente de la fila
+C 0x4AA5 p00:4AC8: DE = sus 16 bytes
+C 0x4AA8 la fila del bloque: 3 - (scroll & 3)
+C 0x4AB1 x 4
+C 0x4AB3 + el bloque
+C 0x4AB8 HL = la fila del bloque
+C 0x4AB9 DE = la RAM
+C 0x4ABA cuatro caracteres de la fila del bloque
+C 0x4AC3 los 8
+C 0x4AC8 menos de 4: los comunes
+C 0x4ACA 4 o mas: los de la fase
+C 0x4ACD 0-3
+C 0x4ACF los comunes de p13:600E
+C 0x4AD5 columna vacia: las estrellas del fondo
+C 0x4AD8 el scroll & 0x1F
+C 0x4ADA en la tabla de p14:9E1F
+C 0x4AE0 la fila de la estrella de esta columna
+C 0x4AE2 se guarda
+C 0x4AE3 21 filas
+C 0x4AE5 64 por fila
+C 0x4AE8 la columna de la RAM
+C 0x4AEB un hueco
+C 0x4AEC la fila de la estrella?
+C 0x4AED no: hueco
+C 0x4AEF si: el caracter 0x50 o 0x51 segun el bit 0
+C 0x4AF4 a la RAM
+C 0x4AF5 la fila de abajo
+C 0x4AF6 las 21
+C 0x4AF9 fila vacia: las estrellas
+C 0x4AFE en la tabla de p14:9E3F
+C 0x4B04 la columna de la estrella
+C 0x4B07 32 columnas
+C 0x4B0C un hueco
+C 0x4B0D la columna de la estrella?
+C 0x4B10 si: 0x50 o 0x51
+C 0x4B15 a la RAM
+C 0x4B16 la columna siguiente
+C 0x4B17 las 32
+C 0x4B1A 0xE630 = 1: sin scroll, fuera
+C 0x4B1F 0xE610 distinto de 0: fuera
+C 0x4B24 en vertical?
+C 0x4B28 a p00:4B49
+C 0x4B2A la cuenta de cuadros & 6
+C 0x4B2F un par de la tabla de p00:4B87
+C 0x4B36 C
+C 0x4B38 B
+C 0x4B39 a la VRAM 0x2282
+C 0x4B3C con C
+C 0x4B3F y a 0x228B con B
+C 0x4B43 0xE616 (el bit que gira) con la mascara
+C 0x4B47 a los tres tercios
+C 0x4B49 en vertical: la cuenta de cuadros & 6
+C 0x4B51 un par de la tabla de p00:4B8F
+C 0x4B58 a 0x0280
+C 0x4B5F y a 0x0288
+C 0x4B62 + 0xE62A (el scroll fino)
+C 0x4B68 el valor de C
+C 0x4B69 a los tres tercios
+C 0x4B6D la fila de antes
+C 0x4B6E 0xE62A = 0?
+C 0x4B72 si no, se borra la de antes
+C 0x4B74 con 0: la del caracter de al lado
+C 0x4B78 0: borra
+C 0x4B79 al tercio de arriba (WRTVRM)
+C 0x4B7C 0x800 mas: el del medio
+C 0x4B80 WRTVRM
+C 0x4B83 el de abajo
+C 0x4B84 WRTVRM
+C 0x4B97 con 13-14-15: las estrellas en la pantalla entera
+C 0x4B9A la tabla de p14:9E1F
+C 0x4B9E el scroll - 31...
+C 0x4BA3 & 0x1F
+C 0x4BA8 IX = su entrada
+C 0x4BAA lo que queda hasta el final de la tabla
+C 0x4BAE en C
+C 0x4BAF el mapa de la RAM (0xCA00)
+C 0x4BB2 32 columnas
+C 0x4BB5 la fila de la estrella
+C 0x4BB9 - 1
+C 0x4BBC x 64
+C 0x4BC2 + la columna
+C 0x4BC3 el caracter 0x50 o 0x51 segun el bit 0
+C 0x4BC7 a la RAM
+C 0x4BC8 al final de la tabla...
+C 0x4BCB ...vuelve al principio
+C 0x4BD0 la columna siguiente
+C 0x4BD1 la entrada siguiente
+C 0x4BD3 las 32
+C 0x4BD8 los 4 bloques comunes (p13:600E)...
+C 0x4BDC ...a 0xEC40
+C 0x4BDF 16 bytes
+C 0x4BE6 el scroll de los altos: 0xE612 hasta 0xE614
+C 0x4BED ya llego?
+C 0x4BEE si, se para
+C 0x4BF1 un cuadro si y otro no
+C 0x4BF5 0xE610: hacia donde
+C 0x4BF9 1: hacia arriba (p00:4C55)
+C 0x4BFC 2: nada
+C 0x4BFF 3: a la izquierda (p00:4C19)
+C 0x4C01 4: a la derecha: 0xE612 + 1
+C 0x4C05 hay columna nueva
+C 0x4C0A corre el mapa de la RAM
+C 0x4C0D la columna nueva a la derecha
+C 0x4C19 a la izquierda: 0xE612 - 1
+C 0x4C1D 0xE627 = 0xFF: columna nueva por la izquierda
+C 0x4C22 corre el mapa de la RAM a la derecha, de atras hacia delante
+C 0x4C28 21 filas
+C 0x4C2B 31 columnas
+C 0x4C2E a la derecha
+C 0x4C30 a la fila siguiente
+C 0x4C38 las 21
+C 0x4C3A la columna nueva, la 0
+C 0x4C3D en 0xF000
+C 0x4C40 se guarda el scroll
+C 0x4C44 y se pone el de los altos
+C 0x4C4A el mapa de p14:818C (el de la fase 7)
+C 0x4C4D p00:49BF: la columna
+C 0x4C50 el scroll de verdad otra vez
+C 0x4C55 hacia arriba: 0xE612 - 1
+C 0x4C59 0xE628 = 0xFF: fila nueva por abajo
+C 0x4C5E corre el mapa de la RAM una fila arriba: de 0xCA40...
+C 0x4C61 ...a 0xCA00
+C 0x4C64 23 filas
+C 0x4C68 32 columnas
+C 0x4C6B una fila
+C 0x4C6D la siguiente
+C 0x4C73 las 23
+C 0x4C75 la fila nueva abajo (0xCFC0)
+C 0x4C7B se guarda el scroll
+C 0x4C7F y se pone el de los altos
+C 0x4C85 p00:4C8D: la fila
+C 0x4C89 el scroll de verdad
+C 0x4C8D en la fase 1...
+C 0x4C90 ...el mapa de p14:80FC
+C 0x4C93 la 1?
+C 0x4C96 en las demas, p14:815C
+C 0x4C99 la fila con ese mapa
+C 0x4C9C p00:5909 y borra los 0x2A0 primeros nombres
+C 0x4CA4 p00:5909 y la tabla de nombres entera
+C 0x4CA7 0x300 bytes
+C 0x4CAA desde 0x3800
+C 0x4CAD a cero
+C 0x4CAE FILVRM
+C 0x4CB1 se guarda A
+C 0x4CB2 SETWRT: la direccion HL de la VRAM para escribir
+C 0x4CB6 el puerto de escritura del VDP (VDP.DW, 0x0007 de la BIOS)
+C 0x4CB9 en C'
+C 0x4CBB devuelve A
+C 0x4CBD HL = el origen, DE = la VRAM
+C 0x4CBE LDIRVM
+C 0x4CC2 tres veces
+C 0x4CC7 copia BC bytes
+C 0x4CCA 0x800 mas: el tercio siguiente
+C 0x4CD1 los tres
+C 0x4CD4 FILVRM tres veces
+C 0x4CD8 FILVRM
+C 0x4CDB el tercio siguiente
+C 0x4CE1 los tres
+C 0x4CE5 tres veces
+C 0x4CE9 las rachas
+C 0x4CEC el tercio siguiente
+C 0x4CF2 los tres
+C 0x4CF5 mascara 0xFF: se pinta
+C 0x4CF7 el destino de la lista
+C 0x4CFB HL = el destino
+C 0x4CFC el primer byte
+C 0x4CFD un byte
+C 0x4CFF + 1...
+C 0x4D01 0xFF: acaba
+C 0x4D03 0xFE: otro destino
+C 0x4D05 con la mascara (0 borra)
+C 0x4D06 WRTVRM
+C 0x4D09 el siguiente de la VRAM
+C 0x4D0C mascara 0: se borra lo que pinta la lista
+C 0x4D10 el destino de las rachas
+C 0x4D14 HL = el destino
+C 0x4D16 el puerto del VDP
+C 0x4D19 n
+C 0x4D1A 0 acaba
+C 0x4D1C el siguiente
+C 0x4D1D se guarda
+C 0x4D1E n & 0x7F
+C 0x4D20 igual: n < 0x80, repite
+C 0x4D23 0x80: otro destino
+C 0x4D24 a rachas_con_destino
+C 0x4D26 n > 0x80: copia n & 0x7F bytes
+C 0x4D27 un byte
+C 0x4D2A al VDP
+C 0x4D2D los n
+C 0x4D2F las siguientes
+C 0x4D31 el byte que se repite
+C 0x4D34 al VDP
+C 0x4D37 n veces
+C 0x4D39 las siguientes
+C 0x4D3B p00:4D47: un sprite de 16 x 16 girado
+C 0x4D3E 32 bytes mas en el destino
+C 0x4D43 C sprites
+C 0x4D47 se guarda el destino
+C 0x4D48 16 bytes: una columna del sprite
+C 0x4D4A RDVRM: un byte del origen
+C 0x4D4D p00:4D63: sus bits al reves
+C 0x4D51 WRTVRM al destino
+C 0x4D55 el siguiente del destino
+C 0x4D56 el siguiente del origen
+C 0x4D57 los 16
+C 0x4D59 el destino 32 atras...
+C 0x4D5D ...hasta pasar por las dos columnas (bit 4 de E)
+C 0x4D63 C = el byte
+C 0x4D65 8 bits
+C 0x4D67 el de la derecha de C...
+C 0x4D69 ...entra por la derecha en A: al reves
+C 0x4D6A los 8
+C 0x4D6E sin interrupciones
+C 0x4D75 los bancos 4-5-6 sin tocar sus copias: el sonido
+C 0x4D82 el sonido A
+C 0x4D84 arranca_sonido
+C 0x4D87 y devuelve los bancos de antes
+C 0x4D9F con interrupciones
+C 0x4DA1 la cuenta de interrupciones
+C 0x4DA4 compara con DE (acarreo si es menor)
+C 0x4DA6 IY...
+C 0x4DA9 ...su byte bajo
+C 0x4DAA 0x00 <-> 0x80
+C 0x4DAD a IY: la ficha del otro jugador
+C 0x4DB1 borra el bufer de 0xC600 (0x400 bytes)
+C 0x4DB4 en la presentacion...
+C 0x4DBA ...el de 0xE700
+C 0x4DC0 1.023 mas
+C 0x4DC3 a cero
+C 0x4DC8 el jefe
+C 0x4DCB el 8: nada
+C 0x4DCE el 3 y el 6: p00:4E08
+C 0x4DD8 con 7-8-9
+C 0x4DDE sus caracteres (p07:67D6)
+C 0x4DE4 las copias en espejo
+C 0x4DEB de p07:67E4
+C 0x4DF1 y cabeza abajo
+C 0x4DF8 de p07:67F2
+C 0x4DFE de vuelta a 1-2-3
+C 0x4E01 con el 11 en 0xA000 (los jefes)
+C 0x4E06 y borra el bufer
+C 0x4E08 el jefe 3 o 6: por la lista de la presentacion (p00:4763)
+C 0x4E0B 0xE21C = 1, 0xE21D = 0
+C 0x4E0E los caracteres de p07:6822
+C 0x4E14 las copias de p07:6895
+C 0x4E1A y p07:68C0
+C 0x4E21 HL = A
+C 0x4E24 x 2
+C 0x4E25 + DE
+C 0x4E28 A x 2
+C 0x4E2C + HL
+C 0x4E2D la palabra, bajo
+C 0x4E2F alto
+C 0x4E31 A x 2
+C 0x4E32 + HL
+C 0x4E35 la palabra, bajo
+C 0x4E37 alto
+C 0x4E38 en HL
+C 0x4E3A los enemigos
+C 0x4E3D 0x40 bytes cada uno
+C 0x4E40 12
+C 0x4E42 su tipo
+C 0x4E43 vivo?
+C 0x4E44 si: NZ
+C 0x4E45 el siguiente
+C 0x4E48 los disparos
+C 0x4E4B 0x10 bytes cada uno
+C 0x4E4E 8
+C 0x4E52 vivo: NZ
+C 0x4E56 ninguno: Z
+C 0x4E58 R
+C 0x4E5B x 3
+C 0x4E5E + el azar
+C 0x4E66 se guarda A
+C 0x4E67 la fase
+C 0x4E6A DE = la lista de la fase
+C 0x4E6E A...
+C 0x4E70 x 3: la ficha
+C 0x4E74 HL = la ficha
+C 0x4E75 la posicion, bajo
+C 0x4E77 alto
+C 0x4E79 C = el dato
+C 0x4E7A el scroll
+C 0x4E7D comparado con la posicion
+C 0x4E7F 0xE200: el estado del juego
+C 0x4E82 2?
+C 0x4E86 o 5?
+C 0x4E88 si no, fuera
+C 0x4E89 0xE630 = 0?
+C 0x4E8D entonces fuera
+C 0x4E8E 0xE215 ya puesto?
+C 0x4E93 entonces fuera
+C 0x4E94 0xE632: cuenta 60 cuadros
+C 0x4E97 uno menos
+C 0x4E98 no ha llegado: fuera
+C 0x4E99 vuelve a 60
+C 0x4E9B 0xE631: un segundo menos (BCD)
+C 0x4E9D - 1
+C 0x4E9F en BCD
+C 0x4EA1 0xE215 = 1...
+C 0x4EA3 ...o 2 si ha llegado a 0
+C 0x4EAA pone el bit 4 de IX+10
+C 0x4EAF los atributos de sprite de la RAM
+C 0x4EB5 0xE0: fuera de la pantalla (y = 224)
+C 0x4EB7 los 128 bytes
+C 0x4EBD IX+14: el ancho
+C 0x4EC0 0: nada
+C 0x4EC2 en B
+C 0x4EC3 IX+11/12: la direccion en el mapa de la RAM
+C 0x4EC9 el tipo
+C 0x4ECC 0x3A?
+C 0x4ECE a p00:4EF1
+C 0x4ED0 dos filas
+C 0x4ED2 0x3C?
+C 0x4ED4 a p00:4EE2
+C 0x4ED6 tres filas
+C 0x4ED7 0x3D?
+C 0x4ED8 a p00:4EE2
+C 0x4EDA el caracter de IX+32
+C 0x4EDD a la RAM
+C 0x4EDE el siguiente
+C 0x4EDF el ancho
+C 0x4EE4 una fila
+C 0x4EE9 la siguiente (32 por fila)
+C 0x4EED C filas
+C 0x4EF1 el tipo 0x3A: dos filas con 0x38/0x39 alternos
+C 0x4EF5 la de arriba
+C 0x4EFE la de abajo con 0x39
+C 0x4F00 el caracter
+C 0x4F01 el otro
+C 0x4F03 el siguiente
+C 0x4F04 el ancho
+C 0x4F07 IX+13: el alto
+C 0x4F0A 0: nada
+C 0x4F0D la direccion en el mapa de la RAM
+C 0x4F13 el caracter de IX+32
+C 0x4F16 64 por fila
+C 0x4F19 a la RAM
+C 0x4F1A la de abajo
+C 0x4F1B las del alto
+C 0x4F1E se guarda la direccion (A)
+C 0x4F1F la palabra de p00:4F5D
+C 0x4F25 HL = 0
+C 0x4F29 + DE...
+C 0x4F2A ...B veces
+C 0x4F2E se guarda
+C 0x4F2F la palabra de p00:4F3D
+C 0x4F38 + DE...
+C 0x4F39 ...B veces
+C 0x4F3B DE = la primera; HL = la segunda
+C 0x4F7D los caracteres de p00:4F97
+C 0x4F80 C = 0
+C 0x4F82 IX+24 - 1
+C 0x4F85 lo lee
+C 0x4F88 / 4
+C 0x4F8A C - 1 (0xFF)
+C 0x4F8B siempre: no se divide mas
+C 0x4F8E de 0 a 3
+C 0x4F90 el caracter de la tabla HL
+C 0x4F93 a IX+30: el dibujo del sprite
+C 0x4F9B pone el bit 3 de IX+10
+C 0x4FA0 IX+13...
+C 0x4FA3 x 8
+C 0x4FA6 a IX+0E
+C 0x4FA9 IX+14...
+C 0x4FAC x 8
+C 0x4FAF a IX+0F
+C 0x4FB3 p00:5087
+C 0x4FB6 0xE647 + 1...
+C 0x4FBA ...es el ancho
+C 0x4FBD p00:5087
+C 0x4FC2 p00:5092
+C 0x4FC7 p00:509F
+C 0x4FCC p00:506E
+C 0x4FD1 p00:5078
+C 0x4FD4 E = el ancho
+C 0x4FD5 fuera del mapa de la RAM (0xD000)?
+C 0x4FD8 entonces fuera
+C 0x4FDA a cero
+C 0x4FDC borra
+C 0x4FDD la siguiente
+C 0x4FDE el ancho
+C 0x4FE1 la fila de abajo (64)
+C 0x4FE6 C filas
+C 0x4FEB p00:5087
+C 0x4FF2 p00:5047
+C 0x4FF8 + 0xE647
+C 0x5003 B = lo que queda
+C 0x5006 0xE646 + el caracter
+C 0x500A 0x31 o mas?
+C 0x500C si, se queda
+C 0x500E si no, 0: hueco
+C 0x500F a la RAM (DE)
+C 0x5010 el siguiente del origen
+C 0x5011 el anterior del destino: al reves
+C 0x5012 la fila
+C 0x5016 la fila siguiente de la RAM (64)
+C 0x501B 0xEC80: el jefe en marcha
+C 0x501E del 8 en adelante...
+C 0x5020 ...el origen no avanza
+C 0x5023 C filas
+C 0x5027 p00:5087 y copia la forma (p00:5047)
+C 0x502D p00:5092 y copia la forma
+C 0x5034 p00:509F y copia la forma
+C 0x503B p00:506E y copia la forma
+C 0x5042 p00:5078 y copia la forma
+C 0x5047 el ancho de la forma - el que cabe: lo que se salta del origen
+C 0x5049 en C'
+C 0x504B 64 - lo que cabe: lo que se salta de la RAM
+C 0x504F en D'
+C 0x5051 C = las filas
+C 0x5053 B = lo que cabe
+C 0x5054 HL = el origen, DE = la RAM
+C 0x5055 fuera del mapa de la RAM (0xD000)?
+C 0x5058 entonces fuera
+C 0x505A B bytes de la fila
+C 0x505C copia
+C 0x5060 lo que se salta del origen
+C 0x5062 en HL
+C 0x5066 lo que se salta de la RAM
+C 0x5068 en DE
+C 0x506B las filas
+C 0x506F p01:64F8
+C 0x5072 p00:5AAD: a la direccion de la RAM
+C 0x5078 a la direccion de la RAM (p00:5A99)
+C 0x507B la columna
+C 0x507E + el ancho
+C 0x507F - 32
+C 0x5081 cabe entera: fuera
+C 0x5082 lo que sobra...
+C 0x5084 ...se quita del ancho
+C 0x5087 la direccion de E' y D'
+C 0x5093 p01:64F8
+C 0x5096 la columna
+C 0x5098 p00:5AAD
+C 0x509F la columna
+C 0x50A1 a la direccion de la RAM
+C 0x50A5 la fila (/ 8)
+C 0x50AA 21 - fila: las que caben
+C 0x50AE caben las C?
+C 0x50AF si: fuera
+C 0x50B0 si no, C = las que caben
+C 0x50B2 lo que se pinta en el mapa de la RAM: p02:8025...
+C 0x50BE con el 11: p11:BB39
+C 0x50C4 con el 12: p12:BD55 y p12:A639
+C 0x50CD de vuelta a 1-2-3
+C 0x50D0 el sonido de arranque: 0xE1D8-0xE1D9 = 0xFF
+C 0x50D9 0xE1DA-0xE1E3 = 1
+C 0x50DE 10 bytes
+C 0x50E3 los bancos 4-5-6 sin tocar sus copias
+C 0x50F0 p04:728E: prepara el SCC
+C 0x50F3 y devuelve los bancos
+C 0x5105 0xBF: el registro 7 del PSG con los tonos y el ruido callados
+C 0x5107 su copia
+C 0x510B el registro 7
+C 0x510D WRTPSG
+C 0x5110 el sonido 1: calla todo
+C 0x5115 la VRAM entera...
+C 0x5118 ...16 KB...
+C 0x511B ...a cero
+C 0x511C FILVRM
+C 0x511F los registros del VDP de p00:5130
+C 0x5122 desde el 0
+C 0x5124 8 registros
+C 0x5126 el valor
+C 0x5127 WRTVDP
+C 0x512A el siguiente
+C 0x512B el registro siguiente
+C 0x512C los 8
+C 0x5138 el registro 7 del VDP (el color del borde) = B
+C 0x513D los mandos de los dos jugadores: el 1
+C 0x5144 y el 2
+C 0x5148 HL = IY + 0x0F: donde van los mandos
+C 0x514F con mando (IY+21 bit 0)?
+C 0x5153 a p00:515C
+C 0x5155 con teclado: p00:51BF
+C 0x515A y los apunta (p00:51B8)
+C 0x515C con mando: el puerto 2 (registro 15 = 0xCF)
+C 0x5162 los 6 bits
+C 0x5164 y el teclado del jugador 2 (p00:516A)
+C 0x5168 y los apunta
+C 0x516A la fila 6 del teclado (SNSMAT)
+C 0x5170 al reves: 1 = pulsada
+C 0x5171 a los bits 4-5
+C 0x5175 dos teclas
+C 0x5177 en E
+C 0x5178 la fila 3
+C 0x517D al reves
+C 0x517F una tecla al bit 3
+C 0x5183 otra al bit 1
+C 0x5188 otra al bit 0
+C 0x518F la fila 5
+C 0x5194 al reves
+C 0x5196 una al bit 2
+C 0x519B todo junto
+C 0x519E los bits 5-7 de la fila 5...
+C 0x51A0 ...en 0xE60D
+C 0x51A5 con los del mando
+C 0x51A7 el estado del juego
+C 0x51AA 5 o 9: los dos jugadores
+C 0x51B2 uno: el teclado (p00:51BF)
+C 0x51B5 en 0xE30F
+C 0x51B8 lo de antes
+C 0x51B9 lo de ahora
+C 0x51BA lo que ha cambiado...
+C 0x51BB ...y esta pulsado: lo recien pulsado
+C 0x51BC en el byte de delante
+C 0x51BF el puerto 1 (registro 15 = 0x8F)
+C 0x51C1 lee el mando
+C 0x51C4 los 6 bits
+C 0x51C6 la fila 4 del teclado
+C 0x51CC al reves
+C 0x51CD dos teclas (bits 2-3)
+C 0x51D0 alguna?
+C 0x51D2 entonces el bit 5
+C 0x51D4 la fila 8: los cursores y el espacio
+C 0x51D9 al reves
+C 0x51DA girados
+C 0x51DD un bit al 2
+C 0x51E2 dos mas
+C 0x51E5 a los bits 3-4
+C 0x51EB y los dos de abajo
+C 0x51EE con el mando
+C 0x51F1 el registro 15 del PSG (los puertos de mando)
+C 0x51F3 WRTPSG con E
+C 0x51F6 el registro 14
+C 0x51F9 RDPSG: el mando
+C 0x51FD al reves: 1 = pulsado
+C 0x51FF el puerto 1 y el teclado
+C 0x5208 0xE202 bit 6: la pausa permitida?
+C 0x520D si no, fuera
+C 0x520E algo pulsado en los mandos del 1...
+C 0x5213 ...entonces fuera
+C 0x5214 o del 2
+C 0x521A o la fila 5 (0xE60D)
+C 0x521F la fila 6 del teclado
+C 0x5224 al reves
+C 0x5229 la fila 7
+C 0x5235 la fila 8
+C 0x523E todo junto, 6 bits
+C 0x5242 en 0xE219, con lo recien pulsado en 0xE218
+C 0x524C la cuenta de cuadros + 1
+C 0x5250 p00:57DC se ejecuta al volver (estados 0-2)
+C 0x5253 el estado (C) y el paso (B)
+C 0x5258 del 3 en adelante...
+C 0x525A ...no
+C 0x525C la vuelta por p00:57DC
+C 0x525D por el estado: la tabla de detras
+C 0x527A paso 0...
+C 0x527C uno de cada dos cuadros
+C 0x5281 con el 12: p12:A313
+C 0x528C NZ: fuera
+C 0x528D Z: al paso siguiente con cuenta 0
+C 0x5291 paso 1: la cuenta atras
+C 0x5296 uno menos
+C 0x5297 no ha llegado: fuera
+C 0x5298 al estado siguiente
+C 0x529C el VDP
+C 0x529F borra la pantalla
+C 0x52A2 con el 11: p11:B8D7
+C 0x52A8 con el 12: p12:A2E5
+C 0x52B1 al paso siguiente
+C 0x52B4 con el 10 y el 15 puestos: p10:81A3 y p10:87E9
+C 0x52C2 la cuenta atras
+C 0x52C6 sin acabar: p10:90BA
+C 0x52C9 acabada: al estado siguiente
+C 0x52CC borra la pantalla
+C 0x52CF con el 10 y el 15: la presentacion (p10:80B9, 813E)
+C 0x52D8 la lista de p10:81A9
+C 0x52E4 0xE227 = 0
+C 0x52E8 al paso siguiente con cuenta 0
+C 0x52ED p10:81E6 y p10:87E9
+C 0x52F9 0xE217: sigue el cuadro de la presentacion?
+C 0x52FD si, fuera
+C 0x5300 el sonido 1: calla
+C 0x5305 borra la pantalla
+C 0x5308 p00:582D
+C 0x530B p03:BF4E
+C 0x5312 p03:BF85: la demostracion
+C 0x5315 0xE213 = 0: se acabo la demo
+C 0x5319 si no, fuera
+C 0x531A calla
+C 0x531F el estado 0
+C 0x5320 en 0xE200
+C 0x5323 con 32 de cuenta
+C 0x5328 y el paso 0
+C 0x532B p00:5F57
+C 0x532E borra la pantalla
+C 0x5331 0xE217 = 1
+C 0x5336 32 de cuenta
+C 0x5338 en 0xE204
+C 0x533B el paso siguiente
+C 0x5342 la cuenta atras
+C 0x5346 llego: al paso siguiente
+C 0x5348 cuantos jugadores
+C 0x534C la lista de p03:B64D (uno)
+C 0x5351 p03:B657 (dos)
+C 0x5357 p03:B662 (el otro modo)
+C 0x535A el bit 2 de la cuenta: parpadea
+C 0x535C pinta
+C 0x535F o borra
+C 0x5364 borra la pantalla
+C 0x5369 0xE217 = 1
+C 0x5370 con el 10 y el 15: p10:8848
+C 0x5379 0xE217 sigue?
+C 0x537D si, fuera
+C 0x537E al paso siguiente
+C 0x5382 borra la pantalla
+C 0x5385 p00:5835
+C 0x5388 32 de cuenta
+C 0x538D al estado siguiente
+C 0x5391 paso 0
+C 0x5396 el sonido 0x49
+C 0x539B 80 de cuenta
+C 0x53A1 la cuenta atras
+C 0x53A5 no ha llegado: fuera
+C 0x53A6 p00:5AEF
+C 0x53A9 0xE213 = 1: la partida en marcha
+C 0x53AE al estado siguiente
+C 0x53B0 p00:58E9: listo?
+C 0x53B3 aun no
+C 0x53B4 p00:5F57
+C 0x53B7 p00:53CB: las vidas
+C 0x53BA p00:5553: el marcador
+C 0x53BD p00:53F0: los caracteres comunes
+C 0x53C0 p00:5A12
+C 0x53C3 p00:5D18
+C 0x53C6 120 de cuenta
+C 0x53CB con dos jugadores...
+C 0x53D2 ...el 2
+C 0x53D9 y el 1
+C 0x53DD IY+20 = 0?
+C 0x53E1 si no, fuera
+C 0x53E2 IY+00 (BCD) - 1
+C 0x53E8 se guarda
+C 0x53EB IY+20 = 0xFF
+C 0x53F0 con 7-8-9...
+C 0x53F3 ...la lista de caracteres de todas las fases (p07:6C63)
+C 0x53FD el cuadro de la partida (p00:4200)
+C 0x5400 0xE213 = 0: se acabo
+C 0x5404 al estado siguiente
+C 0x5407 0xE226 distinto de 0...
+C 0x540B ...el estado 10
+C 0x5410 0xE21A distinto de 0...
+C 0x5414 ...el estado 8
+C 0x5419 0xE6D0 = 2...
+C 0x541E ...el estado 12
+C 0x5423 0xE6C0 distinto de 0: fuera
+C 0x5428 0xE6AA distinto de 0: fuera
+C 0x542D lo recien pulsado (0xE218)
+C 0x5430 el bit 0
+C 0x5431 sin el: fuera
+C 0x5432 el sonido 0xF3: la pausa
+C 0x5437 el estado 9
+C 0x543C con dos jugadores...
+C 0x5441 ...p00:5461
+C 0x5443 le quedan vidas al 1?
+C 0x5447 no: p00:547A
+C 0x5449 y al 2?
+C 0x544D no: p00:5458
+C 0x544F 0xE320 = 0
+C 0x5453 p00:549E: cambia las fichas de los jugadores
+C 0x5458 0xE320 = 0
+C 0x545C el estado 4
+C 0x5461 dos jugadores: copia 5 bytes de la ficha del 1 a la del 2 (la fase...)
+C 0x546C la ficha del que juega (0xE22E)
+C 0x5470 a IY
+C 0x5472 le quedan vidas?
+C 0x5474 si: p00:5498
+C 0x5476 no: IY+20 = 0
+C 0x547A p00:5480
+C 0x547D al estado siguiente
+C 0x5480 dos caracteres de la VRAM a 0: 0x3ACF...
+C 0x5486 ...y 0x3ADF
+C 0x548C la direccion
+C 0x5491 un 0
+C 0x5495 y otro
+C 0x5498 IY+20 = 0
+C 0x549E cambia las fichas de los dos jugadores...
+C 0x54A4 ...0x80 bytes
+C 0x54A6 p00:5A8F
+C 0x54AB p00:55EA: la tecla de seguir?
+C 0x54AE la cuenta de 0xE649...
+C 0x54B1 - 1
+C 0x54B5 llego a 0?
+C 0x54B7 no: fuera
+C 0x54B8 calla
+C 0x54BD con dos jugadores...
+C 0x54C2 ...p00:54EE
+C 0x54C4 0xE320 = 0
+C 0x54C8 0xE229: se sigue?
+C 0x54CC no: p00:54D6
+C 0x54CE p00:553D
+C 0x54D1 3 vidas
+C 0x54D6 le quedan al 2?
+C 0x54DA si: p00:544F
+C 0x54DD se sigue?
+C 0x54E1 si: el estado 4
+C 0x54E4 se acabo: el bit 6 de 0xE202 a 0
+C 0x54EB y al estado 0
+C 0x54EE la ficha del que juega
+C 0x54F4 IY+20 = 0
+C 0x54F8 se sigue?
+C 0x54FC no: p00:5508
+C 0x54FE p00:553D
+C 0x5501 3 vidas
+C 0x5508 si es la del 1...
+C 0x550A ...cambia las fichas
+C 0x550D un jugador
+C 0x5515 p00:58E9: listo?
+C 0x5518 aun no
+C 0x5519 480 cuadros de cuenta (0xE649)
+C 0x551F el sonido 0x32
+C 0x5524 el marcador
+C 0x5527 la lista de p03:B686 (SEGUIR)
+C 0x552D p00:581E
+C 0x5530 p00:5A7E
+C 0x5533 p00:5A12
+C 0x5536 0xE229 = 0
+C 0x553D 0xE27A...
+C 0x5540 ...o 0xE275 si 0xE22C
+C 0x5548 5 bytes a cero
+C 0x5553 con el 11: p11:B957 y p11:B911
+C 0x555C de vuelta el 2 y el 3
+C 0x5561 con el 10 y el 15: p10:8BEB y p10:87E9
+C 0x556D 0xE217 sigue?
+C 0x5571 si, fuera
+C 0x5577 0xE21A = 0
+C 0x557B p02:8703: empieza la fase
+C 0x557E 0xE630, 0xE215, 0xE342 y 0xE3C2 a 0
+C 0x558B el estado 4
+C 0x558E borra la pantalla
+C 0x5591 con el 14-15 en 0x8000-0xA000
+C 0x5594 la fase
+C 0x5597 de la 4 en adelante...
+C 0x5599 ...los sprites de p14:9DDF
+C 0x559E si no, p14:96BF
+C 0x55A2 a 0x1800
+C 0x55A5 64 bytes
+C 0x55A9 copia
+C 0x55AE y otra vez a 0x1840
+C 0x55B7 el marcador
+C 0x55BA con el 10 y el 15: p10:8B7B
+C 0x55C3 0xE217 = 1
+C 0x55CC p00:5F69
+C 0x55CF lo recien pulsado
+C 0x55D2 el bit 0 (la pausa)...
+C 0x55D3 ...p00:5641
+C 0x55D6 0xE630 distinto de 0: fuera
+C 0x55DB la tecla de seguir?
+C 0x55DE pulsada: fuera
+C 0x55DF con uno o dos jugadores...
+C 0x55E4 ...si no, fuera
+C 0x55E5 el estado 11
+C 0x55EA la tecla de seguir?
+C 0x55ED pulsada: fuera
+C 0x55EE 0xE229 = 1: se sigue
+C 0x55F3 y borra la lista de p03:B693
+C 0x55F9 la fila 7 del teclado
+C 0x55FE el bit 1...
+C 0x55FF ...al acarreo
+C 0x5603 con el 12: p12:B877
+C 0x560C 0xE230 = 0?
+C 0x5610 si, fuera
+C 0x5611 borra la pantalla
+C 0x5614 al paso siguiente con cuenta 0
+C 0x561A la cuenta atras
+C 0x561E no ha llegado: fuera
+C 0x561F p00:564B: prepara la fase
+C 0x5622 0xE6A5 distinto de 0?
+C 0x5626 no: p00:563B
+C 0x5628 dos jugadores
+C 0x562D las vidas
+C 0x5636 p02:87A4
+C 0x5641 el sonido 0xF2
+C 0x5646 el estado 5
+C 0x564B borra la pantalla
+C 0x564E el marcador
+C 0x5651 los caracteres comunes
+C 0x5654 y los graficos de la fase (p00:436B)
+C 0x5657 borra la pantalla
+C 0x565A con el 11: p11:B8D7 y p11:B8FA
+C 0x5666 0xE230 y 0xE6A4 a 0
+C 0x5672 la cuenta de 0xE698...
+C 0x5675 - 1
+C 0x567B no ha llegado: fuera
+C 0x567C prepara la fase
+C 0x5683 con el 10 y el 15: el texto (p10:9497)
+C 0x568C 0xEE21: el texto acabado?
+C 0x5690 no, fuera
+C 0x5691 la lista de p03:B6C0
+C 0x569C 0xE30E bit 4...
+C 0x56A1 ...sin el, fuera
+C 0x56A2 p01:7B97
+C 0x56A9 el texto
+C 0x56B2 acabado?
+C 0x56B7 900 cuadros de cuenta
+C 0x56C4 el sonido 0x22
+C 0x56C9 0xE6D0 = 0
+C 0x56CD 0xE6D1 = 1?
+C 0x56D1 si: p00:56DF
+C 0x56D3 p01:7B06
+C 0x56D6 900 cuadros
+C 0x56DF el paso 2
+C 0x56E4 y p01:7B73
+C 0x56E9 la cuenta atras
+C 0x56ED no ha llegado: fuera
+C 0x56EE con el 11: p11:B9E1
+C 0x56F4 con el 15: las rachas de p15:A912
+C 0x56F7 a 0x2190
+C 0x56FD en los tres tercios
+C 0x5700 0xF0 desde 0x0008...
+C 0x5705 ...0x7F8 bytes
+C 0x5708 en los tres tercios
+C 0x570E la lista de p03:B6AD
+C 0x5714 calla
+C 0x571F la fila 5, bit 6?
+C 0x5722 pulsada: p00:5730
+C 0x5724 la fila 4, bit 3?
+C 0x5727 pulsada: p00:5740
+C 0x5729 la cuenta atras
+C 0x572D no ha llegado
+C 0x5730 borra la lista de p03:B6AD
+C 0x5736 y pinta la de p03:B6DC
+C 0x573C al paso siguiente
+C 0x5740 borra la de p03:B6AD
+C 0x5746 y pinta la de p03:B6D1
+C 0x574C cuenta 0
+C 0x5750 el paso 4
+C 0x5757 la cuenta atras
+C 0x575B no ha llegado
+C 0x575C borra la pantalla
+C 0x575F la fase 1
+C 0x5764 empieza la fase
+C 0x5767 p00:576D: borra parte de las fichas de los jugadores
+C 0x576D el 1
+C 0x5774 con dos jugadores...
+C 0x577A ...el 2
+C 0x577E IY+0A = 0
+C 0x5782 HL = IY + 0x60
+C 0x5789 y 7 bytes mas
+C 0x578F a cero
+C 0x5795 la cuenta atras
+C 0x5799 no ha llegado
+C 0x579A borra la pantalla
+C 0x579D sin vidas el 1
+C 0x57A1 con dos jugadores...
+C 0x57A8 ...le quedan al 2?
+C 0x57AB si: p00:544F
+C 0x57B2 sin vidas el 2
+C 0x57B5 se acabo
+C 0x57B8 con el 10 y el 15: p10:8F7F y p10:87E9
+C 0x57C4 0xE226 distinto de 0?
+C 0x57C8 si, fuera
+C 0x57CC la fila 5 del teclado
+C 0x57D1 el bit 6
+C 0x57D4 la fila 4
+C 0x57D9 el bit 3
+C 0x57DC los mandos de los estados 0-2: el puerto 1
+C 0x57DF en 0xE211 con lo recien pulsado
+C 0x57E5 nada pulsado?
+C 0x57E6 fuera
+C 0x57E7 la cuenta a 0
+C 0x57EC el estado
+C 0x57F3 estado 1?
+C 0x57F5 los botones (bits 4-5)?
+C 0x57F9 0xE202 = 0x40: la pausa permitida
+C 0x57FE el estado 3
+C 0x5801 C = 0
+C 0x5803 0xE206 = 0
+C 0x5804 C = 0xFF
+C 0x5805 p02:90C4
+C 0x5808 el estado 1
+C 0x580B paso 0
+C 0x580D 0xE217 = 0
+C 0x5810 calla
+C 0x5815 el modo (0xE227) + 1...
+C 0x5817 ...de 0 a 2
+C 0x581E 0xE22C: el marcador de quien juega
+C 0x5822 la lista de p03:B670
+C 0x5827 o la de p03:B67B
+C 0x582D borra 0xE280-0xF03F
+C 0x5835 borra 0xE275-0xF03F
+C 0x583E a cero
+C 0x5843 0xE21A, 0xE21C y 0xE215 a 0
+C 0x584C el principio de la ficha del jugador 1 (p00:58BE)
+C 0x5852 7 bytes
+C 0x5857 4 mas adelante
+C 0x585B 0xE23A: la cuenta de cuadros (un azar)
+C 0x585F el bit 0...
+C 0x5861 ...a IY+0B
+C 0x5863 los bits 1-2...
+C 0x5867 ...a IY+0C
+C 0x5869 los bits 6-7...
+C 0x586D ...a IY+0D
+C 0x586E 0x43 mas adelante: IY+51
+C 0x5872 los bits 0-1 del azar
+C 0x5876 x 9
+C 0x587A una de las 4 fichas de p00:58C5
+C 0x5880 9 bytes
+C 0x5885 y un 5
+C 0x5888 Nemesis 2 en el vecino (0xF0F5 bit 0)?
+C 0x588C no: p00:58AE
+C 0x588F copia la ficha al jugador 2
+C 0x5892 un jugador?
+C 0x5896 si no, se queda
+C 0x5898 con uno, el 2 sin vidas
+C 0x589C 0xE3A1 = 1
+C 0x58A2 la ficha del 1...
+C 0x58A5 ...a la del 2
+C 0x58A8 0x80 bytes
+C 0x58AE sin Nemesis 2: en 0xE350...
+C 0x58B1 ...9 bytes
+C 0x58B3 un 1?
+C 0x58B5 si: lo quita
+C 0x58B7 el siguiente
+C 0x58BB a 0
+C 0x58E9 la cuenta de 0xE204 - 1
+C 0x58ED negativa: fuera (S = 1)
+C 0x58EE la cuenta...
+C 0x58EF la VRAM 0x38xx
+C 0x58F1 31 - cuenta: la columna
+C 0x58F4 21 filas
+C 0x58F6 en el estado 2...
+C 0x58FD ...24
+C 0x58FF un 0
+C 0x5900 32 por fila
+C 0x5903 WRTVRM
+C 0x5906 la fila de abajo
+C 0x5907 toda la columna
+C 0x5909 los dos juegos de atributos de sprite: 0x3B00...
+C 0x590C ...y 0x3B80
+C 0x5912 0xD0: el primer sprite acaba la lista
+C 0x5914 WRTVRM
+C 0x5919 0xE202 bit 6 (la partida)?
+C 0x591D no: fuera
+C 0x591E el jugador que da los puntos (IY+10)
+C 0x5923 el 1...
+C 0x5927 ...si no es el, el 2
+C 0x5930 suma DE a sus puntos
+C 0x5936 0xE202 bit 6?
+C 0x593A no: fuera
+C 0x593B los puntos del jugador 1 (0xE27B)...
+C 0x5944 ...o del 2 (0xE276)
+C 0x5946 + E
+C 0x5948 en BCD
+C 0x594B + D
+C 0x594D en BCD
+C 0x5950 + el acarreo
+C 0x5953 en BCD
+C 0x5956 + el acarreo
+C 0x5959 en BCD
+C 0x595B sin pasarse: p00:5970
+C 0x595D se pasa: todo a 99
+C 0x5966 y el record tambien
+C 0x5970 DE = los puntos
+C 0x5974 IY + 8: los puntos de la vida siguiente
+C 0x5978 alto
+C 0x5979 no llega: p00:599C
+C 0x597E medio
+C 0x5984 bajo
+C 0x5988 llega: la siguiente vida...
+C 0x5989 ...10.000 mas (BCD)
+C 0x5999 p00:59C1: una vida mas
+C 0x599C el record contra los puntos del 1...
+C 0x59A5 ...o del 2
+C 0x59A8 4 bytes
+C 0x59AA el record (0xE274)
+C 0x59AE record - puntos
+C 0x59B0 menos: es record nuevo
+C 0x59B2 mas: fuera
+C 0x59B3 igual: el byte siguiente
+C 0x59B8 el record = los puntos
+C 0x59C1 IY+00 (las vidas, BCD) + 1
+C 0x59C6 en BCD
+C 0x59C7 99: no se pasa
+C 0x59C8 se guarda
+C 0x59CB el sonido 0x12: vida extra
+C 0x59D0 las vidas a la VRAM: DE = IY
+C 0x59D3 el 1 en 0x3AC2...
+C 0x59DC ...el 2 en 0x3AD2
+C 0x59DE las vidas
+C 0x59DF una cifra
+C 0x59E1 mas de 9?
+C 0x59E3 entonces las dos
+C 0x59E5 el puerto del VDP
+C 0x59EC un hueco
+C 0x59EF y la cifra de abajo
+C 0x59F3 DE = IY + 0x1B
+C 0x59FE en 0x3AC6...
+C 0x5A03 ...o 0x3AD6
+C 0x5A05 dos cifras
+C 0x5A09 los dos jugadores
+C 0x5A12 con dos jugadores...
+C 0x5A17 ...los dos
+C 0x5A19 el 1
+C 0x5A1D su rotulo: el de p03:B62B...
+C 0x5A26 ...o p03:B63C
+C 0x5A29 a la VRAM
+C 0x5A2C los puntos
+C 0x5A2F las vidas
+C 0x5A32 y IY+1B
+C 0x5A3D con dos jugadores, los dos
+C 0x5A44 el 1
+C 0x5A48 los puntos del 1 en 0x3AE5...
+C 0x5A54 ...o los del 2 en 0x3AF5
+C 0x5A58 10 cifras... 5 bytes BCD
+C 0x5A5A el puerto del VDP
+C 0x5A61 sin la cifra alta del primero
+C 0x5A63 el puerto del VDP en C
+C 0x5A6A la cifra alta...
+C 0x5A6F ...4 bits
+C 0x5A71 + 1: el caracter de la cifra
+C 0x5A72 al VDP
+C 0x5A74 la cifra baja
+C 0x5A77 + 1
+C 0x5A78 al VDP
+C 0x5A7A el byte anterior
+C 0x5A7B B bytes
+C 0x5A7E el rotulo del record (p03:B6A2)
+C 0x5A84 el record
+C 0x5A87 en 0x3A2B
+C 0x5A8A 5 bytes
+C 0x5A8F cambia B bytes de HL y DE
+C 0x5A99 la columna: x / 8
+C 0x5A9D + la fila...
+C 0x5AA6 ...x 32
+C 0x5AA9 + 0xCA00: en el mapa de la RAM
+C 0x5AAD + 0x40
+C 0x5AB4 + 0x80
+C 0x5ABB las coordenadas...
+C 0x5AD3 + 0xC7F0
+C 0x5AD8 L + A
+C 0x5ADC con acarreo, H + 1
+C 0x5ADD el byte
+C 0x5ADF E al reves
+C 0x5AE2 D al reves
+C 0x5AE5 + 1: -DE
+C 0x5AE7 L al reves
+C 0x5AEA H al reves
+C 0x5AED + 1: -HL
+C 0x5AEF empieza la partida: 0xE215, 0xE630 y 0xE22C a 0
+C 0x5AFB la ficha del que juega a 0
+C 0x5AFE 0xE400-0xEFFF a cero
+C 0x5B0A los sprites fuera
+C 0x5B0D p00:5F57
+C 0x5B10 p02:886A y p02:885B: la fase
+C 0x5B16 0xE202 bit 6?
+C 0x5B1D no: 0xE64F = 0
+C 0x5B21 los graficos de la fase
+C 0x5B24 p02:87A4
+C 0x5B27 borra 0xC700-0xCFFF
+C 0x5B32 y pinta la pantalla entera (p00:48A6)
+C 0x5B35 el jefe...
+C 0x5B38 - 1
+C 0x5B39 sin jefe: fuera
+C 0x5B3A en C
+C 0x5B3B con 7-8 y el 11
+C 0x5B41 p00:5B47
+C 0x5B47 0xEC80: el jefe en marcha?
+C 0x5B4B no: fuera
+C 0x5B4C el jefe
+C 0x5B4D p11:B6A8
+C 0x5B50 por el jefe: su rutina del banco 11
+C 0x5B64 el jefe
+C 0x5B68 ninguno: fuera
+C 0x5B69 el 8: fuera
+C 0x5B6C en marcha?
+C 0x5B70 no: fuera
+C 0x5B71 borra el mapa de la RAM...
+C 0x5B77 ...21 filas de 31
+C 0x5B7B a cero
+C 0x5B7F la fila
+C 0x5B81 la siguiente (33 mas)
+C 0x5B8C las 21
+C 0x5B8E y las estrellas
+C 0x5B91 sin interrupciones
+C 0x5B92 el gancho H.KEYI a `ret`: que no salte mientras cambia el slot
+C 0x5B97 la rutina de p00:5BA5...
+C 0x5B9A ...a 0xC000
+C 0x5B9D 0x95 bytes
+C 0x5BA2 y se ejecuta alli
+C 0x5BA5 0xC010: el otro cartucho y sus bancos 7-8-9
+C 0x5BA8 0xC03C: copia sus trozos a 0xC100
+C 0x5BAB 0xC024: de vuelta este cartucho
+C 0x5BAE el gancho H.KEYI otra vez a `jp`
+C 0x5BB3 con interrupciones
+C 0x5BB5 el slot del vecino
+C 0x5BB8 0xC030: en las paginas 1 y 2
+C 0x5BBB los bancos 7-8-9 del cartucho que haya puesto
+C 0x5BC9 el slot de este cartucho
+C 0x5BCC 0xC030: en las paginas 1 y 2
+C 0x5BCF el banco 0 en 0x4000
+C 0x5BD3 y 7-8-9
+C 0x5BD5 ENASLT de A en la pagina 1 (0x4000)
+C 0x5BDC y en la 2 (0x8000)
+C 0x5BE1 a 0xC100...
+C 0x5BE4 ...los trozos de la tabla 0xC059 (p00:5BFE)
+C 0x5BE7 20
+C 0x5BEB cuantos
+C 0x5BEF el origen en el otro cartucho
+C 0x5BF3 copia
+C 0x5BF6 3 bytes por ficha
+C 0x5BFB los 20
+C 0x5C3A cambios de graficos al empezar: el scroll
+C 0x5C3E la fase
+C 0x5C41 la 1?
+C 0x5C44 la 3?
+C 0x5C48 la 6?
+C 0x5C4C la 7?
+C 0x5C4E la 7: del 0x1BF en adelante...
+C 0x5C53 ...el cambio de 0x5D12
+C 0x5C56 la 6: del 0x1A0 en adelante...
+C 0x5C5D ...el de 0x5D0C
+C 0x5C5F del 0xB7 en adelante...
+C 0x5C64 ...el de 0x5D06
+C 0x5C69 la 3: del 0x20E...
+C 0x5C70 la 1: del 0x18F...
+C 0x5C77 cambios a mitad de fase: 0xE628 (fila nueva)
+C 0x5C7A el scroll
+C 0x5C7E la fase
+C 0x5C81 la 1?
+C 0x5C84 la 3?
+C 0x5C88 la 6?
+C 0x5C8C la 7?
+C 0x5C8E la 7: 0xE627 (columna nueva)?
+C 0x5C92 justo en 0x1C0?
+C 0x5C97 el cambio de 0x5D12
+C 0x5C9C la 6: fila nueva?
+C 0x5C9F en 0xB8?
+C 0x5CA3 el de 0x5D06
+C 0x5CA8 en 0x1A0?
+C 0x5CAD el de 0x5D0C
+C 0x5CB2 la 3: fila nueva?
+C 0x5CB5 en 0x20F?
+C 0x5CBA el de 0x5D00
+C 0x5CBF la 1: columna nueva?
+C 0x5CC3 en 0x190?
+C 0x5CC8 el de 0x5CFA
+C 0x5CCB con 7-8-9
+C 0x5CCE la lista de caracteres
+C 0x5CD3 a IX
+C 0x5CD5 la pinta
+C 0x5CDA la de copias en espejo
+C 0x5CE1 0xF000 = 0
+C 0x5CE5 copia
+C 0x5CEA la de cabeza abajo
+C 0x5CF0 0xF000 = 1
+C 0x5CF4 copia
+C 0x5D18 los dos jugadores
+C 0x5D2C IY+20: el jugador en marcha?
+C 0x5D30 no: fuera
+C 0x5D31 0xFF?
+C 0x5D32 no: p00:5D62
+C 0x5D34 IY + 0x11: las armas
+C 0x5D3B la elegida
+C 0x5D3D 0: se queda
+C 0x5D3F si no, 1
+C 0x5D41 la elegida
+C 0x5D43 las demas a 0...
+C 0x5D46 ...y una a 0xFF
+C 0x5D52 0xE6A5 (dos jugadores a la vez)?
+C 0x5D56 no: sigue
+C 0x5D58 0xE60B: 3 o mas...
+C 0x5D5F ...la ultima a 0xFF
+C 0x5D62 IY+42: el marcador de armas pintado?
+C 0x5D66 si: p00:5D8E
+C 0x5D68 el del 1 en 0x3ACA, caracteres desde 0x16...
+C 0x5D73 ...el del 2 en 0x3ADA, desde 0x1B
+C 0x5D79 el puerto del VDP
+C 0x5D7D 5 caracteres
+C 0x5D80 al VDP
+C 0x5D82 el siguiente
+C 0x5D87 un hueco
+C 0x5D8C y otro
+C 0x5D8E las casillas de las armas del 1 en 0x3AA1...
+C 0x5D97 ...o del 2 en 0x3AB1
+C 0x5D9D IY + 0x12: el nivel de cada arma
+C 0x5DA4 7 casillas, empezando por la 1
+C 0x5DA7 p00:5E2F: una casilla
+C 0x5DAC las 7
+C 0x5DAE IY+42?
+C 0x5DB2 si, fuera
+C 0x5DB3 0xE630 (el reloj)?
+C 0x5DB7 0: p00:5DCC
+C 0x5DB9 el 7?
+C 0x5DBD con 0xE631 de 0x10 en adelante, fuera
+C 0x5DC5 0xE228 contra IY+21...
+C 0x5DCB ...iguales, fuera
+C 0x5DCC el arma elegida (IY+11)
+C 0x5DD0 ninguna: p00:5DF0
+C 0x5DD3 su nivel (IY + 0x11 + arma)
+C 0x5DDE 0xFF: nada
+C 0x5DE2 la lista del arma (p00:5E52 + 2 x arma)
+C 0x5DEA el nivel...
+C 0x5DEC ...en la lista
+C 0x5DED la pieza que se pinta
+C 0x5DF0 ninguna
+C 0x5DF1 la ventana del 1 en 0x30B0...
+C 0x5DFA ...o del 2 en 0x30D8
+C 0x5DFF con el 14-15 en 0x8000-0xA000
+C 0x5E02 el puerto
+C 0x5E07 la pieza
+C 0x5E08 de la tabla de p14:8849
+C 0x5E0F 5 filas
+C 0x5E12 la direccion: el byte bajo...
+C 0x5E15 7 caracteres
+C 0x5E17 al VDP
+C 0x5E1D las 5 filas
+C 0x5E20 el color, el byte 36
+C 0x5E22 y en la tabla de colores (0x30B0 + 0xE000)
+C 0x5E26 40 bytes
+C 0x5E29 FILVRM
+C 0x5E2F el nivel
+C 0x5E30 0xFF?
+C 0x5E31 no: p00:5E40
+C 0x5E33 la elegida?
+C 0x5E37 la casilla vacia, 0x14
+C 0x5E40 la elegida?
+C 0x5E44 0x10: casilla llena
+C 0x5E48 0x12: la elegida
+C 0x5E4A el caracter de la izquierda
+C 0x5E4E y el de la derecha
+C 0x5E79 la pieza B
+C 0x5E7D 0xE630 = 3?
+C 0x5E82 si, fuera
+C 0x5E83 el reloj de 0xE631...
+C 0x5E87 ...del 1 en 0x3ACE...
+C 0x5E8C ...o del 2 en 0x3ADE
+C 0x5E91 una cifra doble
+C 0x5E96 el reloj
+C 0x5E99 menos de 4?
+C 0x5E9D el sonido 0x17: se acaba el tiempo
+C 0x5EA2 0xE215 = 0
+C 0x5EA7 0xE215 = 1?
+C 0x5EAD 2?
+C 0x5EB1 el reloj, 0xE630: 5 o 7...
+C 0x5EBC 3 o 4: nada
+C 0x5EC1 si no, lo pinta
+C 0x5EC3 se acabo el reloj
+C 0x5EC6 0xE630...
+C 0x5ECA ...a 0
+C 0x5ECC era 1?
+C 0x5ED0 2?
+C 0x5ED3 5?
+C 0x5ED6 6?
+C 0x5ED9 7?
+C 0x5EDB el jugador de 0xE228
+C 0x5EEB p02:94A3
+C 0x5EF0 0xE334 y 0xE3B4 a 0
+C 0x5EF7 el marcador de armas de los dos
+C 0x5F0C los dos jugadores
+C 0x5F17 IY+20 en marcha?
+C 0x5F1B no: fuera
+C 0x5F1C IY+68: la cuenta del parpadeo?
+C 0x5F20 0: fuera
+C 0x5F21 - 1
+C 0x5F26 acabada: IY+68 = 0
+C 0x5F2B el bit 2 de la cuenta: parpadea
+C 0x5F30 en 0x3947
+C 0x5F3B 0x10 o 0x11 segun el jugador
+C 0x5F44 0x14
+C 0x5F4A un hueco
+C 0x5F4D y del 0x12 en adelante...
+C 0x5F4F ...14 caracteres
+C 0x5F57 0xE208 = 0
+C 0x5F5B los atributos de sprite de 0x3B00...
+C 0x5F5E ...256 bytes...
+C 0x5F61 ...a 0xE0
+C 0x5F66 la tabla de atributos de 0x3B00
+C 0x5F69 la que toca este cuadro (0xE208 bit 0)
+C 0x5F6D el registro 5 del VDP: 0x76 (0x3B00)...
+C 0x5F72 ...o 0x77 (0x3B80)
+C 0x5F73 WRTVDP
+C 0x5F76 cambia de tabla cada cuadro
+C 0x5F7A la otra...
+C 0x5F7C ...0x3B00...
+C 0x5F81 ...o 0x3B80
+C 0x5F83 el puerto
+C 0x5F87 0xE6C0?
+C 0x5F8B si: el orden de siempre (p00:5FB0)
+C 0x5F8D si no, el orden rota: 0xE604 + 0x1C...
+C 0x5F93 ...en 32 pasos de 4
+C 0x5F96 el primero
+C 0x5F97 32 sprites
+C 0x5F99 desde 0xEF80 + E
+C 0x5F9F 4 bytes
+C 0x5FA1 al VDP
+C 0x5FA6 el siguiente: 12 mas, en circulo
+C 0x5FAC los 32
+C 0x5FB0 los 8 de 0xEFE0 delante
+C 0x5FB5 al VDP
+C 0x5FBA y los 24 de 0xEF80 detras
+C 0x5FBF al VDP
+C 0x5FC5 la fase 4?
+C 0x5FCA no: p00:5FED
+C 0x5FCC el scroll...
+C 0x5FD2 ...pasado 0x100?
+C 0x5FD3 no: p00:5FED
+C 0x5FD5 justo en 0x150...
+C 0x5FD9 ...p01:603E
+C 0x5FDD antes de 0x150: p00:5FED
+C 0x5FDF 0xE630 = 3: p00:5FED
+C 0x5FE6 uno de cada 64 cuadros
+C 0x5FED el mapa de la RAM a la tabla de nombres: 0x3800
+C 0x5FF0 el puerto
+C 0x5FF4 desde 0xCA00
+C 0x5FF7 0xE645?
+# --- fin de lo escrito a mano ---
 # --- BLOQUES QUE LEE EL CODIGO (seccion que reescribe tools/bloques.py; no editar a mano) ---
 D 0x4000 0x4010 cabecera  cabecera del cartucho: "AB", INIT = 0x40DA y STATEMENT, DEVICE y TEXT a cero; la lee la BIOS al arrancar; lo leen BIOS (16 bytes)
 F 0x4000 16
@@ -111,7 +2154,6 @@ C 0x404B bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x4054 apunta a la fase (de 1 a 7; 0 en la presentacion)
 C 0x405D lee cuantos jugadores (o el modo de dos)
 C 0x4062 lee la ficha del jugador 1 (IY, 0x80 bytes) y el byte siguiente (16 bits)
-C 0x4065 guarda la ficha del jugador 2 (IY, 0x80 bytes) y el byte siguiente (16 bits)
 C 0x406D lee la cuenta de interrupciones (16 bits)
 C 0x4071 guarda la cuenta de interrupciones (16 bits)
 C 0x4087 el mapper: pone en 0x6000 el banco de A
@@ -124,16 +2166,12 @@ C 0x40A0 lee la copia del banco de 0x8000
 C 0x40A3 el mapper: pone en 0x8000 el banco de A
 C 0x40A6 lee la copia del banco de 0xA000
 C 0x40A9 el mapper: pone en 0xA000 el banco de A
-C 0x40E8 la copia del banco de 0x4000 (0)
 C 0x40F2 apunta a la copia del banco de 0x4000 (0)
 C 0x40F5 el mapper: pone en 0x4000 el banco de A
 C 0x40FB el mapper: pone en 0x6000 el banco de A
 C 0x4101 el mapper: pone en 0x8000 el banco de A
 C 0x4108 el mapper: pone en 0xA000 el banco de A
-C 0x410B apunta a los 8 canales de sonido (0x2C bytes cada uno)
 C 0x4167 guarda el slot de este cartucho
-C 0x416B pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x4182 apunta a la copia del banco de 0x6000
 C 0x4185 el mapper: pone en 0x6000 el banco de A
 C 0x418B el mapper: pone en 0x8000 el banco de A
 C 0x4191 el mapper: pone en 0xA000 el banco de A
@@ -153,11 +2191,8 @@ C 0x41F8 el mapper: pone en 0x8000 el banco de A
 C 0x41FB guarda la copia del banco de 0x8000
 C 0x4210 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 C 0x4216 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x4219 borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
 C 0x422D bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-C 0x4235 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
 C 0x423B bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x4276 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 C 0x428B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 C 0x42D0 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x42D9 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
@@ -167,246 +2202,107 @@ C 0x4325 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-
 C 0x432E bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x4346 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 C 0x435B bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-C 0x4361 lee la cuenta de cuadros del juego
-C 0x4371 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
 C 0x4382 lee el jefe (1 a 8)
-C 0x4389 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x4392 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
 C 0x439E lee la fase (de 1 a 7; 0 en la presentacion)
 C 0x43A1 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x43F6 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x4455 rachas: descomprime las rachas de DE en la VRAM HL
 C 0x445E rachas: descomprime las rachas de DE en la VRAM HL
-C 0x4461 bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
 C 0x446F rachas: descomprime las rachas de DE en la VRAM HL
-C 0x4472 bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
 C 0x4480 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x4483 bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
 C 0x4491 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x4494 lee la fase (de 1 a 7; 0 en la presentacion)
 C 0x449A palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x44B1 rachas: descomprime las rachas de DE en la VRAM HL
 C 0x44BB caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
-C 0x44BE bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
 C 0x44CB caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
-C 0x44CE lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x44D3 fase7_copia: la fase 7: copia p00:5BA5 a 0xC000 y la ejecuta (trae graficos del otro cartucho)
 C 0x44D6 lee la fase (de 1 a 7; 0 en la presentacion)
 C 0x44DC caracteres_de_tabla: la lista de caracteres de la entrada A de la tabla HL
-C 0x44F0 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x44F3 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x4540 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x4583 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x4595 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x45A1 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x45A7 apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0x45B6 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 C 0x45D9 de_mas_a: DE = DE + A
-C 0x45E3 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x45E9 apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0x45FF lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x4650 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x4656 apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0x465D copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
-C 0x4668 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x4675 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
-C 0x4687 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x46D4 apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0x46F3 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x4767 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
 C 0x47E9 copias: la lista de copias VRAM -> VRAM de IX
 C 0x47F4 copias: la lista de copias VRAM -> VRAM de IX
-C 0x47F7 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
-C 0x4835 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x483F bit_de_fase: acarreo = el bit de la fase en 0x26 (fases 1, 2 y 5)
 C 0x484A rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x4853 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x485C rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x4865 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
-C 0x4895 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x48A0 rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x48A3 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x48A6 lee 1 si la fase va en vertical
-C 0x48B1 lee la posicion del scroll (16 bits)
-C 0x48B9 guarda la posicion del scroll (16 bits)
-C 0x48C5 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
-C 0x48CB bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x48DF lee la posicion del scroll (16 bits)
 C 0x48E3 guarda la posicion del scroll (16 bits)
-C 0x48E9 lee la posicion del scroll (16 bits)
 C 0x48ED guarda la posicion del scroll (16 bits)
-C 0x48F6 lee la posicion del scroll (16 bits)
-C 0x48FD guarda la posicion del scroll (16 bits)
-C 0x4909 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
 C 0x490F bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x4926 lee la posicion del scroll (16 bits)
 C 0x492A guarda la posicion del scroll (16 bits)
-C 0x4930 lee la posicion del scroll (16 bits)
 C 0x4934 guarda la posicion del scroll (16 bits)
-C 0x4937 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x496F lee el siguiente alto del scroll (16 bits)
-C 0x4973 lee la posicion del scroll (16 bits)
 C 0x4986 guarda la posicion del scroll (16 bits)
-C 0x4989 lee 1 si la fase va en vertical
-C 0x499E lee la posicion del scroll (16 bits)
-C 0x49A1 lee el final del recorrido del mapa (16 bits)
-C 0x49AA lee el principio del recorrido del mapa (16 bits)
 C 0x49B8 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x49BB palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x49E0 lee la posicion del scroll (16 bits)
-C 0x4A31 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x4A37 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x4A6B lee la posicion del scroll (16 bits)
-C 0x4A6E lee el final del recorrido del mapa (16 bits)
-C 0x4A77 lee el principio del recorrido del mapa (16 bits)
 C 0x4A85 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x4A88 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x4AA8 lee la posicion del scroll (16 bits)
-C 0x4AD5 lee la posicion del scroll (16 bits)
 C 0x4ADD hl_mas_a: HL = HL + A
-C 0x4AF9 lee la posicion del scroll (16 bits)
 C 0x4B01 hl_mas_a: HL = HL + A
-C 0x4B24 lee 1 si la fase va en vertical
-C 0x4B2A lee la cuenta de cuadros del juego
-C 0x4B49 lee la cuenta de cuadros del juego
-C 0x4B97 bancos_13_14_15: pone los bancos 13-14-15 (y su copia en 0xF0F1-3)
-C 0x4B9E lee la posicion del scroll (16 bits)
 C 0x4BD5 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x4C40 lee la posicion del scroll (16 bits)
 C 0x4C47 guarda la posicion del scroll (16 bits)
 C 0x4C51 guarda la posicion del scroll (16 bits)
-C 0x4C7B lee la posicion del scroll (16 bits)
 C 0x4C82 guarda la posicion del scroll (16 bits)
-C 0x4C89 guarda la posicion del scroll (16 bits)
-C 0x4C8D lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x4CC7 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
-C 0x4CE9 rachas: descomprime las rachas de DE en la VRAM HL
-C 0x4D16 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x4D40 de_mas_a: DE = DE + A
 C 0x4D77 el mapper: pone en 0x6000 el banco de A
 C 0x4D7B el mapper: pone en 0x8000 el banco de A
 C 0x4D7F el mapper: pone en 0xA000 el banco de A
-C 0x4D84 arranca_sonido: arranca el sonido A: cabecera de 0x663E y una partitura por canal
-C 0x4D87 lee la copia del banco de 0x6000
 C 0x4D8A el mapper: pone en 0x6000 el banco de A
 C 0x4D8D lee la copia del banco de 0x8000
 C 0x4D90 el mapper: pone en 0x8000 el banco de A
 C 0x4D93 lee la copia del banco de 0xA000
 C 0x4D96 el mapper: pone en 0xA000 el banco de A
-C 0x4DA1 lee la cuenta de interrupciones (16 bits)
-C 0x4DB4 lee el menu o pantalla de la presentacion (0xE63A & 0x0F)
-C 0x4DBA apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0x4DC8 lee el jefe (1 a 8)
-C 0x4DD8 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
 C 0x4DDB lee el jefe (1 a 8)
 C 0x4DE1 caracteres_de_tabla: la lista de caracteres de la entrada A de la tabla HL
 C 0x4DE8 lee el jefe (1 a 8)
 C 0x4DEE copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
 C 0x4DF5 lee el jefe (1 a 8)
 C 0x4DFB copias_de_tabla: la lista de copias VRAM -> VRAM de la entrada A de la tabla HL
-C 0x4DFE bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x4E32 hl_mas_a: HL = HL + A
-C 0x4E3A apunta a los enemigos (12 fichas de 0x40 bytes)
-C 0x4E48 apunta a los disparos (8 fichas de 0x10 bytes)
-C 0x4E5E lee el azar (lo mezcla p00:4E58)
 C 0x4E62 guarda el azar (lo mezcla p00:4E58)
-C 0x4E67 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x4E6A palabra_de_hl: DE = la palabra HL + 2 x A
 C 0x4E71 de_mas_a: DE = DE + A
-C 0x4E7A lee la posicion del scroll (16 bits)
-C 0x4EAF apunta a los atributos de sprite en la RAM (32 x 4)
 C 0x4F22 palabra_de_hl: DE = la palabra HL + 2 x A
 C 0x4F32 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x4F90 byte_de_tabla: A = el byte HL + A
 C 0x4FE3 hl_mas_a: HL = HL + A
 C 0x4FFB de_mas_a: DE = DE + A
 C 0x5018 de_mas_a: DE = DE + A
-C 0x5062 hl_mas_a: HL = HL + A
-C 0x5068 de_mas_a: DE = DE + A
-C 0x5078 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
-C 0x50A1 hl_a_nombre: convierte las coordenadas de HL en una direccion de la tabla de nombres
-C 0x50CD bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x50E5 el mapper: pone en 0x6000 el banco de A
 C 0x50E9 el mapper: pone en 0x8000 el banco de A
 C 0x50ED el mapper: pone en 0xA000 el banco de A
-C 0x50F3 lee la copia del banco de 0x6000
 C 0x50F6 el mapper: pone en 0x6000 el banco de A
 C 0x50F9 lee la copia del banco de 0x8000
 C 0x50FC el mapper: pone en 0x8000 el banco de A
 C 0x50FF lee la copia del banco de 0xA000
 C 0x5102 el mapper: pone en 0xA000 el banco de A
-C 0x5107 guarda la copia del registro 7 del PSG
 C 0x5112 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x513D apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5144 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x524C apunta a la cuenta de cuadros del juego
-C 0x525D despacha: salta a la entrada A de la tabla que va detras del call
-C 0x527C lee la cuenta de cuadros del juego
 C 0x5288 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-C 0x529F borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x52AE bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
+C 0x52B6 bancos_10_15: pone el banco 10 en 0x8000 y el 15 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x52BF bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x52CC borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x52DB lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x52E1 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x52E5 guarda cuantos jugadores (o el modo de dos)
 C 0x52F6 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x5302 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x5305 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x531C pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x532E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x5348 lee cuantos jugadores (o el modo de dos)
-C 0x535C lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
-C 0x535F borra_lista: borra lo que pintaria la lista de DE (C = 0)
-C 0x5364 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x5376 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x5382 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x5398 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x53CB lee cuantos jugadores (o el modo de dos)
-C 0x53D2 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x53D9 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x53F0 bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
 C 0x53F7 caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
 C 0x53FA bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x5434 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x543C lee cuantos jugadores (o el modo de dos)
-C 0x5443 lee la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5449 lee la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x5461 apunta a la fase (de 1 a 7; 0 en la presentacion)
-C 0x548C puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
-C 0x549E apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0x54A1 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x54BA pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x54BD lee cuantos jugadores (o el modo de dos)
 C 0x54D3 guarda la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x54D6 lee la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x550F guarda cuantos jugadores (o el modo de dos)
 C 0x5521 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x552A lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
-C 0x555C bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 C 0x556A bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x558E borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x5591 bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-C 0x5594 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x55A9 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x55B1 copia_a_vram: copia BC bytes de DE a la VRAM HL (LDIRVM)
 C 0x55B4 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x55C0 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x55DF lee cuantos jugadores (o el modo de dos)
 C 0x55F6 borra_lista: borra lo que pintaria la lista de DE (C = 0)
 C 0x5609 bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-C 0x5611 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x562A guarda cuantos jugadores (o el modo de dos)
 C 0x5643 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x564B borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
-C 0x5657 borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x5663 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x5689 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x5694 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x56AF bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x56C6 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x56CD lee el resultado que enseña p01:7B06
-C 0x56FD rachas_3: las rachas de DE en la VRAM HL, en los tres tercios
 C 0x570B bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x5711 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x5716 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
@@ -414,89 +2310,41 @@ C 0x5733 borra_lista: borra lo que pintaria la lista de DE (C = 0)
 C 0x5739 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x5743 borra_lista: borra lo que pintaria la lista de DE (C = 0)
 C 0x5749 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
-C 0x575C borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x5761 guarda la fase en curso
-C 0x576D apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5774 lee cuantos jugadores (o el modo de dos)
-C 0x577A apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x579A borra_nombres: borra la tabla de nombres (0x3800, 0x300 bytes) con FILVRM
 C 0x579E guarda la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x57A1 lee cuantos jugadores (o el modo de dos)
-C 0x57A8 lee la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x57B2 guarda la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x57C1 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
 C 0x57EF apunta a cuantos jugadores (o el modo de dos)
 C 0x5812 pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x582A lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x584F apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0x587D hl_mas_a: HL = HL + A
-C 0x5888 lee lo que hay en el vecino (bit 0: CD 07 51, bit 1: Nemesis 2 de verdad)
-C 0x5892 lee cuantos jugadores (o el modo de dos)
 C 0x5899 guarda la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x58A2 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x58A5 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x5923 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0x592C apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x59CD pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
-C 0x59E5 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x5A0C apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x5A12 lee cuantos jugadores (o el modo de dos)
-C 0x5A19 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5A29 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
 C 0x5A37 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x5A3D lee cuantos jugadores (o el modo de dos)
-C 0x5A44 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5A5A puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
-C 0x5A63 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x5A81 lista_a_vram: la lista de DE a la VRAM ([destino] y bytes, 0xFE otro destino, 0xFF acaba)
-C 0x5B0A borra_atributos: los atributos de sprite de la RAM (0xEF80) a 0xE0: fuera de la pantalla
-C 0x5B35 lee el jefe (1 a 8)
-C 0x5B3B bancos_7_8: pone los bancos 7-8 en 0x6000-0x8000 (y su copia en 0xF0F1-3)
+C 0x5B3E banco_11_en_a000: pone el banco 11 en 0xA000 (y su copia en 0xF0F1-3)
 C 0x5B44 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x5B50 despacha: salta a la entrada A de la tabla que va detras del call
-C 0x5B64 lee el jefe (1 a 8)
 C 0x5B83 hl_mas_a: HL = HL + A
 C 0x5B88 de_mas_a: DE = DE + A
-C 0x5BB5 lee el slot del cartucho vecino
 C 0x5BBD el mapper: pone en 0x6000 el banco de A
 C 0x5BC1 el mapper: pone en 0x8000 el banco de A
 C 0x5BC5 el mapper: pone en 0xA000 el banco de A
-C 0x5BC9 lee el slot de este cartucho
 C 0x5BD0 el mapper: pone en 0x4000 el banco de A
-C 0x5C3A lee la posicion del scroll (16 bits)
-C 0x5C3E lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x5C7A lee la posicion del scroll (16 bits)
-C 0x5C7E lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x5CCB bancos_7_8_9: pone los bancos 7-8-9 (y su copia en 0xF0F1-3)
-C 0x5CD5 caracteres: la lista de caracteres de IX (dibujos y colores por rachas)
-C 0x5CE5 copias: la lista de copias VRAM -> VRAM de IX
-C 0x5CF4 copias: la lista de copias VRAM -> VRAM de IX
 C 0x5CF7 bancos_1_2_3: pone los bancos 1-2-3 (y su copia en 0xF0F1-3)
-C 0x5D18 lee cuantos jugadores (o el modo de dos)
 C 0x5D1E apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x5D25 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5D79 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x5D9A puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x5DE6 palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x5DFF bancos_14_15: pone los bancos 14-15 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
-C 0x5E02 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x5E0B palabra_de_hl: DE = la palabra HL + 2 x A
-C 0x5E22 apunta a los 8 canales de sonido (0x2C bytes cada uno)
 C 0x5E2C bancos_2_3: pone los bancos 2-3 en 0x8000-0xA000 (y su copia en 0xF0F1-3)
 C 0x5E9F pide_sonido: pide el sonido A con los bancos 4-5-6 (p04:6472) y devuelve los de antes
 C 0x5EDE apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0x5EE7 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
-C 0x5EF7 lee cuantos jugadores (o el modo de dos)
 C 0x5EFE apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x5F05 apunta a la ficha del jugador 1 (IY, 0x80 bytes)
-C 0x5F0C apunta a la ficha del jugador 1 (IY, 0x80 bytes)
 C 0x5F13 apunta a la ficha del jugador 2 (IY, 0x80 bytes)
 C 0x5F33 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
-C 0x5F83 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 C 0x5F9A apunta a los atributos de sprite en la RAM (32 x 4)
-C 0x5FBA apunta a los atributos de sprite en la RAM (32 x 4)
-C 0x5FC5 lee la fase (de 1 a 7; 0 en la presentacion)
-C 0x5FCC lee la posicion del scroll (16 bits)
-C 0x5FE6 lee la cuenta de cuadros del juego
-C 0x5FF0 puerto_vdp: C' = el puerto de datos del VDP (0x0007 de la BIOS) tras fijar la direccion (0x0053)
 # --- fin de las anotaciones de anota.py ---
