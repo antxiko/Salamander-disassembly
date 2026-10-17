@@ -2,21 +2,53 @@
 
 Los jefes se pintan con **los caracteres y los dibujos de la ROM** sobre la disposición de un volcado de openMSX (`tools/jefes.py`).
 
-![El jefe 1](../imagenes/jefe_1.png)
-
-*El jefe 1, un cerebro con dos tentáculos.*
-
 El código de los ocho jefes está en el banco 11 (tabla `p01:6E89`). El
 cartucho no les da nombre: ni los textos ingleses ni los japoneses nombran a
 ninguno. La profecía solo habla de «THE DEVIL» con su escudo de cobre, «THE
 HUGE SPHERE», «THE GREAT DEVIL» y su núcleo, y «THE FIVE EYED GREEN DEVIL».
 
-| Fase | Jefe |
-|---|---|
-| 1 | [el 1](../imagenes/jefe_1.png): un cerebro con dos tentáculos |
-| 2 | [el 2](../imagenes/jefe_2.png) |
-| 3 | [el 8](../imagenes/jefe_8.png), un nido en el techo que suelta arañas, y luego [el 3](../imagenes/jefe_3.png) |
-| 4 | [el 4](../imagenes/jefe_4.png), después de una oleada (`p03:BD53`) |
-| 5 | [el 5](../imagenes/jefe_5.png) |
-| 6 | [el 7](../imagenes/jefe_7.png), un ojo dentro de una esfera, y luego [el 6](../imagenes/jefe_6.png) |
-| 7 | [el núcleo](../imagenes/jefe_nucleo.png) fijo de `p12:A000`, en dos tramos |
+### Fase 1: el jefe 1
+
+![Fase 1: el jefe 1](../imagenes/jefe_1.png)
+
+*Un cerebro con dos tentáculos.*
+
+### Fase 2: el jefe 2
+
+![Fase 2: el jefe 2](../imagenes/jefe_2.png)
+
+### Fase 3: el jefe 8
+
+![Fase 3: el jefe 8](../imagenes/jefe_8.png)
+
+*Un nido en el techo que suelta arañas; detrás viene el 3.*
+
+### Fase 3: el jefe 3
+
+![Fase 3: el jefe 3](../imagenes/jefe_3.png)
+
+### Fase 4: el jefe 4
+
+![Fase 4: el jefe 4](../imagenes/jefe_4.png)
+
+*Sale después de una oleada (`p03:BD53`).*
+
+### Fase 5: el jefe 5
+
+![Fase 5: el jefe 5](../imagenes/jefe_5.png)
+
+### Fase 6: el jefe 7
+
+![Fase 6: el jefe 7](../imagenes/jefe_7.png)
+
+*Un ojo dentro de una esfera; detrás viene el 6.*
+
+### Fase 6: el jefe 6
+
+![Fase 6: el jefe 6](../imagenes/jefe_6.png)
+
+### Fase 7: el núcleo
+
+![Fase 7: el núcleo](../imagenes/jefe_nucleo.png)
+
+*Fijo, de `p12:A000`, en dos tramos.*

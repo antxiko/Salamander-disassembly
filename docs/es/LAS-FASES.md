@@ -37,11 +37,6 @@ En la versión japonesa el subtítulo de las fases 3, 4 y 5 es
 
 ## Los recorridos
 
-![El recorrido de la fase 1](../imagenes/recorrido_f1.png)
-
-*La fase 1 entera, como el juego la va metiendo en la pantalla: baja dos
-veces por otro mapa.*
-
 La 2, la 3 y la 6 van en vertical; las demás, en horizontal (`p02:8921`).
 El mapa de cada fase son bloques de 4 x 4 caracteres (`p13:6F4C`), pero el
 recorrido no es una tira recta: en tres fases el scroll se para y la
@@ -53,14 +48,50 @@ pantalla se mueve por otro mapa (`p00:4BE6`):
 - en la 6, que va hacia arriba, en 0x14F se va 32 columnas a la izquierda y
   en 0x167 vuelve a la derecha, por `p14:818C`.
 
-| Fase | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|---|
-| Sentido | [horizontal](../imagenes/recorrido_f1.png) | [vertical](../imagenes/recorrido_f2.png) | [vertical](../imagenes/recorrido_f3.png) | [horizontal](../imagenes/recorrido_f4.png) | [horizontal](../imagenes/recorrido_f5.png) | [vertical](../imagenes/recorrido_f6.png) | [horizontal](../imagenes/recorrido_f7.png) |
-
-*Cada enlace lleva al recorrido entero de su fase.*
-
 En la fase 4, entre los scrolls 0x100 y 0x150, la base casi no se ve: solo
 uno de cada 64 cuadros vuelca el mapa con su decorado (`p00:5FC5`,
 `p01:6016`). En las fases 1, 3, 6 y 7 los caracteres cambian a mitad de
 camino (`p00:5C77`), y en las 4, 5 y 6 algunos se animan solos
 (`p12:A4A9`).
+
+### Fase 1
+
+![El recorrido de la fase 1](../imagenes/recorrido_f1.png)
+
+*En horizontal; baja dos veces por otro mapa.*
+
+### Fase 2
+
+![El recorrido de la fase 2](../imagenes/recorrido_f2.png)
+
+*En vertical.*
+
+### Fase 3
+
+![El recorrido de la fase 3](../imagenes/recorrido_f3.png)
+
+*En vertical.*
+
+### Fase 4
+
+![El recorrido de la fase 4](../imagenes/recorrido_f4.png)
+
+*En horizontal; baja una vez por otro mapa y la base casi no se ve.*
+
+### Fase 5
+
+![El recorrido de la fase 5](../imagenes/recorrido_f5.png)
+
+*En horizontal.*
+
+### Fase 6
+
+![El recorrido de la fase 6](../imagenes/recorrido_f6.png)
+
+*En vertical; se va a la izquierda y vuelve.*
+
+### Fase 7
+
+![El recorrido de la fase 7](../imagenes/recorrido_f7.png)
+
+*En horizontal; solo con <i>Nemesis 2</i> en la otra ranura.*

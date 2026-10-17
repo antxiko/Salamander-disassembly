@@ -39,11 +39,6 @@ In the Japanese version the subtitle of stages 3, 4 and 5 is
 
 ## The routes
 
-![The stage 1 route](imagenes/recorrido_f1.png)
-
-*Stage 1 whole, the way the game feeds it into the screen: it goes down
-twice through another map.*
-
 Stages 2, 3 and 6 scroll vertically; the others, horizontally
 (`p02:8921`). Each stage map is made of 4 x 4 character blocks
 (`p13:6F4C`), but the route is not a straight strip: in three stages the
@@ -55,14 +50,50 @@ scroll stops and the screen moves through another map (`p00:4BE6`):
 - in stage 6, which goes up, at 0x14F it moves 32 columns to the left and
   at 0x167 back to the right, through `p14:818C`.
 
-| Stage | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|---|
-| Scroll | [horizontal](imagenes/recorrido_f1.png) | [vertical](imagenes/recorrido_f2.png) | [vertical](imagenes/recorrido_f3.png) | [horizontal](imagenes/recorrido_f4.png) | [horizontal](imagenes/recorrido_f5.png) | [vertical](imagenes/recorrido_f6.png) | [horizontal](imagenes/recorrido_f7.png) |
-
-*Each link leads to the whole route of its stage.*
-
 In stage 4, between scrolls 0x100 and 0x150, the base is barely visible:
 only one frame in 64 dumps the map with its scenery (`p00:5FC5`,
 `p01:6016`). In stages 1, 3, 6 and 7 the characters change half way
 (`p00:5C77`), and in stages 4, 5 and 6 some of them animate on their own
 (`p12:A4A9`).
+
+### Stage 1
+
+![The stage 1 route](imagenes/recorrido_f1.png)
+
+*Horizontal; goes down twice through another map.*
+
+### Stage 2
+
+![The stage 2 route](imagenes/recorrido_f2.png)
+
+*Vertical.*
+
+### Stage 3
+
+![The stage 3 route](imagenes/recorrido_f3.png)
+
+*Vertical.*
+
+### Stage 4
+
+![The stage 4 route](imagenes/recorrido_f4.png)
+
+*Horizontal; goes down once through another map, and the base is barely visible.*
+
+### Stage 5
+
+![The stage 5 route](imagenes/recorrido_f5.png)
+
+*Horizontal.*
+
+### Stage 6
+
+![The stage 6 route](imagenes/recorrido_f6.png)
+
+*Vertical; moves left and back.*
+
+### Stage 7
+
+![The stage 7 route](imagenes/recorrido_f7.png)
+
+*Horizontal; only with <i>Nemesis 2</i> in the other slot.*
