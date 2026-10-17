@@ -23,7 +23,7 @@ The website: <https://antxiko.github.io/Salamander-disassembly/>
 
 The cartridge image is not distributed. Put yours in the root as
 `salamander.rom` (sha256 `edbbba82...`) and run `make`. The details are in
-[GETTING STARTED](docs/GETTING-STARTED.md).
+[UNDER THE HOOD](docs/UNDER-THE-HOOD.md).
 
 ## Legal
 

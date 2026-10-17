@@ -18,34 +18,25 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from estilo_web import ESTILO  # noqa: E402
 
 
-# Un menu por idioma. La web se publica en ingles en la raiz de docs/ y en
-# castellano bajo docs/es/. Son seis paginas por idioma, mas la portada: la del
-# emulador no se escribe mientras no haya cotejo en openMSX.
-NAV_EN = [("index.html", "Home"), ("GETTING-STARTED.html", "Start"),
-          ("THE-GAME.html", "The game"),
-          ("THE-CARTRIDGE.html", "The cartridge"),
-          ("THE-CODE.html", "The code"),
-          ("THE-MUSIC.html", "The music"), ("FINDINGS.html", "Findings"),
-          ("OPEN-QUESTIONS.html", "Open questions")]
-NAV_ES = [("index.html", "Portada"), ("EMPEZAR.html", "Empezar"),
-          ("EL-JUEGO.html", "El juego"),
-          ("EL-CARTUCHO.html", "El cartucho"),
-          ("EL-CODIGO.html", "El código"),
-          ("LA-MUSICA.html", "La música"), ("HALLAZGOS.html", "Hallazgos"),
-          ("PREGUNTAS-ABIERTAS.html", "Preguntas abiertas")]
+# Un menu por idioma, en los bloques de tools/contenido_web.PAGINAS (lo del
+# juego, las curiosidades, lo tecnico). La web se publica en ingles en la raiz
+# de docs/ y en castellano bajo docs/es/.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from contenido_web import PAGINAS, VIEJAS                       # noqa: E402
+
+BLOQUES_EN = [[(p[0], p[2]) for p in b] for b in PAGINAS]
+BLOQUES_ES = [[(p[1], p[3]) for p in b] for b in PAGINAS]
+NAV_EN = [("index.html", "Home")] + [x for b in BLOQUES_EN for x in b]
+NAV_ES = [("index.html", "Portada")] + [x for b in BLOQUES_ES for x in b]
 
 # Cada documento se llama distinto en cada idioma, asi que el selector de idioma
 # necesita saber cual es la pareja de cada pagina.
-_PAREJAS = [("GETTING-STARTED.html", "EMPEZAR.html"),
-            ("THE-GAME.html", "EL-JUEGO.html"),
-            ("THE-CARTRIDGE.html", "EL-CARTUCHO.html"),
-            ("THE-CODE.html", "EL-CODIGO.html"),
-            ("THE-MUSIC.html", "LA-MUSICA.html"), ("FINDINGS.html", "HALLAZGOS.html"),
-            ("OPEN-QUESTIONS.html", "PREGUNTAS-ABIERTAS.html")]
 PAREJA = {}
-for _en, _es in _PAREJAS:
-    PAREJA[_en] = _es
-    PAREJA[_es] = _en
+for _b in PAGINAS:
+    for _p in _b:
+        PAREJA[_p[0]] = _p[1]
+        PAREJA[_p[1]] = _p[0]
+SEPARA = '<span style="opacity:.35">|</span>'
 
 # El pie va en el idioma de la pagina, y como todo lo que es de este juego
 # sale de tools/contenido_web.py: esta maquinaria no nombra ningun cartucho.
@@ -201,9 +192,10 @@ def convierte(texto, titulo, actual, idioma="en"):
             parr.append(ln[i].strip()); i += 1
         out.append(f"<p>{enlinea(' '.join(parr))}</p>")
 
-    menu = NAV_EN if idioma == "en" else NAV_ES
-    nav = "".join(f'<a href="{h}"{" style=color:var(--tinta)" if h == actual else ""}>{t}</a>'
-                  for h, t in menu)
+    bloques = [[NAV_EN[0] if idioma == "en" else NAV_ES[0]]]
+    bloques += BLOQUES_EN if idioma == "en" else BLOQUES_ES
+    nav = SEPARA.join("".join(f'<a href="{h}"{" style=color:var(--tinta)" if h == actual else ""}>{t}</a>'
+                              for h, t in b) for b in bloques)
     # Selector de idioma: lleva al documento equivalente, no a la portada
     otro = PAREJA.get(actual, "index.html")
     if idioma == "en":
@@ -238,6 +230,15 @@ def main(docdir, idioma="en"):
             convierte(texto, titulo, fn[:-3] + ".html", idioma))
         print(f"  {fn} -> {os.path.basename(dst)}")
         n += 1
+    # las paginas de antes llevan a las de ahora
+    propias = {h for h, _ in (NAV_EN if idioma == "en" else NAV_ES)}
+    for vieja, nueva in VIEJAS.items():
+        if nueva in propias:
+            open(os.path.join(docdir, vieja), "w", encoding="utf-8").write(
+                '<meta charset="utf-8">\n'
+                f'<meta http-equiv="refresh" content="0; url={nueva}">\n'
+                f'<link rel="canonical" href="{nueva}">\n'
+                f'<p><a href="{nueva}">{nueva}</a></p>\n')
     print(f"{n} documentos convertidos ({idioma})")
 
 

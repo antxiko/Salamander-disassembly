@@ -23,7 +23,7 @@ La web: <https://antxiko.github.io/Salamander-disassembly/es/>
 
 La imagen del cartucho no se distribuye. Pon la tuya en la raíz como
 `salamander.rom` (sha256 `edbbba82...`) y ejecuta `make`. El detalle, en
-[EMPEZAR](docs/es/EMPEZAR.md).
+[POR DENTRO](docs/es/POR-DENTRO.md).
 
 ## Legal
 

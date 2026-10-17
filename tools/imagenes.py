@@ -41,7 +41,7 @@ PANTALLAS = [
     ("konami", "epres", 5), ("titulo", "epres", 10), ("saga", "epres", 14),
     ("presents", "epres", 20), ("titulo_solo", "epres", 28),
     ("despegue", "rot1", 15), ("rotulo", "rot1", 17),
-    ("eleccion_aviso", "fin2", 40), ("eleccion", "fin2", 48),
+    ("eleccion", "fin2", 48),
     ("final_malo_1", "final", 272), ("final_malo_2", "final", 304),
     ("final_malo_3", "final", 316), ("final_malo_4", "final", 320),
     ("final_malo_5", "final", 336),

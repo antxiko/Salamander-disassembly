@@ -1,0 +1,106 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Las fases — Salamander - Operation X (Konami, 1987)</title>
+<style>
+:root{--tinta:#cfd0d4;--suave:#83868f;--fondo:#000;--panel:#0c0e13;--linea:#23262e;
+  --rojo:#ff897d;--cyan:#65dbef;--verde:#3eb849;--oro:#ded087}
+@media (prefers-color-scheme:light){:root{--tinta:#191a1e;--suave:#5a5d66;--fondo:#e9e7e1;
+  --panel:#f7f6f2;--linea:#d0cdc5;--rojo:#b23f34;--cyan:#1c6b7c;--verde:#2b7734;--oro:#8a7420}}
+:root[data-theme="dark"]{--tinta:#cfd0d4;--suave:#83868f;--fondo:#000;--panel:#0c0e13;
+  --linea:#23262e;--rojo:#ff897d;--cyan:#65dbef;--verde:#3eb849;--oro:#ded087}
+:root[data-theme="light"]{--tinta:#191a1e;--suave:#5a5d66;--fondo:#e9e7e1;--panel:#f7f6f2;
+  --linea:#d0cdc5;--rojo:#b23f34;--cyan:#1c6b7c;--verde:#2b7734;--oro:#8a7420}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);padding:0 1.25rem 6rem;
+  font:15px/1.7 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.w{max-width:1120px;margin:0 auto}
+.n{max-width:68ch}
+h1,h2,h3,h4{font-weight:400;text-wrap:balance}
+a{color:var(--cyan)}
+img{image-rendering:pixelated;max-width:100%;height:auto;display:block}
+header.top{display:flex;flex-direction:column;align-items:center;gap:1.5rem;
+  padding:4rem 0 2rem;text-align:center}
+header.top img{width:min(100%,642px)}
+.claim{max-width:60ch;color:var(--suave);font-size:1.05rem}
+.claim b{color:var(--tinta);font-weight:400}
+.ficha{display:flex;flex-wrap:wrap;justify-content:center;gap:0 1.5rem;width:100%;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);
+  border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:.85rem 0}
+.ficha b{color:var(--rojo);font-weight:400}
+nav{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:center;padding:1.25rem 0;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+nav a{color:var(--suave);text-decoration:none;border-bottom:1px solid transparent}
+nav a:hover,nav a:focus{color:var(--tinta);border-bottom-color:var(--rojo)}
+nav.docs{border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);
+  margin-bottom:1rem}
+section{margin-top:4.5rem;scroll-margin-top:1rem}
+section>h2{font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+  border-left:3px solid var(--rojo);padding-left:.9rem;margin:0 0 1.5rem}
+.cifras{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.cifra{background:var(--panel);padding:1.1rem}
+.cifra b{display:block;font-size:1.7rem;color:var(--oro);font-weight:400;
+  font-variant-numeric:tabular-nums;line-height:1.2}
+.cifra span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.hall{border-top:1px solid var(--linea);padding-top:1.75rem;margin-top:2.5rem}
+.hall:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.hall h3{margin:0 0 .75rem;font-size:1.15rem;color:var(--rojo)}
+.hall h4{color:var(--oro);margin:1.5rem 0 .5rem;font-size:.95rem}
+.hall p{margin:0 0 1rem}
+pre.asm{background:var(--panel);border-left:2px solid var(--verde);margin:1.25rem 0;
+  padding:1rem 1.1rem;overflow-x:auto;font-size:13px;line-height:1.6;color:var(--tinta)}
+.par{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media(min-width:820px){.par{grid-template-columns:1fr 1fr}}
+.par figure{margin:0}
+table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:13px;display:block;
+  overflow-x:auto}
+th,td{text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--linea)}
+th{color:var(--suave);font-weight:400;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;color:var(--oro)}
+.nivel{margin-top:2rem}
+.nivel h3{margin:0 0 .9rem;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.nivel em{color:var(--cyan);font-style:normal}
+.sep{color:var(--suave);margin:0 .6rem}
+.rejilla{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.rejilla figure{margin:0;background:var(--panel);box-shadow:0 0 0 1px var(--linea)}
+.rejilla figcaption{display:flex;justify-content:space-between;padding:.45rem .65rem;
+  font-size:11px;color:var(--suave);border-top:1px solid var(--linea)}
+.dir{font-variant-numeric:tabular-nums;color:var(--verde)}
+footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid var(--linea);
+  color:var(--suave);font-size:12px}
+
+/* Aviso de trabajo en curso: tiene que verse antes que las cifras, porque un
+   100% mal leido hace mas dano que no ponerlo. */
+.aviso{background:#3a2a10;border-left:3px solid var(--oro);margin:1.5rem auto;
+  padding:1rem 1.2rem;max-width:900px;border-radius:4px}
+.aviso p{margin:0;color:var(--tinta);font-size:15px;line-height:1.65}
+.galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin:1.5rem 0}
+.galeria figure{margin:0}
+.galeria img{width:100%;height:auto;image-rendering:pixelated;
+  border:1px solid var(--linea);border-radius:3px}
+.galeria figcaption{color:var(--suave);font-size:13px;margin-top:.5rem}
+audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
+</style>
+<div class="w"><nav class="top"><a href="index.html">Portada</a><span style="opacity:.35">|</span><a href="LAS-FASES.html" style=color:var(--tinta)>Las fases</a><a href="LA-NAVE.html">La nave</a><a href="LOS-ENEMIGOS.html">Los enemigos</a><a href="LOS-JEFES.html">Los jefes</a><a href="LAS-SECUENCIAS.html">Las secuencias</a><a href="LA-MUSICA.html">La m&uacute;sica</a><a href="LOS-TEXTOS.html">Los textos</a><span style="opacity:.35">|</span><a href="CURIOSIDADES.html">Curiosidades</a><span style="opacity:.35">|</span><a href="POR-DENTRO.html">Por dentro</a><a href="../THE-STAGES.html" style="margin-left:auto;color:var(--oro)">English</a></nav>
+<h1 id="las-fases">Las fases</h1>
+<p><b>Siete fases</b>. La 1 y la 2 van siempre primero; la 3, la 4 y la 5, en el orden que elija el jugador; luego la 6. La 7 solo existe con <em>Nemesis 2</em> en la otra ranura.</p>
+<p>Los recorridos están <b>dibujados desde los bytes de la ROM</b>. El radar y el rótulo están rehechos con los bytes de la ROM e iguales, píxel a píxel, a la VRAM de openMSX; el despegue es la VRAM de cada cuadro de una partida en openMSX, pintada como la pinta el TMS9918 (<code>tools/anima.py</code>).</p>
+<h2 id="las-fases-y-su-orden">Las fases y su orden</h2>
+<p><img src="../imagenes/eleccion.png" alt="El radar para elegir planeta"></p>
+<p><em>El radar con los tres planetas.</em></p>
+<p>Tras la fase 2, el juego enseña el radar con EIONEUS, LAVINIA y KIERKE, y el jugador elige cuál hace antes: son las fases 3, 4 y 5, en el orden que él quiera (<code>p10:988A</code>). Hay un reloj: si llega a cero, el juego elige solo (<code>p10:9A43</code>). Detrás viene la 6. La 7, con <em>Nemesis 2</em>, va antes que la 6 (<code>p10:8B7B</code>).</p>
+<p>Antes de cada fase sale el despegue desde la base y un rótulo (<code>p10:8A20</code>):</p>
+<p><img src="../imagenes/despegue.gif" alt="El despegue y el rótulo de la fase 1"></p>
+<p><em>El despegue y el rótulo de la fase 1, 6 segundos. Fijos, iguales a la VRAM: <a href="../imagenes/despegue.png">el despegue</a> y <a href="../imagenes/rotulo.png">el rótulo</a>.</em></p>
+<table><tr><th>Fase</th><th>Rótulo</th><th>Subtítulo</th></tr><tr><td>1</td><td>OPERATION ONE</td><td>-TOP FLIGHT SPEED TO LATIS-</td></tr><tr><td>2</td><td>OPERATION TWO</td><td>-CONDUCT TO SPACE STATION ZOT-</td></tr><tr><td>3, 4, 5</td><td>OPERATION THREE</td><td>-SET THE CRUSH BLOW SYSTEM- y el planeta</td></tr><tr><td>6</td><td>OPERATION FOUR</td><td>-CRUSH SALAMANDER-</td></tr><tr><td>7</td><td>OPERATION X</td><td>-WRATH OF VENOM-</td></tr></table>
+<p>En la versión japonesa el subtítulo de las fases 3, 4 y 5 es -SET THE LEEK SYSTEM- (<code>p15:BF5A</code>); los demás son iguales.</p>
+<h2 id="los-recorridos">Los recorridos</h2>
+<p><img src="../imagenes/recorrido_f1.png" alt="El recorrido de la fase 1"></p>
+<p><em>La fase 1 entera, como el juego la va metiendo en la pantalla: baja dos veces por otro mapa.</em></p>
+<p>La 2, la 3 y la 6 van en vertical; las demás, en horizontal (<code>p02:8921</code>). El mapa de cada fase son bloques de 4 x 4 caracteres (<code>p13:6F4C</code>), pero el recorrido no es una tira recta: en tres fases el scroll se para y la pantalla se mueve por otro mapa (<code>p00:4BE6</code>):</p>
+<ul><li>en la 1, al llegar al scroll 0x11F la vista baja 24 filas por el mapa de <code>p14:80FC</code>, sigue en horizontal y en 0x1FF vuelve a bajar otras 24;</li><li>en la 4, en 0x1BF baja 24 filas por <code>p14:815C</code>;</li><li>en la 6, que va hacia arriba, en 0x14F se va 32 columnas a la izquierda y en 0x167 vuelve a la derecha, por <code>p14:818C</code>.</li></ul>
+<table><tr><th>Fase</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr><tr><td>Sentido</td><td><a href="../imagenes/recorrido_f1.png">horizontal</a></td><td><a href="../imagenes/recorrido_f2.png">vertical</a></td><td><a href="../imagenes/recorrido_f3.png">vertical</a></td><td><a href="../imagenes/recorrido_f4.png">horizontal</a></td><td><a href="../imagenes/recorrido_f5.png">horizontal</a></td><td><a href="../imagenes/recorrido_f6.png">vertical</a></td><td><a href="../imagenes/recorrido_f7.png">horizontal</a></td></tr></table>
+<p><em>Cada enlace lleva al recorrido entero de su fase.</em></p>
+<p>En la fase 4, entre los scrolls 0x100 y 0x150, la base casi no se ve: solo uno de cada 64 cuadros vuelca el mapa con su decorado (<code>p00:5FC5</code>, <code>p01:6016</code>). En las fases 1, 3, 6 y 7 los caracteres cambian a mitad de camino (<code>p00:5C77</code>), y en las 4, 5 y 6 algunos se animan solos (<code>p12:A4A9</code>).</p>
+<footer><p><em>Salamander - Operation X</em> lo public&oacute; Konami para MSX en 1987; su n&uacute;mero de cat&aacute;logo es RC-758 y son 128 KB. Todos los derechos sobre el juego siguen siendo de sus titulares. Este trabajo es de preservaci&oacute;n, estudio y documentaci&oacute;n, y la imagen del cartucho no se distribuye.</p></footer></div>
