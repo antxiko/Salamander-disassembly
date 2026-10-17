@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """EL CONTENIDO de la web de este cartucho: lo unico que es de este juego.
 
-md2html.py y make_web.py son la maquinaria y no llevan dentro el nombre de
+jekyll.py y make_web.py son la maquinaria y no llevan dentro el nombre de
 ningun juego: lo leen de aqui.
 
 Todas las cifras de aqui estan medidas sobre este cartucho, con las
