@@ -24,8 +24,8 @@ from motor_musica import P  # noqa: E402
 CANDIDATAS = list(range(0x19, 0x33)) + [0x34, 0x48, 0x49, 0x4E]
 
 PIEZAS = [
-    P(0x4E, "El logotipo de Konami (y cae un jefe: la 0x25 suena igual)", "The Konami logo (and a boss falls: 0x25 sounds the same)", "p10:82D7; la 0x25, p02:9CB8 y p11:B575"),
-    P(0x2E, "El titulo", "The title", "p10:83B3"),
+    P(0x4E, "El logotipo de Konami (y cae un jefe: la 0x25 suena igual)", "The Konami logo (and a boss falls: 0x25 sounds the same)", "p10:82D7 (la 0x25, en p02:9CB8 y p11:B575)"),
+    P(0x2E, "El título", "The title", "p10:83B3"),
     P(0x28, "El despegue", "The take-off", "p10:887B"),
     P(0x48, "La nave sale", "The ship leaves", "p10:88A0 y p10:88E3"),
     P(0x1B, "Fase 1", "Stage 1", "p02:876A, la lista de la fase 1"),
@@ -43,7 +43,7 @@ PIEZAS = [
     P(0x30, "El final, sin el cartucho de Nemesis 2", "The ending, without Nemesis 2", "p10:8FEA"),
     P(0x31, "El final bueno", "The good ending", "p10:8FE6 y p03:A3DB"),
     P(0x32, "Fin de la partida", "Game over", "p00:551F"),
-    P(0x34, "La ventana de la presentacion", "The intro window", "p10:82C5"),
+    P(0x34, "La ventana de la presentación", "The intro window", "p10:82C5"),
 ]
 
 PAGINA = None

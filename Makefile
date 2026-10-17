@@ -179,7 +179,7 @@ PYMUS ?= python3     # el que tenga numpy y lameenc
 # La musica: el motor del cartucho ejecutado (tools/musica.py) a MP3
 musica: $(ROM)
 	$(PYMUS) tools/musica.py todas docs/audio
-	$(PYMUS) tools/pagina_musica.py
+	@true
 
 .PHONY: musica all comprueba reconoce paginas semillas trace listado verify \
         sanity densidad test web clean

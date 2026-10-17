@@ -1,0 +1,117 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El juego — Salamander - Operation X (Konami, 1987)</title>
+<style>
+:root{--tinta:#cfd0d4;--suave:#83868f;--fondo:#000;--panel:#0c0e13;--linea:#23262e;
+  --rojo:#ff897d;--cyan:#65dbef;--verde:#3eb849;--oro:#ded087}
+@media (prefers-color-scheme:light){:root{--tinta:#191a1e;--suave:#5a5d66;--fondo:#e9e7e1;
+  --panel:#f7f6f2;--linea:#d0cdc5;--rojo:#b23f34;--cyan:#1c6b7c;--verde:#2b7734;--oro:#8a7420}}
+:root[data-theme="dark"]{--tinta:#cfd0d4;--suave:#83868f;--fondo:#000;--panel:#0c0e13;
+  --linea:#23262e;--rojo:#ff897d;--cyan:#65dbef;--verde:#3eb849;--oro:#ded087}
+:root[data-theme="light"]{--tinta:#191a1e;--suave:#5a5d66;--fondo:#e9e7e1;--panel:#f7f6f2;
+  --linea:#d0cdc5;--rojo:#b23f34;--cyan:#1c6b7c;--verde:#2b7734;--oro:#8a7420}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);padding:0 1.25rem 6rem;
+  font:15px/1.7 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.w{max-width:1120px;margin:0 auto}
+.n{max-width:68ch}
+h1,h2,h3,h4{font-weight:400;text-wrap:balance}
+a{color:var(--cyan)}
+img{image-rendering:pixelated;max-width:100%;height:auto;display:block}
+header.top{display:flex;flex-direction:column;align-items:center;gap:1.5rem;
+  padding:4rem 0 2rem;text-align:center}
+header.top img{width:min(100%,642px)}
+.claim{max-width:60ch;color:var(--suave);font-size:1.05rem}
+.claim b{color:var(--tinta);font-weight:400}
+.ficha{display:flex;flex-wrap:wrap;justify-content:center;gap:0 1.5rem;width:100%;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);
+  border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:.85rem 0}
+.ficha b{color:var(--rojo);font-weight:400}
+nav{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:center;padding:1.25rem 0;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+nav a{color:var(--suave);text-decoration:none;border-bottom:1px solid transparent}
+nav a:hover,nav a:focus{color:var(--tinta);border-bottom-color:var(--rojo)}
+nav.docs{border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);
+  margin-bottom:1rem}
+section{margin-top:4.5rem;scroll-margin-top:1rem}
+section>h2{font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+  border-left:3px solid var(--rojo);padding-left:.9rem;margin:0 0 1.5rem}
+.cifras{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.cifra{background:var(--panel);padding:1.1rem}
+.cifra b{display:block;font-size:1.7rem;color:var(--oro);font-weight:400;
+  font-variant-numeric:tabular-nums;line-height:1.2}
+.cifra span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--suave)}
+.hall{border-top:1px solid var(--linea);padding-top:1.75rem;margin-top:2.5rem}
+.hall:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.hall h3{margin:0 0 .75rem;font-size:1.15rem;color:var(--rojo)}
+.hall h4{color:var(--oro);margin:1.5rem 0 .5rem;font-size:.95rem}
+.hall p{margin:0 0 1rem}
+pre.asm{background:var(--panel);border-left:2px solid var(--verde);margin:1.25rem 0;
+  padding:1rem 1.1rem;overflow-x:auto;font-size:13px;line-height:1.6;color:var(--tinta)}
+.par{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media(min-width:820px){.par{grid-template-columns:1fr 1fr}}
+.par figure{margin:0}
+table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:13px;display:block;
+  overflow-x:auto}
+th,td{text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--linea)}
+th{color:var(--suave);font-weight:400;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;color:var(--oro)}
+.nivel{margin-top:2rem}
+.nivel h3{margin:0 0 .9rem;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.nivel em{color:var(--cyan);font-style:normal}
+.sep{color:var(--suave);margin:0 .6rem}
+.rejilla{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.rejilla figure{margin:0;background:var(--panel);box-shadow:0 0 0 1px var(--linea)}
+.rejilla figcaption{display:flex;justify-content:space-between;padding:.45rem .65rem;
+  font-size:11px;color:var(--suave);border-top:1px solid var(--linea)}
+.dir{font-variant-numeric:tabular-nums;color:var(--verde)}
+footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid var(--linea);
+  color:var(--suave);font-size:12px}
+
+/* Aviso de trabajo en curso: tiene que verse antes que las cifras, porque un
+   100% mal leido hace mas dano que no ponerlo. */
+.aviso{background:#3a2a10;border-left:3px solid var(--oro);margin:1.5rem auto;
+  padding:1rem 1.2rem;max-width:900px;border-radius:4px}
+.aviso p{margin:0;color:var(--tinta);font-size:15px;line-height:1.65}
+.galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin:1.5rem 0}
+.galeria figure{margin:0}
+.galeria img{width:100%;height:auto;image-rendering:pixelated;
+  border:1px solid var(--linea);border-radius:3px}
+.galeria figcaption{color:var(--suave);font-size:13px;margin-top:.5rem}
+audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
+</style>
+<div class="w"><nav class="top"><a href="index.html">Portada</a><a href="EMPEZAR.html">Empezar</a><a href="EL-JUEGO.html" style=color:var(--tinta)>El juego</a><a href="EL-CARTUCHO.html">El cartucho</a><a href="EL-CODIGO.html">El código</a><a href="LA-MUSICA.html">La música</a><a href="HALLAZGOS.html">Hallazgos</a><a href="PREGUNTAS-ABIERTAS.html">Preguntas abiertas</a><a href="../THE-GAME.html" style="margin-left:auto;color:var(--oro)">English</a></nav>
+<h1 id="el-juego">El juego</h1>
+<p><img src="../imagenes/titulo.png" alt="El título"></p>
+<h2 id="las-fases-y-su-orden">Las fases y su orden</h2>
+<p>Son siete. La 1 y la 2 van siempre primero. Después el juego enseña el radar con los tres planetas, EIONEUS, LAVINIA y KIERKE, y el jugador elige cuál hace antes: son las fases 3, 4 y 5, en el orden que él quiera (<code>p10:988A</code>). Hay un reloj: si llega a cero, el juego elige solo (<code>p10:9A43</code>). Detrás viene la 6. La 7 solo existe con <em>Nemesis 2</em> en la otra ranura del MSX y va antes que la 6 (<code>p10:8B7B</code>).</p>
+<p><img src="../imagenes/eleccion.png" alt="El radar para elegir planeta"></p>
+<p>Antes de cada fase sale el despegue desde la base y un rótulo (<code>p10:8A20</code>):</p>
+<table><tr><th>Fase</th><th>Rótulo</th><th>Subtítulo</th></tr><tr><td>1</td><td>OPERATION ONE</td><td>-TOP FLIGHT SPEED TO LATIS-</td></tr><tr><td>2</td><td>OPERATION TWO</td><td>-CONDUCT TO SPACE STATION ZOT-</td></tr><tr><td>3, 4, 5</td><td>OPERATION THREE</td><td>-SET THE CRUSH BLOW SYSTEM- y el planeta</td></tr><tr><td>6</td><td>OPERATION FOUR</td><td>-CRUSH SALAMANDER-</td></tr><tr><td>7</td><td>OPERATION X</td><td>-WRATH OF VENOM-</td></tr></table>
+<p><img src="../imagenes/despegue.png" alt="El despegue"> <img src="../imagenes/rotulo.png" alt="El rótulo de la fase 1"></p>
+<p>En la versión japonesa el subtítulo de las fases 3, 4 y 5 es -SET THE LEEK SYSTEM- (<code>p15:BF5A</code>); los demás son iguales.</p>
+<h2 id="los-recorridos">Los recorridos</h2>
+<p>La 2, la 3 y la 6 van en vertical; las demás, en horizontal (<code>p02:8921</code>). El mapa de cada fase son bloques de 4 x 4 caracteres (<code>p13:6F4C</code>), pero el recorrido no es una tira recta: en tres fases el scroll se para y la pantalla se mueve por otro mapa (<code>p00:4BE6</code>):</p>
+<ul><li>en la 1, al llegar al scroll 0x11F la vista baja 24 filas por el mapa de <code>p14:80FC</code>, sigue en horizontal y en 0x1FF vuelve a bajar otras 24;</li><li>en la 4, en 0x1BF baja 24 filas por <code>p14:815C</code>;</li><li>en la 6, que va hacia arriba, en 0x14F se va 32 columnas a la izquierda y en 0x167 vuelve a la derecha, por <code>p14:818C</code>.</li></ul>
+<p>Las imágenes montan cada recorrido entero, como el juego lo va metiendo en la pantalla.</p>
+<p><img src="../imagenes/recorrido_f1.png" alt="Fase 1"> <img src="../imagenes/recorrido_f2.png" alt="Fase 2"> <img src="../imagenes/recorrido_f3.png" alt="Fase 3"> <img src="../imagenes/recorrido_f4.png" alt="Fase 4"> <img src="../imagenes/recorrido_f5.png" alt="Fase 5"> <img src="../imagenes/recorrido_f6.png" alt="Fase 6"> <img src="../imagenes/recorrido_f7.png" alt="Fase 7"></p>
+<p>En la fase 4, entre los scrolls 0x100 y 0x150, la base casi no se ve: solo uno de cada 64 cuadros vuelca el mapa con su decorado (<code>p00:5FC5</code>, <code>p01:6016</code>). En las fases 1, 3, 6 y 7 los caracteres cambian a mitad de camino (<code>p00:5C77</code>), y en las 4, 5 y 6 algunos se animan solos (<code>p12:A4A9</code>).</p>
+<h2 id="la-nave">La nave</h2>
+<p>Son dos sprites de 16 x 16 y catorce posturas (<code>p09:A145</code>-<code>p09:A19F</code>, dibujos en <code>p14:95F7</code>): recta, subiendo y bajando, las mismas con el escudo delante y otras tantas para las fases verticales. El escudo aguanta los golpes que cuenta IY+22 (<code>p02:960B</code>).</p>
+<p><img src="../imagenes/nave.png" alt="Las catorce posturas de la nave"></p>
+<p>Hay dos naves: SABEL TIGER, la del piloto IGGY ROCK, y THRASHER, la de ZOWIE SCOTT. El menú ofrece 1PLAYER, EXCHANGE y DUALPLAY, y la pantalla SELECTION de <code>p12:B877</code> pregunta YES o NO a «PLAYER1 JOINT GAME».</p>
+<h2 id="los-enemigos-y-los-jefes">Los enemigos y los jefes</h2>
+<p>Hay 65 tipos de enemigo, cada uno con su ficha de 7 bytes (<code>p01:6C5D</code>). Los de cada fase se ven con los fotogramas que usan.</p>
+<p><img src="../imagenes/enemigos_f1.png" alt="Los enemigos de la fase 1"> <img src="../imagenes/enemigos_f2.png" alt="Los enemigos de la fase 2"> <img src="../imagenes/enemigos_f3.png" alt="Los enemigos de la fase 3"> <img src="../imagenes/enemigos_f4.png" alt="Los enemigos de la fase 4"> <img src="../imagenes/enemigos_f5.png" alt="Los enemigos de la fase 5"> <img src="../imagenes/enemigos_f6.png" alt="Los enemigos de la fase 6"> <img src="../imagenes/enemigos_f7.png" alt="Los enemigos de la fase 7"></p>
+<table><tr><th>Fase</th><th>Jefe</th></tr><tr><td>1</td><td>el 1: un cerebro con dos tentáculos</td></tr><tr><td>2</td><td>el 2</td></tr><tr><td>3</td><td>el 8, un nido en el techo que suelta arañas, y luego el 3</td></tr><tr><td>4</td><td>el 4, después de una oleada (<code>p03:BD53</code>)</td></tr><tr><td>5</td><td>el 5</td></tr><tr><td>6</td><td>el 7, un ojo dentro de una esfera, y luego el 6</td></tr><tr><td>7</td><td>el núcleo fijo de <code>p12:A000</code>, en dos tramos</td></tr></table>
+<p>El código de los ocho jefes está en el banco 11 (tabla <code>p01:6E89</code>).</p>
+<p><img src="../imagenes/jefe_1.png" alt="El jefe 1"> <img src="../imagenes/jefe_2.png" alt="El jefe 2"> <img src="../imagenes/jefe_3.png" alt="El jefe 3"> <img src="../imagenes/jefe_4.png" alt="El jefe 4"> <img src="../imagenes/jefe_5.png" alt="El jefe 5"> <img src="../imagenes/jefe_6.png" alt="El jefe 6"> <img src="../imagenes/jefe_7.png" alt="El jefe 7"> <img src="../imagenes/jefe_8.png" alt="El jefe 8"> <img src="../imagenes/jefe_nucleo.png" alt="El núcleo de la fase 7"></p>
+<h2 id="los-objetos-y-el-final">Los objetos y el final</h2>
+<p>En las fases 3, 5 y 6 hay objetos que se recogen (<code>p12:A5CE</code>). Al recogerlos sale una pantalla con su resultado. Con el objeto 1 dice «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» y <code>p01:7B73</code> pone <code>0xE30A</code> = 1.</p>
+<p>El final llega al caer el jefe 6 (<code>p11:B58D</code>). Si están <em>Nemesis 2</em> en la otra ranura y <code>0xE30A</code>, es el bueno (<code>p10:8F7F</code>): «ZELOS FORCE HAS DISAPPEARED!!», «...PEACE WILL RETURN TO LATIS AGAIN!!» y el piloto, «CONGRATURATION! YOU ARE GREAT STAR FIGHTER». Si no, el CRUSH BLOW falla, aparece VENOM («HE DIED ONCE, BUT HE IS NOW REINCARNATED!!») y «THE CRUSH BLOW OPERATION TURNED OUT TO BE A FAILURE AFTER ALL». Los dos acaban en THE END y EXTEND PLAY? Y/N.</p>
+<h2 id="los-textos">Los textos</h2>
+<p>Están en el banco 15, con una tabla japonesa y otra inglesa según el byte 0x002B de la BIOS (<code>p10:944C</code>). Los ingleses, tal como vienen (con sus erratas):</p>
+<ul><li>«A WARNING SIGNAL FROM LATIS.», «ZELOS-FORCE SURROUNDING LATIS», «BIGIN CRUSH-BLOW OPERATIONS! SPACE FORCE!! GET SET!!», «HYPER SPACE FIGHTER», «SABEL TIGER / PILOT - IGGY ROCK», «THRASHER / PILOT - ZOWIE SCOTT», «CAN THEY RESCUE PLANET LATIS?»</li><li>entre fases: «ASSESS ARMS SUPPLY SITUATION THEN DICIDE WITHIN TIME LIMIT.», «WE HAVE SET ALL OF THE CRUSH BLOW SYSTEMS.», «OK, SWITCH ON!!», «WAIT! PLEASE REMEMBER THE PREDICTION»</li><li>la profecía, en cuatro capítulos: el diablo que vino de la esfera y su escudo de cobre, la esfera enorme y la bola brillante, el gran diablo y su núcleo, y el diablo verde de cinco ojos que solo muere con el cristal.</li></ul>
+<footer><p><em>Salamander - Operation X</em> lo public&oacute; Konami para MSX en 1987; su n&uacute;mero de cat&aacute;logo es RC-758 y son 128 KB. Todos los derechos sobre el juego siguen siendo de sus titulares. Este trabajo es de preservaci&oacute;n, estudio y documentaci&oacute;n, y la imagen del cartucho no se distribuye.</p></footer></div>
