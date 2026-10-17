@@ -85,18 +85,19 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 <div class="w"><nav class="top"><a href="index.html">Home</a><a href="GETTING-STARTED.html">Start</a><a href="THE-GAME.html" style=color:var(--tinta)>The game</a><a href="THE-CARTRIDGE.html">The cartridge</a><a href="THE-CODE.html">The code</a><a href="THE-MUSIC.html">The music</a><a href="FINDINGS.html">Findings</a><a href="OPEN-QUESTIONS.html">Open questions</a><a href="es/EL-JUEGO.html" style="margin-left:auto;color:var(--oro)">Castellano</a></nav>
 <h1 id="the-game">The game</h1>
 <p><b>Seven stages</b>. Stages 1 and 2 always come first; stages 3, 4 and 5, in whatever order the player picks; then stage 6. Stage 7 only exists with <em>Nemesis 2</em> in the other slot.</p>
-<p>Every picture on this page is <b>drawn from the bytes of the ROM</b> with <code>tools/imagenes.py</code>. The screens of the intro, the radar and the endings are identical, pixel for pixel, to openMSX&#x27;s VRAM at that moment; the enemies and the bosses are painted with the ROM&#x27;s patterns over what they do in openMSX.</p>
+<p>Every picture on this page comes from <code>tools/imagenes.py</code>. The still screens of the intro, the radar and the endings are <b>rebuilt from the bytes of the ROM</b> and identical, pixel for pixel, to openMSX&#x27;s VRAM at that moment; the enemies, the bosses, the weapon pieces and the items are drawn with the ROM&#x27;s patterns. The animations are the VRAM and VDP registers of every frame of a game in openMSX, painted the way the TMS9918 paints them (<code>tools/anima.py</code>), one frame in three.</p>
 <h2 id="the-intro">The intro</h2>
-<p><img src="imagenes/konami.png" alt="The Konami logo"></p>
-<p><img src="imagenes/titulo.png" alt="The title screen"></p>
-<p><em>The title with the menu: 1PLAYER, EXCHANGE and DUALPLAY.</em></p>
-<p>Then come <a href="imagenes/saga.png">THE SAGA CONTINUES</a>, <a href="imagenes/presents.png">KONAMI PRESENTS</a> and <a href="imagenes/titulo_solo.png">the title on its own</a>.</p>
+<p><img src="imagenes/presentacion.gif" alt="The intro"></p>
+<p><em>The whole intro, 32 seconds: the Konami logo on blue, the title with the menu (1PLAYER, EXCHANGE and DUALPLAY), THE SAGA CONTINUES, KONAMI PRESENTS and the title building up.</em></p>
+<p>If nothing is pressed, <a href="imagenes/historia.gif">the story</a> follows (105 seconds): EMERGENCY, the warning from Latis, ZELOS-FORCE surrounding the planet, the two ships with their pilots and «CAN THEY RESCUE PLANET LATIS?», and the title again with «THE FANTASTIC SPACE ADVENTURE COMMENCES». Then the demo starts.</p>
+<p>The still screens, each identical to the VRAM: <a href="imagenes/konami.png">Konami</a>, <a href="imagenes/titulo.png">the title</a>, <a href="imagenes/saga.png">THE SAGA CONTINUES</a>, <a href="imagenes/presents.png">KONAMI PRESENTS</a> and <a href="imagenes/titulo_solo.png">the title on its own</a>.</p>
 <h2 id="the-stages-and-their-order">The stages and their order</h2>
 <p><img src="imagenes/eleccion.png" alt="The radar to pick a planet"></p>
 <p><em>The radar with the three planets.</em></p>
 <p>After stage 2, the game shows the radar with EIONEUS, LAVINIA and KIERKE, and the player picks which one comes first: they are stages 3, 4 and 5, in whatever order he chooses (<code>p10:988A</code>). There is a clock: if it reaches zero, the game picks (<code>p10:9A43</code>). Stage 6 comes next. Stage 7, with <em>Nemesis 2</em>, comes before stage 6 (<code>p10:8B7B</code>).</p>
-<p>Before each stage come the <a href="imagenes/despegue.png">take-off from the base</a> and a title card (<code>p10:8A20</code>):</p>
-<p><img src="imagenes/rotulo.png" alt="The stage 1 card"></p>
+<p>Before each stage come the take-off from the base and a title card (<code>p10:8A20</code>):</p>
+<p><img src="imagenes/despegue.gif" alt="The take-off and the stage 1 card"></p>
+<p><em>The take-off and the stage 1 card, 6 seconds. As stills, identical to the VRAM: <a href="imagenes/despegue.png">the take-off</a> and <a href="imagenes/rotulo.png">the card</a>.</em></p>
 <table><tr><th>Stage</th><th>Card</th><th>Subtitle</th></tr><tr><td>1</td><td>OPERATION ONE</td><td>-TOP FLIGHT SPEED TO LATIS-</td></tr><tr><td>2</td><td>OPERATION TWO</td><td>-CONDUCT TO SPACE STATION ZOT-</td></tr><tr><td>3, 4, 5</td><td>OPERATION THREE</td><td>-SET THE CRUSH BLOW SYSTEM- and the planet</td></tr><tr><td>6</td><td>OPERATION FOUR</td><td>-CRUSH SALAMANDER-</td></tr><tr><td>7</td><td>OPERATION X</td><td>-WRATH OF VENOM-</td></tr></table>
 <p>In the Japanese version the subtitle of stages 3, 4 and 5 is -SET THE LEEK SYSTEM- (<code>p15:BF5A</code>); the others are the same.</p>
 <h2 id="the-routes">The routes</h2>
@@ -112,6 +113,24 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 <p><em>The fourteen poses.</em></p>
 <p>Two 16 x 16 sprites and fourteen poses (<code>p09:A145</code>-<code>p09:A19F</code>, patterns at <code>p14:95F7</code>): level, climbing and diving, the same with the shield in front, and as many again for the vertical stages. The shield takes the hits counted in IY+22 (<code>p02:960B</code>).</p>
 <p>There are two ships: SABEL TIGER, flown by IGGY ROCK, and THRASHER, flown by ZOWIE SCOTT. The SELECTION screen at <code>p12:B877</code> asks YES or NO to «PLAYER1 JOINT GAME».</p>
+<h2 id="the-weapons">The weapons</h2>
+<p><img src="imagenes/arma_option.gif" alt="The four options behind the ship"></p>
+<p><em>The four options, following the ship along the path it took.</em></p>
+<p>At the bottom, the gauge has seven boxes (<code>p00:5D8E</code>). Each 0x29 capsule moves the chosen box along (<code>p02:97C9</code>) and the second button activates it (<code>p02:8929</code>): the box raises its weapon one level, with its routine from the table at <code>p02:8967</code>. On the right, a 5-character window says what is carried: a piece from the table at <code>p14:8849</code>, 35 bytes of pattern and one of colour, chosen by the box and its level (<code>p00:5E52</code>).</p>
+<p><img src="imagenes/piezas.png" alt="The 22 window pieces"></p>
+<p><em>The 22 pieces, drawn from the ROM. Those of the seven boxes are identical to the ones the game paints in openMSX when picking up each capsule (<code>tools/armas.py coteja</code>).</em></p>
+<table><tr><th>Box</th><th>Level 1</th><th>Level 2</th><th>Level 3</th></tr><tr><td>1</td><td>SPEED, seven times</td><td></td><td></td></tr><tr><td>2</td><td><a href="imagenes/arma_normal.gif">NORMAL</a></td><td><a href="imagenes/arma_twin.gif">TWIN</a></td><td><a href="imagenes/arma_triple.gif">TRIPLE</a></td></tr><tr><td>3</td><td><a href="imagenes/arma_2way.gif">2WAY-B</a></td><td><a href="imagenes/arma_hawkwing.gif">HAWK WING</a></td><td><a href="imagenes/arma_howming.gif">HOWMING</a></td></tr><tr><td>4</td><td><a href="imagenes/arma_ripple.gif">RIPPLE</a></td><td><a href="imagenes/arma_arming.gif">ARMING</a></td><td></td></tr><tr><td>5</td><td><a href="imagenes/arma_laser.gif">LASER</a></td><td><a href="imagenes/arma_meteo.gif">METEO</a></td><td><a href="imagenes/arma_screw.gif">SCREW</a></td></tr><tr><td>6</td><td><a href="imagenes/arma_option.gif">OPTION</a>, up to four (three with two players)</td><td></td><td></td></tr><tr><td>7</td><td><a href="imagenes/arma_ffield.gif">F.FIELD</a>, ten hits</td><td></td><td></td></tr></table>
+<p><em>Each link leads to the ship firing that weapon.</em></p>
+<p>Boxes 2, 4 and 5 are the main weapon (IY+40: 1 NORMAL, 2 RIPPLE, 3 LASER, 4 SCREW, 5 METEO, 6 TWIN and 7 TRIPLE) and box 3 and the ARMING the panel weapon (IY+41: 1 to 3 the missiles and 4 the ARMING). The game only gives the second and third levels with both ships joined, in state 3 or 4 (<code>p02:8995</code>), when the window says PILOT or Co.PILOT. For the GIFs the weapon was set by hand in RAM (0xE340 and 0xE341); the options and the F.FIELD are activated as in the game. The ARMING goes wherever the controller is pushed (<code>p03:B43F</code>): with the ship still, it does not fire.</p>
+<h2 id="the-capsules-and-the-items">The capsules and the items</h2>
+<p><img src="imagenes/objetos.png" alt="The six items"></p>
+<p><em>Items 1 to 6, drawn with the runs at <code>p09:A331</code>. Items 2 and 3 are identical, at 0 bytes, to the VRAM of two games in openMSX.</em></p>
+<p>There are three capsules (<code>p02:9670</code>):</p>
+<ul><li><b>0x29</b> moves the gauge box along;</li><li><b>0x2A</b> gives a bomb (IY+42, <code>p02:9806</code>) and the window says T.BOMB: while there are any, the button drops <a href="imagenes/arma_bomba.gif">bombs</a> instead of the panel weapon (<code>p03:A962</code>);</li><li><b>0x35</b> adds one to IY+1B; at 15 it goes back to 0 and raises IY+10, and with IY+10 at 7 it gives an extra life (<code>p02:974A</code>).</li></ul>
+<p>The 0x29 and the 0x2A are in the sheet of the <a href="imagenes/enemigos_f4.png">stage 4 enemies</a>. The 0x35 has not shown up in any of the recorded games, and it is not drawn here.</p>
+<p>Some enemies drop one of these items when destroyed (<code>p01:7C36</code>; with one player, 1 to 4). They are four characters in the scenery (<code>p02:8B97</code>) and give 30 points when picked up (<code>p02:9909</code>). Each one sets a clock (0xE630 the mode, 0xE631 the time) and its piece in the window (<code>p02:991E</code>):</p>
+<table><tr><th>Item</th><th>In the window</th><th>The clock</th></tr><tr><td>1</td><td>S.STOP</td><td>mode 1, 0x10</td></tr><tr><td>2</td><td>O.HOLD</td><td>mode 2, 0x15, and IY+34 = 1</td></tr><tr><td>3</td><td>SPARK</td><td>mode 3</td></tr><tr><td>4</td><td></td><td>nothing</td></tr><tr><td>5</td><td></td><td>mode 5, 0x10, on the other player</td></tr><tr><td>6</td><td>O.CHAIN</td><td>mode 6, 0x30</td></tr></table>
+<p>Stages 3, 5 and 6 also have items to pick up (<code>p12:A5CE</code>). Picking one up brings a screen with its result. Item 1 says «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» and <code>p01:7B73</code> sets <code>0xE30A</code> to 1.</p>
 <h2 id="the-enemies">The enemies</h2>
 <p><img src="imagenes/enemigos_f1.png" alt="Stage 1 enemies"></p>
 <p><em>The stage 1 enemies, with the frames they use.</em></p>
@@ -120,10 +139,8 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 <h2 id="the-bosses">The bosses</h2>
 <p><img src="imagenes/jefe_1.png" alt="Boss 1"></p>
 <p><em>Boss 1, a brain with two tentacles.</em></p>
-<p>The code of the eight bosses is in bank 11 (table <code>p01:6E89</code>).</p>
+<p>The code of the eight bosses is in bank 11 (table <code>p01:6E89</code>). The cartridge gives them no names: neither the English nor the Japanese texts name any of them. The prophecy only speaks of «THE DEVIL» with his copper shield, «THE HUGE SPHERE», «THE GREAT DEVIL» and his nucleus, and «THE FIVE EYED GREEN DEVIL».</p>
 <table><tr><th>Stage</th><th>Boss</th></tr><tr><td>1</td><td><a href="imagenes/jefe_1.png">boss 1</a>: a brain with two tentacles</td></tr><tr><td>2</td><td><a href="imagenes/jefe_2.png">boss 2</a></td></tr><tr><td>3</td><td><a href="imagenes/jefe_8.png">boss 8</a>, a nest in the ceiling that drops spiders, then <a href="imagenes/jefe_3.png">boss 3</a></td></tr><tr><td>4</td><td><a href="imagenes/jefe_4.png">boss 4</a>, after a wave (<code>p03:BD53</code>)</td></tr><tr><td>5</td><td><a href="imagenes/jefe_5.png">boss 5</a></td></tr><tr><td>6</td><td><a href="imagenes/jefe_7.png">boss 7</a>, an eye inside a sphere, then <a href="imagenes/jefe_6.png">boss 6</a></td></tr><tr><td>7</td><td><a href="imagenes/jefe_nucleo.png">the fixed core</a> at <code>p12:A000</code>, in two parts</td></tr></table>
-<h2 id="the-items">The items</h2>
-<p>Stages 3, 5 and 6 have items to pick up (<code>p12:A5CE</code>). Picking one up brings a screen with its result. Item 1 says «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» and <code>p01:7B73</code> sets <code>0xE30A</code> to 1.</p>
 <h2 id="the-two-endings">The two endings</h2>
 <p>The ending comes when boss 6 falls (<code>p11:B58D</code>). With <em>Nemesis 2</em> in the other slot and <code>0xE30A</code> set, it is the good one (<code>p10:8F7F</code>); otherwise, the other one.</p>
 <p><img src="imagenes/final_bueno_3.png" alt="The good ending"></p>

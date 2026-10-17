@@ -7,6 +7,9 @@
                  medidos en openMSX)
   jefe_N         tools/jefes.py (los caracteres y dibujos de la ROM sobre la
                  disposicion de un volcado)
+  presentacion.gif, despegue.gif
+                 tools/anima.py: la VRAM y los registros de cada cuadro de
+                 openMSX pintados como el TMS9918
   pantallas      tools/repite.py: la VRAM rehecha con los bytes de la ROM y las
                  escrituras trazadas; aqui se exige que la pantalla pintada sea
                  identica, pixel a pixel, a la de la VRAM volcada en ese momento
@@ -20,6 +23,8 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 RAIZ = os.path.dirname(AQUI)
 
+import anima as A        # noqa: E402
+import armas as AR       # noqa: E402
 import enemigos as E     # noqa: E402
 import jefes as J        # noqa: E402
 import mundo as M        # noqa: E402
@@ -44,6 +49,25 @@ PANTALLAS = [
     ("final_bueno_3", "bueno", 316),
 ]
 
+# (nombre, directorio con cuadros.bin, desde, hasta): las animaciones, pintadas
+# cuadro a cuadro por tools/anima.py
+GIFS = [("presentacion", "gpres", 2.5, 34.4), ("historia", "gpres", 34.4, 139.9),
+        ("despegue", "gdesp", 12.3, 18.5)]
+# las armas: work/armas, una partida en la que la sonda pone cada 3 s el arma
+# principal (0xE340) y la del panel (0xE341) y aprieta el disparo en p03:A8CD;
+# las opciones, el F.FIELD y las bombas (work/opciones) se activan como en el
+# juego, con la casilla elegida (0xE311) y el boton en p02:8939
+ARMAS = [("normal", 24), ("twin", 27), ("triple", 30), ("2way", 33), ("hawkwing", 36),
+         ("howming", 39), ("ripple", 42), ("laser", 48), ("meteo", 51),
+         ("screw", 54)]
+GIFS += [("arma_" + n, "armas", t + 0.5, t + 3) for n, t in ARMAS]
+# ARMING (la del panel 4, p03:B43F) sale hacia donde se empuja el mando: en
+# work/arming la sonda lo empuja en las ocho direcciones
+GIFS += [("arma_arming", "arming", 24.5, 34)]
+GIFS += [("arma_option", "opciones", 34, 44.8), ("arma_ffield", "opciones", 45.2, 47),
+         ("arma_bomba", "opciones", 47.2, 52)]
+
+
 
 def pantallas(dest, escala=2):
     for nom, d, t in PANTALLAS:
@@ -53,7 +77,9 @@ def pantallas(dest, escala=2):
         a = P.pinta(real, real).tobytes()
         b = P.pinta(real, mio)
         distintos = sum(1 for i in range(0, len(a), 3) if a[i:i + 3] != b.tobytes()[i:i + 3])
-        P.pinta(mio, mio, escala).save(os.path.join(dest, nom + ".png"))
+        regs = bytes(int(ln.split("=")[1], 16) for ln in open(os.path.join(dir_, "vdp-%s.txt" % t))
+                     if ln.startswith("R"))
+        A.pinta_vdp(mio, regs, escala).save(os.path.join(dest, nom + ".png"))
         print("%-16s %s %3d s: %s" % (nom, d, t, "igual pixel a pixel" if distintos == 0
                                        else "%d PIXELES DISTINTOS" % distintos))
 
@@ -68,6 +94,10 @@ def main(argv):
     for n, d, et in JEFES:
         J.png(os.path.join(RAIZ, "work", d), et, os.path.join(dest, "jefe_%s.png" % n))
     pantallas(dest)
+    AR.png(dest)
+    for nom, d, desde, hasta in GIFS:
+        n, s = A.gif(os.path.join(RAIZ, "work", d), desde, hasta, os.path.join(dest, nom + ".gif"))
+        print("%-16s %s: %d cuadros distintos, %.1f s" % (nom, d, n, s))
     return 0
 
 

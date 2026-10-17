@@ -4,21 +4,31 @@
 whatever order the player picks; then stage 6. Stage 7 only exists with
 *Nemesis 2* in the other slot.
 
-Every picture on this page is **drawn from the bytes of the ROM** with
-`tools/imagenes.py`. The screens of the intro, the radar and the endings are
-identical, pixel for pixel, to openMSX's VRAM at that moment; the enemies
-and the bosses are painted with the ROM's patterns over what they do in
-openMSX.
+Every picture on this page comes from `tools/imagenes.py`. The still
+screens of the intro, the radar and the endings are **rebuilt from the bytes
+of the ROM** and identical, pixel for pixel, to openMSX's VRAM at that
+moment; the enemies, the bosses, the weapon pieces and the items are drawn
+with the ROM's patterns. The animations are the VRAM and VDP registers of
+every frame of a game in openMSX, painted the way the TMS9918 paints them
+(`tools/anima.py`), one frame in three.
 
 ## The intro
 
-![The Konami logo](imagenes/konami.png)
+![The intro](imagenes/presentacion.gif)
 
-![The title screen](imagenes/titulo.png)
+*The whole intro, 32 seconds: the Konami logo on blue, the title with the
+menu (1PLAYER, EXCHANGE and DUALPLAY), THE SAGA CONTINUES, KONAMI PRESENTS
+and the title building up.*
 
-*The title with the menu: 1PLAYER, EXCHANGE and DUALPLAY.*
+If nothing is pressed, [the story](imagenes/historia.gif) follows (105
+seconds): EMERGENCY, the warning from Latis, ZELOS-FORCE surrounding the
+planet, the two ships with their pilots and «CAN THEY RESCUE PLANET LATIS?»,
+and the title again with «THE FANTASTIC SPACE ADVENTURE COMMENCES». Then the
+demo starts.
 
-Then come [THE SAGA CONTINUES](imagenes/saga.png),
+The still screens, each identical to the VRAM: [Konami](imagenes/konami.png),
+[the title](imagenes/titulo.png),
+[THE SAGA CONTINUES](imagenes/saga.png),
 [KONAMI PRESENTS](imagenes/presents.png) and
 [the title on its own](imagenes/titulo_solo.png).
 
@@ -34,10 +44,13 @@ whatever order he chooses (`p10:988A`). There is a clock: if it reaches
 zero, the game picks (`p10:9A43`). Stage 6 comes next. Stage 7, with
 *Nemesis 2*, comes before stage 6 (`p10:8B7B`).
 
-Before each stage come the [take-off from the base](imagenes/despegue.png)
-and a title card (`p10:8A20`):
+Before each stage come the take-off from the base and a title card
+(`p10:8A20`):
 
-![The stage 1 card](imagenes/rotulo.png)
+![The take-off and the stage 1 card](imagenes/despegue.gif)
+
+*The take-off and the stage 1 card, 6 seconds. As stills, identical to the
+VRAM: [the take-off](imagenes/despegue.png) and [the card](imagenes/rotulo.png).*
 
 | Stage | Card | Subtitle |
 |---|---|---|
@@ -95,6 +108,84 @@ There are two ships: SABEL TIGER, flown by IGGY ROCK, and THRASHER, flown by
 ZOWIE SCOTT. The SELECTION screen at `p12:B877` asks YES or NO to
 «PLAYER1 JOINT GAME».
 
+## The weapons
+
+![The four options behind the ship](imagenes/arma_option.gif)
+
+*The four options, following the ship along the path it took.*
+
+At the bottom, the gauge has seven boxes (`p00:5D8E`). Each 0x29 capsule
+moves the chosen box along (`p02:97C9`) and the second button activates it
+(`p02:8929`): the box raises its weapon one level, with its routine from the
+table at `p02:8967`. On the right, a 5-character window says what is
+carried: a piece from the table at `p14:8849`, 35 bytes of pattern and one of
+colour, chosen by the box and its level (`p00:5E52`).
+
+![The 22 window pieces](imagenes/piezas.png)
+
+*The 22 pieces, drawn from the ROM. Those of the seven boxes are identical to
+the ones the game paints in openMSX when picking up each capsule
+(`tools/armas.py coteja`).*
+
+| Box | Level 1 | Level 2 | Level 3 |
+|---|---|---|---|
+| 1 | SPEED, seven times | | |
+| 2 | [NORMAL](imagenes/arma_normal.gif) | [TWIN](imagenes/arma_twin.gif) | [TRIPLE](imagenes/arma_triple.gif) |
+| 3 | [2WAY-B](imagenes/arma_2way.gif) | [HAWK WING](imagenes/arma_hawkwing.gif) | [HOWMING](imagenes/arma_howming.gif) |
+| 4 | [RIPPLE](imagenes/arma_ripple.gif) | [ARMING](imagenes/arma_arming.gif) | |
+| 5 | [LASER](imagenes/arma_laser.gif) | [METEO](imagenes/arma_meteo.gif) | [SCREW](imagenes/arma_screw.gif) |
+| 6 | [OPTION](imagenes/arma_option.gif), up to four (three with two players) | | |
+| 7 | [F.FIELD](imagenes/arma_ffield.gif), ten hits | | |
+
+*Each link leads to the ship firing that weapon.*
+
+Boxes 2, 4 and 5 are the main weapon (IY+40: 1 NORMAL, 2 RIPPLE, 3 LASER,
+4 SCREW, 5 METEO, 6 TWIN and 7 TRIPLE) and box 3 and the ARMING the panel
+weapon (IY+41: 1 to 3 the missiles and 4 the ARMING). The game only gives
+the second and third levels with both ships joined, in state 3 or 4
+(`p02:8995`), when the window says PILOT or Co.PILOT. For the GIFs the
+weapon was set by hand in RAM (0xE340 and 0xE341); the options and the
+F.FIELD are activated as in the game. The ARMING goes wherever the
+controller is pushed (`p03:B43F`): with the ship still, it does not fire.
+
+## The capsules and the items
+
+![The six items](imagenes/objetos.png)
+
+*Items 1 to 6, drawn with the runs at `p09:A331`. Items 2 and 3 are
+identical, at 0 bytes, to the VRAM of two games in openMSX.*
+
+There are three capsules (`p02:9670`):
+
+- **0x29** moves the gauge box along;
+- **0x2A** gives a bomb (IY+42, `p02:9806`) and the window says T.BOMB:
+  while there are any, the button drops [bombs](imagenes/arma_bomba.gif)
+  instead of the panel weapon (`p03:A962`);
+- **0x35** adds one to IY+1B; at 15 it goes back to 0 and raises IY+10, and
+  with IY+10 at 7 it gives an extra life (`p02:974A`).
+
+The 0x29 and the 0x2A are in the sheet of the
+[stage 4 enemies](imagenes/enemigos_f4.png). The 0x35 has not shown up in
+any of the recorded games, and it is not drawn here.
+
+Some enemies drop one of these items when destroyed (`p01:7C36`; with one
+player, 1 to 4). They are four characters in the scenery (`p02:8B97`) and
+give 30 points when picked up (`p02:9909`). Each one sets a clock (0xE630
+the mode, 0xE631 the time) and its piece in the window (`p02:991E`):
+
+| Item | In the window | The clock |
+|---|---|---|
+| 1 | S.STOP | mode 1, 0x10 |
+| 2 | O.HOLD | mode 2, 0x15, and IY+34 = 1 |
+| 3 | SPARK | mode 3 |
+| 4 | | nothing |
+| 5 | | mode 5, 0x10, on the other player |
+| 6 | O.CHAIN | mode 6, 0x30 |
+
+Stages 3, 5 and 6 also have items to pick up (`p12:A5CE`). Picking one up
+brings a screen with its result. Item 1 says «IN THE RUIN OF LATIS... YOU
+HAVE GOT A CRYSTAL BREEZE» and `p01:7B73` sets `0xE30A` to 1.
+
 ## The enemies
 
 ![Stage 1 enemies](imagenes/enemigos_f1.png)
@@ -113,7 +204,11 @@ There are 65 enemy types, each with a 7-byte record (`p01:6C5D`).
 
 *Boss 1, a brain with two tentacles.*
 
-The code of the eight bosses is in bank 11 (table `p01:6E89`).
+The code of the eight bosses is in bank 11 (table `p01:6E89`). The
+cartridge gives them no names: neither the English nor the Japanese texts
+name any of them. The prophecy only speaks of «THE DEVIL» with his copper
+shield, «THE HUGE SPHERE», «THE GREAT DEVIL» and his nucleus, and «THE FIVE
+EYED GREEN DEVIL».
 
 | Stage | Boss |
 |---|---|
@@ -124,12 +219,6 @@ The code of the eight bosses is in bank 11 (table `p01:6E89`).
 | 5 | [boss 5](imagenes/jefe_5.png) |
 | 6 | [boss 7](imagenes/jefe_7.png), an eye inside a sphere, then [boss 6](imagenes/jefe_6.png) |
 | 7 | [the fixed core](imagenes/jefe_nucleo.png) at `p12:A000`, in two parts |
-
-## The items
-
-Stages 3, 5 and 6 have items to pick up (`p12:A5CE`). Picking one up brings
-a screen with its result. Item 1 says «IN THE RUIN OF LATIS... YOU HAVE GOT A
-CRYSTAL BREEZE» and `p01:7B73` sets `0xE30A` to 1.
 
 ## The two endings
 

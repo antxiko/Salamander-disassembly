@@ -104,7 +104,7 @@ def ruta(href):
             "LEGAL-NOTICE.md", "Makefile"):
         return f"{REPO}/blob/main/{plano}"
     if h.startswith("../"):
-        return h if h.endswith((".html", ".png", ".txt", ".wav")) else plano
+        return h if h.endswith((".html", ".png", ".gif", ".txt", ".wav")) else plano
     # el ancla (THE-GAME.md#the-vendors) se aparta para cambiar la extension
     h, almohadilla, ancla_ = plano.partition("#")
     if h.endswith(".md"):

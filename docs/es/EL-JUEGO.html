@@ -85,18 +85,19 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 <div class="w"><nav class="top"><a href="index.html">Portada</a><a href="EMPEZAR.html">Empezar</a><a href="EL-JUEGO.html" style=color:var(--tinta)>El juego</a><a href="EL-CARTUCHO.html">El cartucho</a><a href="EL-CODIGO.html">El código</a><a href="LA-MUSICA.html">La música</a><a href="HALLAZGOS.html">Hallazgos</a><a href="PREGUNTAS-ABIERTAS.html">Preguntas abiertas</a><a href="../THE-GAME.html" style="margin-left:auto;color:var(--oro)">English</a></nav>
 <h1 id="el-juego">El juego</h1>
 <p><b>Siete fases</b>. La 1 y la 2 van siempre primero; la 3, la 4 y la 5, en el orden que elija el jugador; luego la 6. La 7 solo existe con <em>Nemesis 2</em> en la otra ranura.</p>
-<p>Todas las imágenes de esta página están <b>dibujadas desde los bytes de la ROM</b> con <code>tools/imagenes.py</code>. Las pantallas de la presentación, el radar y los finales son iguales, píxel a píxel, a la VRAM de openMSX en ese momento; los enemigos y los jefes se pintan con los dibujos de la ROM sobre lo que hacen en openMSX.</p>
+<p>Todas las imágenes de esta página salen de <code>tools/imagenes.py</code>. Las pantallas fijas de la presentación, el radar y los finales están <b>rehechas con los bytes de la ROM</b> e iguales, píxel a píxel, a la VRAM de openMSX en ese momento; los enemigos, los jefes, las piezas de las armas y los objetos se dibujan con los dibujos de la ROM. Las animaciones son la VRAM y los registros del VDP de cada cuadro de una partida en openMSX, pintados como los pinta el TMS9918 (<code>tools/anima.py</code>), un cuadro de cada tres.</p>
 <h2 id="la-presentacion">La presentación</h2>
-<p><img src="../imagenes/konami.png" alt="El logotipo de Konami"></p>
-<p><img src="../imagenes/titulo.png" alt="La pantalla de título"></p>
-<p><em>El título con el menú: 1PLAYER, EXCHANGE y DUALPLAY.</em></p>
-<p>Después salen <a href="../imagenes/saga.png">THE SAGA CONTINUES</a>, <a href="../imagenes/presents.png">KONAMI PRESENTS</a> y <a href="../imagenes/titulo_solo.png">el título solo</a>.</p>
+<p><img src="../imagenes/presentacion.gif" alt="La presentación"></p>
+<p><em>La presentación entera, 32 segundos: el logotipo de Konami sobre azul, el título con el menú (1PLAYER, EXCHANGE y DUALPLAY), THE SAGA CONTINUES, KONAMI PRESENTS y el título que se monta.</em></p>
+<p>Si no se pulsa nada, sigue <a href="../imagenes/historia.gif">la historia</a> (105 segundos): EMERGENCY, el aviso de Latis, ZELOS-FORCE rodeando el planeta, las dos naves con sus pilotos y «CAN THEY RESCUE PLANET LATIS?», y otra vez el título con «THE FANTASTIC SPACE ADVENTURE COMMENCES». Después empieza la demostración.</p>
+<p>Las pantallas fijas, cada una igual a la VRAM: <a href="../imagenes/konami.png">Konami</a>, <a href="../imagenes/titulo.png">el título</a>, <a href="../imagenes/saga.png">THE SAGA CONTINUES</a>, <a href="../imagenes/presents.png">KONAMI PRESENTS</a> y <a href="../imagenes/titulo_solo.png">el título solo</a>.</p>
 <h2 id="las-fases-y-su-orden">Las fases y su orden</h2>
 <p><img src="../imagenes/eleccion.png" alt="El radar para elegir planeta"></p>
 <p><em>El radar con los tres planetas.</em></p>
 <p>Tras la fase 2, el juego enseña el radar con EIONEUS, LAVINIA y KIERKE, y el jugador elige cuál hace antes: son las fases 3, 4 y 5, en el orden que él quiera (<code>p10:988A</code>). Hay un reloj: si llega a cero, el juego elige solo (<code>p10:9A43</code>). Detrás viene la 6. La 7, con <em>Nemesis 2</em>, va antes que la 6 (<code>p10:8B7B</code>).</p>
-<p>Antes de cada fase sale el <a href="../imagenes/despegue.png">despegue desde la base</a> y un rótulo (<code>p10:8A20</code>):</p>
-<p><img src="../imagenes/rotulo.png" alt="El rótulo de la fase 1"></p>
+<p>Antes de cada fase sale el despegue desde la base y un rótulo (<code>p10:8A20</code>):</p>
+<p><img src="../imagenes/despegue.gif" alt="El despegue y el rótulo de la fase 1"></p>
+<p><em>El despegue y el rótulo de la fase 1, 6 segundos. Fijos, iguales a la VRAM: <a href="../imagenes/despegue.png">el despegue</a> y <a href="../imagenes/rotulo.png">el rótulo</a>.</em></p>
 <table><tr><th>Fase</th><th>Rótulo</th><th>Subtítulo</th></tr><tr><td>1</td><td>OPERATION ONE</td><td>-TOP FLIGHT SPEED TO LATIS-</td></tr><tr><td>2</td><td>OPERATION TWO</td><td>-CONDUCT TO SPACE STATION ZOT-</td></tr><tr><td>3, 4, 5</td><td>OPERATION THREE</td><td>-SET THE CRUSH BLOW SYSTEM- y el planeta</td></tr><tr><td>6</td><td>OPERATION FOUR</td><td>-CRUSH SALAMANDER-</td></tr><tr><td>7</td><td>OPERATION X</td><td>-WRATH OF VENOM-</td></tr></table>
 <p>En la versión japonesa el subtítulo de las fases 3, 4 y 5 es -SET THE LEEK SYSTEM- (<code>p15:BF5A</code>); los demás son iguales.</p>
 <h2 id="los-recorridos">Los recorridos</h2>
@@ -112,6 +113,24 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 <p><em>Las catorce posturas.</em></p>
 <p>Son dos sprites de 16 x 16 y catorce posturas (<code>p09:A145</code>-<code>p09:A19F</code>, dibujos en <code>p14:95F7</code>): recta, subiendo y bajando, las mismas con el escudo delante y otras tantas para las fases verticales. El escudo aguanta los golpes que cuenta IY+22 (<code>p02:960B</code>).</p>
 <p>Hay dos naves: SABEL TIGER, la del piloto IGGY ROCK, y THRASHER, la de ZOWIE SCOTT. La pantalla SELECTION de <code>p12:B877</code> pregunta YES o NO a «PLAYER1 JOINT GAME».</p>
+<h2 id="las-armas">Las armas</h2>
+<p><img src="../imagenes/arma_option.gif" alt="Las cuatro opciones detrás de la nave"></p>
+<p><em>Las cuatro opciones, que siguen a la nave por donde ha pasado.</em></p>
+<p>Abajo, el marcador tiene siete casillas (<code>p00:5D8E</code>). Cada cápsula 0x29 avanza la casilla elegida (<code>p02:97C9</code>) y el segundo botón la activa (<code>p02:8929</code>): la casilla sube su arma un nivel, con su rutina de la tabla <code>p02:8967</code>. A la derecha, una ventana de 5 caracteres dice qué se lleva: una pieza de la tabla <code>p14:8849</code>, 35 bytes de dibujo y uno de color, elegida por la casilla y su nivel (<code>p00:5E52</code>).</p>
+<p><img src="../imagenes/piezas.png" alt="Las 22 piezas de la ventana"></p>
+<p><em>Las 22 piezas, dibujadas desde la ROM. Las de las siete casillas son iguales a las que pinta el juego en openMSX al coger cada cápsula (<code>tools/armas.py coteja</code>).</em></p>
+<table><tr><th>Casilla</th><th>Nivel 1</th><th>Nivel 2</th><th>Nivel 3</th></tr><tr><td>1</td><td>SPEED, siete veces</td><td></td><td></td></tr><tr><td>2</td><td><a href="../imagenes/arma_normal.gif">NORMAL</a></td><td><a href="../imagenes/arma_twin.gif">TWIN</a></td><td><a href="../imagenes/arma_triple.gif">TRIPLE</a></td></tr><tr><td>3</td><td><a href="../imagenes/arma_2way.gif">2WAY-B</a></td><td><a href="../imagenes/arma_hawkwing.gif">HAWK WING</a></td><td><a href="../imagenes/arma_howming.gif">HOWMING</a></td></tr><tr><td>4</td><td><a href="../imagenes/arma_ripple.gif">RIPPLE</a></td><td><a href="../imagenes/arma_arming.gif">ARMING</a></td><td></td></tr><tr><td>5</td><td><a href="../imagenes/arma_laser.gif">LASER</a></td><td><a href="../imagenes/arma_meteo.gif">METEO</a></td><td><a href="../imagenes/arma_screw.gif">SCREW</a></td></tr><tr><td>6</td><td><a href="../imagenes/arma_option.gif">OPTION</a>, hasta cuatro (tres con dos jugadores)</td><td></td><td></td></tr><tr><td>7</td><td><a href="../imagenes/arma_ffield.gif">F.FIELD</a>, diez golpes</td><td></td><td></td></tr></table>
+<p><em>Cada enlace lleva a la nave disparando con esa arma.</em></p>
+<p>Las casillas 2, 4 y 5 son el arma principal (IY+40: 1 NORMAL, 2 RIPPLE, 3 LASER, 4 SCREW, 5 METEO, 6 TWIN y 7 TRIPLE) y la 3 y el ARMING, la del panel (IY+41: de 1 a 3 los misiles y 4 el ARMING). El segundo y el tercer nivel solo los da el juego con las dos naves juntas, en el estado 3 o 4 (<code>p02:8995</code>), cuando la ventana dice PILOT o Co.PILOT. Para los GIF, el arma se ha puesto a mano en la RAM (0xE340 y 0xE341); las opciones y el F.FIELD se activan como en el juego. El ARMING sale hacia donde se empuja el mando (<code>p03:B43F</code>): con la nave quieta no dispara.</p>
+<h2 id="las-capsulas-y-los-objetos">Las cápsulas y los objetos</h2>
+<p><img src="../imagenes/objetos.png" alt="Los seis objetos"></p>
+<p><em>Los objetos del 1 al 6, dibujados con las rachas de <code>p09:A331</code>. El 2 y el 3 son iguales, a 0 bytes, a la VRAM de dos partidas en openMSX.</em></p>
+<p>Hay tres cápsulas (<code>p02:9670</code>):</p>
+<ul><li>la <b>0x29</b> avanza la casilla del marcador;</li><li>la <b>0x2A</b> da una bomba (IY+42, <code>p02:9806</code>) y la ventana dice T.BOMB: mientras queden, el botón suelta <a href="../imagenes/arma_bomba.gif">bombas</a> en vez del arma del panel (<code>p03:A962</code>);</li><li>la <b>0x35</b> suma uno a IY+1B; al llegar a 15 vuelve a 0 y sube IY+10, y con IY+10 en 7 da una vida más (<code>p02:974A</code>).</li></ul>
+<p>La 0x29 y la 0x2A están en la hoja de los <a href="../imagenes/enemigos_f4.png">enemigos de la fase 4</a>. La 0x35 no ha salido en ninguna de las partidas grabadas, y no se dibuja aquí.</p>
+<p>Algunos enemigos sueltan, al romperlos, uno de estos objetos (<code>p01:7C36</code>; con un jugador, del 1 al 4). Son cuatro caracteres en el decorado (<code>p02:8B97</code>) y dan 30 puntos al cogerlos (<code>p02:9909</code>). Cada uno pone un reloj (0xE630 el modo, 0xE631 el tiempo) y su pieza en la ventana (<code>p02:991E</code>):</p>
+<table><tr><th>Objeto</th><th>En la ventana</th><th>El reloj</th></tr><tr><td>1</td><td>S.STOP</td><td>modo 1, 0x10</td></tr><tr><td>2</td><td>O.HOLD</td><td>modo 2, 0x15, e IY+34 = 1</td></tr><tr><td>3</td><td>SPARK</td><td>modo 3</td></tr><tr><td>4</td><td></td><td>nada</td></tr><tr><td>5</td><td></td><td>modo 5, 0x10, en el otro jugador</td></tr><tr><td>6</td><td>O.CHAIN</td><td>modo 6, 0x30</td></tr></table>
+<p>En las fases 3, 5 y 6 hay además objetos que se recogen (<code>p12:A5CE</code>). Al recogerlos sale una pantalla con su resultado. Con el objeto 1 dice «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» y <code>p01:7B73</code> pone <code>0xE30A</code> = 1.</p>
 <h2 id="los-enemigos">Los enemigos</h2>
 <p><img src="../imagenes/enemigos_f1.png" alt="Los enemigos de la fase 1"></p>
 <p><em>Los enemigos de la fase 1, con los fotogramas que usan.</em></p>
@@ -120,10 +139,8 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 <h2 id="los-jefes">Los jefes</h2>
 <p><img src="../imagenes/jefe_1.png" alt="El jefe 1"></p>
 <p><em>El jefe 1, un cerebro con dos tentáculos.</em></p>
-<p>El código de los ocho jefes está en el banco 11 (tabla <code>p01:6E89</code>).</p>
+<p>El código de los ocho jefes está en el banco 11 (tabla <code>p01:6E89</code>). El cartucho no les da nombre: ni los textos ingleses ni los japoneses nombran a ninguno. La profecía solo habla de «THE DEVIL» con su escudo de cobre, «THE HUGE SPHERE», «THE GREAT DEVIL» y su núcleo, y «THE FIVE EYED GREEN DEVIL».</p>
 <table><tr><th>Fase</th><th>Jefe</th></tr><tr><td>1</td><td><a href="../imagenes/jefe_1.png">el 1</a>: un cerebro con dos tentáculos</td></tr><tr><td>2</td><td><a href="../imagenes/jefe_2.png">el 2</a></td></tr><tr><td>3</td><td><a href="../imagenes/jefe_8.png">el 8</a>, un nido en el techo que suelta arañas, y luego <a href="../imagenes/jefe_3.png">el 3</a></td></tr><tr><td>4</td><td><a href="../imagenes/jefe_4.png">el 4</a>, después de una oleada (<code>p03:BD53</code>)</td></tr><tr><td>5</td><td><a href="../imagenes/jefe_5.png">el 5</a></td></tr><tr><td>6</td><td><a href="../imagenes/jefe_7.png">el 7</a>, un ojo dentro de una esfera, y luego <a href="../imagenes/jefe_6.png">el 6</a></td></tr><tr><td>7</td><td><a href="../imagenes/jefe_nucleo.png">el núcleo</a> fijo de <code>p12:A000</code>, en dos tramos</td></tr></table>
-<h2 id="los-objetos">Los objetos</h2>
-<p>En las fases 3, 5 y 6 hay objetos que se recogen (<code>p12:A5CE</code>). Al recogerlos sale una pantalla con su resultado. Con el objeto 1 dice «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» y <code>p01:7B73</code> pone <code>0xE30A</code> = 1.</p>
 <h2 id="los-dos-finales">Los dos finales</h2>
 <p>El final llega al caer el jefe 6 (<code>p11:B58D</code>). Si están <em>Nemesis 2</em> en la otra ranura y <code>0xE30A</code>, es el bueno (<code>p10:8F7F</code>); si no, el otro.</p>
 <p><img src="../imagenes/final_bueno_3.png" alt="El final bueno"></p>

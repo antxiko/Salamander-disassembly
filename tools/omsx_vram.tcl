@@ -153,5 +153,23 @@ if {[opcion VRAM_ESCRITURAS {}] ne ""} {
     set ::ESLOG [open [file join $::SALIDA "escrituras.txt"] w]
     foreach pc {0x004D 0x0056 0x005C 0x4D16} { debug set_bp $pc {} apunta_escritura }
 }
+# VRAM_CUADROS "desde hasta": de desde a hasta segundos, en cada cuadro anade a
+# cuadros.bin la VRAM (16 KB), los 8 registros del VDP y el segundo (8 bytes de
+# texto), para montar animaciones con tools/pantalla.py
+set ::CUADROS [opcion VRAM_CUADROS {}]
+proc cuadro {} {
+    lassign $::CUADROS desde hasta
+    set t [machine_info time]
+    if {$t > $hasta} { return }
+    puts -nonewline $::CUF [debug read_block VRAM 0 16384]
+    for {set i 0} {$i < 8} {incr i} { puts -nonewline $::CUF [binary format c [debug read "VDP regs" $i]] }
+    puts -nonewline $::CUF [format %8.3f $t]
+    after frame cuadro
+}
+if {$::CUADROS ne ""} {
+    set ::CUF [open [file join $::SALIDA "cuadros.bin"] wb]
+    fconfigure $::CUF -translation binary
+    after time [lindex $::CUADROS 0] cuadro
+}
 foreach t $::TIEMPOS { after time $t "vuelca $t" }
 after time [expr {[lindex $::TIEMPOS end] + 1}] exit
