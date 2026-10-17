@@ -84,34 +84,56 @@ audio{display:block;width:100%;max-width:640px;margin:.75rem 0 1.5rem}
 </style>
 <div class="w"><nav class="top"><a href="index.html">Home</a><a href="GETTING-STARTED.html">Start</a><a href="THE-GAME.html" style=color:var(--tinta)>The game</a><a href="THE-CARTRIDGE.html">The cartridge</a><a href="THE-CODE.html">The code</a><a href="THE-MUSIC.html">The music</a><a href="FINDINGS.html">Findings</a><a href="OPEN-QUESTIONS.html">Open questions</a><a href="es/EL-JUEGO.html" style="margin-left:auto;color:var(--oro)">Castellano</a></nav>
 <h1 id="the-game">The game</h1>
-<p><img src="imagenes/titulo.png" alt="The title"></p>
+<p><b>Seven stages</b>. Stages 1 and 2 always come first; stages 3, 4 and 5, in whatever order the player picks; then stage 6. Stage 7 only exists with <em>Nemesis 2</em> in the other slot.</p>
+<p>Every picture on this page is <b>drawn from the bytes of the ROM</b> with <code>tools/imagenes.py</code>. The screens of the intro, the radar and the endings are identical, pixel for pixel, to openMSX&#x27;s VRAM at that moment; the enemies and the bosses are painted with the ROM&#x27;s patterns over what they do in openMSX.</p>
+<h2 id="the-intro">The intro</h2>
+<p><img src="imagenes/konami.png" alt="The Konami logo"></p>
+<p><img src="imagenes/titulo.png" alt="The title screen"></p>
+<p><em>The title with the menu: 1PLAYER, EXCHANGE and DUALPLAY.</em></p>
+<p>Then come <a href="imagenes/saga.png">THE SAGA CONTINUES</a>, <a href="imagenes/presents.png">KONAMI PRESENTS</a> and <a href="imagenes/titulo_solo.png">the title on its own</a>.</p>
 <h2 id="the-stages-and-their-order">The stages and their order</h2>
-<p>There are seven. Stages 1 and 2 always come first. Then the game shows the radar with three planets, EIONEUS, LAVINIA and KIERKE, and the player picks which one comes first: they are stages 3, 4 and 5, in whatever order he chooses (<code>p10:988A</code>). There is a clock: if it reaches zero, the game picks (<code>p10:9A43</code>). Stage 6 comes next. Stage 7 only exists with <em>Nemesis 2</em> in the MSX&#x27;s other slot, and it comes before stage 6 (<code>p10:8B7B</code>).</p>
 <p><img src="imagenes/eleccion.png" alt="The radar to pick a planet"></p>
-<p>Before each stage come the take-off from the base and a title card (<code>p10:8A20</code>):</p>
+<p><em>The radar with the three planets.</em></p>
+<p>After stage 2, the game shows the radar with EIONEUS, LAVINIA and KIERKE, and the player picks which one comes first: they are stages 3, 4 and 5, in whatever order he chooses (<code>p10:988A</code>). There is a clock: if it reaches zero, the game picks (<code>p10:9A43</code>). Stage 6 comes next. Stage 7, with <em>Nemesis 2</em>, comes before stage 6 (<code>p10:8B7B</code>).</p>
+<p>Before each stage come the <a href="imagenes/despegue.png">take-off from the base</a> and a title card (<code>p10:8A20</code>):</p>
+<p><img src="imagenes/rotulo.png" alt="The stage 1 card"></p>
 <table><tr><th>Stage</th><th>Card</th><th>Subtitle</th></tr><tr><td>1</td><td>OPERATION ONE</td><td>-TOP FLIGHT SPEED TO LATIS-</td></tr><tr><td>2</td><td>OPERATION TWO</td><td>-CONDUCT TO SPACE STATION ZOT-</td></tr><tr><td>3, 4, 5</td><td>OPERATION THREE</td><td>-SET THE CRUSH BLOW SYSTEM- and the planet</td></tr><tr><td>6</td><td>OPERATION FOUR</td><td>-CRUSH SALAMANDER-</td></tr><tr><td>7</td><td>OPERATION X</td><td>-WRATH OF VENOM-</td></tr></table>
-<p><img src="imagenes/despegue.png" alt="The take-off"> <img src="imagenes/rotulo.png" alt="The stage 1 card"></p>
 <p>In the Japanese version the subtitle of stages 3, 4 and 5 is -SET THE LEEK SYSTEM- (<code>p15:BF5A</code>); the others are the same.</p>
 <h2 id="the-routes">The routes</h2>
+<p><img src="imagenes/recorrido_f1.png" alt="The stage 1 route"></p>
+<p><em>Stage 1 whole, the way the game feeds it into the screen: it goes down twice through another map.</em></p>
 <p>Stages 2, 3 and 6 scroll vertically; the others, horizontally (<code>p02:8921</code>). Each stage map is made of 4 x 4 character blocks (<code>p13:6F4C</code>), but the route is not a straight strip: in three stages the scroll stops and the screen moves through another map (<code>p00:4BE6</code>):</p>
 <ul><li>in stage 1, at scroll 0x11F the view goes down 24 rows through the map at <code>p14:80FC</code>, carries on horizontally and at 0x1FF goes down another 24;</li><li>in stage 4, at 0x1BF it goes down 24 rows through <code>p14:815C</code>;</li><li>in stage 6, which goes up, at 0x14F it moves 32 columns to the left and at 0x167 back to the right, through <code>p14:818C</code>.</li></ul>
-<p>The pictures build each route whole, the way the game feeds it into the screen.</p>
-<p><img src="imagenes/recorrido_f1.png" alt="Stage 1"> <img src="imagenes/recorrido_f2.png" alt="Stage 2"> <img src="imagenes/recorrido_f3.png" alt="Stage 3"> <img src="imagenes/recorrido_f4.png" alt="Stage 4"> <img src="imagenes/recorrido_f5.png" alt="Stage 5"> <img src="imagenes/recorrido_f6.png" alt="Stage 6"> <img src="imagenes/recorrido_f7.png" alt="Stage 7"></p>
+<table><tr><th>Stage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr><tr><td>Scroll</td><td><a href="imagenes/recorrido_f1.png">horizontal</a></td><td><a href="imagenes/recorrido_f2.png">vertical</a></td><td><a href="imagenes/recorrido_f3.png">vertical</a></td><td><a href="imagenes/recorrido_f4.png">horizontal</a></td><td><a href="imagenes/recorrido_f5.png">horizontal</a></td><td><a href="imagenes/recorrido_f6.png">vertical</a></td><td><a href="imagenes/recorrido_f7.png">horizontal</a></td></tr></table>
+<p><em>Each link leads to the whole route of its stage.</em></p>
 <p>In stage 4, between scrolls 0x100 and 0x150, the base is barely visible: only one frame in 64 dumps the map with its scenery (<code>p00:5FC5</code>, <code>p01:6016</code>). In stages 1, 3, 6 and 7 the characters change half way (<code>p00:5C77</code>), and in stages 4, 5 and 6 some of them animate on their own (<code>p12:A4A9</code>).</p>
 <h2 id="the-ship">The ship</h2>
-<p>Two 16 x 16 sprites and fourteen poses (<code>p09:A145</code>-<code>p09:A19F</code>, patterns at <code>p14:95F7</code>): level, climbing and diving, the same with the shield in front, and as many again for the vertical stages. The shield takes the hits counted in IY+22 (<code>p02:960B</code>).</p>
 <p><img src="imagenes/nave.png" alt="The fourteen poses of the ship"></p>
-<p>There are two ships: SABEL TIGER, flown by IGGY ROCK, and THRASHER, flown by ZOWIE SCOTT. The menu offers 1PLAYER, EXCHANGE and DUALPLAY, and the SELECTION screen at <code>p12:B877</code> asks YES or NO to «PLAYER1 JOINT GAME».</p>
-<h2 id="the-enemies-and-the-bosses">The enemies and the bosses</h2>
-<p>There are 65 enemy types, each with a 7-byte record (<code>p01:6C5D</code>). Each stage&#x27;s enemies are shown with the frames they use.</p>
-<p><img src="imagenes/enemigos_f1.png" alt="Stage 1 enemies"> <img src="imagenes/enemigos_f2.png" alt="Stage 2 enemies"> <img src="imagenes/enemigos_f3.png" alt="Stage 3 enemies"> <img src="imagenes/enemigos_f4.png" alt="Stage 4 enemies"> <img src="imagenes/enemigos_f5.png" alt="Stage 5 enemies"> <img src="imagenes/enemigos_f6.png" alt="Stage 6 enemies"> <img src="imagenes/enemigos_f7.png" alt="Stage 7 enemies"></p>
-<table><tr><th>Stage</th><th>Boss</th></tr><tr><td>1</td><td>boss 1: a brain with two tentacles</td></tr><tr><td>2</td><td>boss 2</td></tr><tr><td>3</td><td>boss 8, a nest in the ceiling that drops spiders, then boss 3</td></tr><tr><td>4</td><td>boss 4, after a wave (<code>p03:BD53</code>)</td></tr><tr><td>5</td><td>boss 5</td></tr><tr><td>6</td><td>boss 7, an eye inside a sphere, then boss 6</td></tr><tr><td>7</td><td>the fixed core at <code>p12:A000</code>, in two parts</td></tr></table>
+<p><em>The fourteen poses.</em></p>
+<p>Two 16 x 16 sprites and fourteen poses (<code>p09:A145</code>-<code>p09:A19F</code>, patterns at <code>p14:95F7</code>): level, climbing and diving, the same with the shield in front, and as many again for the vertical stages. The shield takes the hits counted in IY+22 (<code>p02:960B</code>).</p>
+<p>There are two ships: SABEL TIGER, flown by IGGY ROCK, and THRASHER, flown by ZOWIE SCOTT. The SELECTION screen at <code>p12:B877</code> asks YES or NO to «PLAYER1 JOINT GAME».</p>
+<h2 id="the-enemies">The enemies</h2>
+<p><img src="imagenes/enemigos_f1.png" alt="Stage 1 enemies"></p>
+<p><em>The stage 1 enemies, with the frames they use.</em></p>
+<p>There are 65 enemy types, each with a 7-byte record (<code>p01:6C5D</code>).</p>
+<table><tr><th>Stage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr><tr><td>Enemies</td><td><a href="imagenes/enemigos_f1.png">stage 1</a></td><td><a href="imagenes/enemigos_f2.png">stage 2</a></td><td><a href="imagenes/enemigos_f3.png">stage 3</a></td><td><a href="imagenes/enemigos_f4.png">stage 4</a></td><td><a href="imagenes/enemigos_f5.png">stage 5</a></td><td><a href="imagenes/enemigos_f6.png">stage 6</a></td><td><a href="imagenes/enemigos_f7.png">stage 7</a></td></tr></table>
+<h2 id="the-bosses">The bosses</h2>
+<p><img src="imagenes/jefe_1.png" alt="Boss 1"></p>
+<p><em>Boss 1, a brain with two tentacles.</em></p>
 <p>The code of the eight bosses is in bank 11 (table <code>p01:6E89</code>).</p>
-<p><img src="imagenes/jefe_1.png" alt="Boss 1"> <img src="imagenes/jefe_2.png" alt="Boss 2"> <img src="imagenes/jefe_3.png" alt="Boss 3"> <img src="imagenes/jefe_4.png" alt="Boss 4"> <img src="imagenes/jefe_5.png" alt="Boss 5"> <img src="imagenes/jefe_6.png" alt="Boss 6"> <img src="imagenes/jefe_7.png" alt="Boss 7"> <img src="imagenes/jefe_8.png" alt="Boss 8"> <img src="imagenes/jefe_nucleo.png" alt="The stage 7 core"></p>
-<h2 id="the-items-and-the-ending">The items and the ending</h2>
+<table><tr><th>Stage</th><th>Boss</th></tr><tr><td>1</td><td><a href="imagenes/jefe_1.png">boss 1</a>: a brain with two tentacles</td></tr><tr><td>2</td><td><a href="imagenes/jefe_2.png">boss 2</a></td></tr><tr><td>3</td><td><a href="imagenes/jefe_8.png">boss 8</a>, a nest in the ceiling that drops spiders, then <a href="imagenes/jefe_3.png">boss 3</a></td></tr><tr><td>4</td><td><a href="imagenes/jefe_4.png">boss 4</a>, after a wave (<code>p03:BD53</code>)</td></tr><tr><td>5</td><td><a href="imagenes/jefe_5.png">boss 5</a></td></tr><tr><td>6</td><td><a href="imagenes/jefe_7.png">boss 7</a>, an eye inside a sphere, then <a href="imagenes/jefe_6.png">boss 6</a></td></tr><tr><td>7</td><td><a href="imagenes/jefe_nucleo.png">the fixed core</a> at <code>p12:A000</code>, in two parts</td></tr></table>
+<h2 id="the-items">The items</h2>
 <p>Stages 3, 5 and 6 have items to pick up (<code>p12:A5CE</code>). Picking one up brings a screen with its result. Item 1 says «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» and <code>p01:7B73</code> sets <code>0xE30A</code> to 1.</p>
-<p>The ending comes when boss 6 falls (<code>p11:B58D</code>). With <em>Nemesis 2</em> in the other slot and <code>0xE30A</code> set, it is the good one (<code>p10:8F7F</code>): «ZELOS FORCE HAS DISAPPEARED!!», «...PEACE WILL RETURN TO LATIS AGAIN!!» and the pilot, «CONGRATURATION! YOU ARE GREAT STAR FIGHTER». Otherwise the CRUSH BLOW fails, VENOM shows up («HE DIED ONCE, BUT HE IS NOW REINCARNATED!!») and «THE CRUSH BLOW OPERATION TURNED OUT TO BE A FAILURE AFTER ALL». Both end with THE END and EXTEND PLAY? Y/N.</p>
-<p><img src="imagenes/final_bueno_1.png" alt="The good ending"> <img src="imagenes/final_bueno_2.png" alt="The good ending"> <img src="imagenes/final_bueno_3.png" alt="The good ending"> <img src="imagenes/final_malo_2.png" alt="The other ending"> <img src="imagenes/final_malo_3.png" alt="The other ending"> <img src="imagenes/final_malo_5.png" alt="The other ending"></p>
+<h2 id="the-two-endings">The two endings</h2>
+<p>The ending comes when boss 6 falls (<code>p11:B58D</code>). With <em>Nemesis 2</em> in the other slot and <code>0xE30A</code> set, it is the good one (<code>p10:8F7F</code>); otherwise, the other one.</p>
+<p><img src="imagenes/final_bueno_3.png" alt="The good ending"></p>
+<p><em>The good ending: «CONGRATURATION! YOU ARE GREAT STAR FIGHTER».</em></p>
+<p>Before it come «ZELOS FORCE HAS DISAPPEARED!!» and «...PEACE WILL RETURN TO LATIS AGAIN!!».</p>
+<p><img src="imagenes/final_malo_2.png" alt="The other ending"></p>
+<p><em>The other ending: VENOM shows up.</em></p>
+<p>The CRUSH BLOW fails, VENOM shows up («HE DIED ONCE, BUT HE IS NOW REINCARNATED!!») and «THE CRUSH BLOW OPERATION TURNED OUT TO BE A FAILURE AFTER ALL». Both end with THE END and EXTEND PLAY? Y/N.</p>
+<table><tr><th>Ending</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr><tr><td>Good</td><td><a href="imagenes/final_bueno_1.png">ZELOS FORCE</a></td><td><a href="imagenes/final_bueno_2.png">PEACE</a></td><td><a href="imagenes/final_bueno_3.png">the pilot</a></td><td></td><td></td></tr><tr><td>The other</td><td><a href="imagenes/final_malo_1.png">WHAT IS HAPPENED!?</a></td><td><a href="imagenes/final_malo_2.png">VENOM</a></td><td><a href="imagenes/final_malo_3.png">FAILURE</a></td><td><a href="imagenes/final_malo_4.png">GO FOR THE FIGHT!!</a></td><td><a href="imagenes/final_malo_5.png">THE END</a></td></tr></table>
+<p><em>The screens of each ending, in order.</em></p>
 <h2 id="the-texts">The texts</h2>
 <p>They are in bank 15, with a Japanese table and an English one chosen by byte 0x002B of the BIOS (<code>p10:944C</code>). The English ones, as they come (typos included):</p>
 <ul><li>«A WARNING SIGNAL FROM LATIS.», «ZELOS-FORCE SURROUNDING LATIS», «BIGIN CRUSH-BLOW OPERATIONS! SPACE FORCE!! GET SET!!», «HYPER SPACE FIGHTER», «SABEL TIGER / PILOT - IGGY ROCK», «THRASHER / PILOT - ZOWIE SCOTT», «CAN THEY RESCUE PLANET LATIS?»</li><li>between stages: «ASSESS ARMS SUPPLY SITUATION THEN DICIDE WITHIN TIME LIMIT.», «WE HAVE SET ALL OF THE CRUSH BLOW SYSTEMS.», «OK, SWITCH ON!!», «WAIT! PLEASE REMEMBER THE PREDICTION»</li><li>the prediction, in four chapters: the devil that came from the sphere and his copper shield, the huge sphere and the shining ball, the great devil and his nucleus, and the five-eyed green devil that can only be killed by the crystal.</li></ul>

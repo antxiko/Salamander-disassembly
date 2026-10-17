@@ -1,20 +1,42 @@
 # El juego
 
-![El título](../imagenes/titulo.png)
+**Siete fases**. La 1 y la 2 van siempre primero; la 3, la 4 y la 5, en el orden que elija el
+jugador; luego la 6. La 7 solo existe con *Nemesis 2* en la otra ranura.
+
+Todas las imágenes de esta página están **dibujadas desde los bytes de la
+ROM** con `tools/imagenes.py`. Las pantallas de la presentación, el radar y
+los finales son iguales, píxel a píxel, a la VRAM de openMSX en ese momento;
+los enemigos y los jefes se pintan con los dibujos de la ROM sobre lo que
+hacen en openMSX.
+
+## La presentación
+
+![El logotipo de Konami](../imagenes/konami.png)
+
+![La pantalla de título](../imagenes/titulo.png)
+
+*El título con el menú: 1PLAYER, EXCHANGE y DUALPLAY.*
+
+Después salen [THE SAGA CONTINUES](../imagenes/saga.png),
+[KONAMI PRESENTS](../imagenes/presents.png) y
+[el título solo](../imagenes/titulo_solo.png).
 
 ## Las fases y su orden
 
-Son siete. La 1 y la 2 van siempre primero. Después el juego enseña el
-radar con los tres planetas, EIONEUS, LAVINIA y KIERKE, y el jugador elige
-cuál hace antes: son las fases 3, 4 y 5, en el orden que él quiera
-(`p10:988A`). Hay un reloj: si llega a cero, el juego elige solo
-(`p10:9A43`). Detrás viene la 6. La 7 solo existe con *Nemesis 2* en la otra
-ranura del MSX y va antes que la 6 (`p10:8B7B`).
-
 ![El radar para elegir planeta](../imagenes/eleccion.png)
 
-Antes de cada fase sale el despegue desde la base y un rótulo
-(`p10:8A20`):
+*El radar con los tres planetas.*
+
+Tras la fase 2, el juego enseña el radar con EIONEUS, LAVINIA y KIERKE, y el
+jugador elige cuál hace antes: son las fases 3, 4 y 5, en el orden que él
+quiera (`p10:988A`). Hay un reloj: si llega a cero, el juego elige solo
+(`p10:9A43`). Detrás viene la 6. La 7, con *Nemesis 2*, va antes que la 6
+(`p10:8B7B`).
+
+Antes de cada fase sale el [despegue desde la base](../imagenes/despegue.png)
+y un rótulo (`p10:8A20`):
+
+![El rótulo de la fase 1](../imagenes/rotulo.png)
 
 | Fase | Rótulo | Subtítulo |
 |---|---|---|
@@ -24,13 +46,15 @@ Antes de cada fase sale el despegue desde la base y un rótulo
 | 6 | OPERATION FOUR | -CRUSH SALAMANDER- |
 | 7 | OPERATION X | -WRATH OF VENOM- |
 
-![El despegue](../imagenes/despegue.png)
-![El rótulo de la fase 1](../imagenes/rotulo.png)
-
 En la versión japonesa el subtítulo de las fases 3, 4 y 5 es
 -SET THE LEEK SYSTEM- (`p15:BF5A`); los demás son iguales.
 
 ## Los recorridos
+
+![El recorrido de la fase 1](../imagenes/recorrido_f1.png)
+
+*La fase 1 entera, como el juego la va metiendo en la pantalla: baja dos
+veces por otro mapa.*
 
 La 2, la 3 y la 6 van en vertical; las demás, en horizontal (`p02:8921`).
 El mapa de cada fase son bloques de 4 x 4 caracteres (`p13:6F4C`), pero el
@@ -43,16 +67,11 @@ pantalla se mueve por otro mapa (`p00:4BE6`):
 - en la 6, que va hacia arriba, en 0x14F se va 32 columnas a la izquierda y
   en 0x167 vuelve a la derecha, por `p14:818C`.
 
-Las imágenes montan cada recorrido entero, como el juego lo va metiendo en
-la pantalla.
+| Fase | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| Sentido | [horizontal](../imagenes/recorrido_f1.png) | [vertical](../imagenes/recorrido_f2.png) | [vertical](../imagenes/recorrido_f3.png) | [horizontal](../imagenes/recorrido_f4.png) | [horizontal](../imagenes/recorrido_f5.png) | [vertical](../imagenes/recorrido_f6.png) | [horizontal](../imagenes/recorrido_f7.png) |
 
-![Fase 1](../imagenes/recorrido_f1.png)
-![Fase 2](../imagenes/recorrido_f2.png)
-![Fase 3](../imagenes/recorrido_f3.png)
-![Fase 4](../imagenes/recorrido_f4.png)
-![Fase 5](../imagenes/recorrido_f5.png)
-![Fase 6](../imagenes/recorrido_f6.png)
-![Fase 7](../imagenes/recorrido_f7.png)
+*Cada enlace lleva al recorrido entero de su fase.*
 
 En la fase 4, entre los scrolls 0x100 y 0x150, la base casi no se ve: solo
 uno de cada 64 cuadros vuelca el mapa con su decorado (`p00:5FC5`,
@@ -62,66 +81,82 @@ camino (`p00:5C77`), y en las 4, 5 y 6 algunos se animan solos
 
 ## La nave
 
+![Las catorce posturas de la nave](../imagenes/nave.png)
+
+*Las catorce posturas.*
+
 Son dos sprites de 16 x 16 y catorce posturas (`p09:A145`-`p09:A19F`,
 dibujos en `p14:95F7`): recta, subiendo y bajando, las mismas con el escudo
 delante y otras tantas para las fases verticales. El escudo aguanta los
 golpes que cuenta IY+22 (`p02:960B`).
 
-![Las catorce posturas de la nave](../imagenes/nave.png)
-
 Hay dos naves: SABEL TIGER, la del piloto IGGY ROCK, y THRASHER, la de
-ZOWIE SCOTT. El menú ofrece 1PLAYER, EXCHANGE y DUALPLAY, y la pantalla
-SELECTION de `p12:B877` pregunta YES o NO a «PLAYER1 JOINT GAME».
+ZOWIE SCOTT. La pantalla SELECTION de `p12:B877` pregunta YES o NO a
+«PLAYER1 JOINT GAME».
 
-## Los enemigos y los jefes
-
-Hay 65 tipos de enemigo, cada uno con su ficha de 7 bytes (`p01:6C5D`).
-Los de cada fase se ven con los fotogramas que usan.
+## Los enemigos
 
 ![Los enemigos de la fase 1](../imagenes/enemigos_f1.png)
-![Los enemigos de la fase 2](../imagenes/enemigos_f2.png)
-![Los enemigos de la fase 3](../imagenes/enemigos_f3.png)
-![Los enemigos de la fase 4](../imagenes/enemigos_f4.png)
-![Los enemigos de la fase 5](../imagenes/enemigos_f5.png)
-![Los enemigos de la fase 6](../imagenes/enemigos_f6.png)
-![Los enemigos de la fase 7](../imagenes/enemigos_f7.png)
 
-| Fase | Jefe |
-|---|---|
-| 1 | el 1: un cerebro con dos tentáculos |
-| 2 | el 2 |
-| 3 | el 8, un nido en el techo que suelta arañas, y luego el 3 |
-| 4 | el 4, después de una oleada (`p03:BD53`) |
-| 5 | el 5 |
-| 6 | el 7, un ojo dentro de una esfera, y luego el 6 |
-| 7 | el núcleo fijo de `p12:A000`, en dos tramos |
+*Los enemigos de la fase 1, con los fotogramas que usan.*
+
+Hay 65 tipos de enemigo, cada uno con su ficha de 7 bytes (`p01:6C5D`).
+
+| Fase | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| Enemigos | [fase 1](../imagenes/enemigos_f1.png) | [fase 2](../imagenes/enemigos_f2.png) | [fase 3](../imagenes/enemigos_f3.png) | [fase 4](../imagenes/enemigos_f4.png) | [fase 5](../imagenes/enemigos_f5.png) | [fase 6](../imagenes/enemigos_f6.png) | [fase 7](../imagenes/enemigos_f7.png) |
+
+## Los jefes
+
+![El jefe 1](../imagenes/jefe_1.png)
+
+*El jefe 1, un cerebro con dos tentáculos.*
 
 El código de los ocho jefes está en el banco 11 (tabla `p01:6E89`).
 
-![El jefe 1](../imagenes/jefe_1.png)
-![El jefe 2](../imagenes/jefe_2.png)
-![El jefe 3](../imagenes/jefe_3.png)
-![El jefe 4](../imagenes/jefe_4.png)
-![El jefe 5](../imagenes/jefe_5.png)
-![El jefe 6](../imagenes/jefe_6.png)
-![El jefe 7](../imagenes/jefe_7.png)
-![El jefe 8](../imagenes/jefe_8.png)
-![El núcleo de la fase 7](../imagenes/jefe_nucleo.png)
+| Fase | Jefe |
+|---|---|
+| 1 | [el 1](../imagenes/jefe_1.png): un cerebro con dos tentáculos |
+| 2 | [el 2](../imagenes/jefe_2.png) |
+| 3 | [el 8](../imagenes/jefe_8.png), un nido en el techo que suelta arañas, y luego [el 3](../imagenes/jefe_3.png) |
+| 4 | [el 4](../imagenes/jefe_4.png), después de una oleada (`p03:BD53`) |
+| 5 | [el 5](../imagenes/jefe_5.png) |
+| 6 | [el 7](../imagenes/jefe_7.png), un ojo dentro de una esfera, y luego [el 6](../imagenes/jefe_6.png) |
+| 7 | [el núcleo](../imagenes/jefe_nucleo.png) fijo de `p12:A000`, en dos tramos |
 
-## Los objetos y el final
+## Los objetos
 
 En las fases 3, 5 y 6 hay objetos que se recogen (`p12:A5CE`). Al
 recogerlos sale una pantalla con su resultado. Con el objeto 1 dice
 «IN THE RUIN OF LATIS... YOU HAVE GOT A CRYSTAL BREEZE» y `p01:7B73` pone
 `0xE30A` = 1.
 
+## Los dos finales
+
 El final llega al caer el jefe 6 (`p11:B58D`). Si están *Nemesis 2* en la
-otra ranura y `0xE30A`, es el bueno (`p10:8F7F`): «ZELOS FORCE HAS
-DISAPPEARED!!», «...PEACE WILL RETURN TO LATIS AGAIN!!» y el piloto,
-«CONGRATURATION! YOU ARE GREAT STAR FIGHTER». Si no, el CRUSH BLOW falla,
-aparece VENOM («HE DIED ONCE, BUT HE IS NOW REINCARNATED!!») y «THE CRUSH
-BLOW OPERATION TURNED OUT TO BE A FAILURE AFTER ALL». Los dos acaban en
-THE END y EXTEND PLAY? Y/N.
+otra ranura y `0xE30A`, es el bueno (`p10:8F7F`); si no, el otro.
+
+![El final bueno](../imagenes/final_bueno_3.png)
+
+*El final bueno: «CONGRATURATION! YOU ARE GREAT STAR FIGHTER».*
+
+Antes salen «ZELOS FORCE HAS DISAPPEARED!!» y «...PEACE WILL RETURN TO
+LATIS AGAIN!!».
+
+![El otro final](../imagenes/final_malo_2.png)
+
+*El otro final: aparece VENOM.*
+
+El CRUSH BLOW falla, aparece VENOM («HE DIED ONCE, BUT HE IS NOW
+REINCARNATED!!») y «THE CRUSH BLOW OPERATION TURNED OUT TO BE A FAILURE
+AFTER ALL». Los dos acaban en THE END y EXTEND PLAY? Y/N.
+
+| Final | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Bueno | [ZELOS FORCE](../imagenes/final_bueno_1.png) | [PEACE](../imagenes/final_bueno_2.png) | [el piloto](../imagenes/final_bueno_3.png) | | |
+| El otro | [WHAT IS HAPPENED!?](../imagenes/final_malo_1.png) | [VENOM](../imagenes/final_malo_2.png) | [FAILURE](../imagenes/final_malo_3.png) | [GO FOR THE FIGHT!!](../imagenes/final_malo_4.png) | [THE END](../imagenes/final_malo_5.png) |
+
+*Las pantallas de cada final, en orden.*
 
 ## Los textos
 
